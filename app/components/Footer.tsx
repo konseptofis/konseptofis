@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -32,7 +37,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
-                  href="#hizmetler"
+                  href="/hizmetler"
                   className="text-sm text-gray-600 hover:text-[#0b7041]"
                 >
                   Hizmetler
@@ -48,7 +53,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#iletisim"
+                  href="/iletisim"
                   className="text-sm text-gray-600 hover:text-[#0b7041]"
                 >
                   İletişim
