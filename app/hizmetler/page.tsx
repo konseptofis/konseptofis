@@ -16,7 +16,14 @@ export const metadata = {
     "Ankara Çankaya'da Konsept Ofis ayrıcalığıyla sanal ofis, toplantı ve makam odası kiralama hizmetlerimizi inceleyin. Profesyonel çözümlerle tanışın.",
 };
 
-const services = [
+const services: {
+  id: string;
+  titleWords: [string, string];
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  image: string;
+  description: string;
+  href: string;
+}[] = [
   {
     id: "sanal-ofis",
     titleWords: ["Sanal", "Ofis"],

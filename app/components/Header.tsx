@@ -10,7 +10,11 @@ import { SITE } from "@/app/lib/data";
 const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
 
-const navLinks = [
+type NavLinkItem =
+  | { href: string; label: string }
+  | { label: string; children: { href: string; label: string }[] };
+
+const navLinks: NavLinkItem[] = [
   { href: "/hizmetlerimiz", label: "Hizmetler" },
   { href: "/fiyatlar", label: "Fiyatlar" },
   {
