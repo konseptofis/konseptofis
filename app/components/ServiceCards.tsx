@@ -38,16 +38,18 @@ const cards = [
   },
 ];
 
-export default function ServiceCards() {
+type Props = { sectionClassName?: string };
+
+export default function ServiceCards({ sectionClassName = "bg-white" }: Props) {
   return (
     <section
       id="hizmetler"
       aria-labelledby="service-cards-heading"
-      className="bg-white px-4 py-[60px] sm:px-6 lg:px-8"
+      className={`${sectionClassName} px-4 py-[60px] sm:px-6 lg:px-8`}
     >
       <div className="mx-auto max-w-7xl">
         <h2 id="service-cards-heading" className="mb-10 flex items-center gap-3 text-left tracking-tight text-black">
-          <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
+          <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
           Hizmetlerimiz
         </h2>
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3 md:gap-8">

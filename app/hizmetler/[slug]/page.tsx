@@ -221,7 +221,7 @@ export default async function HizmetDetayPage({ params }: Props) {
 
       {/* 9. Kapanış CTA */}
       <section
-        className="bg-[#0b7041] px-4 py-14 sm:px-6 sm:py-16 lg:px-8"
+        className="bg-[#0b7041] px-4 py-10 sm:px-6 sm:py-12 lg:px-8"
         aria-labelledby="cta-heading"
       >
         <div className="mx-auto max-w-3xl text-center">
@@ -249,8 +249,8 @@ export default async function HizmetDetayPage({ params }: Props) {
 
 export function generateStaticParams() {
   return [
-    { slug: "sanal-ofis" },
-    { slug: "hazir-ofis" },
-    { slug: "toplanti-odasi" },
+    { slug: "sanal-ofis-hizmeti" },
+    { slug: "hazir-ofis-hizmeti" },
+    { slug: "toplanti-odasi-hizmeti" },
   ];
 }

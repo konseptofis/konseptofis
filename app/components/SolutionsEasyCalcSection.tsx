@@ -13,7 +13,7 @@ export default function SolutionsEasyCalcSection() {
             id="solutions-heading"
             className="flex items-center gap-3 text-left tracking-tight text-black"
           >
-            <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
+            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
             <span className="flex flex-col">
               <span>Hazır Ofis ve Sanal Ofis Çözümleri;</span>
               <span className="mt-1">Tek Fatura, Kolay Hesap</span>

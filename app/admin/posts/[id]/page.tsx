@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getPostById } from "@/app/actions/blog";
+import { getCategories } from "@/app/actions/categories";
 import PostForm from "@/app/admin/components/PostForm";
 
 export default async function EditPostPage({
@@ -10,7 +11,7 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const post = await getPostById(id);
+  const [post, categories] = await Promise.all([getPostById(id), getCategories()]);
   if (!post) notFound();
 
   return (
@@ -23,7 +24,7 @@ export default async function EditPostPage({
         Yazılar listesine dön
       </Link>
       <h1 className="mb-8 text-2xl font-semibold text-gray-900">Yazıyı Düzenle</h1>
-      <PostForm mode="edit" post={post} />
+      <PostForm mode="edit" post={post} categories={categories} />
     </div>
   );
 }

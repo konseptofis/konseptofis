@@ -1,200 +1,165 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import Image from "next/image";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { SITE } from "@/app/lib/data";
 
-const MOBILE_BREAKPOINT = 768;
+type Props = { sectionClassName?: string };
 
-const testimonials = [
+const REVIEWS = [
   {
-    id: 1,
-    name: "Ahmet",
-    surname: "Yılmaz",
-    image: null as string | null,
-    comment:
-      "Sanal ofis hizmeti sayesinde şirket adresimizi prestijli bir lokasyona taşıdık. Posta ve kargo kabulü, müşteri toplantıları için toplantı odası imkânı çok işimize yarıyor. Kesinlikle tavsiye ederim.",
+    initials: "AY",
+    name: "Ahmet Yılmaz",
+    role: "Sanal ofis kullanıcısı",
+    text: "Konsept Ofis ile sanal ofis adresimizi bir günde aktive ettik. Kargolar için anlık bildirim alıyorum, toplantı odasını saatlik kullanıyorum. Şeffaf fiyat ve ilgili ekip için teşekkürler.",
   },
   {
-    id: 2,
-    name: "Elif",
-    surname: "Kaya",
-    image: null as string | null,
-    comment:
-      "Hazır ofis kiralama sürecinde Konsept Ofis ekibi çok ilgiliydi. Merkezi konum, hızlı internet ve sınırsız çay-kahve ile günlük çalışma ortamı ihtiyacımı karşılıyorum.",
+    initials: "MD",
+    name: "Mehmet Demir",
+    role: "Yasal adres & sanal ofis",
+    text: "Vergi levhası adresi olarak Konsept Ofis'i kullanıyoruz. Tebligat ve posta düzenli iletiliyor, adres doğrulamalarında ekip her zaman yanımızda oldu.",
   },
   {
-    id: 3,
-    name: "Mehmet",
-    surname: "Demir",
-    image: null as string | null,
-    comment:
-      "Vergi levhası adresi olarak kullandığımız sanal ofis hizmeti yasal süreçlerde hiç sorun çıkarmadı. Güvenilir ve profesyonel bir ekip. Ankara'da ofis arayanlara öneririm.",
+    initials: "ZÖ",
+    name: "Zeynep Özkan",
+    role: "Toplantı odası kullanıcısı",
+    text: "Toplantı odasını saatlik kiraladım: temiz, sessiz, projeksiyon hazırdı. Metro yakın, fiyat net. Kesinlikle tekrar tercih ederim.",
   },
   {
-    id: 4,
-    name: "Zeynep",
-    surname: "Özkan",
-    image: null as string | null,
-    comment:
-      "Toplantı odasını saatlik kiraladım; temiz, sessiz ve donanımlıydı. Fiyatlar şeffaf, gizli maliyet yok. İş ortaklarımla görüşmek için artık hep bu adresi kullanıyorum.",
+    initials: "SY",
+    name: "Selin Yıldız",
+    role: "Karma paket kullanıcısı",
+    text: "Hem sanal ofis hem toplantı odası kullanıyorum. Fiyatlar net, resepsiyon hızlı dönüş yapıyor. Ankara'da ofis arayanlara gönül rahatlığıyla öneririm.",
   },
-  {
-    id: 5,
-    name: "Can",
-    surname: "Arslan",
-    image: null as string | null,
-    comment:
-      "Yeni kurduğum şirket için yasal adres ve posta hizmeti aldım. Süreç hızlı, iletişim net. Mahall Ankara konumu da ulaşım açısından çok iyi. Teşekkürler Konsept Ofis.",
-  },
-  {
-    id: 6,
-    name: "Selin",
-    surname: "Yıldız",
-    image: null as string | null,
-    comment:
-      "Hem sanal ofis hem toplantı odası kullanıyorum. Fiyatlar net, ekstra ücret yok. Ekip ilgili ve profesyonel. Ankara'da ofis çözümü arayan herkese öneriyorum.",
-  },
-];
+] as const;
 
+const BORDER = "#e5e5e5";
 
-function TestimonialCard({
-  t,
+function UserBlock({
+  initials,
+  name,
+  role,
+  layout,
 }: {
-  t: (typeof testimonials)[0];
+  initials: string;
+  name: string;
+  role: string;
+  layout: "card" | "card-wide";
 }) {
+  const rowClass =
+    layout === "card-wide"
+      ? "mt-5 flex border-t pt-4 md:mt-0 md:flex-row md:items-center md:border-t-0 md:border-l md:pl-5 md:pt-0"
+      : "mt-5 flex border-t pt-4";
+
   return (
-    <article className="flex h-[280px] w-[280px] min-w-[260px] max-w-full shrink-0 flex-col rounded-xl border border-[#f2f2f2] bg-[#f2f2f2] p-4 shadow-sm sm:h-[300px] sm:w-[300px] sm:p-5">
-      <div className="flex items-center gap-3">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#f2f2f2] sm:h-14 sm:w-14">
-          {t.image ? (
-            <Image
-              src={t.image}
-              alt={`${t.name} ${t.surname}`}
-              fill
-              className="object-cover"
-              sizes="56px"
-            />
-          ) : (
-            <span
-              className="flex h-full w-full items-center justify-center text-lg font-semibold text-[#0b7041]/70"
-              aria-hidden
-            >
-              {t.name[0]}
-              {t.surname[0]}
-            </span>
-          )}
-        </div>
-        <p className="truncate text-sm font-semibold text-[#0b7041] sm:text-base">
-          {t.name} {t.surname}
-        </p>
+    <div className={rowClass} style={{ borderColor: BORDER }}>
+      <div
+        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full bg-[#0b7041]/15 text-[13px] font-bold text-[#0b7041]"
+        aria-hidden
+      >
+        {initials}
       </div>
-      <p className="mt-3 flex-1 overflow-y-auto text-sm leading-relaxed text-gray-600 sm:mt-4 sm:text-base">
-        &ldquo;{t.comment}&rdquo;
-      </p>
-    </article>
+      <div className="ml-2.5 min-w-0">
+        <span itemProp="author" itemScope itemType="https://schema.org/Person">
+          <span itemProp="name" className="text-[13px] font-bold text-gray-900">
+            {name}
+          </span>
+        </span>
+        <p className="mt-0.5 text-[11px] text-gray-500">{role}</p>
+      </div>
+    </div>
   );
 }
 
-export default function TestimonialsSection() {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [cardsPerSlide, setCardsPerSlide] = useState(3);
+function ReviewCardBody({ text, dense }: { text: string; dense?: boolean }) {
+  return (
+    <>
+      <p
+        className={`font-normal text-[#0b7041] ${dense ? "mb-1 text-base leading-none" : "mb-[14px] text-lg leading-none"}`}
+        aria-hidden
+      >
+        {"❝"}
+      </p>
+      <p
+        className={`text-[14px] font-normal italic leading-[1.7] text-gray-700 ${dense ? "line-clamp-2" : "line-clamp-4"}`}
+      >
+        {text}
+      </p>
+    </>
+  );
+}
 
-  useEffect(() => {
-    const update = () => setCardsPerSlide(window.innerWidth < MOBILE_BREAKPOINT ? 1 : 3);
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  const slideCount = Math.ceil(testimonials.length / cardsPerSlide);
-  const safeSlideIndex = Math.min(slideIndex, Math.max(0, slideCount - 1));
-
-  useEffect(() => {
-    if (slideIndex > safeSlideIndex) setSlideIndex(safeSlideIndex);
-  }, [slideCount, slideIndex, safeSlideIndex]);
-
-  const prev = useCallback(() => {
-    setSlideIndex((i) => (i === 0 ? slideCount - 1 : i - 1));
-  }, [slideCount]);
-
-  const next = useCallback(() => {
-    setSlideIndex((i) => (i === slideCount - 1 ? 0 : i + 1));
-  }, [slideCount]);
+export default function TestimonialsSection({
+  sectionClassName = "bg-white",
+}: Props) {
+  const count = REVIEWS.length;
 
   return (
     <section
       id="yorumlar"
-      aria-labelledby="testimonials-heading"
-      className="bg-white px-4 py-[60px] sm:px-6 lg:px-8"
+      aria-label="Müşteri Yorumları"
+      className={`${sectionClassName} py-[60px] px-5 font-sans md:py-20 md:px-12`}
     >
-      <div className="mx-auto max-w-7xl">
-        <h2
-          id="testimonials-heading"
-          className="flex items-center gap-3 text-left tracking-tight text-black"
-        >
-          <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
-          Üyelerimiz Hakkımızda Ne Diyor?
-        </h2>
-
-        <div className="relative mt-10 flex items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={prev}
-            aria-label="Önceki yorumlar"
-            className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#f2f2f2] bg-white text-[#0b7041] shadow-md transition-colors hover:bg-[#f2f2f2] hover:border-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2 sm:h-12 sm:w-12"
-          >
-            <ChevronLeftIcon className="h-6 w-6" aria-hidden />
-          </button>
-
-          <div className="relative h-[300px] w-full max-w-[948px] overflow-hidden">
-            {Array.from({ length: slideCount }).map((_, slideIdx) => {
-              const start = slideIdx * cardsPerSlide;
-              const cards = testimonials.slice(start, start + cardsPerSlide);
-              return (
-                <div
-                  key={slideIdx}
-                  role="tabpanel"
-                  id={`testimonial-slide-${slideIdx}`}
-                  aria-hidden={slideIdx !== safeSlideIndex}
-                  className={`absolute inset-0 flex items-center justify-center gap-4 sm:gap-6 transition-opacity duration-300 ${slideIdx === safeSlideIndex ? "z-10 opacity-100" : "z-0 opacity-0 pointer-events-none"}`}
-                >
-                  {cards.map((t) => (
-                    <TestimonialCard key={t.id} t={t} />
-                  ))}
-                </div>
-              );
-            })}
+      <div className="mx-auto max-w-[1200px]">
+        <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="text-left">
+            <span
+              className="block text-[11px] font-semibold uppercase text-[#0b7041]"
+              style={{ letterSpacing: "4px" }}
+            >
+              MÜŞTERİ YORUMLARI
+            </span>
+            <h2 className="mt-2 flex items-center gap-3 text-[32px] font-semibold tracking-tight text-black md:text-[36px]">
+              <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+              Hakkımızda Ne Diyor?
+            </h2>
           </div>
+          <p className="shrink-0 text-[13px] text-gray-500 md:self-end">
+            {"\u2605"} 5.0&nbsp;&nbsp;·&nbsp;&nbsp;{count} Değerlendirme
+          </p>
+        </header>
 
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Sonraki yorumlar"
-            className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#f2f2f2] bg-white text-[#0b7041] shadow-md transition-colors hover:bg-[#f2f2f2] hover:border-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2 sm:h-12 sm:w-12"
-          >
-            <ChevronRightIcon className="h-6 w-6" aria-hidden />
-          </button>
-        </div>
+        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+          {REVIEWS.map((item, index) => {
+            const isWide = index === 3;
+            return (
+              <article
+                key={`${item.name}-${index}`}
+                itemScope
+                itemType="https://schema.org/Review"
+                className={`group relative rounded-xl bg-white pt-7 pr-7 pb-6 pl-6 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] transition-shadow duration-200 ease-out hover:shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_28px_rgba(0,0,0,0.08)] ${isWide ? "md:col-span-3 md:mx-auto md:grid md:h-[150px] md:w-[min(100%,1199.98px)] md:grid-cols-[1fr_280px] md:items-center md:gap-5 md:overflow-hidden md:py-2 md:pr-5 md:pl-5" : ""}`}
+              >
+                <meta itemProp="reviewBody" content={item.text} />
+                <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating" className="sr-only">
+                  <meta itemProp="ratingValue" content="5" />
+                  <meta itemProp="bestRating" content="5" />
+                </div>
+                <div
+                  itemProp="itemReviewed"
+                  itemScope
+                  itemType="https://schema.org/LocalBusiness"
+                  className="sr-only"
+                >
+                  <meta itemProp="name" content={SITE.name} />
+                  <meta itemProp="url" content={SITE.domain} />
+                </div>
 
-        <div
-          className="mt-6 flex justify-center gap-2"
-          role="tablist"
-          aria-label="Yorum slaytları"
-        >
-          {Array.from({ length: slideCount }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === safeSlideIndex}
-              aria-controls={`testimonial-slide-${i}`}
-              onClick={() => setSlideIndex(i)}
-              className={`h-2 w-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2 ${
-                i === safeSlideIndex ? "bg-[#0b7041] scale-125" : "bg-[#f2f2f2] hover:opacity-80"
-              }`}
-            />
-          ))}
+                {isWide ? (
+                  <>
+                    <div className="min-w-0 md:self-center">
+                      <ReviewCardBody text={item.text} dense />
+                    </div>
+                    <div className="min-w-0 md:self-center">
+                      <UserBlock initials={item.initials} name={item.name} role={item.role} layout="card-wide" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <ReviewCardBody text={item.text} />
+                    <UserBlock initials={item.initials} name={item.name} role={item.role} layout="card" />
+                  </>
+                )}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -14,6 +14,7 @@ export type Post = {
   meta_description: string | null;
   featured_image: string | null;
   featured_image_alt?: string | null;
+  category?: string | null;
   status: string;
   created_at: string;
   updated_at: string;
@@ -75,6 +76,7 @@ type CreateInput = {
   meta_description?: string | null;
   featured_image?: string | null;
   featured_image_alt?: string | null;
+  category?: string | null;
   status?: string;
   faqs?: FAQItem[] | null;
 };
@@ -88,6 +90,7 @@ export async function createPost(input: CreateInput) {
     meta_title: input.meta_title ?? null,
     meta_description: input.meta_description ?? null,
     featured_image: input.featured_image ?? null,
+    category: input.category?.trim() || null,
     status: input.status ?? "draft",
     faqs: input.faqs ?? null,
   });
@@ -111,6 +114,7 @@ export async function updatePost(input: UpdateInput) {
       meta_description: input.meta_description ?? null,
       featured_image: input.featured_image ?? null,
       featured_image_alt: input.featured_image_alt ?? null,
+      category: input.category?.trim() || null,
       status: input.status ?? "draft",
       faqs: input.faqs ?? null,
     })

@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createPost, updatePost, type Post, type FAQItem } from "@/app/actions/blog";
+import type { Category } from "@/app/actions/categories";
 import { toSlug } from "@/lib/slug";
 import RichTextEditor from "./RichTextEditor";
 import FeaturedImageUpload from "./FeaturedImageUpload";
@@ -10,9 +11,10 @@ import FeaturedImageUpload from "./FeaturedImageUpload";
 type Props = {
   mode: "create" | "edit";
   post?: Post | null;
+  categories?: Category[];
 };
 
-export default function PostForm({ mode, post }: Props) {
+export default function PostForm({ mode, post, categories = [] }: Props) {
   const router = useRouter();
   const [title, setTitle] = useState(post?.title ?? "");
   const [content, setContent] = useState(post?.content ?? "");
@@ -22,6 +24,7 @@ export default function PostForm({ mode, post }: Props) {
   const [metaTitle, setMetaTitle] = useState(post?.meta_title ?? "");
   const [metaDescription, setMetaDescription] = useState(post?.meta_description ?? "");
   const [slug, setSlug] = useState(post?.slug ?? "");
+  const [category, setCategory] = useState(post?.category ?? "");
   const [slugTouched, setSlugTouched] = useState(false);
   const [faqs, setFaqs] = useState<FAQItem[]>(
     post?.faqs && post.faqs.length > 0 ? [...post.faqs] : [{ question: "", answer: "" }]
@@ -55,6 +58,7 @@ export default function PostForm({ mode, post }: Props) {
               meta_description: metaDescription.trim() || null,
               featured_image: featuredImage,
               featured_image_alt: featuredImageAlt.trim() || null,
+              category: category.trim() || null,
               status,
               faqs: faqs.filter((f) => f.question.trim() || f.answer.trim()).length > 0 ? faqs : null,
             });
@@ -69,6 +73,8 @@ export default function PostForm({ mode, post }: Props) {
               meta_title: metaTitle.trim() || null,
               meta_description: metaDescription.trim() || null,
               featured_image: featuredImage,
+              featured_image_alt: featuredImageAlt.trim() || null,
+              category: category.trim() || null,
               status,
               faqs: faqs.filter((f) => f.question.trim() || f.answer.trim()).length > 0 ? faqs : null,
             });
@@ -99,7 +105,12 @@ export default function PostForm({ mode, post }: Props) {
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-gray-700">İçerik</label>
-          <RichTextEditor content={content} onChange={setContent} placeholder="İçerik yazın..." />
+          <RichTextEditor
+            key={mode === "edit" && post ? post.id : "create"}
+            content={content}
+            onChange={setContent}
+            placeholder="İçerik yazın..."
+          />
         </div>
 
         <div>
@@ -153,6 +164,39 @@ export default function PostForm({ mode, post }: Props) {
       </div>
 
       <div className="space-y-6">
+        <div>
+          <label htmlFor="category" className="mb-1.5 block text-sm font-medium text-gray-700">
+            Kategori
+          </label>
+          {categories.length > 0 ? (
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:ring-1 focus:ring-[#0b7041]"
+            >
+              <option value="">Kategori seçin</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+              {category && !categories.some((c) => c.name === category) && (
+                <option value={category}>{category}</option>
+              )}
+            </select>
+          ) : (
+            <input
+              id="category"
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:ring-1 focus:ring-[#0b7041]"
+              placeholder="Örn. Sanal Ofis"
+            />
+          )}
+        </div>
+
         <div>
           <label htmlFor="status" className="mb-1.5 block text-sm font-medium text-gray-700">
             Durum

@@ -2,38 +2,21 @@
 
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-
-const ITEMS = [
-  {
-    question: "Fiyatlara KDV dahil mi?",
-    answer:
-      "Hayır, tabloda belirtilen tüm fiyatlarımıza KDV eklenecektir.",
-  },
-  {
-    question: "Sanal ofis kiraladığımda stopaj veya aidat ödeyecek miyim?",
-    answer:
-      "Hayır. Sanal ofis paketlerimizde stopaj, bina aidatı, elektrik, su gibi ekstra gizli maliyetler bulunmaz.",
-  },
-  {
-    question: "Toplantı odalarını paket dışında kullanabilir miyim?",
-    answer:
-      "Evet, ihtiyaç duymanız halinde saatlik veya günlük olarak ekstra toplantı odası kiralayabilirsiniz.",
-  },
-];
+import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
 
 export default function PricingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <ul className="divide-y divide-[#e5e5e5]">
-      {ITEMS.map((item, index) => {
+      {PRICING_FAQ_ITEMS.map((item, index) => {
         const isOpen = openIndex === index;
         return (
           <li key={index}>
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="flex w-full items-center justify-between gap-3 py-4 text-left"
+              className="flex w-full cursor-pointer items-center justify-between gap-3 py-4 text-left"
               aria-expanded={isOpen}
               aria-controls={`pricing-faq-answer-${index}`}
               id={`pricing-faq-question-${index}`}

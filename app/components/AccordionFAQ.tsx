@@ -23,7 +23,7 @@ export default function AccordionFAQ({ items, idPrefix = "faq" }: AccordionFAQPr
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-center justify-between gap-3 py-4 text-left font-semibold text-gray-900"
+                className="flex w-full cursor-pointer items-center justify-between gap-3 py-4 text-left font-semibold text-gray-900"
                 aria-expanded={isOpen}
                 aria-controls={`${idPrefix}-answer-${index}`}
                 id={`${idPrefix}-question-${index}`}

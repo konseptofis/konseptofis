@@ -19,9 +19,11 @@ export default function BlogCard({ slug, title, excerpt, date, category, feature
           {featuredImage ? (
             <img src={featuredImage} alt={featuredImageAlt || title} className="h-full w-full object-cover" />
           ) : null}
-          <div className="absolute left-3 top-3 rounded bg-[#0b7041] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-            {category}
-          </div>
+          {category ? (
+            <div className="absolute left-3 top-3 rounded bg-[#0b7041] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              {category}
+            </div>
+          ) : null}
         </div>
       </Link>
       <div className="p-5">

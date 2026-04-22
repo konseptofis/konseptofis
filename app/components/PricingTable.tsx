@@ -26,7 +26,7 @@ export default function PricingTable() {
     >
       <div className="mx-auto max-w-7xl">
         <h2 id="pricing-heading" className="mb-2 flex items-center gap-3 text-left tracking-tight text-black">
-          <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
+          <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
           Şeffaf Fiyatlandırma
         </h2>
         <p className="text-gray-600 mb-10">

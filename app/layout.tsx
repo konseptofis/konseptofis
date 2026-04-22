@@ -3,7 +3,7 @@ import { SITE, FAQ_ITEMS } from "@/app/lib/data";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import FloatingChatbot from "./components/FloatingChatbot";
 
 const title = "Ankara Sanal Ofis | Hazır Ofis & Toplantı Odası - Konsept Ofis";
 const description =
@@ -138,7 +138,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
-        <FloatingWhatsApp />
+        <FloatingChatbot />
       </body>
     </html>
   );

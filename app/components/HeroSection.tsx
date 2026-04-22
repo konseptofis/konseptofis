@@ -56,7 +56,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[#051a12]/75" aria-hidden />
       <div className="relative z-10 mx-auto max-w-4xl">
         {/* Slider içerik */}
-        <div className="relative min-h-[240px] text-center sm:min-h-[280px] lg:min-h-[320px]">
+        <div className="relative min-h-[320px] text-center sm:min-h-[360px] lg:min-h-[400px]">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -64,7 +64,7 @@ export default function HeroSection() {
               id={`hero-slide-${index}`}
               aria-labelledby={`hero-tab-${index}`}
               aria-hidden={index !== activeIndex}
-              className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ${
+              className={`absolute inset-0 flex flex-col items-center justify-center pt-14 pb-14 sm:pt-16 sm:pb-16 transition-opacity duration-300 ${
                 index === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
               }`}
             >

@@ -34,7 +34,7 @@ export default function PageHeader({
       </div>
       <h1
         id={titleId}
-        className="relative z-10 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+        className="relative z-10 text-[36px] font-bold leading-tight tracking-tight text-white"
       >
         {title}
       </h1>

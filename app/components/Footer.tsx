@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t-2 border-[#d4d4d4] bg-white"
+      className="bg-white shadow-[0_-2px_20px_rgba(0,0,0,0.05)]"
       aria-label="Site alt bilgisi"
     >
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
@@ -37,7 +37,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
-                  href="/hizmetler"
+                  href="/hizmetlerimiz"
                   className="text-sm text-gray-600 hover:text-[#0b7041]"
                 >
                   Hizmetler
@@ -45,7 +45,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#sss"
+                  href="/sik-sorulan-sorular"
                   className="text-sm text-gray-600 hover:text-[#0b7041]"
                 >
                   SSS

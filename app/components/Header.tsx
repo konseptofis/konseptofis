@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
@@ -10,15 +11,16 @@ const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
 
 const navLinks = [
-  { href: "/hizmetler", label: "Hizmetler" },
+  { href: "/hizmetlerimiz", label: "Hizmetler" },
   { href: "/fiyatlar", label: "Fiyatlar" },
   {
     label: "Kurumsal",
     children: [
       { href: "/hakkimizda", label: "Hakkımızda" },
-      { href: "/#sss", label: "SSS" },
+      { href: "/sik-sorulan-sorular", label: "SSS" },
     ],
   },
+  { href: "/blog", label: "Blog" },
   { href: "/iletisim", label: "İletişim" },
 ];
 
@@ -58,15 +60,16 @@ export default function Header() {
 
   const showLightHeader = !isHomePage || isLight || menuOpen;
   const linkClass = showLightHeader ? "text-black hover:opacity-80" : "text-white/90 hover:text-white";
+  const headerPositionClass = isHomePage ? "fixed left-0 top-0" : "relative";
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full ${
+      className={`${headerPositionClass} z-50 w-full ${
         showLightHeader ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
       <div
-        className={`${showLightHeader ? "border-b border-[#e8e8e8]" : "border-b border-white/20"} hidden sm:block`}
+        className={`${showLightHeader ? "border-b border-[#e8e8e8] bg-white" : "border-b border-white/20 bg-transparent"} hidden sm:block`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div
@@ -107,11 +110,18 @@ export default function Header() {
         >
           <Link
             href="/"
-            className={`text-base font-semibold sm:text-lg ${
-              showLightHeader ? "text-black hover:opacity-80" : "text-white hover:text-white/90"
-            }`}
+            className="inline-flex items-center"
+            aria-label="Konsept Ofis Anasayfa"
           >
-            Konsept Ofis
+            <Image
+              src={showLightHeader ? "/ankara-sanal-ofis-logo.webp?v=2" : "/ankara-sanal-ofis-logo-2.png"}
+              alt="Konsept Ofis"
+              width={207}
+              height={46}
+              className="h-[41px] w-auto sm:h-[46px]"
+              priority
+              unoptimized
+            />
           </Link>
           <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm lg:text-base font-medium">
             {navLinks.map((item) =>

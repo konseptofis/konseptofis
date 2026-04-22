@@ -8,48 +8,146 @@ import {
 } from "@heroicons/react/24/outline";
 import PageHeader from "@/app/components/PageHeader";
 import PricingFAQ from "@/app/components/PricingFAQ";
+import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
 import { getPricingPlans } from "@/app/actions/pricing";
 
+// \b "ı" karakterini kelime saymadığı için Toplantı ayrı: sonrasında boşluk veya satır sonu ile eşleşsin
+const GREEN_WORDS_REGEX = /\b(Makam|sanal|Sanal|hazır|Hazır)\b|(toplantı|Toplantı|Toplanti|toplanti|TOPLANTI)(?=\s|$)/gi;
+
+const GREEN_WORDS_SET = new Set([
+  "Makam", "sanal", "Sanal", "hazır", "Hazır",
+  "toplantı", "Toplantı", "Toplanti", "toplanti", "TOPLANTI",
+]);
+
+function highlightGreenTitle(title: string) {
+  const parts = title.split(GREEN_WORDS_REGEX);
+  return parts.map((part, i) => {
+    if (part === undefined) return null;
+    if (GREEN_WORDS_SET.has(part)) {
+      return (
+        <span key={i} className="text-[#0b7041]">
+          {part}
+        </span>
+      );
+    }
+    return part;
+  });
+}
+
+export const metadata = {
+  title: "Fiyatlar ve Paketler",
+  description:
+    "Ankara Çankaya sanal ofis, hazır ofis ve toplantı odası kiralama fiyatlarımızı inceleyin. Stopajsız, aidatsız ve bütçenize en uygun esnek paketler.",
+};
+
 const STANDARD_ITEMS = [
-  { icon: SunIcon, title: "Sınırsız Çay & Kahve" },
-  { icon: SignalIcon, title: "Yüksek Hızlı İnternet" },
-  { icon: SparklesIcon, title: "Günlük Temizlik" },
-  { icon: HandRaisedIcon, title: "Profesyonel Karşılama" },
+  {
+    icon: SunIcon,
+    title: "Sınırsız Çay & Kahve",
+    description:
+      "Gün boyu taze demlenmiş çay, kahve ve sıcak ikramlarımızla enerjinizi hep yüksek tutun.",
+  },
+  {
+    icon: SignalIcon,
+    title: "Yüksek Hızlı Fiber İnternet",
+    description:
+      "Kesintisiz ve güvenli fiber altyapımızla işlerinizi hız kesmeden, verimli bir şekilde sürdürün.",
+  },
+  {
+    icon: SparklesIcon,
+    title: "Düzenli Ofis Temizliği",
+    description:
+      "Hijyenik, ferah ve her zaman profesyonel görünen bir çalışma ortamı için periyodik günlük temizlik.",
+  },
+  {
+    icon: HandRaisedIcon,
+    title: "Profesyonel Misafir Karşılama",
+    description:
+      "Misafirleriniz, müşterileriniz ve kargolarınız güler yüzlü ekibimiz tarafından adınıza özenle karşılanır.",
+  },
 ];
 
 export default async function FiyatlarPage() {
   const pricingCards = await getPricingPlans();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: pricingCards.map((plan, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: plan.title,
+        description: `${plan.title} hizmeti için Ankara Çankaya prestijli ofis paketi.`,
+        offers: {
+          "@type": "Offer",
+          price: plan.price.toString().replace(/[^0-9]/g, ""),
+          priceCurrency: "TRY",
+          availability: "https://schema.org/InStock",
+        },
+      },
+    })),
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: PRICING_FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <PageHeader
-        title="FİYATLAR"
+        title="Fiyatlar"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Fiyatlar" }]}
       />
       <section
-        className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+        className="px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12"
         aria-labelledby="pricing-heading"
       >
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-6xl">
           <h2 id="pricing-heading" className="sr-only">
             Fiyat listesi
           </h2>
+          <h2 className="mb-4 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl">
+            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+            Ankara Sanal Ofis ve Hazır Ofis Fiyatları
+          </h2>
+          <p className="mb-10 text-left text-base text-gray-600">
+            Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis ve aidatsız hazır ofis çözümleriyle sürpriz maliyetlere son verin.
+          </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {pricingCards.map((card) => (
               <article
                 key={card.id}
                 className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-8 transition-shadow hover:shadow-md sm:p-10"
               >
-                <h3 className="text-lg font-semibold uppercase tracking-wide text-gray-900">
-                  {card.title}
+                <h3 className="text-center text-lg font-semibold uppercase tracking-wide text-gray-900">
+                  {highlightGreenTitle(card.title)}
                 </h3>
-                <div className="mt-3 flex flex-wrap items-baseline gap-1.5">
+                <div className="mt-3 flex flex-wrap items-baseline justify-center gap-1.5">
                   <span className="text-4xl font-bold text-gray-900">
                     ₺{card.price}
                   </span>
                   <span className="text-sm text-gray-500">/{card.period}</span>
+                  <span className="text-sm text-gray-500">{card.kdv}</span>
                 </div>
-                <p className="mt-0.5 text-sm text-gray-500">{card.kdv}</p>
                 <div className="my-6 border-b border-gray-100" aria-hidden />
                 <ul className="flex-1 space-y-4">
                   {(card.features ?? []).map((feature, idx) => (
@@ -79,18 +177,26 @@ export default async function FiyatlarPage() {
 
       {/* Tüm Paketlerde Standart */}
       <section
-        className="bg-[#f9fafb] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+        className="bg-[#f9fafb] px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20"
         aria-labelledby="standard-heading"
       >
-        <div className="mx-auto max-w-7xl">
-          <h2
-            id="standard-heading"
-            className="text-center text-2xl font-semibold tracking-tight text-black sm:text-3xl"
-          >
-            TÜM PAKETLERİMİZDE STANDART
-          </h2>
-          <div className="mx-auto mt-2 h-0.5 w-16 rounded-full bg-[#0b7041]" aria-hidden />
-          <div className="mt-10 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-4">
+            <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-[#0b7041] sm:text-base">
+              <span className="h-6 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-7" aria-hidden />
+              KONSEPT OFİS AYRICALIKLARI
+            </p>
+            <h2
+              id="standard-heading"
+              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            >
+              Tüm Çalışma Alanlarımızda Standart Hizmetler
+            </h2>
+            <p className="mt-4 text-left text-base text-gray-600">
+              Hangi ofis paketini seçerseniz seçin; işinize değer katan ve gününüzü kolaylaştıran bu ayrıcalıklara hiçbir ek ücret ödemeden sahip olursunuz.
+            </p>
+          </div>
+          <div className="mt-12 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
             {STANDARD_ITEMS.map((item) => {
               const Icon = item.icon;
               return (
@@ -98,8 +204,9 @@ export default async function FiyatlarPage() {
                   key={item.title}
                   className="flex flex-col items-center rounded-lg border border-[#e5e5e5] bg-white p-6 text-center shadow-sm"
                 >
-                  <Icon className="h-12 w-12 text-[#0b7041]" aria-hidden />
+                  <Icon className="h-12 w-12 shrink-0 text-[#0b7041]" aria-hidden />
                   <h3 className="mt-4 font-bold text-black">{item.title}</h3>
+                  <p className="mt-2 text-sm text-gray-500">{item.description}</p>
                 </div>
               );
             })}
@@ -109,18 +216,21 @@ export default async function FiyatlarPage() {
 
       {/* Sıkça Sorulan Sorular */}
       <section
-        className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+        className="bg-white px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20"
         aria-labelledby="faq-heading"
       >
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <h2
             id="faq-heading"
-            className="text-center text-2xl font-semibold tracking-tight text-black sm:text-3xl"
+            className="mb-4 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl"
           >
-            SIKÇA SORULAN SORULAR
+            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+            Sıkça Sorulan Sorular
           </h2>
-          <div className="mx-auto mt-2 h-0.5 w-16 rounded-full bg-[#0b7041]" aria-hidden />
-          <div className="mt-10">
+          <p className="mb-10 text-left text-base text-gray-600">
+            Ankara Çankaya&apos;daki sanal ofis ve hazır ofis çözümlerimiz hakkında aklınıza takılan tüm detayları, şeffaf hizmet anlayışımızla sizin için yanıtladık.
+          </p>
+          <div>
             <PricingFAQ />
           </div>
         </div>
@@ -128,7 +238,7 @@ export default async function FiyatlarPage() {
 
       {/* Hemen Başlayın CTA */}
       <section
-        className="bg-[#0b7041] px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
+        className="bg-[#0b7041] px-4 py-10 sm:px-6 sm:py-12 lg:px-8"
         aria-labelledby="cta-heading"
       >
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 lg:flex-row lg:justify-between lg:gap-12">

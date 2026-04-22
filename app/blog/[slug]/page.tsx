@@ -10,6 +10,7 @@ import BlogCard from "@/app/components/BlogCard";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import ArticleSchema from "@/app/components/seo/ArticleSchema";
+import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import FAQSchema from "@/app/components/seo/FAQSchema";
 import { processHeadings } from "@/lib/headings";
 import { getPostBySlug, getPublishedPosts } from "@/app/actions/blog";
@@ -18,12 +19,16 @@ export const revalidate = 0;
 
 type Props = { params: Promise<{ slug: string }> };
 
+const TITLE_SUFFIX = " | Konsept Ofis";
+
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Yazı bulunamadı" };
+  let title = post.meta_title ?? post.title;
+  if (title.endsWith(TITLE_SUFFIX)) title = title.slice(0, -TITLE_SUFFIX.length);
   return {
-    title: post.meta_title ?? post.title,
+    title,
     description: post.meta_description ?? undefined,
   };
 }
@@ -66,6 +71,13 @@ export default async function BlogDetailPage({ params }: Props) {
           slug: post.slug,
         }}
       />
+      <BreadcrumbSchema
+        items={[
+          { name: "Anasayfa", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ]}
+      />
       <FAQSchema faqs={post.faqs ?? undefined} />
       <header className="px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
@@ -82,14 +94,11 @@ export default async function BlogDetailPage({ params }: Props) {
               {post.title}
             </span>
           </nav>
-          <span className="inline-block rounded bg-[#0b7041] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-            Blog
-          </span>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+          <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-6 text-sm text-gray-600">
-            {formatDate(post.created_at)}
+          <p className="mt-4 text-sm text-gray-600">
+            {post.category?.trim() ? `${post.category.trim()} | ${formatDate(post.created_at)}` : formatDate(post.created_at)}
           </p>
           {post.featured_image && (
             <div className="mt-8 overflow-hidden rounded-lg shadow-md">
@@ -113,9 +122,9 @@ export default async function BlogDetailPage({ params }: Props) {
 
           {post.content ? (
             <article
-              className="prose prose-gray max-w-none leading-relaxed prose-headings:font-semibold prose-a:text-[#0b7041] prose-img:rounded-lg"
+              className="prose prose-gray max-w-none text-justify leading-relaxed prose-headings:font-semibold prose-a:text-[#0b7041] prose-img:rounded-lg [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
               dangerouslySetInnerHTML={{ __html: contentWithIds }}
-              style={{ fontSize: "1.0625rem" }}
+              style={{ fontSize: "16px" }}
             />
           ) : (
             <article className="space-y-6 leading-relaxed text-gray-700">
@@ -185,7 +194,7 @@ export default async function BlogDetailPage({ params }: Props) {
                   title={p.title}
                   excerpt={stripHtml(p.content ?? p.meta_description ?? "", 160)}
                   date={formatDate(p.created_at)}
-                  category="Blog"
+                  category={p.category ?? ""}
                   featuredImage={p.featured_image}
                   featuredImageAlt={p.featured_image_alt ?? p.title}
                 />

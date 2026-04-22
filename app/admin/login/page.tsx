@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -60,15 +62,29 @@ export default function AdminLoginPage() {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Şifre
             </label>
-            <input
-              id="password"
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
-              autoComplete="current-password"
-            />
+            <div className="relative mt-1">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-lg border border-gray-300 py-2.5 pl-4 pr-11 text-gray-900 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                aria-label={showPassword ? "Şifreyi gizle" : "Şifreyi göster"}
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" aria-hidden />
+                ) : (
+                  <EyeIcon className="h-5 w-5" aria-hidden />
+                )}
+              </button>
+            </div>
           </div>
           <button
             type="submit"

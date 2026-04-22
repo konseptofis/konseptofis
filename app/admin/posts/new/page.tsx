@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getCategories } from "@/app/actions/categories";
 import PostForm from "../../components/PostForm";
 
-export default function NewPostPage() {
+export default async function NewPostPage() {
+  const categories = await getCategories();
   return (
     <div>
       <Link
@@ -13,7 +15,7 @@ export default function NewPostPage() {
         Yazılar listesine dön
       </Link>
       <h1 className="mb-8 text-2xl font-semibold text-gray-900">Yeni Yazı</h1>
-      <PostForm mode="create" />
+      <PostForm mode="create" categories={categories} />
     </div>
   );
 }

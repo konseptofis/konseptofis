@@ -5,6 +5,7 @@ type Props = {
   children: React.ReactNode;
   imageSrc?: string | null;
   imageAlt?: string;
+  sectionClassName?: string;
 };
 
 export default function ContentWithImage({
@@ -12,11 +13,12 @@ export default function ContentWithImage({
   children,
   imageSrc = null,
   imageAlt = "Konsept Ofis - Ankara sanal ofis ve hazır ofis",
+  sectionClassName = "bg-white",
 }: Props) {
   return (
     <section
       aria-labelledby="content-with-image-heading"
-      className="bg-white px-4 py-[60px] sm:px-6 lg:px-8"
+      className={`${sectionClassName} px-4 py-[60px] sm:px-6 lg:px-8`}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-12">
         <div>
@@ -24,7 +26,7 @@ export default function ContentWithImage({
             id="content-with-image-heading"
             className="flex items-center gap-3 text-left tracking-tight text-black"
           >
-            <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
+            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
             {title}
           </h2>
           <div className="mt-4 space-y-3 text-gray-600 leading-relaxed">

@@ -1,14 +1,12 @@
 import {
   BriefcaseIcon,
   CubeIcon,
-  UserGroupIcon,
-  SunIcon,
-  SignalIcon,
   MapPinIcon,
+  SunIcon,
+  UserGroupIcon,
+  WifiIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
-
-const ACCENT = "#0b7041";
 
 const services: {
   title: string;
@@ -41,9 +39,8 @@ const services: {
   },
   {
     title: "YÜKSEK HIZLI İNTERNET",
-    description:
-      "Fiber hızlı internet sayesinde kesintisiz çalışma olanağı yakalayın.",
-    icon: SignalIcon,
+    description: "Fiber hızlı internet sayesinde kesintisiz çalışma olanağı yakalayın.",
+    icon: WifiIcon,
   },
   {
     title: "KOLAY ULAŞIM",
@@ -51,52 +48,60 @@ const services: {
       "Ofisiniz iş hayatının tam merkezinde, metro ve diğer toplu taşımanın yanı başında.",
     icon: MapPinIcon,
   },
-  ];
+];
 
-export default function OfficeServicesSection() {
+type Props = { sectionClassName?: string };
+
+export default function OfficeServicesSection({
+  sectionClassName = "bg-white",
+}: Props) {
   return (
     <section
       id="ofis-hizmetleri"
-      aria-labelledby="office-services-heading"
-      className="bg-[#FFFFFF] px-4 py-[60px] sm:px-6 lg:px-8"
+      aria-label="Hizmet Özellikleri"
+      className={`${sectionClassName} px-4 py-16 font-sans sm:px-6 md:py-24 lg:px-8`}
     >
       <div className="mx-auto max-w-7xl">
-        <header className="max-w-4xl">
+        <header className="mb-12 border-l-[3px] border-[#0b7041] pl-5">
           <h2
             id="office-services-heading"
-            className="flex items-center gap-3 text-left tracking-tight text-black"
+            className="text-[30px] font-bold tracking-tight text-black md:text-[34px]"
           >
-            <span className="h-10 w-0.5 shrink-0 rounded-full bg-[#0b7041] sm:h-12" aria-hidden />
             Hazır Ofis ve Sanal Ofis Hizmetlerimiz Neleri Kapsıyor?
           </h2>
         </header>
 
-        <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-16 sm:gap-x-12 sm:gap-y-16 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 md:gap-5 lg:grid-cols-3">
           {services.map((item) => {
             const Icon = item.icon;
             return (
-              <article
+              <div
                 key={item.title}
-                className="flex flex-row items-start gap-3 sm:gap-4"
+                itemScope
+                itemType="https://schema.org/Service"
+                className="group flex flex-col items-center gap-2 rounded-[14px] border border-[#e8eaed] bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] md:flex-row md:items-start md:gap-5 md:px-6 md:py-7 md:text-left"
               >
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#0b7041]/[0.08] md:h-12 md:w-12"
                   aria-hidden
                 >
-                  <Icon
-                    className="h-10 w-10 shrink-0 sm:h-12 sm:w-12"
-                    style={{ color: ACCENT }}
-                  />
+                  <Icon className="h-[18px] w-[18px] shrink-0 text-[#0b7041] md:h-[22px] md:w-[22px]" />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="text-xs font-medium uppercase tracking-tight text-black sm:text-base">
+                <div className="min-w-0 flex-1">
+                  <span
+                    itemProp="name"
+                    className="mb-1 block text-[10px] font-bold uppercase leading-tight tracking-wide text-black md:mb-2 md:text-[13px] md:tracking-[1.5px]"
+                  >
                     {item.title}
                   </span>
-                  <p className="mt-1.5 text-xs leading-relaxed text-[#4B5563] sm:mt-2 sm:text-sm">
+                  <span
+                    itemProp="description"
+                    className="m-0 block text-[10px] leading-snug text-gray-600 line-clamp-4 md:text-[14px] md:leading-[1.65] md:line-clamp-none"
+                  >
                     {item.description}
-                  </p>
+                  </span>
                 </div>
-              </article>
+              </div>
             );
           })}
         </div>

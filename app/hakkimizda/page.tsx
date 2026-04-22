@@ -1,146 +1,230 @@
+import Image from "next/image";
 import PageHeader from "@/app/components/PageHeader";
+import { SITE } from "@/app/lib/data";
 import {
-  FlagIcon,
-  EyeIcon,
-  TrophyIcon,
+  CursorArrowRaysIcon,
+  DocumentTextIcon,
+  KeyIcon,
   BuildingOffice2Icon,
   MapPinIcon,
-  HeartIcon,
+  WalletIcon,
+  WifiIcon,
+  UserGroupIcon,
+  BriefcaseIcon,
 } from "@heroicons/react/24/outline";
 
-const stats = [
-  { icon: TrophyIcon, value: "+2", label: "Yıllık Deneyim" },
-  { icon: BuildingOffice2Icon, value: "+4800", label: "Mutlu Firma" },
-  { icon: MapPinIcon, value: "+25", label: "Lokasyon" },
-  { icon: HeartIcon, value: "%99", label: "Müşteri Memnuniyeti" },
+export const metadata = {
+  title: "Hakkımızda - Konsept Ofis",
+  description:
+    "Ankara'da prestijli çalışma alanları sunan Konsept Ofis'i yakından tanıyın. Sanal ofis ve makam odası çözümlerimizle işinize değer katıyoruz.",
+};
+
+const HOW_IT_WORKS_STEPS = [
+  {
+    step: "01",
+    icon: CursorArrowRaysIcon,
+    title: "İhtiyacınızı Belirleyin",
+    description:
+      "Sanal ofis, hazır ofis veya toplantı odası paketlerimizden bütçenize ve şirket yapınıza en uygun olanı seçin.",
+  },
+  {
+    step: "02",
+    icon: DocumentTextIcon,
+    title: "Sözleşmenizi Onaylayın",
+    description:
+      "Uzun bürokratik işlemler olmadan, şeffaf ve stopajsız sözleşmenizi hızlıca hazırlayıp dijital veya fiziki olarak onaylayalım.",
+  },
+  {
+    step: "03",
+    icon: KeyIcon,
+    title: "İşinize Odaklanın",
+    description:
+      "Vergi levhanız için yasal adresiniz anında aktifleşsin. Gelen kargolarınızı biz yönetelim, siz sadece büyümenize odaklanın.",
+  },
+];
+
+const WHY_PREFERRED_ITEMS = [
+  {
+    icon: BuildingOffice2Icon,
+    title: "Prestijli Lokasyon",
+    description:
+      "İşinizi daha güvenilir ve profesyonel bir imajla sunmak için prestijli bir ofis adresine sahip olun. Müşterilerinize güçlü bir izlenim bırakın.",
+  },
+  {
+    icon: MapPinIcon,
+    title: "Ulaşımda Kolaylık",
+    description:
+      "Ofisimiz, Danıştay Metro Durağı çıkışında ve otobüs duraklarının hemen yakınında yer alarak kolay ve hızlı ulaşım imkânı sunar.",
+  },
+  {
+    icon: WalletIcon,
+    title: "Ulaşılabilir Fiyatlandırma",
+    description:
+      "Bütçenize uygun esnek sanal ofis fiyatları ile işinizi prestijli bir adreste büyütün. Kaliteli hizmeti ekonomik çözümlerle sunuyoruz.",
+  },
+  {
+    icon: WifiIcon,
+    title: "Teknolojik Altyapı",
+    description:
+      "Ofisimiz, yüksek hızlı fiber internet, projeksiyon ve lazer yazıcı gibi modern teknolojik altyapıyla donatılmıştır. İşinizi kesintisiz yönetin.",
+  },
+  {
+    icon: UserGroupIcon,
+    title: "Toplantı Odası Hizmeti",
+    description:
+      "Modern ve konforlu toplantı odalarımız, iş görüşmeleriniz ve sunumlarınız için ideal bir ortam sunar. Profesyonel bir izlenim bırakın.",
+  },
+  {
+    icon: BriefcaseIcon,
+    title: "Makam Odası Hizmeti",
+    description:
+      "Prestijli ve konforlu makam odamız, önemli görüşmeleriniz ve toplantılarınız için özel bir alan sunar. İşinize değer katan bir çalışma ortamı.",
+  },
 ];
 
 export default function HakkimizdaPage() {
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "Konsept Ofis Hakkında",
+    description:
+      "Ankara Çankaya'da girişimciler için yeni nesil çalışma alanları, sanal ofis ve hazır ofis çözümleri.",
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: "Konsept Ofis",
+      image: `${SITE.domain}/logo.png`,
+      description:
+        "Ankara merkezli, stopajsız sanal ofis, yasal iş adresi ve premium hazır ofis çözümleri sunan esnek çalışma alanı ekosistemi.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Mahall Ankara",
+        addressLocality: "Çankaya",
+        addressRegion: "Ankara",
+        addressCountry: "TR",
+      },
+      priceRange: "₺₺",
+      areaServed: "Ankara",
+    },
+  };
+
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
       <PageHeader
-        title="HAKKIMIZDA"
+        title="Hakkımızda"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hakkımızda" }]}
       />
 
       {/* Biz Kimiz? */}
       <section
-        className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+        className="bg-white px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12"
         aria-labelledby="biz-kimiz-heading"
       >
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
             <div>
+              <p className="mb-4 flex items-center gap-3 text-sm font-semibold tracking-wide text-[#0b7041] sm:text-base">
+                <span className="h-6 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-7" aria-hidden />
+                Konsept Ofis Hakkında
+              </p>
               <h2
                 id="biz-kimiz-heading"
-                className="border-b-2 border-[#0b7041] pb-2 text-2xl font-semibold tracking-tight text-black sm:text-3xl"
+                className="mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
               >
-                BİZ KİMİZ?
+                Ankara Çankaya&apos;da Girişimciler İçin Yeni Nesil Çalışma Alanları
               </h2>
-              <p className="mt-6 text-lg font-bold text-gray-800">
-                Modern iş dünyasının ihtiyaçlarına uygun, esnek ve yenilikçi
-                çalışma alanları sunuyoruz.
+              <p className="mb-4 leading-relaxed text-gray-600">
+                Konsept Ofis olarak, serbest çalışanlardan kurumsal şirketlere kadar her ölçekten işletmeye prestijli ve maliyet etkin çalışma çözümleri sunmak için yola çıktık. Amacımız; sizi yüksek kira, aidat ve stopaj gibi geleneksel ofis yüklerinden kurtararak enerjinizi ve sermayenizi doğrudan işinizi büyütmeye ayırmanızı sağlamaktır.
               </p>
-              <p className="mt-4 leading-relaxed text-gray-600">
-                Yabancı ve yerli girişimcilerin{" "}
-                <span className="font-medium text-[#0b7041]">hazır ofis</span>,{" "}
-                <span className="font-medium text-[#0b7041]">sanal ofis</span> ve{" "}
-                <span className="font-medium text-[#0b7041]">toplantı odaları</span>{" "}
-                imkânlarından yararlanmaları için kurulduk. Esnek hizmet
-                çözümlerimiz ile üyelerimizin sermayelerini ofislerine değil,
-                işlerine yatırmasına destek oluyoruz.
-              </p>
-              <p className="mt-4 leading-relaxed text-gray-600">
-                Ankara Çankaya&apos;da Mahall Ankara adresinde, vergi levhası ve
-                ticaret sicil adresi olarak kullanılabilen{" "}
-                <span className="font-medium text-[#0b7041]">sanal ofis</span>, tam
-                donanımlı{" "}
-                <span className="font-medium text-[#0b7041]">hazır ofis</span>{" "}
-                birimleri ve saatlik kiralanabilen{" "}
-                <span className="font-medium text-[#0b7041]">toplantı odaları</span>{" "}
-                sunuyoruz.
+              <p className="leading-relaxed text-gray-600">
+                Ankara&apos;nın en prestijli iş merkezlerinden Mahall Ankara&apos;da; yasal iş adresi gereksinimlerinizi karşılayan sanal ofis paketleri, şirket kuruluşuna %100 uygun tam donanımlı hazır ofisler ve profesyonel toplantı odalarıyla hizmet veriyoruz. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf fiyatlandırma politikamızla işinizi geleceğe taşırken her adımda yanınızdayız.
               </p>
             </div>
-            <div className="relative overflow-hidden rounded-lg shadow-md">
-              <div
-                className="aspect-[4/3] w-full bg-[#f2f2f2]"
-                aria-hidden
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-md">
+              <Image
+                src="/konsept-ofis-hakkimizda.webp"
+                alt="Konsept Ofis - Ankara Çankaya'da girişimciler için yeni nesil çalışma alanları"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Misyon & Vizyon */}
+      {/* Neden Tercih Ediliyoruz? */}
       <section
-        className="bg-[#f9fafb] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
-        aria-labelledby="misyon-vizyon-heading"
+        className="bg-[#f9fafb] px-4 pt-10 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-14 lg:pb-20"
+        aria-labelledby="neden-tercih-ediliyoruz-heading"
       >
         <div className="mx-auto max-w-6xl">
           <h2
-            id="misyon-vizyon-heading"
-            className="text-center text-2xl font-semibold tracking-tight text-black sm:text-3xl"
+            id="neden-tercih-ediliyoruz-heading"
+            className="mb-8 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"
           >
-            MİSYON & VİZYON
+            Neden Tercih Ediliyoruz?
           </h2>
-          <div className="mx-auto mt-2 h-0.5 w-16 rounded-full bg-[#0b7041]" aria-hidden />
-          <div className="mt-10 grid gap-6 sm:gap-8 md:grid-cols-2">
-            <article className="flex flex-col items-center rounded-xl border border-[#e5e5e5] bg-white p-8 text-center shadow-sm">
-              <FlagIcon className="h-14 w-14 text-[#0b7041]" aria-hidden />
-              <h3 className="mt-4 text-xl font-bold uppercase tracking-tight text-black">
-                Misyonumuz
-              </h3>
-              <p className="mt-3 leading-relaxed text-gray-600">
-                Girişimcilere ve KOBİ&apos;lere, düşük maliyetli ve esnek ofis
-                çözümleri sunarak büyümelerine destek olmak. Yasal iş adresi,
-                hazır ofis ve toplantı odası hizmetlerimizle profesyonel
-                çalışma imkânı sağlamak.
-              </p>
-            </article>
-            <article className="flex flex-col items-center rounded-xl border border-[#e5e5e5] bg-white p-8 text-center shadow-sm">
-              <EyeIcon className="h-14 w-14 text-[#0b7041]" aria-hidden />
-              <h3 className="mt-4 text-xl font-bold uppercase tracking-tight text-black">
-                Vizyonumuz
-              </h3>
-              <p className="mt-3 leading-relaxed text-gray-600">
-                Türkiye&apos;nin tercih edilen esnek ofis ve sanal ofis
-                markası olmak. Yenilikçi hizmetlerle iş dünyasının ihtiyaçlarına
-                öncü çözümler sunmak.
-              </p>
-            </article>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {WHY_PREFERRED_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article
+                  key={item.title}
+                  className="group relative overflow-hidden rounded-[12px] border border-[#dfe7e3] bg-gradient-to-br from-[#eaf7f0] via-white to-white p-6 shadow-[0_10px_30px_-20px_rgba(11,112,65,0.55)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-22px_rgba(11,112,65,0.65)]"
+                >
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0b7041]/20 bg-[#0b7041]/10 transition-colors duration-300 group-hover:bg-[#0b7041]/15">
+                    <Icon className="h-6 w-6 text-[#0b7041]" aria-hidden />
+                  </div>
+                  <h3 className="mb-2 pr-8 text-lg font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-[16px] leading-relaxed text-gray-600">{item.description}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Rakamlarla Biz */}
+      {/* Nasıl Çalışır? - 3 Adım */}
       <section
-        className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
-        aria-labelledby="rakamlar-heading"
+        className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+        aria-labelledby="how-it-works-heading"
       >
         <div className="mx-auto max-w-6xl">
           <h2
-            id="rakamlar-heading"
-            className="text-center text-2xl font-semibold tracking-tight text-black sm:text-3xl"
+            id="how-it-works-heading"
+            className="mb-4 flex items-center gap-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           >
-            RAKAMLARLA BİZ
+            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+            Sadece 3 Adımda Yeni Ofisinize Taşının
           </h2>
-          <div className="mx-auto mt-2 h-0.5 w-16 rounded-full bg-[#0b7041]" aria-hidden />
-          <div className="mt-10 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
-            {stats.map((item) => {
+          <p className="mt-4 max-w-2xl text-left text-base leading-relaxed text-gray-600">
+            Karmaşık prosedürler ve uzun bekleyişler yok. İş modelinize en uygun çalışma alanını seçin, yasal adresinizi aynı gün kullanmaya başlayın.
+          </p>
+          <div className="mt-12 grid gap-6 sm:gap-8 md:grid-cols-3">
+            {HOW_IT_WORKS_STEPS.map((item) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={item.label}
-                  className="flex flex-col items-center rounded-xl border border-[#e5e5e5] bg-white p-6 text-center shadow-sm"
+                <article
+                  key={item.step}
+                  className="flex flex-col rounded-xl border border-gray-100 bg-white p-8 shadow-sm"
                 >
-                  <Icon className="h-12 w-12 text-[#0b7041]" aria-hidden />
-                  <span className="mt-4 text-3xl font-bold text-black sm:text-4xl">
-                    {item.value}
-                  </span>
-                  <span className="mt-2 text-sm font-medium text-gray-600">
-                    {item.label}
-                  </span>
-                </div>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0b7041]/10 text-lg font-bold text-[#0b7041]">
+                      {item.step}
+                    </span>
+                    <Icon className="h-8 w-8 text-[#0b7041]" aria-hidden />
+                  </div>
+                  <h3 className="mt-5 text-xl font-semibold text-gray-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-left leading-relaxed text-gray-600">
+                    {item.description}
+                  </p>
+                </article>
               );
             })}
           </div>

@@ -55,11 +55,11 @@ export type ServiceDetailData = {
 };
 
 const SANAL_OFIS: ServiceDetailData = {
-  slug: "sanal-ofis",
+  slug: "sanal-ofis-hizmeti",
   title: "Sanal Ofis",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
-    { label: "Hizmetlerimiz", href: "/hizmetler" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Sanal Ofis" },
   ],
   introTitle: "Sanal Ofis Nedir ve İşinize Nasıl Değer Katar?",
@@ -214,11 +214,11 @@ const SANAL_OFIS: ServiceDetailData = {
 
 const HAZIR_OFIS: ServiceDetailData = {
   ...SANAL_OFIS,
-  slug: "hazir-ofis",
+  slug: "hazir-ofis-hizmeti",
   title: "Hazır Ofis",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
-    { label: "Hizmetlerimiz", href: "/hizmetler" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Hazır Ofis" },
   ],
   introTitle: "Hazır Ofis Nedir ve İşinize Nasıl Değer Katar?",
@@ -280,11 +280,11 @@ const HAZIR_OFIS: ServiceDetailData = {
 
 const TOPLANTI_ODASI: ServiceDetailData = {
   ...SANAL_OFIS,
-  slug: "toplanti-odasi",
+  slug: "toplanti-odasi-hizmeti",
   title: "Toplantı Odası",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
-    { label: "Hizmetlerimiz", href: "/hizmetler" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Toplantı Odası" },
   ],
   introTitle: "Toplantı Odası Kiralama ve İşinize Nasıl Değer Katar?",
@@ -330,9 +330,9 @@ const TOPLANTI_ODASI: ServiceDetailData = {
 };
 
 export const HIZMET_DETAY_MAP: Record<string, ServiceDetailData> = {
-  "sanal-ofis": SANAL_OFIS,
-  "hazir-ofis": HAZIR_OFIS,
-  "toplanti-odasi": TOPLANTI_ODASI,
+  "sanal-ofis-hizmeti": SANAL_OFIS,
+  "hazir-ofis-hizmeti": HAZIR_OFIS,
+  "toplanti-odasi-hizmeti": TOPLANTI_ODASI,
 };
 
 export function getServiceDetail(slug: string): ServiceDetailData | undefined {

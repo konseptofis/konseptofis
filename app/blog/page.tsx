@@ -35,7 +35,7 @@ export default async function BlogPage({ searchParams }: Props) {
   return (
     <main className="min-h-screen bg-[var(--background)]">
       <PageHeader
-        title="BLOG"
+        title="Blog"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Blog" }]}
       />
       <section
@@ -54,7 +54,7 @@ export default async function BlogPage({ searchParams }: Props) {
                 title={post.title}
                 excerpt={stripHtml(post.content ?? post.meta_description ?? "", 160)}
                 date={formatDate(post.created_at)}
-                category="Blog"
+                category={post.category ?? ""}
                 featuredImage={post.featured_image}
                 featuredImageAlt={post.featured_image_alt ?? post.title}
               />
