@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function ContentWithImage({
-  title = "Ankara'da Kurumsal Adres ve Ofis Çözümleri",
+  title = "Ankara Çankaya'da Prestijli Sanal Ofis ve Yasal Adres Çözümleri",
   children,
   imageSrc = null,
   imageAlt = "Konsept Ofis - Ankara sanal ofis ve hazır ofis",
@@ -20,20 +20,20 @@ export default function ContentWithImage({
       aria-labelledby="content-with-image-heading"
       className={`${sectionClassName} px-4 py-[60px] sm:px-6 lg:px-8`}
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-12">
-        <div>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start content-start gap-10 md:grid-cols-2 md:items-start md:gap-12">
+        <div className="order-2 mt-0 self-start pt-0 md:order-1">
           <h2
             id="content-with-image-heading"
-            className="flex items-center gap-3 text-left tracking-tight text-black"
+            className="m-0 flex items-start gap-3 text-left text-[24px] font-medium leading-snug tracking-tight text-black"
           >
-            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+            <span className="h-7 w-[3px] shrink-0 self-start rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
             {title}
           </h2>
           <div className="mt-4 space-y-3 text-gray-600 leading-relaxed">
             {children}
           </div>
         </div>
-        <div className="relative h-[240px] w-full max-w-[500px] shrink-0 overflow-hidden rounded-xl bg-[#f2f2f2] sm:h-[300px]">
+        <div className="order-1 relative mt-0 h-[240px] w-full max-w-[500px] shrink-0 self-start overflow-hidden rounded-xl bg-[#f2f2f2] pt-0 sm:h-[300px] md:order-2">
           {imageSrc ? (
             <Image
               src={imageSrc}

@@ -86,21 +86,21 @@ export default function HeroSection() {
               <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-white/90 mx-auto px-1">
                 {slide.description}
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="mt-10 flex w-full max-w-md flex-row justify-center gap-2 sm:max-w-xl sm:gap-4">
                 <Link
                   href="#fiyatlar"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 font-semibold text-[#0b7041] hover:bg-[#f2f2f2] transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                 >
-                  <DocumentTextIcon className="h-5 w-5" aria-hidden />
+                  <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                   Hemen Teklif Al
                 </Link>
                 <a
                   href={`https://wa.me/${SITE.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/80 bg-transparent px-6 py-3.5 font-semibold text-white hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/80 bg-transparent px-2 py-2.5 text-center text-[13px] font-semibold text-white transition-colors hover:bg-white/10 sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                 >
-                  <ChatBubbleLeftRightIcon className="h-5 w-5" aria-hidden />
+                  <ChatBubbleLeftRightIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                   WhatsApp&apos;tan Ulaşın
                 </a>
               </div>

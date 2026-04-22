@@ -7,34 +7,33 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
 
-// Görselleri public/images/ altına ekleyin: sanal-ofis.jpg, hazir-ofis.jpg, toplanti-odasi.jpg
 const cards = [
   {
     id: "sanal-ofis",
     title: "Sanal Ofis",
-    image: null as string | null,
+    image: "/mahall-sanal-ofis-ankara-konsept-ofis.webp",
     icon: BuildingOffice2Icon,
     description:
       "Ankara'da vergi levhası ve ticaret sicil adresi olarak kullanılabilen sanal ofis. NACE uyumlu, stopajsız ofis kiralama seçenekleri ile kurumsal adresiniz.",
-    href: "#fiyatlar",
+    href: "/hizmetlerimiz/sanal-ofis-hizmeti",
   },
   {
-    id: "hazir-ofis",
-    title: "Hazır Ofis",
-    image: null as string | null,
+    id: "makam-odasi",
+    title: "Makam Odası",
+    image: "/sanal-ofis-konsept-ofis.webp",
     icon: BriefcaseIcon,
     description:
-      "Tam donanımlı hazır ofis birimleri. Ankara Çankaya'da günlük veya aylık esnek kiralama. Profesyonel çalışma alanı ihtiyacınız için tek adres.",
-    href: "#fiyatlar",
+      "Ankara Çankaya'da prestijli makam odası ve tam donanımlı birimler. Günlük veya aylık esnek kiralama; kurumsal görüşmeleriniz ve yönetici toplantılarınız için profesyonel çalışma ortamı.",
+    href: "/hizmetlerimiz/hazir-ofis-hizmeti",
   },
   {
     id: "toplanti-odasi",
     title: "Toplantı Odası",
-    image: null as string | null,
+    image: "/toplanti-odasi-konsept-ofis.webp",
     icon: UserGroupIcon,
     description:
       "Müşteri ve ekip toplantılarınız için saatlik rezervasyonlu toplantı odaları. Gizli maliyet yok, net saatlik fiyat, merkezi konum.",
-    href: "#fiyatlar",
+    href: "/hizmetlerimiz/toplanti-odasi-hizmeti",
   },
 ];
 

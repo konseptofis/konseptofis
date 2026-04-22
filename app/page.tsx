@@ -18,18 +18,23 @@ export default function Home() {
       <AboutWhyUsSection sectionClassName={HOME_BG_WHITE} />
       <ServiceCards sectionClassName={HOME_BG_GREEN} />
       <ContentWithImage
-        title="Ankara'da Kurumsal Adres ve Ofis Çözümleri"
-        imageSrc={null}
+        title="Ankara Çankaya'da Prestijli Sanal Ofis ve Yasal Adres Çözümleri"
+        imageSrc="/cankaya-sanal-ofis.webp"
+        imageAlt="Ankara Çankaya Mahall Ankara Konsept Ofis sanal ofis ve yasal iş adresi"
         sectionClassName={HOME_BG_WHITE}
       >
         <p>
-          Konsept Ofis olarak Ankara Çankaya, Mahall Ankara adresinde sanal ofis, hazır
-          ofis ve toplantı odası hizmetleri sunuyoruz. Yasal iş adresi, vergi levhası
-          adresi ve prestijli bir çalışma ortamı ihtiyacınız için yanınızdayız.
+          Konsept Ofis olarak, Ankara&apos;nın en prestijli iş merkezlerinden Mahall
+          Ankara&apos;da şirket kuruluşuna ve adres değişikliğine uygun yasal iş adresi ve
+          sanal ofis kiralama hizmetleri sunuyoruz. Fiziksel ofis maliyetlerine katlanmadan,
+          stopaj ödemeden ve profesyonel sekreterya desteğiyle işletmenize prestijli bir
+          kurumsal kimlik kazandırıyoruz.
         </p>
         <p>
-          Şeffaf fiyatlandırma, gizli maliyet olmadan esnek kiralama seçenekleri ile
-          işletmenizi bir adım öteye taşıyın.
+          Sürpriz faturaların ve gizli maliyetlerin olmadığı şeffaf paketlerimiz; kargo ve
+          tebligat yönetimi, misafir karşılama ve tam donanımlı toplantı odası kullanımını
+          kapsar. İster yeni bir girişimci olun ister şirketinizi prestijli bir lokasyona
+          taşımak isteyin, esnek çözümlerimizle siz sadece işinizi büyütmeye odaklanın.
         </p>
       </ContentWithImage>
       <OfficeServicesSection sectionClassName={HOME_BG_GREEN} />

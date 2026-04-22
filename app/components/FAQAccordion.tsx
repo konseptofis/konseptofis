@@ -87,7 +87,7 @@ export default function FAQAccordion({ sectionClassName = "bg-white" }: Props) {
           </div>
 
           {/* Sağ: yuvarlak köşeli kart + görsel (absolute img akışta genişlik vermez; sütun genişliği şart) */}
-          <div className="flex w-full max-w-[576px] shrink-0 justify-center lg:ml-auto lg:justify-end">
+          <div className="hidden w-full max-w-[576px] shrink-0 justify-center lg:ml-auto lg:flex lg:justify-end">
             <div className="relative aspect-[576/648] w-full overflow-hidden rounded-[32px] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.12)]">
               <img
                 id="faqImage"

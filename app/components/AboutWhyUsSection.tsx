@@ -1,36 +1,27 @@
-import {
-  ShieldCheckIcon,
-  TrophyIcon,
-  WalletIcon,
-  BuildingOffice2Icon,
-} from "@heroicons/react/24/outline";
+type Props = { sectionClassName?: string };
 
-const ACCENT = "#0b7041";
-
-const stats = [
+const items: { num: string; title: string; description: string }[] = [
   {
-    icon: ShieldCheckIcon,
-    line1: "Güven Veren",
-    line2: "Kaliteli Hizmet",
+    num: "01",
+    title: "Güven Veren Kaliteli Hizmet",
+    description: "Sektörün en güvenilir iş ortağı olarak her adımda yanınızdayız.",
   },
   {
-    icon: TrophyIcon,
-    line1: "Sektörel",
-    line2: "Deneyim",
+    num: "02",
+    title: "Sektörel Deneyim",
+    description: "Yılların birikimi ile sektörü derinlemesine tanıyan bir ekip.",
   },
   {
-    icon: WalletIcon,
-    line1: "Her Bütçeye",
-    line2: "Uygun Fiyatlar",
+    num: "03",
+    title: "Her Bütçeye Uygun Fiyatlar",
+    description: "Startup'tan kurumsal firmalara kadar herkes için uygun paket.",
   },
   {
-    icon: BuildingOffice2Icon,
-    line1: "Onlarca",
-    line2: "Mutlu Firma",
+    num: "04",
+    title: "Onlarca Mutlu Firma",
+    description: "Binlerce üyemiz hedeflerine hızla ulaşmanın keyfini yaşıyor.",
   },
 ];
-
-type Props = { sectionClassName?: string };
 
 export default function AboutWhyUsSection({
   sectionClassName = "bg-white",
@@ -39,55 +30,50 @@ export default function AboutWhyUsSection({
     <section
       id="hakkimizda"
       aria-labelledby="about-why-heading"
-      className={`${sectionClassName} px-4 pt-[75px] pb-[60px] sm:px-6 lg:px-8`}
+      className={`${sectionClassName} bg-[var(--color-white)] px-4 py-20 font-sans sm:px-6 lg:px-8`}
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mb-8 w-full text-left">
           <h2
             id="about-why-heading"
-            className="mb-4 flex items-center justify-center gap-3 tracking-tight text-black sm:mb-5"
+            className="mb-4 flex items-start gap-3 text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl lg:text-3xl"
           >
-            <span
-              className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8"
-              aria-hidden
-            />
-            <span className="max-w-[42rem] text-center text-xl font-semibold sm:text-2xl lg:text-3xl">
-              Sanal Ofis için Neden Konsept Ofis?
-            </span>
+            <span className="mt-1 h-7 w-[3px] shrink-0 self-start rounded-full bg-[var(--color-green)] sm:h-8 sm:mt-1.5" aria-hidden />
+            Sanal Ofis için Neden Konsept Ofis?
           </h2>
-          <p className="text-[17px] leading-relaxed text-gray-600">
+          <p className="text-[17px] leading-relaxed text-[var(--color-text-muted)]">
             2 sene önce yabancı ve yerli girişimcilerin,{" "}
-            <span style={{ color: ACCENT }}>hazır ofis</span> ve{" "}
-            <span style={{ color: ACCENT }}>sanal ofis</span> imkânlarından
+            <span className="text-[var(--color-green)]">hazır ofis</span> ve{" "}
+            <span className="text-[var(--color-green)]">sanal ofis</span> imkânlarından
             yararlanmaları için kurulduk. Esnek hizmet çözümlerimiz ile binlerce
             üyemizin sermayelerini ofislerine değil, işlerine yatırmasına ve
             hedeflerine hızlı ulaşmalarına destek olduk.
           </p>
         </div>
 
-        <ul className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-4 lg:mt-14 lg:grid-cols-4 lg:gap-5">
-          {stats.map((item) => {
-            const Icon = item.icon;
-            return (
-              <li key={item.line1}>
-                <article className="flex h-full flex-col items-center rounded-xl border border-[#e8e8e8] bg-white px-3 py-5 text-center shadow-sm sm:px-4 sm:py-6">
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center sm:mb-4 sm:h-12 sm:w-12" aria-hidden>
-                    <Icon
-                      className="h-9 w-9 sm:h-11 sm:w-11"
-                      style={{ color: ACCENT }}
-                    />
-                  </div>
-                  <p className="text-sm font-bold leading-tight text-black sm:text-base">
-                    {item.line1}
-                  </p>
-                  <p className="mt-0.5 text-sm font-bold leading-tight text-black sm:text-base">
-                    {item.line2}
-                  </p>
-                </article>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="grid w-full grid-cols-1 gap-px bg-[var(--color-border-tertiary)] md:grid-cols-[minmax(0,47fr)_minmax(0,53fr)]">
+          {items.map((item) => (
+            <div
+              key={item.num}
+              className="flex min-w-0 items-center gap-4 bg-[var(--color-white)] px-5 py-6 sm:px-6"
+            >
+              <span
+                className="w-11 shrink-0 text-right text-[32px] font-medium leading-none text-[var(--color-green)] opacity-90 sm:w-12 sm:text-4xl"
+                aria-hidden
+              >
+                {item.num}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="mb-1 text-sm font-medium leading-snug text-[var(--foreground)]">
+                  {item.title}
+                </p>
+                <p className="text-[13px] leading-[1.6] text-[var(--color-text-muted)]">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
