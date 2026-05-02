@@ -24,6 +24,19 @@ export const SITE = {
     "https://www.google.com/maps/dir//Mahall+Ankara+C2+Blok+47+%C3%87ankaya+Ankara",
 } as const;
 
+/** Canonical origin, sonda / yok — mutlak şema URL’leri için */
+export const SCHEMA_BASE_URL = SITE.domain.replace(/\/$/, "");
+
+/** JSON-LD @id: tüm sitede tek Organization / LocalBusiness için referans */
+export const SCHEMA_ORGANIZATION_ID = `${SCHEMA_BASE_URL}/#organization`;
+export const SCHEMA_LOCAL_BUSINESS_ID = `${SCHEMA_BASE_URL}/#localbusiness`;
+
+/** Product / Merchant listelerinde kullanılacak varsayılan görseller (tam URL) */
+export const SCHEMA_DEFAULT_IMAGES = [
+  `${SCHEMA_BASE_URL}/ankara-sanal-ofis.webp`,
+  `${SCHEMA_BASE_URL}/konsept-ofis-hakkimizda.webp`,
+] as const;
+
 export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Sanal ofis kullanmak yasal mıdır?",

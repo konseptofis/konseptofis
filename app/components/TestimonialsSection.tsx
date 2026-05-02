@@ -1,6 +1,6 @@
 "use client";
 
-import { SITE } from "@/app/lib/data";
+import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 import SectionHeading from "./SectionHeading";
 
 type Props = { sectionClassName?: string };
@@ -129,15 +129,7 @@ export default function TestimonialsSection({
                   <meta itemProp="ratingValue" content="5" />
                   <meta itemProp="bestRating" content="5" />
                 </div>
-                <div
-                  itemProp="itemReviewed"
-                  itemScope
-                  itemType="https://schema.org/LocalBusiness"
-                  className="sr-only"
-                >
-                  <meta itemProp="name" content={SITE.name} />
-                  <meta itemProp="url" content={SITE.domain} />
-                </div>
+                <link itemProp="itemReviewed" href={SCHEMA_LOCAL_BUSINESS_ID} />
 
                 {isWide ? (
                   <>

@@ -9,7 +9,7 @@ import {
 import PageHeader from "@/app/components/PageHeader";
 import PricingFAQ from "@/app/components/PricingFAQ";
 import SectionHeading from "@/app/components/SectionHeading";
-import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
+import { PRICING_FAQ_ITEMS, SCHEMA_DEFAULT_IMAGES } from "@/app/lib/data";
 import { getPricingPlans } from "@/app/actions/pricing";
 
 // \b "ı" karakterini kelime saymadığı için Toplantı ayrı: sonrasında boşluk veya satır sonu ile eşleşsin
@@ -85,6 +85,7 @@ export default async function FiyatlarPage() {
         "@type": "Product",
         name: plan.title,
         description: `${plan.title} hizmeti için Ankara Çankaya prestijli ofis paketi.`,
+        image: [...SCHEMA_DEFAULT_IMAGES],
         offers: {
           "@type": "Offer",
           price: plan.price.toString().replace(/[^0-9]/g, ""),

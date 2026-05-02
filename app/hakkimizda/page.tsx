@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
-import { SITE } from "@/app/lib/data";
+import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 import {
   CursorArrowRaysIcon,
   DocumentTextIcon,
@@ -94,22 +94,7 @@ export default function HakkimizdaPage() {
     name: "Konsept Ofis Hakkında",
     description:
       "Ankara Çankaya'da girişimciler için yeni nesil çalışma alanları, sanal ofis ve hazır ofis çözümleri.",
-    mainEntity: {
-      "@type": "LocalBusiness",
-      name: "Konsept Ofis",
-      image: `${SITE.domain}/logo.png`,
-      description:
-        "Ankara merkezli, stopajsız sanal ofis, yasal iş adresi ve premium hazır ofis çözümleri sunan esnek çalışma alanı ekosistemi.",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Mahall Ankara",
-        addressLocality: "Çankaya",
-        addressRegion: "Ankara",
-        addressCountry: "TR",
-      },
-      priceRange: "₺₺",
-      areaServed: "Ankara",
-    },
+    mainEntity: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
   };
 
   return (

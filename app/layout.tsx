@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { SITE, FAQ_ITEMS } from "@/app/lib/data";
+import {
+  SITE,
+  FAQ_ITEMS,
+  SCHEMA_BASE_URL,
+  SCHEMA_ORGANIZATION_ID,
+  SCHEMA_LOCAL_BUSINESS_ID,
+  SCHEMA_DEFAULT_IMAGES,
+} from "@/app/lib/data";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -34,71 +41,84 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE.domain },
 };
 
-function LocalBusinessSchema() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${SITE.domain}/#organization`,
-    name: SITE.name,
-    url: SITE.domain,
-    telephone: SITE.phone,
-    email: SITE.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
-      addressLocality: SITE.address.city,
-      addressCountry: SITE.address.country,
+/** Tek script içinde: 1× Organization, 1× LocalBusiness, 1× Product (image + marka referansı) */
+function GlobalStructuredDataSchema() {
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "Organization",
+      "@id": SCHEMA_ORGANIZATION_ID,
+      name: SITE.name,
+      url: SCHEMA_BASE_URL,
+      logo: `${SCHEMA_BASE_URL}/ankara-sanal-ofis-logo.webp`,
+      email: SITE.email,
+      telephone: SITE.phone,
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 39.9208,
-      longitude: 32.8547,
+    {
+      "@type": "LocalBusiness",
+      "@id": SCHEMA_LOCAL_BUSINESS_ID,
+      name: SITE.name,
+      url: SCHEMA_BASE_URL,
+      telephone: SITE.phone,
+      email: SITE.email,
+      image: [...SCHEMA_DEFAULT_IMAGES],
+      priceRange: "₺₺",
+      parentOrganization: { "@id": SCHEMA_ORGANIZATION_ID },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
+        addressLocality: SITE.address.city,
+        addressCountry: SITE.address.country,
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 39.9208,
+        longitude: 32.8547,
+      },
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
     },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "18:00",
+    {
+      "@type": "Product",
+      "@id": `${SCHEMA_BASE_URL}/#product-ankara-ofis`,
+      name: "Ankara Sanal Ofis Hizmeti",
+      description:
+        "Yasal iş adresi, posta kabulü ve kurumsal adres hizmetleri. Ankara Çankaya Mahall Ankara.",
+      image: [...SCHEMA_DEFAULT_IMAGES],
+      brand: { "@id": SCHEMA_ORGANIZATION_ID },
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Sanal Ofis",
+          price: "800",
+          priceCurrency: "TRY",
+          priceValidUntil: "2026-12-31",
+          availability: "https://schema.org/InStock",
+        },
+        {
+          "@type": "Offer",
+          name: "Toplantı Odası Saatlik",
+          price: "300",
+          priceCurrency: "TRY",
+          priceValidUntil: "2026-12-31",
+          availability: "https://schema.org/InStock",
+        },
+      ],
     },
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+  ];
 
-function ProductOfferSchema() {
-  const schema = {
+  const payload = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: "Ankara Sanal Ofis Hizmeti",
-    description: "Yasal iş adresi, posta kabulü ve kurumsal adres hizmetleri.",
-    brand: { "@type": "Brand", name: SITE.name },
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Sanal Ofis",
-        price: "800",
-        priceCurrency: "TRY",
-        priceValidUntil: "2026-12-31",
-        availability: "https://schema.org/InStock",
-      },
-      {
-        "@type": "Offer",
-        name: "Toplantı Odası Saatlik",
-        price: "300",
-        priceCurrency: "TRY",
-        priceValidUntil: "2026-12-31",
-        availability: "https://schema.org/InStock",
-      },
-    ],
+    "@graph": graph,
   };
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(payload) }}
     />
   );
 }
@@ -132,8 +152,7 @@ export default function RootLayout({
       <body
         className="font-sans antialiased text-foreground bg-background overflow-x-hidden"
       >
-        <LocalBusinessSchema />
-        <ProductOfferSchema />
+        <GlobalStructuredDataSchema />
         <FAQPageSchema />
         <Header />
         {children}

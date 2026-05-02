@@ -4,6 +4,7 @@ import SectionHeading from "@/app/components/SectionHeading";
 import ServiceOfferCardsGrid from "@/app/components/ServiceOfferCardsGrid";
 import WhyKonseptOfisSection from "@/app/components/WhyKonseptOfisSection";
 import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 
 /** Anasayfa ve hizmet detay ile aynı zebra arka planları */
 const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
@@ -27,7 +28,7 @@ const servicesSchema = {
         name: "Sanal Ofis",
         description:
           "Şirket kuruluşu için Ankara'da yasal iş adresi ve ticaret sicil kaydı temini.",
-        provider: { "@type": "LocalBusiness", name: "Konsept Ofis" },
+        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
       },
     },
     {
@@ -38,7 +39,7 @@ const servicesSchema = {
         name: "Makam Odası",
         description:
           "Ankara Çankaya'da prestijli bir iş ortamında tam donanımlı makam odası çözümleri.",
-        provider: { "@type": "LocalBusiness", name: "Konsept Ofis" },
+        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
       },
     },
     {
@@ -49,7 +50,7 @@ const servicesSchema = {
         name: "Toplantı Odası",
         description:
           "Müşteri görüşmeleri ve profesyonel sunumlarınız için saatlik veya günlük kiralık toplantı salonları.",
-        provider: { "@type": "LocalBusiness", name: "Konsept Ofis" },
+        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
       },
     },
   ],
