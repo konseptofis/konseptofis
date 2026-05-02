@@ -1,4 +1,4 @@
-/** Anasayfa müşteri yorumları — UI (microdata), LocalBusiness JSON-LD ve veri havuzu. */
+/** Anasayfa müşteri yorumları — UI kartları için ortak metinler. */
 export const HOMEPAGE_TESTIMONIALS = [
   {
     initials: "BÇ",

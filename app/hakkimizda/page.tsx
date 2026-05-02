@@ -1,8 +1,6 @@
 import Image from "next/image";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
-import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
-import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 import {
   CursorArrowRaysIcon,
   DocumentTextIcon,
@@ -89,27 +87,8 @@ const WHY_PREFERRED_ITEMS = [
 ];
 
 export default function HakkimizdaPage() {
-  const aboutPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    name: "Konsept Ofis Hakkında",
-    description:
-      "Ankara Çankaya'da girişimciler için yeni nesil çalışma alanları, sanal ofis ve hazır ofis çözümleri.",
-    mainEntity: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
-  };
-
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <BreadcrumbSchema
-        items={[
-          { name: "Anasayfa", path: "/" },
-          { name: "Hakkımızda", path: "/hakkimizda" },
-        ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
-      />
       <PageHeader
         title="Hakkımızda"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hakkımızda" }]}

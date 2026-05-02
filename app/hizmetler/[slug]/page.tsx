@@ -6,12 +6,6 @@ import SectionHeading from "@/app/components/SectionHeading";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import IntroImageSlider from "@/app/components/IntroImageSlider";
 import MapAndContact from "@/app/components/MapAndContact";
-import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
-import {
-  SCHEMA_BASE_URL,
-  SCHEMA_LOCAL_BUSINESS_ID,
-  SCHEMA_ORGANIZATION_ID,
-} from "@/app/lib/data";
 import { getServiceDetail } from "@/app/lib/hizmet-detay-data";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -24,13 +18,6 @@ const SECTION_PAD = "px-4 py-20 font-sans sm:px-6 lg:px-8";
 
 const BODY_P =
   "text-[17px] leading-relaxed text-[var(--color-text-muted)]";
-
-/** Hizmet detay JSON-LD görseli — sayfa başına tek ürün/hizmet şeması */
-const SERVICE_SCHEMA_IMAGE: Record<string, string> = {
-  "sanal-ofis-hizmeti": "/ankara-sanal-ofis.webp",
-  "hazir-ofis-hizmeti": "/ankara-hazir-ofis.webp",
-  "toplanti-odasi-hizmeti": "/toplanti-odasi-konsept-ofis.webp",
-};
 
 /** H2 içinde `accent` ile birebir eşleşen alt dizeyi marka yeşiliyle gösterir. */
 function headingWithAccent(title: string, accent: string | undefined) {
@@ -57,56 +44,8 @@ export default async function HizmetDetayPage({ params }: Props) {
   const mapSectionBg = ZEBRA_WHITE;
   const faqSectionBg = ZEBRA_GREEN;
 
-  const servicePageUrl = `${SCHEMA_BASE_URL}/hizmetler/${data.slug}`;
-  const serviceImagePath = SERVICE_SCHEMA_IMAGE[data.slug] ?? "/ankara-sanal-ofis.webp";
-  const serviceImageUrl = `${SCHEMA_BASE_URL}${serviceImagePath}`;
-  const serviceDescription = [data.introTitle, data.introParagraphs[0] ?? ""]
-    .join(" ")
-    .trim()
-    .slice(0, 500);
-
-  const serviceGraph = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": `${servicePageUrl}#service`,
-        name: data.title,
-        description: serviceDescription,
-        url: servicePageUrl,
-        image: serviceImageUrl,
-        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
-        brand: { "@id": SCHEMA_ORGANIZATION_ID },
-        areaServed: {
-          "@type": "City",
-          name: "Ankara",
-          containedInPlace: { "@type": "Country", name: "TR" },
-        },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${servicePageUrl}#faq`,
-        mainEntity: data.faq.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: { "@type": "Answer", text: item.answer },
-        })),
-      },
-    ],
-  };
-
-  const breadcrumbSchemaItems = data.breadcrumbs.map((b, i, arr) => ({
-    name: b.label,
-    path: b.href ?? (i === arr.length - 1 ? `/hizmetler/${data.slug}` : "/"),
-  }));
-
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <BreadcrumbSchema items={breadcrumbSchemaItems} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceGraph) }}
-      />
       {/* 1. Hero - H1 */}
       <PageHeader title={titleUpper} breadcrumbs={data.breadcrumbs} />
 

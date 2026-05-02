@@ -1,7 +1,6 @@
 import Link from "next/link";
 import PageHeader from "@/app/components/PageHeader";
 import BlogCard from "@/app/components/BlogCard";
-import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import { getPublishedPosts } from "@/app/actions/blog";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
@@ -35,15 +34,6 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <BreadcrumbSchema
-        items={[
-          { name: "Anasayfa", path: "/" },
-          {
-            name: "Blog",
-            path: currentPage > 1 ? `/blog?page=${currentPage}` : "/blog",
-          },
-        ]}
-      />
       <PageHeader
         title="Blog"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Blog" }]}

@@ -9,9 +9,6 @@ import {
 import BlogCard from "@/app/components/BlogCard";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import TableOfContents from "@/app/components/blog/TableOfContents";
-import ArticleSchema from "@/app/components/seo/ArticleSchema";
-import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
-import FAQSchema from "@/app/components/seo/FAQSchema";
 import { processHeadings } from "@/lib/headings";
 import { getPostBySlug, getPublishedPosts } from "@/app/actions/blog";
 
@@ -61,24 +58,6 @@ export default async function BlogDetailPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <ArticleSchema
-        post={{
-          title: post.title,
-          description: post.meta_description ?? undefined,
-          image: post.featured_image ?? undefined,
-          publishedAt: post.created_at,
-          modifiedAt: post.updated_at,
-          slug: post.slug,
-        }}
-      />
-      <BreadcrumbSchema
-        items={[
-          { name: "Anasayfa", path: "/" },
-          { name: "Blog", path: "/blog" },
-          { name: post.title, path: `/blog/${post.slug}` },
-        ]}
-      />
-      <FAQSchema faqs={post.faqs ?? undefined} />
       <header className="px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center justify-center gap-1 text-sm text-gray-500">

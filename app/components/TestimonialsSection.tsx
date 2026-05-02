@@ -1,6 +1,5 @@
 "use client";
 
-import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 import { HOMEPAGE_TESTIMONIALS } from "@/app/lib/testimonials";
 import SectionHeading from "./SectionHeading";
 
@@ -35,12 +34,7 @@ function UserBlock({
         {initials}
       </div>
       <div className="ml-2.5 min-w-0">
-        <span itemProp="author" itemScope itemType="https://schema.org/Person">
-          <meta itemProp="jobTitle" content={role} />
-          <span itemProp="name" className="text-[13px] font-bold text-gray-900">
-            {name}
-          </span>
-        </span>
+        <span className="text-[13px] font-bold text-gray-900">{name}</span>
         <p className="mt-0.5 text-[11px] text-gray-500">{role}</p>
       </div>
     </div>
@@ -95,19 +89,8 @@ export default function TestimonialsSection({
             return (
               <article
                 key={`${item.name}-${index}`}
-                itemScope
-                itemType="https://schema.org/Review"
                 className={`group relative rounded-xl bg-white pt-7 pr-7 pb-6 pl-6 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] transition-shadow duration-200 ease-out hover:shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_28px_rgba(0,0,0,0.08)] ${isWide ? "md:col-span-3 md:mx-auto md:grid md:h-[150px] md:w-[min(100%,1199.98px)] md:grid-cols-[1fr_280px] md:items-center md:gap-5 md:overflow-hidden md:py-2 md:pr-5 md:pl-5" : ""}`}
               >
-                <meta itemProp="datePublished" content={item.datePublished} />
-                <meta itemProp="reviewBody" content={item.text} />
-                <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating" className="sr-only">
-                  <meta itemProp="ratingValue" content="5" />
-                  <meta itemProp="bestRating" content="5" />
-                  <meta itemProp="worstRating" content="1" />
-                </div>
-                <link itemProp="itemReviewed" href={SCHEMA_LOCAL_BUSINESS_ID} />
-
                 {isWide ? (
                   <>
                     <div className="min-w-0 md:self-center">

@@ -3,9 +3,7 @@ import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import ServiceOfferCardsGrid from "@/app/components/ServiceOfferCardsGrid";
 import WhyKonseptOfisSection from "@/app/components/WhyKonseptOfisSection";
-import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
-import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 
 /** Anasayfa ve hizmet detay ile aynı zebra arka planları */
 const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
@@ -17,59 +15,9 @@ export const metadata = {
     "Ankara Çankaya'da Konsept Ofis ayrıcalığıyla sanal ofis, toplantı ve makam odası kiralama hizmetlerimizi inceleyin. Profesyonel çözümlerle tanışın.",
 };
 
-const servicesSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      item: {
-        "@type": "Service",
-        name: "Sanal Ofis",
-        description:
-          "Şirket kuruluşu için Ankara'da yasal iş adresi ve ticaret sicil kaydı temini.",
-        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      item: {
-        "@type": "Service",
-        name: "Makam Odası",
-        description:
-          "Ankara Çankaya'da prestijli bir iş ortamında tam donanımlı makam odası çözümleri.",
-        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      item: {
-        "@type": "Service",
-        name: "Toplantı Odası",
-        description:
-          "Müşteri görüşmeleri ve profesyonel sunumlarınız için saatlik veya günlük kiralık toplantı salonları.",
-        provider: { "@id": SCHEMA_LOCAL_BUSINESS_ID },
-      },
-    },
-  ],
-};
-
 export default function HizmetlerPage() {
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <BreadcrumbSchema
-        items={[
-          { name: "Anasayfa", path: "/" },
-          { name: "Hizmetler", path: "/hizmetler" },
-        ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
-      />
       <PageHeader
         title="Hizmetler"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hizmetler" }]}
