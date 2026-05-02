@@ -1,36 +1,12 @@
 "use client";
 
 import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
+import { HOMEPAGE_TESTIMONIALS } from "@/app/lib/testimonials";
 import SectionHeading from "./SectionHeading";
 
 type Props = { sectionClassName?: string };
 
-const REVIEWS = [
-  {
-    initials: "AY",
-    name: "Ahmet Yılmaz",
-    role: "Sanal ofis kullanıcısı",
-    text: "Konsept Ofis ile sanal ofis adresimizi bir günde aktive ettik. Kargolar için anlık bildirim alıyorum, toplantı odasını saatlik kullanıyorum. Şeffaf fiyat ve ilgili ekip için teşekkürler.",
-  },
-  {
-    initials: "MD",
-    name: "Mehmet Demir",
-    role: "Yasal adres & sanal ofis",
-    text: "Vergi levhası adresi olarak Konsept Ofis'i kullanıyoruz. Tebligat ve posta düzenli iletiliyor, adres doğrulamalarında ekip her zaman yanımızda oldu.",
-  },
-  {
-    initials: "ZÖ",
-    name: "Zeynep Özkan",
-    role: "Toplantı odası kullanıcısı",
-    text: "Toplantı odasını saatlik kiraladım: temiz, sessiz, projeksiyon hazırdı. Metro yakın, fiyat net. Kesinlikle tekrar tercih ederim.",
-  },
-  {
-    initials: "SY",
-    name: "Selin Yıldız",
-    role: "Karma paket kullanıcısı",
-    text: "Hem sanal ofis hem toplantı odası kullanıyorum. Fiyatlar net, resepsiyon hızlı dönüş yapıyor. Ankara'da ofis arayanlara gönül rahatlığıyla öneririm.",
-  },
-] as const;
+const REVIEWS = HOMEPAGE_TESTIMONIALS;
 
 const BORDER = "#e5e5e5";
 
@@ -91,8 +67,6 @@ function ReviewCardBody({ text, dense }: { text: string; dense?: boolean }) {
 export default function TestimonialsSection({
   sectionClassName = "bg-white",
 }: Props) {
-  const count = REVIEWS.length;
-
   return (
     <section
       id="yorumlar"
@@ -110,7 +84,7 @@ export default function TestimonialsSection({
             </SectionHeading>
           </div>
           <p className="shrink-0 text-[13px] text-gray-500 md:self-end">
-            {"\u2605"} 5.0&nbsp;&nbsp;·&nbsp;&nbsp;{count} Değerlendirme
+            {"\u2605"} 5.0&nbsp;&nbsp;·&nbsp;&nbsp;+15 Değerlendirme
           </p>
         </header>
 

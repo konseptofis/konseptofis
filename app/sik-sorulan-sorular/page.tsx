@@ -1,6 +1,7 @@
 import PageHeader from "@/app/components/PageHeader";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import FAQSchema from "@/app/components/seo/FAQSchema";
+import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import { FAQ_ITEMS } from "@/app/lib/data";
 
 export const metadata = {
@@ -12,6 +13,12 @@ export const metadata = {
 export default function SssPage() {
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <BreadcrumbSchema
+        items={[
+          { name: "Anasayfa", path: "/" },
+          { name: "Sık Sorulan Sorular", path: "/sik-sorulan-sorular" },
+        ]}
+      />
       <FAQSchema faqs={FAQ_ITEMS} />
       <PageHeader
         title="Sık Sorulan Sorular"

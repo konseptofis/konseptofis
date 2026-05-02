@@ -14,6 +14,7 @@ export const SITE = {
     line2: "C2 Blok No:47, Çankaya",
     city: "Ankara",
     country: "TR",
+    postalCode: "06420",
     full: "Mahall Ankara, C2 Blok No:47, Çankaya, Ankara, TR",
   },
   whatsapp: "903129119557",
@@ -30,6 +31,16 @@ export const SCHEMA_BASE_URL = SITE.domain.replace(/\/$/, "");
 /** JSON-LD @id: tüm sitede tek Organization / LocalBusiness için referans */
 export const SCHEMA_ORGANIZATION_ID = `${SCHEMA_BASE_URL}/#organization`;
 export const SCHEMA_LOCAL_BUSINESS_ID = `${SCHEMA_BASE_URL}/#localbusiness`;
+export const SCHEMA_WEBSITE_ID = `${SCHEMA_BASE_URL}/#website`;
+
+/** Sosyal profiller — Organization sameAs (ana sayfa) */
+export const SITE_SOCIAL_SAME_AS: readonly string[] = [
+  "https://www.facebook.com/profile.php?id=61574808733053",
+  "https://x.com/KonseptOfis",
+  "https://www.youtube.com/@KonseptOfis",
+  "https://www.instagram.com/konseptofis/",
+  "https://www.linkedin.com/company/konseptofis/?viewAsMember=true",
+];
 
 /** Product / Merchant listelerinde kullanılacak varsayılan görseller (tam URL) */
 export const SCHEMA_DEFAULT_IMAGES = [

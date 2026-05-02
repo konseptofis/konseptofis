@@ -3,6 +3,7 @@ import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import ServiceOfferCardsGrid from "@/app/components/ServiceOfferCardsGrid";
 import WhyKonseptOfisSection from "@/app/components/WhyKonseptOfisSection";
+import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 import { SCHEMA_LOCAL_BUSINESS_ID } from "@/app/lib/data";
 
@@ -59,6 +60,12 @@ const servicesSchema = {
 export default function HizmetlerPage() {
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <BreadcrumbSchema
+        items={[
+          { name: "Anasayfa", path: "/" },
+          { name: "Hizmetler", path: "/hizmetler" },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}

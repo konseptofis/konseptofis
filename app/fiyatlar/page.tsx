@@ -6,10 +6,16 @@ import {
   SparklesIcon,
   HandRaisedIcon,
 } from "@heroicons/react/24/outline";
+import BreadcrumbSchema from "@/app/components/seo/BreadcrumbSchema";
 import PageHeader from "@/app/components/PageHeader";
 import PricingFAQ from "@/app/components/PricingFAQ";
 import SectionHeading from "@/app/components/SectionHeading";
-import { PRICING_FAQ_ITEMS, SCHEMA_DEFAULT_IMAGES } from "@/app/lib/data";
+import {
+  PRICING_FAQ_ITEMS,
+  SCHEMA_BASE_URL,
+  SCHEMA_DEFAULT_IMAGES,
+  SCHEMA_ORGANIZATION_ID,
+} from "@/app/lib/data";
 import { getPricingPlans } from "@/app/actions/pricing";
 
 // \b "ı" karakterini kelime saymadığı için Toplantı ayrı: sonrasında boşluk veya satır sonu ile eşleşsin
@@ -44,6 +50,16 @@ export const metadata = {
 /** Anasayfa / hizmetler ile aynı zebra arka planları */
 const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
 const ZEBRA_WHITE = "bg-white";
+
+function pricingProductImageUrl(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("toplantı") || t.includes("toplanti"))
+    return `${SCHEMA_BASE_URL}/toplanti-odasi-konsept-ofis.webp`;
+  if (t.includes("hazır") || t.includes("hazir") || t.includes("makam"))
+    return `${SCHEMA_BASE_URL}/ankara-hazir-ofis.webp`;
+  if (t.includes("sanal")) return `${SCHEMA_BASE_URL}/ankara-sanal-ofis.webp`;
+  return SCHEMA_DEFAULT_IMAGES[0];
+}
 
 const STANDARD_ITEMS = [
   {
@@ -83,13 +99,17 @@ export default async function FiyatlarPage() {
       position: index + 1,
       item: {
         "@type": "Product",
+        "@id": `${SCHEMA_BASE_URL}/fiyatlar#product-${plan.id}`,
         name: plan.title,
         description: `${plan.title} hizmeti için Ankara Çankaya prestijli ofis paketi.`,
-        image: [...SCHEMA_DEFAULT_IMAGES],
+        image: pricingProductImageUrl(plan.title),
+        brand: { "@id": SCHEMA_ORGANIZATION_ID },
+        url: `${SCHEMA_BASE_URL}/fiyatlar`,
         offers: {
           "@type": "Offer",
           price: plan.price.toString().replace(/[^0-9]/g, ""),
           priceCurrency: "TRY",
+          priceValidUntil: "2026-12-31",
           availability: "https://schema.org/InStock",
         },
       },
@@ -111,6 +131,12 @@ export default async function FiyatlarPage() {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
+      <BreadcrumbSchema
+        items={[
+          { name: "Anasayfa", path: "/" },
+          { name: "Fiyatlar", path: "/fiyatlar" },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -1,3 +1,4 @@
+import HomeStructuredData from "./components/seo/HomeStructuredData";
 import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
 import ContentWithImage from "./components/ContentWithImage";
@@ -14,6 +15,7 @@ const HOME_BG_WHITE = "bg-white";
 export default function Home() {
   return (
     <main id="main-content">
+      <HomeStructuredData />
       <HeroSection />
       <AboutWhyUsSection sectionClassName={HOME_BG_WHITE} />
       <ServiceCards sectionClassName={HOME_BG_GREEN} />
