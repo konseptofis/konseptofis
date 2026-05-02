@@ -188,13 +188,13 @@ export default async function HizmetDetayPage({ params }: Props) {
             {headingWithAccent(data.targetTitle, data.targetHeadingAccent)}
           </SectionHeading>
           {data.targetAudience.every((t) => t.icon) ? (
-            <div className="mt-8 grid grid-cols-1 gap-4 md:gap-5 lg:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-6 auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
               {data.targetAudience.map((item) => {
                 const Icon = item.icon!;
                 return (
                   <article
                     key={item.title}
-                    className="group flex flex-col items-center gap-2 rounded-[14px] border border-[#e8eaed] bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] md:flex-row md:items-start md:gap-5 md:px-6 md:py-7 md:text-left"
+                    className="group flex h-full flex-col items-center gap-2 rounded-[14px] border border-[#e8eaed] bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] md:flex-row md:items-start md:gap-5 md:px-6 md:py-7 md:text-left"
                   >
                     <div
                       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#0b7041]/[0.08] md:h-12 md:w-12"
@@ -202,11 +202,11 @@ export default async function HizmetDetayPage({ params }: Props) {
                     >
                       <Icon className="h-[18px] w-[18px] shrink-0 text-[#0b7041] md:h-[22px] md:w-[22px]" />
                     </div>
-                    <div className="min-w-0 flex-1">
+                    <div className="flex min-h-0 min-w-0 flex-1 flex-col">
                       <h3 className="mb-1 text-[10px] font-medium leading-tight tracking-tight text-black md:mb-2 md:text-[15px] md:tracking-tight">
                         {item.title}
                       </h3>
-                      <p className="m-0 text-[10px] leading-snug text-gray-600 line-clamp-4 md:text-[14px] md:leading-[1.65] md:line-clamp-none">
+                      <p className="m-0 flex-1 text-[10px] leading-snug text-gray-600 line-clamp-4 md:text-[14px] md:leading-[1.65] md:line-clamp-none">
                         {item.paragraph}
                       </p>
                     </div>

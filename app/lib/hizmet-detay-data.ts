@@ -4,17 +4,21 @@ import {
   BuildingOffice2Icon,
   BriefcaseIcon,
   CalendarDaysIcon,
+  ChatBubbleLeftRightIcon,
   ComputerDesktopIcon,
   DocumentTextIcon,
   GlobeAltIcon,
+  HeartIcon,
   MapPinIcon,
   PhoneIcon,
   RocketLaunchIcon,
+  ScaleIcon,
   ShieldCheckIcon,
   SunIcon,
   UserGroupIcon,
   WifiIcon,
 } from "@heroicons/react/24/outline";
+import { HOMEPAGE_TESTIMONIALS } from "./testimonials";
 
 export type ServiceFeature = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -155,6 +159,19 @@ export type ServiceDetailData = {
   packageHeadingAccent?: string;
 };
 
+function testimonialsFromIndices(indices: readonly number[]): Testimonial[] {
+  return indices.map((i) => {
+    const t = HOMEPAGE_TESTIMONIALS[i];
+    if (!t) throw new Error(`Invalid testimonial index ${i}`);
+    return {
+      quote: t.text,
+      name: t.name,
+      title: t.role,
+      company: "Mahall Ankara",
+    };
+  });
+}
+
 const HAZIR_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
   {
     icon: BuildingOffice2Icon,
@@ -286,6 +303,24 @@ const SANAL_OFIS: ServiceDetailData = {
       paragraph:
         "Türkiye'de faaliyet gösterecek yabancı sermayeli şirketler için yasal temsil adresi. Fiziksel ofis açmadan Ankara'nın prestijli lokasyonunda operasyonel maliyetlerinizi düşürün.",
     },
+    {
+      icon: ScaleIcon,
+      title: "Avukatlar ve Hukuk Büroları",
+      paragraph:
+        "Avukat sanal ofis çözümleriyle baro kaydınız için prestijli yasal adres sağlayın. Duruşmadayken resmi tebligatlarınız güvenle teslim alınsın ve anında size bildirilsin.",
+    },
+    {
+      icon: ChatBubbleLeftRightIcon,
+      title: "Klinik ve Uzman Psikologlar",
+      paragraph:
+        "Online terapi süreçlerinizde ev adresinizi gizli tutarak kurumsal bir imaj çizin. Yüz yüze seanslarınız için ihtiyaç anında tam donanımlı toplantı odalarını kullanın.",
+    },
+    {
+      icon: HeartIcon,
+      title: "Online Diyetisyenler",
+      paragraph:
+        "Fiziksel bir kliniğe yüksek kiralar ödemeden yasal adresinize sahip olun. Danışanlarınızla yüz yüze görüşmek istediğinizde prestijli lobi ve ofis alanlarımızda ağırlayın.",
+    },
   ],
   features: [],
   mahallSpotlightBlock: {
@@ -307,29 +342,7 @@ const SANAL_OFIS: ServiceDetailData = {
   packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
   packageListItems: [],
   testimonialsTitle: "Müşterilerimiz Ne Diyor?",
-  testimonials: [
-    {
-      quote:
-        "Sanal ofis hizmeti sayesinde şirket adresimizi prestijli bir lokasyona taşıdık. Posta ve kargo kabulü, müşteri toplantıları için toplantı odası imkânı çok işimize yarıyor. Vergi levhası ve ticaret sicil işlemlerimiz sorunsuz ilerliyor. Kesinlikle tavsiye ederim.",
-      name: "Ahmet Yılmaz",
-      title: "Kurucu",
-      company: "TechStart Danışmanlık",
-    },
-    {
-      quote:
-        "Yeni kurduğum şirket için yasal adres ve posta hizmeti aldım. Süreç hızlı, iletişim net. Mahall Ankara konumu da ulaşım açısından çok iyi. Stopajsız faturalandırma ve gizli maliyet olmaması bütçemizi rahatlattı. Teşekkürler Konsept Ofis.",
-      name: "Can Arslan",
-      title: "Genel Müdür",
-      company: "Arslan Dış Ticaret",
-    },
-    {
-      quote:
-        "Hem sanal ofis hem toplantı odası kullanıyorum. Fiyatlar net, ekstra ücret yok. Ekip ilgili ve profesyonel. Ankara'da ofis çözümü arayan herkese öneriyorum.",
-      name: "Selin Yıldız",
-      title: "Serbest Muhasebeci",
-      company: "Yıldız Mali Müşavirlik",
-    },
-  ],
+  testimonials: testimonialsFromIndices([0, 1, 2, 3]),
   faq: [
     {
       question: "Sanal ofis adresi vergi levhasında kullanılabilir mi?",
@@ -437,22 +450,7 @@ const HAZIR_OFIS: ServiceDetailData = {
   packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
   packageListItems: [],
   testimonialsTitle: "Müşterilerimiz Ne Diyor?",
-  testimonials: [
-    {
-      quote:
-        "Hazır ofis kiralama sürecinde Konsept Ofis ekibi çok ilgiliydi. Merkezi konum, hızlı internet ve sınırsız çay-kahve ile günlük çalışma ortamı ihtiyacımı karşılıyorum.",
-      name: "Elif Kaya",
-      title: "Kurucu",
-      company: "Kaya Dijital",
-    },
-    {
-      quote:
-        "Tam donanımlı ofis birimleri ve esnek sözleşme koşulları sayesinde büyüme dönemimizi sorunsuz yönettik. Toplantı odası kullanımı da işimize çok yarıyor.",
-      name: "Mehmet Demir",
-      title: "Genel Müdür",
-      company: "Demir Yazılım",
-    },
-  ],
+  testimonials: testimonialsFromIndices([1, 3, 0]),
   faq: [
     {
       question: "Hazır ofisi günlük kiralayabilir miyim?",
@@ -549,15 +547,7 @@ const TOPLANTI_ODASI: ServiceDetailData = {
   packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
   packageListItems: [],
   testimonialsTitle: "Müşterilerimiz Ne Diyor?",
-  testimonials: [
-    {
-      quote:
-        "Toplantı odasını saatlik kiraladım; temiz, sessiz ve donanımlıydı. Fiyatlar şeffaf, gizli maliyet yok. İş ortaklarımla görüşmek için artık hep bu adresi kullanıyorum.",
-      name: "Zeynep Özkan",
-      title: "Kurucu",
-      company: "Özkan İletişim",
-    },
-  ],
+  testimonials: testimonialsFromIndices([0, 1, 2]),
   faq: [
     {
       question: "Toplantı odasını saatlik mi kiralıyorum?",
