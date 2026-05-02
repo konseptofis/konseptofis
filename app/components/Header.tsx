@@ -10,6 +10,41 @@ import { SITE } from "@/app/lib/data";
 const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
 
+function isHizmetlerPath(path: string): boolean {
+  return (
+    path === "/hizmetler" ||
+    path.startsWith("/hizmetler/") ||
+    path === "/hizmetlerimiz" ||
+    path.startsWith("/hizmetlerimiz/")
+  );
+}
+
+function isKurumsalPath(path: string): boolean {
+  return (
+    path === "/hakkimizda" ||
+    path.startsWith("/hakkimizda/") ||
+    path === "/sik-sorulan-sorular" ||
+    path.startsWith("/sik-sorulan-sorular/")
+  );
+}
+
+function isPathActive(pathname: string, href: string): boolean {
+  if (href === "/hizmetlerimiz") return isHizmetlerPath(pathname);
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/** Aktif menü işareti: kısa dikey çubuk, 6px köşe yuvarlak */
+function NavActiveMark({ active }: { active: boolean }) {
+  return (
+    <span
+      className={`h-3 w-[3px] shrink-0 rounded-[6px] ${
+        active ? "bg-[var(--color-green)]" : "bg-transparent"
+      }`}
+      aria-hidden
+    />
+  );
+}
+
 type NavLinkItem =
   | { href: string; label: string }
   | { label: string; children: { href: string; label: string }[] };
@@ -132,7 +167,13 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm lg:text-base font-medium">
             {navLinks.map((item) =>
               "href" in item ? (
-                <Link key={item.href} href={item.href} className={linkClass}>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`inline-flex items-center gap-2 ${linkClass}`}
+                  aria-current={isPathActive(pathname, item.href) ? "page" : undefined}
+                >
+                  <NavActiveMark active={isPathActive(pathname, item.href)} />
                   {item.label}
                 </Link>
               ) : (
@@ -150,26 +191,37 @@ export default function Header() {
                 >
                   <button
                     type="button"
-                    className={`inline-flex cursor-pointer items-center gap-1 ${linkClass}`}
+                    className={`inline-flex cursor-pointer items-center gap-2 ${linkClass}`}
                     aria-expanded={dropdownOpen}
                     aria-haspopup="true"
+                    aria-current={isKurumsalPath(pathname) ? "page" : undefined}
                   >
+                    <NavActiveMark active={isKurumsalPath(pathname)} />
                     {item.label}
                     <ChevronDownIcon className={`h-4 w-4 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} aria-hidden />
                   </button>
                   {dropdownOpen && (
                     <div className="absolute left-0 top-full z-50 pt-1">
                       <div className="min-w-[180px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
-                      {item.children.map(({ href, label }) => (
+                      {item.children.map(({ href, label }) => {
+                        const childActive = isPathActive(pathname, href);
+                        return (
                         <Link
                           key={href}
                           href={href}
-                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#0b7041]"
+                          className={`flex items-center gap-2 py-2.5 pl-2 pr-4 text-sm ${
+                            childActive
+                              ? "bg-[#f6faf8] font-medium text-[#0b7041]"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-[#0b7041]"
+                          }`}
+                          aria-current={childActive ? "page" : undefined}
                           onClick={() => setDropdownOpen(false)}
                         >
+                          <NavActiveMark active={childActive} />
                           {label}
                         </Link>
-                      ))}
+                        );
+                      })}
                       </div>
                     </div>
                   )}
@@ -202,9 +254,11 @@ export default function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="py-3.5 px-3 text-[#0b7041] font-semibold rounded-lg hover:bg-[#f0f5f0] active:bg-[#e8efe8]"
+                    className={`inline-flex items-center gap-2 py-3.5 font-semibold text-[#0b7041] rounded-lg hover:bg-[#f0f5f0] active:bg-[#e8efe8]`}
+                    aria-current={isPathActive(pathname, item.href) ? "page" : undefined}
                     onClick={() => setMenuOpen(false)}
                   >
+                    <NavActiveMark active={isPathActive(pathname, item.href)} />
                     {item.label}
                   </Link>
                 ) : (
@@ -212,23 +266,37 @@ export default function Header() {
                     <button
                       type="button"
                       onClick={() => setKurumsalOpen((o) => !o)}
-                      className="flex w-full cursor-pointer items-center justify-between py-3.5 px-3 text-[#0b7041] font-semibold rounded-lg hover:bg-[#f0f5f0]"
+                      className="flex w-full cursor-pointer items-center justify-between gap-2 py-3.5 font-semibold text-[#0b7041] rounded-lg hover:bg-[#f0f5f0]"
+                      aria-expanded={kurumsalOpen}
+                      aria-current={isKurumsalPath(pathname) ? "page" : undefined}
                     >
-                      {item.label}
-                      <ChevronDownIcon className={`h-5 w-5 transition-transform ${kurumsalOpen ? "rotate-180" : ""}`} aria-hidden />
+                      <span className="inline-flex min-w-0 items-center gap-2">
+                        <NavActiveMark active={isKurumsalPath(pathname)} />
+                        {item.label}
+                      </span>
+                      <ChevronDownIcon className={`h-5 w-5 shrink-0 transition-transform ${kurumsalOpen ? "rotate-180" : ""}`} aria-hidden />
                     </button>
                     {kurumsalOpen && (
                       <div className="pl-3 pb-2">
-                        {item.children.map(({ href, label }) => (
+                        {item.children.map(({ href, label }) => {
+                          const childActive = isPathActive(pathname, href);
+                          return (
                           <Link
                             key={href}
                             href={href}
-                            className="block py-2.5 text-sm font-medium text-gray-700 hover:text-[#0b7041]"
+                            className={`flex items-center gap-2 py-2.5 pl-1 text-sm font-medium ${
+                              childActive
+                                ? "text-[#0b7041]"
+                                : "text-gray-700 hover:text-[#0b7041]"
+                            }`}
+                            aria-current={childActive ? "page" : undefined}
                             onClick={() => setMenuOpen(false)}
                           >
+                            <NavActiveMark active={childActive} />
                             {label}
                           </Link>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
