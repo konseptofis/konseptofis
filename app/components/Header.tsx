@@ -30,7 +30,7 @@ const navLinks: NavLinkItem[] = [
 
 export default function Header() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) return null;
+  const isAdminPath = pathname.startsWith("/admin");
   const isHomePage = pathname === "/";
   const [isLight, setIsLight] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (!isHomePage) return;
+    if (!isHomePage || isAdminPath) return;
     const onScroll = () => {
       const y = window.scrollY;
       if (y >= SCROLL_DOWN) isLightRef.current = true;
@@ -59,12 +59,14 @@ export default function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHomePage]);
+  }, [isHomePage, isAdminPath]);
 
 
   const showLightHeader = !isHomePage || isLight || menuOpen;
   const linkClass = showLightHeader ? "text-black hover:opacity-80" : "text-white/90 hover:text-white";
   const headerPositionClass = isHomePage ? "fixed left-0 top-0" : "relative";
+
+  if (isAdminPath) return null;
 
   return (
     <header

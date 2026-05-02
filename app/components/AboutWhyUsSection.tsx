@@ -1,3 +1,5 @@
+import SectionHeading from "./SectionHeading";
+
 type Props = { sectionClassName?: string };
 
 const items: { num: string; title: string; description: string }[] = [
@@ -34,13 +36,9 @@ export default function AboutWhyUsSection({
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 w-full text-left">
-          <h2
-            id="about-why-heading"
-            className="mb-4 flex items-start gap-3 text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl lg:text-3xl"
-          >
-            <span className="mt-1 h-7 w-[3px] shrink-0 self-start rounded-full bg-[var(--color-green)] sm:h-8 sm:mt-1.5" aria-hidden />
+          <SectionHeading id="about-why-heading" className="mb-4">
             Sanal Ofis için Neden Konsept Ofis?
-          </h2>
+          </SectionHeading>
           <p className="text-[17px] leading-relaxed text-[var(--color-text-muted)]">
             2 sene önce yabancı ve yerli girişimcilerin,{" "}
             <span className="text-[var(--color-green)]">hazır ofis</span> ve{" "}

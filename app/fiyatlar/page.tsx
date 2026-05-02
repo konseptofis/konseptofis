@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import PageHeader from "@/app/components/PageHeader";
 import PricingFAQ from "@/app/components/PricingFAQ";
+import SectionHeading from "@/app/components/SectionHeading";
 import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
 import { getPricingPlans } from "@/app/actions/pricing";
 
@@ -39,6 +40,10 @@ export const metadata = {
   description:
     "Ankara Çankaya sanal ofis, hazır ofis ve toplantı odası kiralama fiyatlarımızı inceleyin. Stopajsız, aidatsız ve bütçenize en uygun esnek paketler.",
 };
+
+/** Anasayfa / hizmetler ile aynı zebra arka planları */
+const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
+const ZEBRA_WHITE = "bg-white";
 
 const STANDARD_ITEMS = [
   {
@@ -118,17 +123,13 @@ export default async function FiyatlarPage() {
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Fiyatlar" }]}
       />
       <section
-        className="px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12"
+        className={`${ZEBRA_WHITE} px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12`}
         aria-labelledby="pricing-heading"
       >
         <div className="mx-auto max-w-6xl">
-          <h2 id="pricing-heading" className="sr-only">
-            Fiyat listesi
-          </h2>
-          <h2 className="mb-4 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+          <SectionHeading id="pricing-heading" className="mb-4">
             Ankara Sanal Ofis ve Hazır Ofis Fiyatları
-          </h2>
+          </SectionHeading>
           <p className="mb-10 text-left text-base text-gray-600">
             Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis ve aidatsız hazır ofis çözümleriyle sürpriz maliyetlere son verin.
           </p>
@@ -175,23 +176,19 @@ export default async function FiyatlarPage() {
         </div>
       </section>
 
-      {/* Tüm Paketlerde Standart */}
+      {/* Tüm Paketlerde Standart — zebra: yeşilimsi */}
       <section
-        className="bg-[#f9fafb] px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20"
+        className={`${ZEBRA_GREEN} px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20`}
         aria-labelledby="standard-heading"
       >
         <div className="mx-auto max-w-6xl">
           <div className="mb-4">
-            <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-[#0b7041] sm:text-base">
-              <span className="h-6 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-7" aria-hidden />
+            <p className="mb-1 text-[11px] font-medium tracking-[0.1em] text-[var(--color-green)]">
               KONSEPT OFİS AYRICALIKLARI
             </p>
-            <h2
-              id="standard-heading"
-              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
+            <SectionHeading id="standard-heading" className="mt-2">
               Tüm Çalışma Alanlarımızda Standart Hizmetler
-            </h2>
+            </SectionHeading>
             <p className="mt-4 text-left text-base text-gray-600">
               Hangi ofis paketini seçerseniz seçin; işinize değer katan ve gününüzü kolaylaştıran bu ayrıcalıklara hiçbir ek ücret ödemeden sahip olursunuz.
             </p>
@@ -205,7 +202,7 @@ export default async function FiyatlarPage() {
                   className="flex flex-col items-center rounded-lg border border-[#e5e5e5] bg-white p-6 text-center shadow-sm"
                 >
                   <Icon className="h-12 w-12 shrink-0 text-[#0b7041]" aria-hidden />
-                  <h3 className="mt-4 font-bold text-black">{item.title}</h3>
+                  <h3 className="mt-4 font-medium text-black">{item.title}</h3>
                   <p className="mt-2 text-sm text-gray-500">{item.description}</p>
                 </div>
               );
@@ -214,19 +211,15 @@ export default async function FiyatlarPage() {
         </div>
       </section>
 
-      {/* Sıkça Sorulan Sorular */}
+      {/* Sıkça Sorulan Sorular — zebra: beyaz */}
       <section
-        className="bg-white px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20"
+        className={`${ZEBRA_WHITE} px-4 pt-8 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20`}
         aria-labelledby="faq-heading"
       >
         <div className="mx-auto max-w-6xl">
-          <h2
-            id="faq-heading"
-            className="mb-4 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl"
-          >
-            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+          <SectionHeading id="faq-heading" className="mb-4">
             Sıkça Sorulan Sorular
-          </h2>
+          </SectionHeading>
           <p className="mb-10 text-left text-base text-gray-600">
             Ankara Çankaya&apos;daki sanal ofis ve hazır ofis çözümlerimiz hakkında aklınıza takılan tüm detayları, şeffaf hizmet anlayışımızla sizin için yanıtladık.
           </p>
@@ -238,14 +231,14 @@ export default async function FiyatlarPage() {
 
       {/* Hemen Başlayın CTA */}
       <section
-        className="bg-[#0b7041] px-4 py-10 sm:px-6 sm:py-12 lg:px-8"
+        className="bg-[#0b7041] px-4 py-[28px] sm:px-6 lg:px-8"
         aria-labelledby="cta-heading"
       >
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 lg:flex-row lg:justify-between lg:gap-12">
           <div className="text-center lg:text-left">
             <h2
               id="cta-heading"
-              className="text-2xl font-bold text-white sm:text-3xl"
+              className="text-[30px] font-bold text-white"
             >
               Hangi paketin size uygun olduğuna karar veremediniz mi?
             </h2>

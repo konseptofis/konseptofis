@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { FAQ_ITEMS } from "@/app/lib/data";
+import SectionHeading from "./SectionHeading";
 
 type Props = { sectionClassName?: string };
 
@@ -21,16 +22,12 @@ export default function FAQAccordion({ sectionClassName = "bg-white" }: Props) {
           {/* Sol: başlık + akordiyon */}
           <div className="min-w-0 flex-1 lg:max-w-[min(100%,640px)]">
             <div className="mb-6 sm:mb-7">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#0b7041]">
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-green)]">
                 Sıkça Sorulan Sorular
               </p>
-              <h2
-                id="faq-main-heading"
-                className="flex items-center gap-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"
-              >
-                <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+              <SectionHeading id="faq-main-heading" className="mt-2">
                 Aklınıza takılanlar?
-              </h2>
+              </SectionHeading>
             </div>
 
             <ul className="space-y-3">

@@ -12,6 +12,7 @@ import {
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { SITE } from "@/app/lib/data";
 import PageHeader from "@/app/components/PageHeader";
+import SectionHeading from "@/app/components/SectionHeading";
 
 export default function IletisimPage() {
   const [service, setService] = useState<"sanal" | "makam" | "toplanti" | "">("");
@@ -77,7 +78,7 @@ export default function IletisimPage() {
       {/* Ana içerik - pattern arka plan */}
       <section
         className="relative px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12"
-        aria-labelledby="contact-content-heading"
+        aria-labelledby="contact-content-heading contact-form-heading"
       >
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -87,16 +88,12 @@ export default function IletisimPage() {
           aria-hidden
         />
         <div className="relative z-10 mx-auto max-w-6xl">
-          <h2 id="contact-content-heading" className="sr-only">
-            İletişim bilgileri ve form
-          </h2>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
             {/* Sol: Bize ulaşın */}
             <div className="space-y-6 lg:pt-8">
-              <h3 className="mb-4 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+              <SectionHeading id="contact-content-heading" className="mb-4">
                 Bize ulaşın
-              </h3>
+              </SectionHeading>
               <p className="text-gray-600 leading-relaxed">
                 Sanal ofis, Makam odası ve Toplantı odası çözümlerimiz ile ilgili
                 detaylı bilgi için bizi dilediğiniz zaman arayabilirsiniz. Sizleri
@@ -193,10 +190,9 @@ export default function IletisimPage() {
 
             {/* Sağ: İletişim formu */}
             <div className="rounded-[8px] border border-[#e5e5e5] bg-white p-6 shadow-sm sm:p-8">
-              <h3 className="mb-6 flex items-center gap-3 text-left text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+              <SectionHeading id="contact-form-heading" className="mb-6">
                 İletişim formu
-              </h3>
+              </SectionHeading>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="contact-name" className="mb-1 block text-sm font-medium text-gray-700">

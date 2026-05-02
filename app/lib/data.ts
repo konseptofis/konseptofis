@@ -5,7 +5,7 @@
 
 export const SITE = {
   name: "Konsept Ofis",
-  domain: "https://konseptofis.com.tr",
+  domain: "https://konseptofis.com",
   phone: "0 (312) 911 95 57",
   phoneRaw: "903129119557",
   email: "iletisim@konseptofis.com",

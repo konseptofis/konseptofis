@@ -58,6 +58,9 @@
   --color-silver: #f2f2f2;
   --color-border-tertiary: #e8eaed;
   --color-text-muted: #6b7280;
+  --color-text-secondary: #888888;
+  --color-text-primary: #171717;
+  --color-surface-green-tint: #e1f5ee;
 }
 
 @theme inline {
@@ -73,14 +76,16 @@ body {
   font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
-h2 {
-  font-size: 28px;
-  font-weight: 500;
-}
+@layer base {
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+  }
 
-h3 {
-  font-size: 22px;
-  font-weight: 500;
+  h3 {
+    font-size: 22px;
+    font-weight: 500;
+  }
 }
 
 /* Alt başlıklar: h2'den küçük, sabit 16px - Tailwind’i ezer */

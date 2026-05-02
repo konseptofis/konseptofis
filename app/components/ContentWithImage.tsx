@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SectionHeading from "./SectionHeading";
 
 type Props = {
   title?: string;
@@ -22,13 +23,7 @@ export default function ContentWithImage({
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start content-start gap-10 md:grid-cols-2 md:items-start md:gap-12">
         <div className="order-2 mt-0 self-start pt-0 md:order-1">
-          <h2
-            id="content-with-image-heading"
-            className="m-0 flex items-start gap-3 text-left text-[24px] font-medium leading-snug tracking-tight text-black"
-          >
-            <span className="h-7 w-[3px] shrink-0 self-start rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
-            {title}
-          </h2>
+          <SectionHeading id="content-with-image-heading">{title}</SectionHeading>
           <div className="mt-4 space-y-3 text-gray-600 leading-relaxed">
             {children}
           </div>

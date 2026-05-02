@@ -98,6 +98,7 @@ export async function createPost(input: CreateInput) {
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
   revalidatePath("/blog/[slug]", "page");
+  revalidatePath("/sitemap.xml");
 }
 
 type UpdateInput = CreateInput & { id: string };
@@ -124,6 +125,7 @@ export async function updatePost(input: UpdateInput) {
   revalidatePath("/blog");
   revalidatePath(`/blog/${input.slug}`);
   revalidatePath("/blog/[slug]", "page");
+  revalidatePath("/sitemap.xml");
 }
 
 export async function deletePost(id: string) {
@@ -132,4 +134,5 @@ export async function deletePost(id: string) {
   if (error) throw error;
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
+  revalidatePath("/sitemap.xml");
 }

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { SITE } from "@/app/lib/data";
+import SectionHeading from "./SectionHeading";
 
 type Props = { sectionClassName?: string };
 
@@ -72,13 +73,7 @@ export default function MapAndContact({ sectionClassName = "bg-white" }: Props) 
             >
               İLETİŞİM & ADRES
             </span>
-            <h2
-              id="contact-heading"
-              className="flex items-center gap-3 text-[28px] font-semibold tracking-tight text-black md:text-[32px]"
-            >
-              <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
-              Bize Ulaşın
-            </h2>
+            <SectionHeading id="contact-heading">Bize Ulaşın</SectionHeading>
             <p className="mt-3 max-w-[340px] text-[14px] leading-[1.7] text-gray-500">
               Ankara Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı
               odası hizmetlerimiz için iletişime geçin.

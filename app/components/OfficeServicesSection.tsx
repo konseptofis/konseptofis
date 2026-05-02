@@ -1,3 +1,4 @@
+import SectionHeading from "./SectionHeading";
 import {
   BriefcaseIcon,
   CubeIcon,
@@ -62,13 +63,10 @@ export default function OfficeServicesSection({
       className={`${sectionClassName} px-4 py-16 font-sans sm:px-6 md:py-24 lg:px-8`}
     >
       <div className="mx-auto max-w-7xl">
-        <header className="mb-12 border-l-[3px] border-[#0b7041] pl-5">
-          <h2
-            id="office-services-heading"
-            className="text-[30px] font-bold tracking-tight text-black md:text-[34px]"
-          >
+        <header className="mb-12">
+          <SectionHeading id="office-services-heading">
             Hazır Ofis ve Sanal Ofis Hizmetlerimiz Neleri Kapsıyor?
-          </h2>
+          </SectionHeading>
         </header>
 
         <div className="grid grid-cols-2 gap-2 md:gap-5 lg:grid-cols-3">

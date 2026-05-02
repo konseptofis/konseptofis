@@ -1,0 +1,67 @@
+import type { MetadataRoute } from "next";
+import { SITE } from "@/app/lib/data";
+import { getPublishedPosts } from "@/app/actions/blog";
+import { HIZMET_DETAY_MAP } from "@/app/lib/hizmet-detay-data";
+
+/** Yayınlanan içerik değişince sitemap yenilensin (blog, fiyatlar vb.). */
+export const revalidate = 3600;
+
+const baseUrl = SITE.domain.replace(/\/$/, "");
+
+type Freq = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
+
+function absoluteUrl(path: string): string {
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return `${baseUrl}${p}`;
+}
+
+/** Kurumsal öncelik: ana sayfa ve dönüşüm sayfaları üstte; blog yazıları doğru lastModified ile. */
+const CORE_PAGES: readonly {
+  path: string;
+  changeFrequency: Freq;
+  priority: number;
+}[] = [
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/hizmetler", changeFrequency: "weekly", priority: 0.95 },
+  { path: "/fiyatlar", changeFrequency: "weekly", priority: 0.95 },
+  { path: "/iletisim", changeFrequency: "monthly", priority: 0.92 },
+  { path: "/hakkimizda", changeFrequency: "monthly", priority: 0.88 },
+  { path: "/sik-sorulan-sorular", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/blog", changeFrequency: "daily", priority: 0.86 },
+] as const;
+
+const SERVICE_PRIORITY = 0.9;
+const BLOG_POST_PRIORITY = 0.72;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const core: MetadataRoute.Sitemap = CORE_PAGES.map(({ path, changeFrequency, priority }) => ({
+    url: absoluteUrl(path),
+    changeFrequency,
+    priority,
+  }));
+
+  const serviceSlugs = Object.keys(HIZMET_DETAY_MAP).sort();
+  const services: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
+    url: absoluteUrl(`/hizmetler/${slug}`),
+    changeFrequency: "monthly" as const,
+    priority: SERVICE_PRIORITY,
+  }));
+
+  let blogPosts: MetadataRoute.Sitemap = [];
+  try {
+    const posts = await getPublishedPosts();
+    const sorted = [...posts].sort(
+      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+    );
+    blogPosts = sorted.map((post) => ({
+      url: absoluteUrl(`/blog/${post.slug}`),
+      lastModified: new Date(post.updated_at),
+      changeFrequency: "monthly" as const,
+      priority: BLOG_POST_PRIORITY,
+    }));
+  } catch {
+    // Örn. yerel ortamda Supabase yoksa: çekirdek + hizmet URL'leri yine üretilir.
+  }
+
+  return [...core, ...services, ...blogPosts];
+}

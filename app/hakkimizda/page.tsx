@@ -1,5 +1,6 @@
 import Image from "next/image";
 import PageHeader from "@/app/components/PageHeader";
+import SectionHeading from "@/app/components/SectionHeading";
 import { SITE } from "@/app/lib/data";
 import {
   CursorArrowRaysIcon,
@@ -18,6 +19,10 @@ export const metadata = {
   description:
     "Ankara'da prestijli çalışma alanları sunan Konsept Ofis'i yakından tanıyın. Sanal ofis ve makam odası çözümlerimizle işinize değer katıyoruz.",
 };
+
+/** Anasayfa / fiyatlar / hizmetler ile aynı zebra arka planları */
+const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
+const ZEBRA_WHITE = "bg-white";
 
 const HOW_IT_WORKS_STEPS = [
   {
@@ -118,24 +123,20 @@ export default function HakkimizdaPage() {
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hakkımızda" }]}
       />
 
-      {/* Biz Kimiz? */}
+      {/* Biz Kimiz? — zebra: beyaz */}
       <section
-        className="bg-white px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12"
+        className={`${ZEBRA_WHITE} px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8 lg:pt-20 lg:pb-12`}
         aria-labelledby="biz-kimiz-heading"
       >
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
             <div>
-              <p className="mb-4 flex items-center gap-3 text-sm font-semibold tracking-wide text-[#0b7041] sm:text-base">
-                <span className="h-6 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-7" aria-hidden />
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-green)]">
                 Konsept Ofis Hakkında
               </p>
-              <h2
-                id="biz-kimiz-heading"
-                className="mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-              >
+              <SectionHeading id="biz-kimiz-heading" className="mt-2 mb-6">
                 Ankara Çankaya&apos;da Girişimciler İçin Yeni Nesil Çalışma Alanları
-              </h2>
+              </SectionHeading>
               <p className="mb-4 leading-relaxed text-gray-600">
                 Konsept Ofis olarak, serbest çalışanlardan kurumsal şirketlere kadar her ölçekten işletmeye prestijli ve maliyet etkin çalışma çözümleri sunmak için yola çıktık. Amacımız; sizi yüksek kira, aidat ve stopaj gibi geleneksel ofis yüklerinden kurtararak enerjinizi ve sermayenizi doğrudan işinizi büyütmeye ayırmanızı sağlamaktır.
               </p>
@@ -156,18 +157,15 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* Neden Tercih Ediliyoruz? */}
+      {/* Neden Tercih Ediliyoruz? — zebra: yeşilimsi */}
       <section
-        className="bg-[#f9fafb] px-4 pt-10 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-14 lg:pb-20"
+        className={`${ZEBRA_GREEN} px-4 pt-10 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-14 lg:pb-20`}
         aria-labelledby="neden-tercih-ediliyoruz-heading"
       >
         <div className="mx-auto max-w-6xl">
-          <h2
-            id="neden-tercih-ediliyoruz-heading"
-            className="mb-8 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"
-          >
+          <SectionHeading id="neden-tercih-ediliyoruz-heading" className="mb-8">
             Neden Tercih Ediliyoruz?
-          </h2>
+          </SectionHeading>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {WHY_PREFERRED_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -188,19 +186,15 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* Nasıl Çalışır? - 3 Adım */}
+      {/* Nasıl Çalışır? — zebra: beyaz */}
       <section
-        className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+        className={`${ZEBRA_WHITE} px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24`}
         aria-labelledby="how-it-works-heading"
       >
         <div className="mx-auto max-w-6xl">
-          <h2
-            id="how-it-works-heading"
-            className="mb-4 flex items-center gap-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-          >
-            <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+          <SectionHeading id="how-it-works-heading" className="mb-4">
             Sadece 3 Adımda Yeni Ofisinize Taşının
-          </h2>
+          </SectionHeading>
           <p className="mt-4 max-w-2xl text-left text-base leading-relaxed text-gray-600">
             Karmaşık prosedürler ve uzun bekleyişler yok. İş modelinize en uygun çalışma alanını seçin, yasal adresinizi aynı gün kullanmaya başlayın.
           </p>

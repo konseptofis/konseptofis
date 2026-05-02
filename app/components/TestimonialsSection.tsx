@@ -1,6 +1,7 @@
 "use client";
 
 import { SITE } from "@/app/lib/data";
+import SectionHeading from "./SectionHeading";
 
 type Props = { sectionClassName?: string };
 
@@ -95,22 +96,18 @@ export default function TestimonialsSection({
   return (
     <section
       id="yorumlar"
-      aria-label="Müşteri Yorumları"
+      aria-labelledby="testimonials-heading"
       className={`${sectionClassName} py-[60px] px-5 font-sans md:py-20 md:px-12`}
     >
       <div className="mx-auto max-w-[1200px]">
         <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="text-left">
-            <span
-              className="block text-[11px] font-semibold uppercase text-[#0b7041]"
-              style={{ letterSpacing: "4px" }}
-            >
-              MÜŞTERİ YORUMLARI
-            </span>
-            <h2 className="mt-2 flex items-center gap-3 text-[32px] font-semibold tracking-tight text-black md:text-[36px]">
-              <span className="h-7 w-[3px] shrink-0 rounded-full bg-[#0b7041] sm:h-8" aria-hidden />
+            <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-green)]">
+              Müşteri yorumları
+            </p>
+            <SectionHeading id="testimonials-heading" className="mt-2">
               Hakkımızda Ne Diyor?
-            </h2>
+            </SectionHeading>
           </div>
           <p className="shrink-0 text-[13px] text-gray-500 md:self-end">
             {"\u2605"} 5.0&nbsp;&nbsp;·&nbsp;&nbsp;{count} Değerlendirme
