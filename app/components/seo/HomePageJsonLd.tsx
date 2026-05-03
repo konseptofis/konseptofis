@@ -44,9 +44,6 @@ const localBusinessJson = {
   email: SITE.email,
   image: [`${ORIGIN}/ankara-sanal-ofis.webp`, `${ORIGIN}/konsept-ofis-hakkimizda.webp`],
   priceRange: "₺₺",
-  parentOrganization: {
-    "@id": `${ORIGIN}/#organization`,
-  },
   hasMap: SITE.directionsUrl,
   address: {
     "@type": "PostalAddress",
