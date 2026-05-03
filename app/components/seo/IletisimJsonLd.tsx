@@ -1,0 +1,60 @@
+import { SITE } from "@/app/lib/data";
+
+const ORIGIN = SITE.domain.replace(/\/$/, "");
+
+const iletisimJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": `${ORIGIN}/iletisim/#webpage`,
+      url: `${ORIGIN}/iletisim`,
+      name: "İletişim | Konsept Ofis",
+      description:
+        "Ankara Çankaya'daki sanal ofis, hazır ofis ve toplantı odası kiralama hizmetlerimiz için bizimle iletişime geçin. Konsept Ofis iletişim bilgileri ve adres.",
+      inLanguage: "tr-TR",
+      mainEntity: {
+        "@id": `${ORIGIN}/#localbusiness`,
+      },
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": `${ORIGIN}/#localbusiness`,
+      name: SITE.name,
+      telephone: SITE.phone,
+      email: SITE.email,
+      image: `${ORIGIN}/ankara-sanal-ofis.webp`,
+      hasMap: SITE.directionsUrl,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
+        addressLocality: SITE.address.city,
+        postalCode: SITE.address.postalCode,
+        addressCountry: SITE.address.country,
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 39.9208,
+        longitude: 32.8547,
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: SITE.phone,
+        contactType: "customer service",
+        areaServed: "TR",
+        availableLanguage: ["Turkish", "tr"],
+      },
+    },
+  ],
+};
+
+/** İletişim (`/iletisim`): ContactPage + LocalBusiness @graph. */
+export default function IletisimJsonLd() {
+  return (
+    <script
+      id="ld-json-iletisim-graph"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(iletisimJsonLd) }}
+    />
+  );
+}

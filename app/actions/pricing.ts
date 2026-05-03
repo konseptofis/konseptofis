@@ -1,5 +1,6 @@
 "use server";
 
+import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
@@ -13,7 +14,7 @@ export type PricingPlan = {
   order_index: number;
 };
 
-export async function getPricingPlans(): Promise<PricingPlan[]> {
+export const getPricingPlans = cache(async (): Promise<PricingPlan[]> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("pricing_plans")
@@ -25,7 +26,7 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
     ...r,
     features: Array.isArray(r.features) ? r.features : [],
   }));
-}
+});
 
 export async function getPricingPlanById(id: string): Promise<PricingPlan | null> {
   const supabase = await createClient();

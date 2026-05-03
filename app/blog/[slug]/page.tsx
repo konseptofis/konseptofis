@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import BlogCard from "@/app/components/BlogCard";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
+import BlogSidebar from "@/app/components/blog/BlogSidebar";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import { processHeadings } from "@/lib/headings";
 import { getPostBySlug, getPublishedPosts } from "@/app/actions/blog";
@@ -56,100 +57,116 @@ export default async function BlogDetailPage({ params }: Props) {
   const { html: contentWithIds, items: tocItems } =
     post.content ? processHeadings(post.content) : { html: "", items: [] };
 
+  const showToc =
+    tocItems.length > 0 || (post.faqs && post.faqs.length > 0);
+
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <header className="px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center justify-center gap-1 text-sm text-gray-500">
-            <Link href="/" className="hover:text-[#0b7041]">
-              Anasayfa
-            </Link>
-            <ChevronRight className="h-4 w-4 shrink-0 text-gray-300" aria-hidden />
-            <Link href="/blog" className="hover:text-[#0b7041]">
-              Blog
-            </Link>
-            <ChevronRight className="h-4 w-4 shrink-0 text-gray-300" aria-hidden />
-            <span className="max-w-[200px] truncate sm:max-w-xs" title={post.title}>
-              {post.title}
-            </span>
-          </nav>
-          <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
-            {post.title}
-          </h1>
-          <p className="mt-4 text-sm text-gray-600">
-            {post.category?.trim() ? `${post.category.trim()} | ${formatDate(post.created_at)}` : formatDate(post.created_at)}
-          </p>
-          {post.featured_image && (
-            <div className="mt-8 overflow-hidden rounded-lg shadow-md">
-              <img
-                src={post.featured_image}
-                alt={post.featured_image_alt || post.title}
-                className="aspect-video w-full object-cover"
-              />
-            </div>
-          )}
-        </div>
-      </header>
-
-      <div className="px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          {(tocItems.length > 0 || (post.faqs && post.faqs.length > 0)) && (
-            <div className="mb-8">
-              <TableOfContents items={tocItems} faqs={post.faqs ?? undefined} />
-            </div>
-          )}
-
-          {post.content ? (
-            <article
-              className="prose prose-gray max-w-none text-justify leading-relaxed prose-headings:font-semibold prose-a:text-[#0b7041] prose-img:rounded-lg [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
-              dangerouslySetInnerHTML={{ __html: contentWithIds }}
-              style={{ fontSize: "16px" }}
-            />
-          ) : (
-            <article className="space-y-6 leading-relaxed text-gray-700">
-              <p>Bu yazının içeriği henüz eklenmemiş.</p>
-            </article>
-          )}
-
-          {post.faqs && post.faqs.length > 0 && (
-            <section
-              className="mt-10"
-              aria-labelledby="sikca-sorulan-sorular"
-            >
-              <h2
-                id="sikca-sorulan-sorular"
-                className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl"
+      <div className="mx-auto max-w-7xl px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10 xl:gap-12 lg:items-start">
+          <div className="min-w-0 text-left">
+            <header className="pb-6">
+              <nav
+                aria-label="Breadcrumb"
+                className="mb-6 flex flex-wrap items-center justify-start gap-1 text-sm text-gray-500"
               >
-                Sıkça Sorulan Sorular
-              </h2>
-              <div className="mt-6">
-                <AccordionFAQ items={post.faqs} idPrefix="blog-faq" />
-              </div>
-            </section>
-          )}
+                <Link href="/" className="hover:text-[#0b7041]">
+                  Anasayfa
+                </Link>
+                <ChevronRight className="h-4 w-4 shrink-0 text-gray-300" aria-hidden />
+                <Link href="/blog" className="hover:text-[#0b7041]">
+                  Blog
+                </Link>
+                <ChevronRight className="h-4 w-4 shrink-0 text-gray-300" aria-hidden />
+                <span className="min-w-0 text-left" title={post.title}>
+                  {post.title}
+                </span>
+              </nav>
+              <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-[2.5rem] md:leading-tight">
+                {post.title}
+              </h1>
+              <p className="mt-3 text-left text-sm text-gray-600">
+                {post.category?.trim()
+                  ? `${post.category.trim()} | ${formatDate(post.created_at)}`
+                  : formatDate(post.created_at)}
+              </p>
+              {post.featured_image && (
+                <div className="mt-8 overflow-hidden rounded-lg shadow-md">
+                  <img
+                    src={post.featured_image}
+                    alt={post.featured_image_alt || post.title}
+                    className="aspect-video w-full object-cover"
+                  />
+                </div>
+              )}
+            </header>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-[#e5e5e5] pt-8">
-            <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
-              <ShareIcon className="h-5 w-5 text-[#0b7041]" aria-hidden />
-              Paylaş
-            </span>
-            <a
-              href="#"
-              className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#0b7041]"
-              aria-label="E-posta ile paylaş"
-            >
-              <EnvelopeIcon className="h-5 w-5" />
-              E-posta
-            </a>
-            <button
-              type="button"
-              className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#0b7041]"
-              aria-label="Linki kopyala"
-            >
-              <LinkIcon className="h-5 w-5" />
-              Linki kopyala
-            </button>
+            {showToc ? (
+              <div className="mb-8 mt-8">
+                <TableOfContents items={tocItems} faqs={post.faqs ?? undefined} />
+              </div>
+            ) : null}
+
+            {post.content ? (
+              <article
+                className="prose prose-gray max-w-none text-justify leading-relaxed prose-headings:text-left prose-headings:font-semibold prose-p:text-justify prose-blockquote:text-justify prose-td:text-justify prose-li:text-left prose-a:text-[#0b7041] prose-img:rounded-lg [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
+                dangerouslySetInnerHTML={{ __html: contentWithIds }}
+                style={{ fontSize: "16px", textAlign: "justify" }}
+              />
+            ) : (
+              <article className="space-y-6 text-left text-justify leading-relaxed text-gray-700">
+                <p>Bu yazının içeriği henüz eklenmemiş.</p>
+              </article>
+            )}
+
+            {post.faqs && post.faqs.length > 0 ? (
+              <section className="mt-10 text-left" aria-labelledby="sikca-sorulan-sorular">
+                <h2
+                  id="sikca-sorulan-sorular"
+                  className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl"
+                >
+                  Sıkça Sorulan Sorular
+                </h2>
+                <div className="mt-6">
+                  <AccordionFAQ items={post.faqs} idPrefix="blog-faq" />
+                </div>
+              </section>
+            ) : null}
+
+            <div className="mt-10 flex flex-wrap items-center justify-start gap-4 border-t border-[#e5e5e5] pt-8">
+              <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <ShareIcon className="h-5 w-5 text-[#0b7041]" aria-hidden />
+                Paylaş
+              </span>
+              <a
+                href="#"
+                className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#0b7041]"
+                aria-label="E-posta ile paylaş"
+              >
+                <EnvelopeIcon className="h-5 w-5" />
+                E-posta
+              </a>
+              <button
+                type="button"
+                className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#0b7041]"
+                aria-label="Linki kopyala"
+              >
+                <LinkIcon className="h-5 w-5" />
+                Linki kopyala
+              </button>
+            </div>
+
+            <div className="mt-10 lg:hidden">
+              <BlogSidebar />
+            </div>
           </div>
+
+          <aside
+            className="sticky top-24 hidden min-w-0 shrink-0 self-start lg:block"
+            aria-label="Sanal ofis tanıtımı"
+          >
+            <BlogSidebar />
+          </aside>
         </div>
       </div>
 

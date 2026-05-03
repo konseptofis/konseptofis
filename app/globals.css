@@ -61,6 +61,7 @@
   --color-text-secondary: #888888;
   --color-text-primary: #171717;
   --color-surface-green-tint: #e1f5ee;
+  --color-background-secondary: #f4f6f5;
 }
 
 @theme inline {

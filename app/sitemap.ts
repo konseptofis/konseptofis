@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/app/lib/data";
 import { getPublishedPosts } from "@/app/actions/blog";
+import { getExperts } from "@/app/actions/experts";
 import { HIZMET_DETAY_MAP } from "@/app/lib/hizmet-detay-data";
 
 /** Yayınlanan içerik değişince sitemap yenilensin (blog, fiyatlar vb.). */
@@ -33,6 +34,8 @@ const CORE_PAGES: readonly {
 const SERVICE_PRIORITY = 0.9;
 const BLOG_POST_PRIORITY = 0.72;
 
+const EXPERT_PAGE_PRIORITY = 0.68;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const core: MetadataRoute.Sitemap = CORE_PAGES.map(({ path, changeFrequency, priority }) => ({
     url: absoluteUrl(path),
@@ -63,5 +66,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Örn. yerel ortamda Supabase yoksa: çekirdek + hizmet URL'leri yine üretilir.
   }
 
-  return [...core, ...services, ...blogPosts];
+  let expertPages: MetadataRoute.Sitemap = [];
+  try {
+    const experts = await getExperts();
+    const sorted = [...experts].sort(
+      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+    );
+    expertPages = sorted.map((expert) => ({
+      url: absoluteUrl(`/uzmanlar/${expert.slug}`),
+      lastModified: new Date(expert.updated_at),
+      changeFrequency: "monthly" as const,
+      priority: EXPERT_PAGE_PRIORITY,
+    }));
+  } catch {
+    // experts tablosu yoksa vb.
+  }
+
+  return [...core, ...services, ...blogPosts, ...expertPages];
 }

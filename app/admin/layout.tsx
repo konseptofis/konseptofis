@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, FileText, Banknote, Tag } from "lucide-react";
+import { LayoutDashboard, FileText, Banknote, Tag, UserCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import AdminLogoutButton from "./AdminLogoutButton";
 
@@ -45,6 +45,13 @@ export default async function AdminLayout({
           >
             <Tag className="h-5 w-5" />
             Kategoriler
+          </Link>
+          <Link
+            href="/admin/experts"
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
+          >
+            <UserCircle className="h-5 w-5" />
+            Uzmanlar
           </Link>
           <Link
             href="/admin/pricing"

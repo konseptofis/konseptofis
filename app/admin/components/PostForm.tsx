@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createPost, updatePost, type Post, type FAQItem } from "@/app/actions/blog";
 import type { Category } from "@/app/actions/categories";
+import type { Expert } from "@/app/actions/experts";
 import { toSlug } from "@/lib/slug";
 import RichTextEditor from "./RichTextEditor";
 import FeaturedImageUpload from "./FeaturedImageUpload";
@@ -12,9 +13,10 @@ type Props = {
   mode: "create" | "edit";
   post?: Post | null;
   categories?: Category[];
+  experts?: Expert[];
 };
 
-export default function PostForm({ mode, post, categories = [] }: Props) {
+export default function PostForm({ mode, post, categories = [], experts = [] }: Props) {
   const router = useRouter();
   const [title, setTitle] = useState(post?.title ?? "");
   const [content, setContent] = useState(post?.content ?? "");
@@ -30,6 +32,7 @@ export default function PostForm({ mode, post, categories = [] }: Props) {
     post?.faqs && post.faqs.length > 0 ? [...post.faqs] : [{ question: "", answer: "" }]
   );
   const [submitting, setSubmitting] = useState(false);
+  const [reviewerId, setReviewerId] = useState(post?.reviewer_id ?? "");
   const [error, setError] = useState<string | null>(null);
 
   const updateSlugFromTitle = useCallback(() => {
@@ -61,6 +64,7 @@ export default function PostForm({ mode, post, categories = [] }: Props) {
               category: category.trim() || null,
               status,
               faqs: faqs.filter((f) => f.question.trim() || f.answer.trim()).length > 0 ? faqs : null,
+              reviewer_id: reviewerId || null,
             });
             router.push("/admin/posts");
             router.refresh();
@@ -77,6 +81,7 @@ export default function PostForm({ mode, post, categories = [] }: Props) {
               category: category.trim() || null,
               status,
               faqs: faqs.filter((f) => f.question.trim() || f.answer.trim()).length > 0 ? faqs : null,
+              reviewer_id: reviewerId || null,
             });
             router.refresh();
           }
@@ -195,6 +200,35 @@ export default function PostForm({ mode, post, categories = [] }: Props) {
               placeholder="Örn. Sanal Ofis"
             />
           )}
+        </div>
+
+        <div>
+          <label htmlFor="reviewer" className="mb-1.5 block text-sm font-medium text-gray-700">
+            İnceleyen uzman
+          </label>
+          <select
+            id="reviewer"
+            value={reviewerId}
+            onChange={(e) => setReviewerId(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:ring-1 focus:ring-[#0b7041]"
+          >
+            <option value="">Seçin (yok)</option>
+            {experts.map((ex) => (
+              <option key={ex.id} value={ex.id}>
+                {ex.name}
+                {ex.job_title ? ` — ${ex.job_title}` : ""}
+              </option>
+            ))}
+          </select>
+          {experts.length === 0 ? (
+            <p className="mt-1.5 text-xs text-gray-500">
+              Uzman listesi boşsa önce{" "}
+              <a href="/admin/experts/new" className="text-[#0b7041] underline">
+                uzman ekleyin
+              </a>
+              .
+            </p>
+          ) : null}
         </div>
 
         <div>

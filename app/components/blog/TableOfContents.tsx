@@ -18,7 +18,7 @@ export default function TableOfContents({ items, faqs }: Props) {
 
   return (
     <nav
-      className="max-w-sm w-full rounded-lg border border-gray-200 bg-transparent px-4 py-4"
+      className="w-fit max-w-full rounded-lg border border-gray-200 bg-white/80 px-4 py-4 shadow-sm backdrop-blur-sm"
       aria-label="İçindekiler"
     >
       <div className="flex items-center justify-between gap-2">
@@ -37,7 +37,7 @@ export default function TableOfContents({ items, faqs }: Props) {
         </button>
       </div>
       {open && (
-        <ul className="mt-3 space-y-1.5 text-sm">
+        <ul className="mt-3 max-w-full space-y-1.5 text-sm">
           {items.map((item, index) => (
             <li
               key={item.id}
@@ -45,10 +45,12 @@ export default function TableOfContents({ items, faqs }: Props) {
             >
               <a
                 href={`#${item.id}`}
-                className="text-gray-600 hover:text-[#0b7041]"
+                className="inline-flex max-w-full flex-wrap items-baseline gap-x-1.5 text-gray-600 break-words hover:text-[#0b7041]"
               >
-                <span className="mr-1.5 font-medium tabular-nums text-gray-500">{index + 1}.</span>
-                {item.text}
+                <span className="shrink-0 font-medium tabular-nums text-gray-500">
+                  {index + 1}.
+                </span>
+                <span>{item.text}</span>
               </a>
             </li>
           ))}
@@ -56,10 +58,12 @@ export default function TableOfContents({ items, faqs }: Props) {
             <li>
               <a
                 href="#sikca-sorulan-sorular"
-                className="text-gray-600 hover:text-[#0b7041]"
+                className="inline-flex max-w-full flex-wrap items-baseline gap-x-1.5 text-gray-600 break-words hover:text-[#0b7041]"
               >
-                <span className="mr-1.5 font-medium tabular-nums text-gray-500">{items.length + 1}.</span>
-                Sıkça Sorulan Sorular
+                <span className="shrink-0 font-medium tabular-nums text-gray-500">
+                  {items.length + 1}.
+                </span>
+                <span>Sıkça Sorulan Sorular</span>
               </a>
             </li>
           )}

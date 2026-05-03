@@ -153,9 +153,6 @@ const websiteJson = {
   name: SITE.name,
   description: webSiteDescription,
   inLanguage: "tr-TR",
-  publisher: {
-    "@id": `${ORIGIN}/#organization`,
-  },
 };
 
 const faqJson = {
