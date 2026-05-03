@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { SITE } from "@/app/lib/data";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingChatbot from "./components/FloatingChatbot";
+import HomePageJsonLd from "./components/seo/HomePageJsonLd";
 
 const title = "Ankara Sanal Ofis | Hazır Ofis & Toplantı Odası - Konsept Ofis";
 const description =
@@ -34,11 +36,18 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE.domain },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isHome = pathname === "/";
+
   return (
     <html lang="tr">
+      <head>
+        {isHome ? <HomePageJsonLd /> : null}
+      </head>
       <body
         className="font-sans antialiased text-foreground bg-background overflow-x-hidden"
       >
