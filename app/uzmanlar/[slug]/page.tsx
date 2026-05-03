@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Linkedin, Twitter, Instagram } from "lucide-react";
 import BlogCard from "@/app/components/BlogCard";
+import SectionHeading from "@/app/components/SectionHeading";
 import {
   getExpertBySlug,
   getPublishedPostsByReviewer,
@@ -15,6 +16,10 @@ export const revalidate = 0;
 type Props = { params: Promise<{ slug: string }> };
 
 const TITLE_SUFFIX = " | Konsept Ofis";
+
+/** Site yeşili — globals ile uyumlu */
+const accent = "text-[var(--color-green)]";
+const hairline = "border border-[#e5e5e5]";
 
 function stripHtml(html: string, maxLen = 160): string {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -41,17 +46,17 @@ function ExpertSocialBar({ expert }: { expert: Expert }) {
   if (items.length === 0) return null;
 
   return (
-    <ul className="mt-5 flex flex-wrap gap-3">
+    <ul className="mt-8 flex flex-wrap gap-2 border-t border-[#e5e5e5] pt-8">
       {items.map(({ href, label, Icon }) => (
         <li key={label}>
           <a
             href={href}
             target="_blank"
             rel="nofollow noopener noreferrer"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition-colors hover:border-[#0b7041]/40 hover:text-[#0b7041]"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#e5e5e5] bg-white text-[var(--color-text-muted)] transition-colors hover:border-[#0b7041]/30 hover:text-[#0b7041] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b7041]/25"
             aria-label={label}
           >
-            <Icon className="h-5 w-5" aria-hidden />
+            <Icon className="h-[18px] w-[18px] stroke-[1.5]" aria-hidden />
           </a>
         </li>
       ))}
@@ -88,66 +93,98 @@ export default async function ExpertDetailPage({ params }: Props) {
   const posts = await getPublishedPostsByReviewer(expert.id);
 
   return (
-    <main className="min-h-screen bg-[var(--background)]">
-      <div className="mx-auto max-w-7xl px-4 pt-12 pb-16 sm:px-6 sm:pt-16 lg:px-8">
+    <main className="min-h-screen bg-[var(--background)] font-sans">
+      {/* Üst şerit: zebra band 1 */}
+      <div className="bg-[var(--color-background-secondary)]">
+        <div className="mx-auto max-w-7xl px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
         <nav
           aria-label="Breadcrumb"
-          className="mb-8 flex flex-wrap items-center gap-1 text-sm text-gray-500"
+          className="mb-6 flex flex-wrap items-center gap-1 text-left text-sm font-normal text-[var(--color-text-muted)]"
         >
-          <Link href="/" className="hover:text-[#0b7041]">
+          <Link href="/" className="transition-colors hover:text-[#0b7041]">
             Anasayfa
           </Link>
-          <ChevronRight className="h-4 w-4 shrink-0 text-gray-300" aria-hidden />
-          <span className="text-gray-800">{expert.name}</span>
+          <ChevronRight className="h-4 w-4 shrink-0 text-[var(--color-border-tertiary)]" aria-hidden />
+          <Link href="/blog" className="transition-colors hover:text-[#0b7041]">
+            Blog
+          </Link>
+          <ChevronRight className="h-4 w-4 shrink-0 text-[var(--color-border-tertiary)]" aria-hidden />
+          <span className="min-w-0 text-[var(--foreground)]" title={expert.name}>
+            {expert.name}
+          </span>
         </nav>
 
-        <article className="overflow-hidden rounded-2xl border border-[#e5e5e5] bg-white p-6 shadow-md sm:p-8 md:p-10">
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-10">
-            <div className="mx-auto shrink-0 md:mx-0">
+        <article
+          className={`${hairline} overflow-hidden rounded-lg bg-white`}
+          aria-labelledby="expert-heading"
+        >
+          <div className="flex flex-col gap-8 p-6 sm:p-8 md:flex-row md:items-stretch md:gap-10 md:p-10 lg:gap-12">
+            <div className="mx-auto flex shrink-0 justify-center md:mx-0 md:justify-start">
               {expert.avatar_url ? (
-                <img
-                  src={expert.avatar_url}
-                  alt={expert.name}
-                  className="h-36 w-36 rounded-2xl object-cover shadow-md sm:h-44 sm:w-44"
-                  width={176}
-                  height={176}
-                />
+                <div className={`${hairline} overflow-hidden rounded-lg bg-[var(--color-silver)]`}>
+                  <img
+                    src={expert.avatar_url}
+                    alt={expert.name}
+                    className="h-32 w-32 object-cover sm:h-36 sm:w-36 md:h-40 md:w-40"
+                    width={160}
+                    height={160}
+                  />
+                </div>
               ) : (
                 <div
-                  className="flex h-36 w-36 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 sm:h-44 sm:w-44"
+                  className={`flex h-32 w-32 items-center justify-center rounded-lg sm:h-36 sm:w-36 md:h-40 md:w-40 ${hairline} bg-[var(--color-background-secondary)] text-sm text-[var(--color-text-secondary)]`}
                   aria-hidden
                 >
                   —
                 </div>
               )}
             </div>
+
             <div className="min-w-0 flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{expert.name}</h1>
-              {expert.job_title ? (
-                <p className="mt-2 text-lg text-[#0b7041] font-medium">{expert.job_title}</p>
-              ) : null}
+              <header>
+                <h2
+                  id="expert-heading"
+                  className="m-0 text-[30px] font-medium leading-snug tracking-tight text-[var(--color-text-primary)]"
+                >
+                  {expert.name}
+                </h2>
+                {expert.job_title ? (
+                  <p
+                    className={`mt-3 text-sm font-medium tracking-wide sm:text-[15px] ${accent}`}
+                  >
+                    {expert.job_title}
+                  </p>
+                ) : null}
+              </header>
+
               {expert.bio ? (
                 <div
-                  className="prose prose-gray prose-p:mb-3 prose-p:last:mb-0 mt-4 max-w-none text-left leading-relaxed text-gray-700"
+                  className="prose prose-gray mt-6 max-w-2xl text-left prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-base prose-headings:font-semibold prose-headings:text-black first:prose-headings:mt-0 prose-p:mb-3 prose-p:last:mb-0 prose-p:text-[15px] prose-p:leading-relaxed prose-p:text-gray-600 sm:prose-p:text-base sm:prose-p:leading-[1.65] prose-a:text-[#0b7041] prose-a:no-underline hover:prose-a:underline prose-strong:text-black"
                   dangerouslySetInnerHTML={{ __html: expert.bio }}
                 />
               ) : (
-                <p className="mt-4 text-gray-500">Biyografi henüz eklenmemiş.</p>
+                <p className="mt-6 text-left text-[15px] leading-relaxed text-[var(--color-text-muted)] sm:text-base">
+                  Biyografi henüz eklenmemiş.
+                </p>
               )}
+
               <ExpertSocialBar expert={expert} />
             </div>
           </div>
         </article>
+      </div>
+      </div>
 
-        <section className="mt-14" aria-labelledby="expert-posts-heading">
-          <h2
-            id="expert-posts-heading"
-            className="text-2xl font-semibold tracking-tight text-black sm:text-3xl"
-          >
-            Bu uzmanın incelediği / yazdığı makaleler
-          </h2>
+      <section
+        className="border-t border-[#e5e5e5] bg-[#f9fafb] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+        aria-labelledby="expert-posts-heading"
+      >
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading id="expert-posts-heading">Makaleler</SectionHeading>
           {posts.length === 0 ? (
-            <p className="mt-6 text-gray-600">Bu uzmana bağlı yayında makale yok.</p>
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[var(--color-text-muted)] sm:text-base">
+              Bu uzmana bağlı yayında makale yok.
+            </p>
           ) : (
             <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((p) => (
@@ -164,8 +201,8 @@ export default async function ExpertDetailPage({ params }: Props) {
               ))}
             </div>
           )}
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
   );
 }
