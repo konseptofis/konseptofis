@@ -7,9 +7,9 @@ const blogJsonLd = {
   "@type": "Blog",
   "@id": `${ORIGIN}/blog/#blog`,
   url: `${ORIGIN}/blog`,
-  name: "Konsept Ofis Blog | Sanal Ofis ve Girişimcilik Rehberi",
+  name: "Blog | Konsept Ofis",
   description:
-    "Şirket kuruluşu, sanal ofis avantajları, stopaj muafiyeti, yasal adres ve e-ticaret hakkında en güncel bilgiler, ipuçları ve rehberler.",
+    "Şirket kuruluş maliyetleri, sanal ofis avantajları, e-ticaret vergi rehberi ve girişimcilik ekosistemi hakkında uzman onaylı en güncel makaleler.",
   publisher: {
     "@type": "Organization",
     "@id": `${ORIGIN}/#organization`,

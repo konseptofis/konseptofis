@@ -39,7 +39,7 @@ export default function AboutWhyUsSection({
           <SectionHeading id="about-why-heading" className="mb-4">
             Sanal Ofis için Neden Konsept Ofis?
           </SectionHeading>
-          <p className="text-[17px] leading-relaxed text-[var(--color-text-muted)]">
+          <p className="text-[16px] leading-relaxed text-[var(--color-text-muted)]">
             2 sene önce yabancı ve yerli girişimcilerin,{" "}
             <span className="text-[var(--color-green)]">hazır ofis</span> ve{" "}
             <span className="text-[var(--color-green)]">sanal ofis</span> imkânlarından
@@ -62,10 +62,10 @@ export default function AboutWhyUsSection({
                 {item.num}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="mb-1 text-sm font-medium leading-snug text-[var(--foreground)]">
+                <p className="mb-1 text-[17px] font-medium leading-snug text-[var(--foreground)]">
                   {item.title}
                 </p>
-                <p className="text-[13px] leading-[1.6] text-[var(--color-text-muted)]">
+                <p className="text-[14px] leading-[1.6] text-[var(--color-text-muted)]">
                   {item.description}
                 </p>
               </div>

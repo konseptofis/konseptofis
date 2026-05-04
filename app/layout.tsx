@@ -20,32 +20,33 @@ import IletisimJsonLd from "./components/seo/IletisimJsonLd";
 import SikSorulanSorularJsonLd from "./components/seo/SikSorulanSorularJsonLd";
 import { matchPricingPlanForService } from "./lib/hizmet-detay-jsonld";
 import { getServiceDetail } from "./lib/hizmet-detay-data";
+import { isReservedBlogRootSegment } from "./lib/blog-root-path";
 
-const title = "Ankara Sanal Ofis | Hazır Ofis & Toplantı Odası - Konsept Ofis";
-const description =
-  "Ankara sanal ofis, hazır ofis ve toplantı odası kiralama. Yasal iş adresi, vergi levhası adresi. Mahall Ankara, Çankaya. Stopajsız ofis seçenekleri.";
+const defaultSiteTitle = "Konsept Ofis";
+const defaultDescription =
+  "Ankara Çankaya Mahall'da sanal ofis, makam odası ve toplantı odası çözümleri. Yasal iş adresi ve kurumsal ofis paketleri.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
-  title: { default: title, template: "%s | Konsept Ofis" },
-  description,
+  title: { default: defaultSiteTitle, template: "%s | Konsept Ofis" },
+  description: defaultDescription,
   keywords: [
     "Ankara sanal ofis",
+    "Mahall sanal ofis",
     "hazır ofis Ankara",
+    "toplantı odası Ankara",
     "yasal iş adresi",
-    "toplantı odası kiralama",
     "Çankaya ofis",
-    "Mahall Ankara ofis",
   ],
   openGraph: {
-    title,
-    description,
+    title: defaultSiteTitle,
+    description: defaultDescription,
     url: SITE.domain,
     siteName: SITE.name,
     locale: "tr_TR",
     type: "website",
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: { card: "summary_large_image", title: defaultSiteTitle, description: defaultDescription },
   robots: { index: true, follow: true },
   alternates: { canonical: SITE.domain },
 };
@@ -62,12 +63,16 @@ export default async function RootLayout({
   const isBlog = pathname === "/blog";
   const isIletisim = pathname === "/iletisim";
   const isSikSorulanSorular = pathname === "/sik-sorulan-sorular";
-  const blogArticleMatch = pathname.match(/^\/blog\/([^/]+)$/);
-  const blogArticleSlug = blogArticleMatch?.[1];
-  const blogPost =
-    blogArticleSlug != null && blogArticleSlug.length > 0
-      ? await getPostBySlug(blogArticleSlug)
+  const rootArticleMatch = pathname.match(/^\/([^/]+)$/);
+  const rootArticleSeg = rootArticleMatch?.[1];
+  const blogArticleSlug =
+    rootArticleSeg &&
+    rootArticleSeg.length > 0 &&
+    !isReservedBlogRootSegment(rootArticleSeg)
+      ? rootArticleSeg
       : null;
+  const blogPost =
+    blogArticleSlug != null ? await getPostBySlug(blogArticleSlug) : null;
 
   const uzmanMatch = pathname.match(/^\/uzmanlar\/([^/]+)$/);
   const uzmanSlug = uzmanMatch?.[1];
@@ -99,7 +104,7 @@ export default async function RootLayout({
         {isFiyatlar ? <FiyatlarJsonLd /> : null}
         {isBlog ? <BlogJsonLd /> : null}
         {blogPost ? <BlogArticleJsonLd post={blogPost} /> : null}
-        {expert ? <ExpertPersonJsonLd expert={expert} /> : null}
+        {expert && !expert.seo_noindex ? <ExpertPersonJsonLd expert={expert} /> : null}
         {hizmetDetayLd}
         {isIletisim ? <IletisimJsonLd /> : null}
         {isSikSorulanSorular ? <SikSorulanSorularJsonLd /> : null}

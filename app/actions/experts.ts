@@ -18,9 +18,23 @@ export type Expert = {
   bio: string | null;
   avatar_url: string | null;
   social_links: ExpertSocialLinks | Record<string, unknown> | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  /** true ise robots noindex, sitemap dışı, Person JSON-LD yok. */
+  seo_noindex: boolean;
   created_at: string;
   updated_at: string;
 };
+
+function normalizeExpert(row: Record<string, unknown>): Expert {
+  const e = row as Expert;
+  return {
+    ...e,
+    meta_title: typeof e.meta_title === "string" ? e.meta_title : null,
+    meta_description: typeof e.meta_description === "string" ? e.meta_description : null,
+    seo_noindex: e.seo_noindex === true,
+  };
+}
 
 export type ExpertReviewedPost = {
   id: string;
@@ -49,7 +63,7 @@ export async function getExperts(): Promise<Expert[]> {
     .select("*")
     .order("name", { ascending: true });
   if (error) throw error;
-  return (data ?? []) as Expert[];
+  return (data ?? []).map((row) => normalizeExpert(row as Record<string, unknown>));
 }
 
 export const getExpertBySlug = cache(async (slug: string): Promise<Expert | null> => {
@@ -59,7 +73,7 @@ export const getExpertBySlug = cache(async (slug: string): Promise<Expert | null
     if (error.code === "PGRST116") return null;
     throw error;
   }
-  return data as Expert;
+  return normalizeExpert(data as Record<string, unknown>);
 });
 
 export async function getExpertById(id: string): Promise<Expert | null> {
@@ -69,7 +83,7 @@ export async function getExpertById(id: string): Promise<Expert | null> {
     if (error.code === "PGRST116") return null;
     throw error;
   }
-  return data as Expert;
+  return normalizeExpert(data as Record<string, unknown>);
 }
 
 export async function getPublishedPostsByReviewer(expertId: string): Promise<ExpertReviewedPost[]> {
@@ -93,6 +107,9 @@ type ExpertInput = {
   bio?: string | null;
   avatar_url?: string | null;
   social_links?: ExpertSocialLinks | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+  seo_noindex?: boolean;
 };
 
 export async function createExpert(input: ExpertInput) {
@@ -105,6 +122,9 @@ export async function createExpert(input: ExpertInput) {
     bio: input.bio ?? null,
     avatar_url: input.avatar_url?.trim() || null,
     social_links: social,
+    meta_title: input.meta_title?.trim() || null,
+    meta_description: input.meta_description?.trim() || null,
+    seo_noindex: input.seo_noindex ?? false,
   });
   if (error) throw error;
   revalidatePath("/admin/experts");
@@ -125,6 +145,9 @@ export async function updateExpert(input: ExpertInput & { id: string }) {
       bio: input.bio ?? null,
       avatar_url: input.avatar_url?.trim() || null,
       social_links: social,
+      meta_title: input.meta_title?.trim() || null,
+      meta_description: input.meta_description?.trim() || null,
+      seo_noindex: input.seo_noindex ?? false,
     })
     .eq("id", input.id);
   if (error) throw error;

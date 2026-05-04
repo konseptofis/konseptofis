@@ -29,6 +29,10 @@ const CORE_PAGES: readonly {
   { path: "/hakkimizda", changeFrequency: "monthly", priority: 0.88 },
   { path: "/sik-sorulan-sorular", changeFrequency: "monthly", priority: 0.85 },
   { path: "/blog", changeFrequency: "daily", priority: 0.86 },
+  { path: "/kullanim-kosullari", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/acik-riza-onayi", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/kvkk-basvuru-formu", changeFrequency: "yearly", priority: 0.55 },
+  { path: "/kvkk-kapsaminda-aydinlatma-metni", changeFrequency: "yearly", priority: 0.55 },
 ] as const;
 
 const SERVICE_PRIORITY = 0.9;
@@ -57,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
     );
     blogPosts = sorted.map((post) => ({
-      url: absoluteUrl(`/blog/${post.slug}`),
+      url: absoluteUrl(`/${post.slug}`),
       lastModified: new Date(post.updated_at),
       changeFrequency: "monthly" as const,
       priority: BLOG_POST_PRIORITY,
@@ -72,7 +76,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const sorted = [...experts].sort(
       (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
     );
-    expertPages = sorted.map((expert) => ({
+    const indexable = sorted.filter((expert) => !expert.seo_noindex);
+    expertPages = indexable.map((expert) => ({
       url: absoluteUrl(`/uzmanlar/${expert.slug}`),
       lastModified: new Date(expert.updated_at),
       changeFrequency: "monthly" as const,

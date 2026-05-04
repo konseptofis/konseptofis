@@ -143,7 +143,7 @@ const localBusinessJson = {
 };
 
 const webSiteDescription =
-  "Ankara sanal ofis, hazır ofis ve toplantı odası kiralama. Yasal iş adresi, vergi levhası adresi. Mahall Ankara, Çankaya.";
+  "Ankara sanal ofis kiralama hizmetiyle stopajsız, aidatsız yasal iş adresi edinin. Mahall Ankara'da prestijli şirket kuruluşu için hemen teklif alın!";
 
 const websiteJson = {
   "@context": "https://schema.org",

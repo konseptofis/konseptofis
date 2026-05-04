@@ -15,36 +15,36 @@ const services: {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 }[] = [
   {
-    title: "TAM DONANIMLI",
+    title: "Tam Donanımlı",
     description:
       "Her türlü teknik donanım ve modern ofis mobilyaları eşliğinde keyifle çalışın.",
     icon: BriefcaseIcon,
   },
   {
-    title: "KARGO HİZMETİ",
+    title: "Kargo Hizmeti",
     description:
       "Evraklarınız profesyonel bir ekip tarafından kabul edilsin ve size yönlendirilsin.",
     icon: CubeIcon,
   },
   {
-    title: "TOPLANTI ODALARI",
+    title: "Toplantı Odaları",
     description:
       "Misafirlerinizi tam donanımlı toplantı odalarında ağırlayın ve fark yaratın.",
     icon: UserGroupIcon,
   },
   {
-    title: "SINIRSIZ ÇAY & KAHVE",
+    title: "Sınırsız Çay ve Kahve",
     description:
       "Leziz ikramlar eşliğinde sınırsız çay & kahve servisi ile motivasyonunuzu artırın.",
     icon: SunIcon,
   },
   {
-    title: "YÜKSEK HIZLI İNTERNET",
+    title: "Yüksek Hızlı İnternet",
     description: "Fiber hızlı internet sayesinde kesintisiz çalışma olanağı yakalayın.",
     icon: WifiIcon,
   },
   {
-    title: "KOLAY ULAŞIM",
+    title: "Kolay Ulaşım",
     description:
       "Ofisiniz iş hayatının tam merkezinde, metro ve diğer toplu taşımanın yanı başında.",
     icon: MapPinIcon,
@@ -84,10 +84,10 @@ export default function OfficeServicesSection({
                   <Icon className="h-[18px] w-[18px] shrink-0 text-[#0b7041] md:h-[22px] md:w-[22px]" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <span className="mb-1 block text-[10px] font-bold uppercase leading-tight tracking-wide text-black md:mb-2 md:text-[13px] md:tracking-[1.5px]">
+                  <span className="mb-1 block text-[17px] font-bold leading-tight text-black md:mb-2">
                     {item.title}
                   </span>
-                  <span className="m-0 block text-[10px] leading-snug text-gray-600 line-clamp-4 md:text-[14px] md:leading-[1.65] md:line-clamp-none">
+                  <span className="m-0 block text-[14px] leading-[1.65] text-gray-600 line-clamp-4 md:line-clamp-none">
                     {item.description}
                   </span>
                 </div>

@@ -61,10 +61,10 @@ export default function ServiceOfferCardsGrid({
             </span>
           </div>
           <div className="flex flex-1 flex-col px-5 pb-2 pt-5">
-            <h3 className="mb-1.5 text-base font-medium text-[var(--color-text-primary)]">
+            <h3 className="mb-1.5 text-[17px] font-medium leading-snug text-[var(--color-text-primary)]">
               {card.title}
             </h3>
-            <p className="flex-1 text-[13px] leading-[1.65] text-[var(--color-text-muted)]">
+            <p className="flex-1 text-[14px] leading-[1.65] text-[var(--color-text-muted)]">
               {card.description}
             </p>
           </div>

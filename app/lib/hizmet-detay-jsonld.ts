@@ -1,6 +1,6 @@
 import type { PricingPlan } from "@/app/actions/pricing";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
-import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 import { SITE } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
@@ -72,10 +72,15 @@ export function serviceJsonLdImage(detail: ServiceDetailData): string {
 
   const slug = detail.slug.toLowerCase();
   let path: string | undefined;
-  if (slug.includes("sanal")) path = SERVICE_OFFER_CARDS[0]?.image;
-  else if (slug.includes("hazir") || slug.includes("makam"))
-    path = SERVICE_OFFER_CARDS[1]?.image;
-  else if (slug.includes("toplanti")) path = SERVICE_OFFER_CARDS[2]?.image;
+  if (slug.includes("sanal")) {
+    path = SERVICE_OFFER_CARDS.find((c) => c.id === "mahall-sanal-ofis")?.image;
+  } else if (slug.includes("makam")) {
+    path = SERVICE_OFFER_CARDS.find((c) => c.id === "makam-odasi")?.image;
+  } else if (slug.includes("hazir")) {
+    path = HAZIR_OFIS_PLAN_CARD.image;
+  } else if (slug.includes("toplanti")) {
+    path = SERVICE_OFFER_CARDS.find((c) => c.id === "toplanti-odasi")?.image;
+  }
 
   if (path) {
     return path.startsWith("/") ? `${ORIGIN}${path}` : `${ORIGIN}/${path}`;

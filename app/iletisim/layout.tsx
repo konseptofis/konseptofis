@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "İletişim - Konsept Ofis",
+    absolute: "İletişim ve Adres Bilgileri | Konsept Ofis",
   },
   description:
-    "Sanal ofis, makam odası ve toplantı odası çözümleri için Konsept Ofis ile iletişime geçin. Profesyonel çalışma alanlarımız hakkında hemen bilgi alın.",
+    "Mahall Ankara Çankaya'daki merkezimize ulaşın. Sanal ofis, hazır ofis ve toplantı odası kiralama hizmetlerimiz için bizimle hemen iletişime geçin.",
+  alternates: { canonical: "/iletisim" },
 };
 
 export default function IletisimLayout({

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import {
@@ -13,10 +14,11 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/outline";
 
-export const metadata = {
-  title: "Hakkımızda - Konsept Ofis",
+export const metadata: Metadata = {
+  title: { absolute: "Hakkımızda | Konsept Ofis" },
   description:
-    "Ankara'da prestijli çalışma alanları sunan Konsept Ofis'i yakından tanıyın. Sanal ofis ve makam odası çözümlerimizle işinize değer katıyoruz.",
+    "Konsept Ofis; yerli ve yabancı girişimcilere Ankara Çankaya'da sanal ofis, hazır ofis ve toplantı odası çözümleri sunar. Hikayemizi hemen keşfedin.",
+  alternates: { canonical: "/hakkimizda" },
 };
 
 /** Anasayfa / fiyatlar / hizmetler ile aynı zebra arka planları */
@@ -108,10 +110,10 @@ export default function HakkimizdaPage() {
               <SectionHeading id="biz-kimiz-heading" className="mt-2 mb-6">
                 Ankara Çankaya&apos;da Girişimciler İçin Yeni Nesil Çalışma Alanları
               </SectionHeading>
-              <p className="mb-4 leading-relaxed text-gray-600">
+              <p className="mb-4 text-[16px] leading-relaxed text-gray-600">
                 Konsept Ofis olarak, serbest çalışanlardan kurumsal şirketlere kadar her ölçekten işletmeye prestijli ve maliyet etkin çalışma çözümleri sunmak için yola çıktık. Amacımız; sizi yüksek kira, aidat ve stopaj gibi geleneksel ofis yüklerinden kurtararak enerjinizi ve sermayenizi doğrudan işinizi büyütmeye ayırmanızı sağlamaktır.
               </p>
-              <p className="leading-relaxed text-gray-600">
+              <p className="text-[16px] leading-relaxed text-gray-600">
                 Ankara&apos;nın en prestijli iş merkezlerinden Mahall Ankara&apos;da; yasal iş adresi gereksinimlerinizi karşılayan sanal ofis paketleri, şirket kuruluşuna %100 uygun tam donanımlı hazır ofisler ve profesyonel toplantı odalarıyla hizmet veriyoruz. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf fiyatlandırma politikamızla işinizi geleceğe taşırken her adımda yanınızdayız.
               </p>
             </div>
@@ -148,8 +150,8 @@ export default function HakkimizdaPage() {
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0b7041]/20 bg-[#0b7041]/10 transition-colors duration-300 group-hover:bg-[#0b7041]/15">
                     <Icon className="h-6 w-6 text-[#0b7041]" aria-hidden />
                   </div>
-                  <h3 className="mb-2 pr-8 text-lg font-semibold text-gray-900">{item.title}</h3>
-                  <p className="text-[16px] leading-relaxed text-gray-600">{item.description}</p>
+                  <h3 className="mb-2 pr-8 text-[17px] font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-[14px] leading-relaxed text-gray-600">{item.description}</p>
                 </article>
               );
             })}
@@ -166,7 +168,7 @@ export default function HakkimizdaPage() {
           <SectionHeading id="how-it-works-heading" className="mb-4">
             Sadece 3 Adımda Yeni Ofisinize Taşının
           </SectionHeading>
-          <p className="mt-4 max-w-2xl text-left text-base leading-relaxed text-gray-600">
+          <p className="mt-4 max-w-2xl text-left text-[16px] leading-relaxed text-gray-600">
             Karmaşık prosedürler ve uzun bekleyişler yok. İş modelinize en uygun çalışma alanını seçin, yasal adresinizi aynı gün kullanmaya başlayın.
           </p>
           <div className="mt-12 grid gap-6 sm:gap-8 md:grid-cols-3">
@@ -183,10 +185,10 @@ export default function HakkimizdaPage() {
                     </span>
                     <Icon className="h-8 w-8 text-[#0b7041]" aria-hidden />
                   </div>
-                  <h3 className="mt-5 text-xl font-semibold text-gray-900">
+                  <h3 className="mt-5 text-[17px] font-semibold text-gray-900">
                     {item.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-left leading-relaxed text-gray-600">
+                  <p className="mt-3 flex-1 text-left text-[14px] leading-relaxed text-gray-600">
                     {item.description}
                   </p>
                 </article>

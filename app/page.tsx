@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
 import ContentWithImage from "./components/ContentWithImage";
@@ -6,6 +7,31 @@ import OfficeServicesSection from "./components/OfficeServicesSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import FAQAccordion from "./components/FAQAccordion";
 import MapAndContact from "./components/MapAndContact";
+import { SITE } from "@/app/lib/data";
+
+const HOME_TITLE = "Ankara Sanal Ofis Kiralama | Konsept Ofis";
+const HOME_DESCRIPTION =
+  "Ankara sanal ofis kiralama hizmetiyle stopajsız, aidatsız yasal iş adresi edinin. Mahall Ankara'da prestijli şirket kuruluşu için hemen teklif alın!";
+
+export const metadata: Metadata = {
+  title: { absolute: HOME_TITLE },
+  description: HOME_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: SITE.domain.replace(/\/$/, "") + "/",
+    siteName: SITE.name,
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+};
 
 /** Anasayfa zebra: Hero sonrası beyazla başlar, yeşilimsi ton ile sırayla devam eder */
 const HOME_BG_GREEN = "bg-[rgb(11_112_65_/_0.045)]";

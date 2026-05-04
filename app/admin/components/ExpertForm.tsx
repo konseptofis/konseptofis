@@ -32,6 +32,9 @@ export default function ExpertForm({ mode, expert }: Props) {
   const [linkedin, setLinkedin] = useState(initialLinks.linkedin_url ?? "");
   const [twitter, setTwitter] = useState(initialLinks.twitter_url ?? "");
   const [instagram, setInstagram] = useState(initialLinks.instagram_url ?? "");
+  const [metaTitle, setMetaTitle] = useState(expert?.meta_title ?? "");
+  const [metaDescription, setMetaDescription] = useState(expert?.meta_description ?? "");
+  const [seoNoindex, setSeoNoindex] = useState(expert?.seo_noindex ?? false);
   const [slugTouched, setSlugTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +73,9 @@ export default function ExpertForm({ mode, expert }: Props) {
               bio: bio || null,
               avatar_url: avatarUrl,
               social_links: social,
+              meta_title: metaTitle.trim() || null,
+              meta_description: metaDescription.trim() || null,
+              seo_noindex: seoNoindex,
             });
             router.push("/admin/experts");
             router.refresh();
@@ -82,6 +88,9 @@ export default function ExpertForm({ mode, expert }: Props) {
               bio: bio || null,
               avatar_url: avatarUrl,
               social_links: social,
+              meta_title: metaTitle.trim() || null,
+              meta_description: metaDescription.trim() || null,
+              seo_noindex: seoNoindex,
             });
             router.refresh();
           }
@@ -194,6 +203,60 @@ export default function ExpertForm({ mode, expert }: Props) {
               placeholder="https://"
             />
           </div>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-gray-200 bg-white p-4">
+        <h3 className="mb-1 text-sm font-semibold text-gray-900">SEO</h3>
+        <p className="mb-4 text-xs text-gray-600">
+          Boş bırakılırsa başlık isim ve unvandan; açıklama biyografiden (düz metin) türetilir. Site şablonu başlığa
+          &quot; | Konsept Ofis&quot; ekler.
+        </p>
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="expert-meta-title" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Meta başlık
+            </label>
+            <input
+              id="expert-meta-title"
+              type="text"
+              value={metaTitle}
+              onChange={(e) => setMetaTitle(e.target.value)}
+              maxLength={120}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:ring-1 focus:ring-[#0b7041]"
+              placeholder="Arama sonuçları için özel başlık"
+            />
+            <p className="mt-1 text-xs text-gray-500">{metaTitle.length}/120</p>
+          </div>
+          <div>
+            <label htmlFor="expert-meta-desc" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Meta açıklama
+            </label>
+            <textarea
+              id="expert-meta-desc"
+              value={metaDescription}
+              onChange={(e) => setMetaDescription(e.target.value)}
+              rows={3}
+              maxLength={320}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 focus:border-[#0b7041] focus:ring-1 focus:ring-[#0b7041]"
+              placeholder="Arama ve paylaşım önizlemesi için kısa açıklama"
+            />
+            <p className="mt-1 text-xs text-gray-500">{metaDescription.length}/320</p>
+          </div>
+          <label className="flex cursor-pointer items-start gap-2">
+            <input
+              type="checkbox"
+              checked={seoNoindex}
+              onChange={(e) => setSeoNoindex(e.target.checked)}
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-[#0b7041] focus:ring-[#0b7041]"
+            />
+            <span>
+              <span className="text-sm font-medium text-gray-800">Arama motorlarında gösterme (noindex)</span>
+              <span className="mt-0.5 block text-xs text-gray-600">
+                Sayfa yine yayında kalır; sitemap&apos;ten çıkarılır ve indeks istenmez.
+              </span>
+            </span>
+          </label>
         </div>
       </div>
 

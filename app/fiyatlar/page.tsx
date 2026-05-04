@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import {
   CheckIcon,
   SunIcon,
@@ -12,33 +13,11 @@ import SectionHeading from "@/app/components/SectionHeading";
 import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
 import { getPricingPlans } from "@/app/actions/pricing";
 
-// \b "ı" karakterini kelime saymadığı için Toplantı ayrı: sonrasında boşluk veya satır sonu ile eşleşsin
-const GREEN_WORDS_REGEX = /\b(Makam|sanal|Sanal|hazır|Hazır)\b|(toplantı|Toplantı|Toplanti|toplanti|TOPLANTI)(?=\s|$)/gi;
-
-const GREEN_WORDS_SET = new Set([
-  "Makam", "sanal", "Sanal", "hazır", "Hazır",
-  "toplantı", "Toplantı", "Toplanti", "toplanti", "TOPLANTI",
-]);
-
-function highlightGreenTitle(title: string) {
-  const parts = title.split(GREEN_WORDS_REGEX);
-  return parts.map((part, i) => {
-    if (part === undefined) return null;
-    if (GREEN_WORDS_SET.has(part)) {
-      return (
-        <span key={i} className="text-[#0b7041]">
-          {part}
-        </span>
-      );
-    }
-    return part;
-  });
-}
-
-export const metadata = {
-  title: "Fiyatlar ve Paketler",
+export const metadata: Metadata = {
+  title: { absolute: "Sanal Ofis ve Hazır Ofis Fiyatları 2026 | Konsept Ofis" },
   description:
-    "Ankara Çankaya sanal ofis, hazır ofis ve toplantı odası kiralama fiyatlarımızı inceleyin. Stopajsız, aidatsız ve bütçenize en uygun esnek paketler.",
+    "Ankara sanal ofis, makam odası ve toplantı odası kiralama fiyatlarımızı inceleyin. Sürpriz fatura, aidat ve stopaj olmadan esnek ofis paketleri.",
+  alternates: { canonical: "/fiyatlar" },
 };
 
 /** Anasayfa / hizmetler ile aynı zebra arka planları */
@@ -89,7 +68,7 @@ export default async function FiyatlarPage() {
           <SectionHeading id="pricing-heading" className="mb-4">
             Ankara Sanal Ofis ve Hazır Ofis Fiyatları
           </SectionHeading>
-          <p className="mb-10 text-left text-base text-gray-600">
+          <p className="mb-10 text-left text-[16px] leading-relaxed text-gray-600">
             Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis ve aidatsız hazır ofis çözümleriyle sürpriz maliyetlere son verin.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
@@ -98,8 +77,8 @@ export default async function FiyatlarPage() {
                 key={card.id}
                 className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-8 transition-shadow hover:shadow-md sm:p-10"
               >
-                <h3 className="text-center text-lg font-semibold uppercase tracking-wide text-gray-900">
-                  {highlightGreenTitle(card.title)}
+                <h3 className="text-center text-[17px] font-semibold uppercase tracking-wide text-gray-900">
+                  {card.title}
                 </h3>
                 <div className="mt-3 flex flex-wrap items-baseline justify-center gap-1.5">
                   <span className="text-4xl font-bold text-gray-900">
@@ -119,7 +98,7 @@ export default async function FiyatlarPage() {
                         className="mt-0.5 h-5 w-5 shrink-0 text-[#0b7041]"
                         aria-hidden
                       />
-                      <span className="text-gray-600">{feature}</span>
+                      <span className="text-[14px] leading-snug text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -148,7 +127,7 @@ export default async function FiyatlarPage() {
             <SectionHeading id="standard-heading" className="mt-2">
               Tüm Çalışma Alanlarımızda Standart Hizmetler
             </SectionHeading>
-            <p className="mt-4 text-left text-base text-gray-600">
+            <p className="mt-4 text-left text-[16px] leading-relaxed text-gray-600">
               Hangi ofis paketini seçerseniz seçin; işinize değer katan ve gününüzü kolaylaştıran bu ayrıcalıklara hiçbir ek ücret ödemeden sahip olursunuz.
             </p>
           </div>
@@ -161,8 +140,8 @@ export default async function FiyatlarPage() {
                   className="flex flex-col items-center rounded-lg border border-[#e5e5e5] bg-white p-6 text-center shadow-sm"
                 >
                   <Icon className="h-12 w-12 shrink-0 text-[#0b7041]" aria-hidden />
-                  <h3 className="mt-4 font-medium text-black">{item.title}</h3>
-                  <p className="mt-2 text-sm text-gray-500">{item.description}</p>
+                  <h3 className="mt-4 text-[17px] font-medium text-black">{item.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-gray-500">{item.description}</p>
                 </div>
               );
             })}
@@ -179,7 +158,7 @@ export default async function FiyatlarPage() {
           <SectionHeading id="faq-heading" className="mb-4">
             Sıkça Sorulan Sorular
           </SectionHeading>
-          <p className="mb-10 text-left text-base text-gray-600">
+          <p className="mb-10 text-left text-[16px] leading-relaxed text-gray-600">
             Ankara Çankaya&apos;daki sanal ofis ve hazır ofis çözümlerimiz hakkında aklınıza takılan tüm detayları, şeffaf hizmet anlayışımızla sizin için yanıtladık.
           </p>
           <div>
@@ -201,7 +180,7 @@ export default async function FiyatlarPage() {
             >
               Hangi paketin size uygun olduğuna karar veremediniz mi?
             </h2>
-            <p className="mt-3 text-white/90">
+            <p className="mt-3 text-[16px] leading-relaxed text-white/90">
               İhtiyaçlarınıza en uygun çözümü bulmak için uzman ekibimizle hemen görüşün.
             </p>
           </div>

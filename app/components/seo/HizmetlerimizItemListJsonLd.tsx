@@ -11,8 +11,8 @@ const itemListJsonLd = {
       position: 1,
       item: {
         "@type": "Service",
-        name: "Sanal Ofis",
-        url: `${ORIGIN}/sanal-ofis`,
+        name: "Mahall Sanal Ofis",
+        url: `${ORIGIN}/hizmetler/mahall-sanal-ofis`,
         description:
           "Ankara'da vergi levhası ve ticaret sicil adresi. NACE uyumlu, stopajsız sanal ofis kiralama seçenekleri.",
         provider: {
@@ -26,10 +26,10 @@ const itemListJsonLd = {
       position: 2,
       item: {
         "@type": "Service",
-        name: "Makam Odası (Hazır Ofis)",
-        url: `${ORIGIN}/makam-odasi`,
+        name: "Toplantı Odası",
+        url: `${ORIGIN}/hizmetler/toplanti-odasi-hizmeti`,
         description:
-          "Çankaya'da tam donanımlı, prestijli makam odaları. Günlük veya aylık esnek kiralama seçenekleri.",
+          "Müşteri ve ekip toplantıları için saatlik rezervasyonlu, tam donanımlı toplantı odaları.",
         provider: {
           "@type": "Organization",
           name: SITE.name,
@@ -41,10 +41,10 @@ const itemListJsonLd = {
       position: 3,
       item: {
         "@type": "Service",
-        name: "Toplantı Odası",
-        url: `${ORIGIN}/toplanti-odasi`,
+        name: "Makam Odası",
+        url: `${ORIGIN}/hizmetler/makam-odasi-hizmeti`,
         description:
-          "Müşteri ve ekip toplantıları için saatlik rezervasyonlu, tam donanımlı toplantı odaları.",
+          "Üst düzey görüşmeler ve müşteri sunumları için prestijli, donanımlı makam odası kiralama; Mahall Ankara.",
         provider: {
           "@type": "Organization",
           name: SITE.name,

@@ -1,11 +1,13 @@
 import PageHeader from "@/app/components/PageHeader";
+import type { Metadata } from "next";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import { FAQ_ITEMS } from "@/app/lib/data";
 
-export const metadata = {
-  title: "Sık Sorulan Sorular",
+export const metadata: Metadata = {
+  title: { absolute: "Sıkça Sorulan Sorular | Konsept Ofis" },
   description:
-    "Konsept Ofis sanal ofis, hazır ofis, toplantı odası kiralama ve yasal iş adresi hizmetleri hakkında en çok sorulan sorular ve yanıtları.",
+    "Sanal ofis yasal mı? Stopaj ödenir mi? Kargo ve tebligatlar nasıl teslim alınır? Sanal ve hazır ofisler hakkında merak ettiğiniz tüm cevaplar burada.",
+  alternates: { canonical: "/sik-sorulan-sorular" },
 };
 
 export default function SssPage() {

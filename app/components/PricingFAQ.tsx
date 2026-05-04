@@ -21,7 +21,7 @@ export default function PricingFAQ() {
               aria-controls={`pricing-faq-answer-${index}`}
               id={`pricing-faq-question-${index}`}
             >
-              <span className="font-semibold text-gray-900">{item.question}</span>
+              <span className="text-[17px] font-semibold text-gray-900">{item.question}</span>
               {isOpen ? (
                 <ChevronUpIcon className="h-5 w-5 shrink-0 text-[#0b7041]" aria-hidden />
               ) : (
@@ -35,7 +35,7 @@ export default function PricingFAQ() {
               hidden={!isOpen}
               className="pb-4"
             >
-              <p className="text-sm leading-relaxed text-gray-600">{item.answer}</p>
+              <p className="text-[16px] leading-relaxed text-gray-600">{item.answer}</p>
             </div>
           </li>
         );

@@ -48,7 +48,7 @@ export default function BlogArticleJsonLd({ post }: Props) {
     "@type": "Article",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${ORIGIN}/blog/${post.slug}`,
+      "@id": `${ORIGIN}/${post.slug}`,
     },
     headline: post.title,
     description: articleDescription(post),

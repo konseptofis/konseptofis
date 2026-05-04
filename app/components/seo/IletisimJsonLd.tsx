@@ -9,9 +9,9 @@ const iletisimJsonLd = {
       "@type": "ContactPage",
       "@id": `${ORIGIN}/iletisim/#webpage`,
       url: `${ORIGIN}/iletisim`,
-      name: "İletişim | Konsept Ofis",
+      name: "İletişim ve Adres Bilgileri | Konsept Ofis",
       description:
-        "Ankara Çankaya'daki sanal ofis, hazır ofis ve toplantı odası kiralama hizmetlerimiz için bizimle iletişime geçin. Konsept Ofis iletişim bilgileri ve adres.",
+        "Mahall Ankara Çankaya'daki merkezimize ulaşın. Sanal ofis, hazır ofis ve toplantı odası kiralama hizmetlerimiz için bizimle hemen iletişime geçin.",
       inLanguage: "tr-TR",
       mainEntity: {
         "@id": `${ORIGIN}/#localbusiness`,

@@ -1,3 +1,5 @@
+-- Bu dosya mevcut veritabanında tekrar çalıştırılabilir (policy'ler DROP IF EXISTS ile yenilenir).
+
 -- ============================================
 -- AŞAMA 1: Supabase Blog Admin - Veritabanı Şeması
 -- Bu dosyayı Supabase Dashboard > SQL Editor'de çalıştırın.
@@ -38,14 +40,14 @@ CREATE TRIGGER posts_updated_at
 -- RLS (Row Level Security) - Admin paneli Supabase Auth ile korunacak; API üzerinden erişim için policy
 ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 
--- Authenticated kullanıcılar (admin) tüm CRUD yapabilsin
+DROP POLICY IF EXISTS "Authenticated users can do all on posts" ON public.posts;
 CREATE POLICY "Authenticated users can do all on posts"
   ON public.posts FOR ALL
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
--- Anonim/Public: Sadece published yazıları okuyabilsin (blog sayfası için)
+DROP POLICY IF EXISTS "Public can read published posts" ON public.posts;
 CREATE POLICY "Public can read published posts"
   ON public.posts FOR SELECT
   TO anon, public
@@ -68,25 +70,25 @@ VALUES (
 )
 ON CONFLICT (id) DO NOTHING;
 
--- blog-images: Authenticated kullanıcılar yükleyebilsin
+DROP POLICY IF EXISTS "Authenticated users can upload blog images" ON storage.objects;
 CREATE POLICY "Authenticated users can upload blog images"
   ON storage.objects FOR INSERT
   TO authenticated
   WITH CHECK (bucket_id = 'blog-images');
 
--- blog-images: Authenticated kullanıcılar silebilsin
+DROP POLICY IF EXISTS "Authenticated users can delete blog images" ON storage.objects;
 CREATE POLICY "Authenticated users can delete blog images"
   ON storage.objects FOR DELETE
   TO authenticated
   USING (bucket_id = 'blog-images');
 
--- blog-images: Herkes (public) okuyabilsin (yayında görseller için)
+DROP POLICY IF EXISTS "Public can read blog images" ON storage.objects;
 CREATE POLICY "Public can read blog images"
   ON storage.objects FOR SELECT
   TO public
   USING (bucket_id = 'blog-images');
 
--- blog-images: Authenticated kullanıcılar güncelleyebilsin
+DROP POLICY IF EXISTS "Authenticated users can update blog images" ON storage.objects;
 CREATE POLICY "Authenticated users can update blog images"
   ON storage.objects FOR UPDATE
   TO authenticated
@@ -104,6 +106,9 @@ CREATE TABLE IF NOT EXISTS public.experts (
   bio TEXT,
   avatar_url TEXT,
   social_links JSONB NOT NULL DEFAULT '{}'::jsonb,
+  meta_title TEXT,
+  meta_description TEXT,
+  seo_noindex BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

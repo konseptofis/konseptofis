@@ -1,25 +1,30 @@
 import { getPricingPlans, type PricingPlan } from "@/app/actions/pricing";
 import { PRICING_FAQ_ITEMS, SITE } from "@/app/lib/data";
 import { toOfferPriceString } from "@/app/lib/hizmet-detay-jsonld";
-import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 
 function matchServiceCard(planTitle: string) {
   const t = planTitle.toLowerCase();
-  if (t.includes("sanal")) return SERVICE_OFFER_CARDS[0];
-  if (t.includes("toplantı") || t.includes("toplanti")) return SERVICE_OFFER_CARDS[2];
-  if (t.includes("makam") || t.includes("hazır") || t.includes("hazir"))
-    return SERVICE_OFFER_CARDS[1];
+  if (t.includes("sanal")) {
+    return SERVICE_OFFER_CARDS.find((c) => c.id === "mahall-sanal-ofis");
+  }
+  if (t.includes("toplantı") || t.includes("toplanti")) {
+    return SERVICE_OFFER_CARDS.find((c) => c.id === "toplanti-odasi");
+  }
+  if (t.includes("makam")) {
+    return SERVICE_OFFER_CARDS.find((c) => c.id === "makam-odasi");
+  }
+  if (t.includes("hazır") || t.includes("hazir")) {
+    return HAZIR_OFIS_PLAN_CARD;
+  }
   return undefined;
 }
 
 function productLandingUrl(planTitle: string): string {
-  const t = planTitle.toLowerCase();
-  if (t.includes("sanal")) return `${ORIGIN}/sanal-ofis`;
-  if (t.includes("toplantı") || t.includes("toplanti")) return `${ORIGIN}/toplanti-odasi`;
-  if (t.includes("makam") || t.includes("hazır") || t.includes("hazir"))
-    return `${ORIGIN}/makam-odasi`;
+  const matched = matchServiceCard(planTitle);
+  if (matched?.href) return `${ORIGIN}${matched.href}`;
   return `${ORIGIN}/fiyatlar`;
 }
 

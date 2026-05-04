@@ -92,7 +92,7 @@ export default function IletisimClient() {
               <SectionHeading id="contact-content-heading" className="mb-4">
                 Bize ulaşın
               </SectionHeading>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-[16px] leading-relaxed text-gray-600">
                 Sanal ofis, Makam odası ve Toplantı odası çözümlerimiz ile ilgili detaylı bilgi için
                 bizi dilediğiniz zaman arayabilirsiniz. Sizleri bir çay içmeye ofislerimize her zaman
                 bekleriz.
@@ -101,7 +101,7 @@ export default function IletisimClient() {
                 <li>
                   <a
                     href={`tel:${SITE.phoneRaw.replace(/\s/g, "")}`}
-                    className="flex cursor-pointer items-center gap-3 text-gray-700 hover:text-[#0b7041]"
+                    className="flex cursor-pointer items-center gap-3 text-[16px] text-gray-700 hover:text-[#0b7041]"
                   >
                     <PhoneIcon className="h-5 w-5 shrink-0 text-[#0b7041]" aria-hidden />
                     <span>{SITE.phone}</span>
@@ -110,14 +110,14 @@ export default function IletisimClient() {
                 <li>
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="flex cursor-pointer items-center gap-3 text-gray-700 hover:text-[#0b7041]"
+                    className="flex cursor-pointer items-center gap-3 text-[16px] text-gray-700 hover:text-[#0b7041]"
                   >
                     <EnvelopeIcon className="h-5 w-5 shrink-0 text-[#0b7041]" aria-hidden />
                     <span>{SITE.email}</span>
                   </a>
                 </li>
                 <li>
-                  <div className="flex items-start gap-3 text-gray-700">
+                  <div className="flex items-start gap-3 text-[16px] text-gray-700">
                     <MapPinIcon className="h-5 w-5 shrink-0 text-[#0b7041] mt-0.5" aria-hidden />
                     <span className="text-[16px] leading-relaxed">
                       {SITE.address.line1}, {SITE.address.line2}, {SITE.address.city}
@@ -192,7 +192,7 @@ export default function IletisimClient() {
               </SectionHeading>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="contact-name" className="mb-1 block text-sm font-medium text-gray-700">
+                  <label htmlFor="contact-name" className="mb-1 block text-[16px] font-medium text-gray-700">
                     İsim *
                   </label>
                   <input
@@ -201,12 +201,12 @@ export default function IletisimClient() {
                     required
                     value={form.name}
                     onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
+                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-[16px] text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
                     placeholder="İsim"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-phone" className="mb-1 block text-sm font-medium text-gray-700">
+                  <label htmlFor="contact-phone" className="mb-1 block text-[16px] font-medium text-gray-700">
                     Telefon *
                   </label>
                   <input
@@ -215,12 +215,12 @@ export default function IletisimClient() {
                     required
                     value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
+                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-[16px] text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
                     placeholder="Telefon"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="mb-1 block text-sm font-medium text-gray-700">
+                  <label htmlFor="contact-email" className="mb-1 block text-[16px] font-medium text-gray-700">
                     E-posta (Opsiyonel)
                   </label>
                   <input
@@ -228,12 +228,12 @@ export default function IletisimClient() {
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
+                    className="w-full rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 text-[16px] text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
                     placeholder="ornek@mail.com"
                   />
                 </div>
                 <div>
-                  <span className="mb-2 block text-xs font-medium text-gray-600">
+                  <span className="mb-2 block text-[17px] font-semibold text-gray-800">
                     İlgilendiğiniz Hizmeti Seçin
                   </span>
                   <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -246,20 +246,20 @@ export default function IletisimClient() {
                         key={id}
                         type="button"
                         onClick={() => setService(service === id ? "" : (id as typeof service))}
-                        className={`flex cursor-pointer items-center justify-center gap-1.5 rounded-[8px] border-2 px-2 py-2 text-xs font-medium transition-colors sm:gap-2 sm:px-3 sm:text-sm ${
+                        className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-2 px-1.5 py-2 text-[17px] font-medium leading-snug transition-colors sm:flex-row sm:gap-2 sm:px-2 sm:py-2.5 ${
                           service === id
                             ? "border-[#0b7041] bg-[#0b7041]/10 text-[#0b7041]"
                             : "border-[#e5e5e5] bg-white text-gray-700 hover:border-[#0b7041]/50"
                         }`}
                       >
                         <Icon className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
-                        <span className="truncate">{label}</span>
+                        <span className="text-center leading-tight">{label}</span>
                       </button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="contact-message" className="mb-1 block text-sm font-medium text-gray-700">
+                  <label htmlFor="contact-message" className="mb-1 block text-[16px] font-medium text-gray-700">
                     Mesajınız *
                   </label>
                   <div className="relative">
@@ -273,7 +273,7 @@ export default function IletisimClient() {
                       maxLength={150}
                       value={form.message}
                       onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                      className="w-full resize-y rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 pt-7 text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
+                      className="w-full resize-y rounded-[8px] border border-[#e5e5e5] bg-white px-3 py-2 pt-7 text-[16px] text-gray-900 placeholder-gray-400 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]"
                       placeholder="Mesajınız"
                     />
                   </div>
@@ -286,7 +286,7 @@ export default function IletisimClient() {
                   >
                     {submitting ? "Gönderiliyor..." : "Gönder"}
                   </button>
-                  <label className="flex cursor-pointer items-start gap-2 text-sm text-gray-700">
+                  <label className="flex cursor-pointer items-start gap-2 text-[16px] leading-snug text-gray-700">
                     <input
                       type="checkbox"
                       checked={kvkkAccepted}
@@ -304,8 +304,8 @@ export default function IletisimClient() {
                     </span>
                   </label>
                 </div>
-                {submitMessage && <p className="text-sm text-[#0b7041]">{submitMessage}</p>}
-                {submitError && <p className="text-sm text-red-600">{submitError}</p>}
+                {submitMessage && <p className="text-[16px] text-[#0b7041]">{submitMessage}</p>}
+                {submitError && <p className="text-[16px] text-red-600">{submitError}</p>}
               </form>
             </div>
           </div>

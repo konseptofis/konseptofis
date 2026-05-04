@@ -14,7 +14,7 @@ type BlogCardProps = {
 export default function BlogCard({ slug, title, excerpt, date, category, featuredImage, featuredImageAlt }: BlogCardProps) {
   return (
     <article className="overflow-hidden rounded-lg border border-[#e5e5e5] bg-white shadow-md">
-      <Link href={`/blog/${slug}`} className="block">
+      <Link href={`/${slug}`} className="block">
         <div className="relative aspect-video w-full bg-[#f2f2f2]">
           {featuredImage ? (
             <img src={featuredImage} alt={featuredImageAlt || title} className="h-full w-full object-cover" />
@@ -29,7 +29,7 @@ export default function BlogCard({ slug, title, excerpt, date, category, feature
       <div className="p-5">
         <p className="text-xs text-gray-500">{date}</p>
         <h2 className="mt-2 line-clamp-2 text-lg font-bold text-black">
-          <Link href={`/blog/${slug}`} className="hover:text-[#0b7041]">
+          <Link href={`/${slug}`} className="hover:text-[#0b7041]">
             {title}
           </Link>
         </h2>
@@ -37,7 +37,7 @@ export default function BlogCard({ slug, title, excerpt, date, category, feature
           {excerpt}
         </p>
         <Link
-          href={`/blog/${slug}`}
+          href={`/${slug}`}
           className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0b7041] hover:underline"
         >
           Devamını Oku

@@ -1,8 +1,29 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import BlogCard from "@/app/components/BlogCard";
 import { getPublishedPosts } from "@/app/actions/blog";
+import { SITE } from "@/app/lib/data";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+
+const BLOG_TITLE = "Blog | Konsept Ofis";
+const BLOG_DESCRIPTION =
+  "Şirket kuruluş maliyetleri, sanal ofis avantajları, e-ticaret vergi rehberi ve girişimcilik ekosistemi hakkında uzman onaylı en güncel makaleler.";
+
+export const metadata: Metadata = {
+  title: { absolute: BLOG_TITLE },
+  description: BLOG_DESCRIPTION,
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    url: `${SITE.domain.replace(/\/$/, "")}/blog`,
+    siteName: SITE.name,
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: BLOG_TITLE, description: BLOG_DESCRIPTION },
+};
 
 export const revalidate = 0;
 

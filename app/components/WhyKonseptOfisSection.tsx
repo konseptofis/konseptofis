@@ -64,7 +64,7 @@ export default function WhyKonseptOfisSection({
               Ankara&apos;da Prestijli Hazır Ofis ve{" "}
               <span className="text-[var(--color-green)]">Yasal İş Adresi</span>
             </SectionHeading>
-            <p className="mt-4 text-[14px] leading-[1.8] text-[var(--color-text-secondary)]">
+            <p className="mt-4 text-[16px] leading-[1.8] text-[var(--color-text-secondary)]">
               İster yeni bir şirket kuruluşu yapın, ister işinizi Ankara Çankaya&apos;nın merkezine
               taşıyın; stopajsız ve aidatsız kiralık çalışma alanlarımızla yanınızdayız. Girişimciler ve
               profesyoneller için sunduğumuz esnek sanal ofis paketleri, kargo yönetimi ve modern toplantı
@@ -87,7 +87,7 @@ export default function WhyKonseptOfisSection({
                 >
                   <RowIcon path={ICON_PATHS[item.icon]} />
                 </div>
-                <p className="min-w-0 text-[13.5px] font-medium text-[var(--color-text-primary)]">
+                <p className="min-w-0 text-[17px] font-medium leading-snug text-[var(--color-text-primary)]">
                   {item.label}
                 </p>
               </div>

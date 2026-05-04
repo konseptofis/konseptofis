@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Linkedin, Twitter, Instagram } from "lucide-react";
@@ -10,12 +11,13 @@ import {
   type Expert,
   type ExpertSocialLinks,
 } from "@/app/actions/experts";
+import { SITE } from "@/app/lib/data";
 
 export const revalidate = 0;
 
 type Props = { params: Promise<{ slug: string }> };
 
-const TITLE_SUFFIX = " | Konsept Ofis";
+const siteOrigin = SITE.domain.replace(/\/$/, "");
 
 /** Site yeşili — globals ile uyumlu */
 const accent = "text-[var(--color-green)]";
@@ -24,6 +26,13 @@ const hairline = "border border-[#e5e5e5]";
 function stripHtml(html: string, maxLen = 160): string {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   return text.length <= maxLen ? text : text.slice(0, maxLen) + "…";
+}
+
+function ogImageUrl(avatar: string | null | undefined): string | undefined {
+  if (!avatar?.trim()) return undefined;
+  const u = avatar.trim();
+  if (u.startsWith("http://") || u.startsWith("https://")) return u;
+  return u.startsWith("/") ? `${siteOrigin}${u}` : `${siteOrigin}/${u}`;
 }
 
 function formatDate(iso: string): string {
@@ -73,15 +82,44 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const expert = await getExpertBySlug(slug);
   if (!expert) return { title: "Uzman bulunamadı" };
-  let title = `${expert.name}${expert.job_title ? ` — ${expert.job_title}` : ""}`;
-  if (title.endsWith(TITLE_SUFFIX)) title = title.slice(0, -TITLE_SUFFIX.length);
+
+  const fallbackTitle = `${expert.name}${expert.job_title ? ` — ${expert.job_title}` : ""}`;
+  const title = expert.meta_title?.trim() || fallbackTitle;
+
+  const description =
+    expert.meta_description?.trim() ||
+    (expert.bio ? stripHtml(expert.bio, 160) : undefined) ||
+    `${fallbackTitle} — ${SITE.name} uzman içerikleri.`;
+
+  const canonicalPath = `/uzmanlar/${expert.slug}`;
+  const canonical = `${siteOrigin}${canonicalPath}`;
+  const imageUrl = ogImageUrl(expert.avatar_url);
+  const noindex = expert.seo_noindex === true;
+
   return {
     title,
-    description: expert.bio ? stripHtml(expert.bio, 160) : undefined,
+    description,
+    alternates: { canonical: canonicalPath },
+    robots: noindex ? { index: false, follow: true } : { index: true, follow: true },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: SITE.name,
+      locale: "tr_TR",
+      type: "profile",
+      ...(imageUrl ? { images: [{ url: imageUrl, alt: expert.name }] } : {}),
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title,
+      description,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
+    },
   };
 }
 

@@ -5,6 +5,13 @@ import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 
+const LEGAL_LINKS = [
+  { href: "/kvkk-kapsaminda-aydinlatma-metni/", label: "KVKK Aydınlatma Metni" },
+  { href: "/acik-riza-onayi/", label: "Açık Rıza Onayı" },
+  { href: "/kvkk-basvuru-formu/", label: "KVKK Başvuru Formu" },
+  { href: "/kullanim-kosullari/", label: "Kullanım Koşulları" },
+] as const;
+
 export default function Footer() {
   const pathname = usePathname();
   if (pathname.startsWith("/admin")) return null;
@@ -67,7 +74,16 @@ export default function Footer() {
               Önemli Bilgiler
             </h3>
             <ul className="mt-4 space-y-2">
-              {/* Blog yazıları buraya eklenecek */}
+              {LEGAL_LINKS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-gray-600 hover:text-[#0b7041]"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -100,8 +116,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[#f2f2f2] pt-6 text-center text-sm text-gray-500">
-          © {currentYear} {SITE.name}. Tüm hakları saklıdır.
+        <div className="mt-6 border-t border-[#f2f2f2] pt-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <nav
+              className="flex flex-wrap items-center"
+              aria-label="Yasal metinler ve KVKK"
+            >
+              {LEGAL_LINKS.map(({ href, label }, index) => (
+                <span key={href} className="inline-flex items-center">
+                  {index > 0 ? (
+                    <span className="mx-2 text-gray-300 select-none" aria-hidden>
+                      |
+                    </span>
+                  ) : null}
+                  <Link href={href} className="text-sm text-gray-600 hover:text-[#0b7041]">
+                    {label}
+                  </Link>
+                </span>
+              ))}
+            </nav>
+            <p className="shrink-0 text-sm text-gray-500 sm:text-right">
+              © {currentYear} {SITE.name}. Tüm hakları saklıdır.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

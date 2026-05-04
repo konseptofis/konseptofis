@@ -26,7 +26,7 @@ export type Post = {
 };
 
 const POST_SELECT =
-  "*, reviewer:experts(id, name, slug, job_title, bio, avatar_url, social_links, created_at, updated_at)";
+  "*, reviewer:experts(id, name, slug, job_title, bio, avatar_url, social_links, meta_title, meta_description, seo_noindex, created_at, updated_at)";
 
 export async function getPosts(): Promise<Post[]> {
   const supabase = await createClient();
@@ -107,6 +107,9 @@ export async function createPost(input: CreateInput) {
   if (error) throw error;
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
+  revalidatePath(`/${input.slug}`);
+  revalidatePath("/[slug]", "page");
+  revalidatePath(`/blog/${input.slug}`);
   revalidatePath("/blog/[slug]", "page");
   revalidatePath("/sitemap.xml");
   revalidatePath("/uzmanlar", "layout");
@@ -116,6 +119,9 @@ type UpdateInput = CreateInput & { id: string };
 
 export async function updatePost(input: UpdateInput) {
   const supabase = await createClient();
+  const { data: prev } = await supabase.from("posts").select("slug").eq("id", input.id).maybeSingle();
+  const prevSlug = prev?.slug as string | undefined;
+
   const { error } = await supabase
     .from("posts")
     .update({
@@ -135,18 +141,32 @@ export async function updatePost(input: UpdateInput) {
   if (error) throw error;
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
+  revalidatePath(`/${input.slug}`);
+  revalidatePath("/[slug]", "page");
   revalidatePath(`/blog/${input.slug}`);
   revalidatePath("/blog/[slug]", "page");
+  if (prevSlug && prevSlug !== input.slug) {
+    revalidatePath(`/${prevSlug}`);
+    revalidatePath(`/blog/${prevSlug}`);
+  }
   revalidatePath("/sitemap.xml");
   revalidatePath("/uzmanlar", "layout");
 }
 
 export async function deletePost(id: string) {
   const supabase = await createClient();
+  const { data: row } = await supabase.from("posts").select("slug").eq("id", id).maybeSingle();
+  const slug = row?.slug as string | undefined;
   const { error } = await supabase.from("posts").delete().eq("id", id);
   if (error) throw error;
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
+  if (slug) {
+    revalidatePath(`/${slug}`);
+    revalidatePath(`/blog/${slug}`);
+  }
+  revalidatePath("/[slug]", "page");
+  revalidatePath("/blog/[slug]", "page");
   revalidatePath("/sitemap.xml");
   revalidatePath("/uzmanlar", "layout");
 }

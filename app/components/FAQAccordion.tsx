@@ -45,7 +45,7 @@ export default function FAQAccordion({ sectionClassName = "bg-white" }: Props) {
                       <button
                         type="button"
                         onClick={() => setOpenIndex(isOpen ? null : index)}
-                        className={`flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-4 text-left text-[15px] font-semibold text-gray-900 transition-colors sm:px-5 sm:py-[18px] sm:text-base ${
+                        className={`flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-4 text-left text-[17px] font-semibold text-gray-900 transition-colors sm:px-5 sm:py-[18px] ${
                           isOpen ? "bg-[#f2f7f3]" : "hover:bg-[#fafafa]"
                         }`}
                         aria-expanded={isOpen}
@@ -72,7 +72,7 @@ export default function FAQAccordion({ sectionClassName = "bg-white" }: Props) {
                         hidden={!isOpen}
                         className="border-t border-[#e8e8e8] bg-white"
                       >
-                        <div className="px-4 py-4 text-[15px] leading-relaxed text-gray-600 sm:px-5 sm:py-[18px]">
+                        <div className="px-4 py-4 text-[16px] leading-relaxed text-gray-600 sm:px-5 sm:py-[18px]">
                           {item.answer}
                         </div>
                       </div>

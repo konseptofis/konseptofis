@@ -11,7 +11,7 @@ const aboutPageJsonLd = {
       url: `${ORIGIN}/hakkimizda`,
       name: "Hakkımızda | Konsept Ofis",
       description:
-        "Konsept Ofis, yerli ve yabancı girişimcilere Ankara'da sanal ofis, hazır ofis ve yasal adres çözümleri sunan profesyonel bir iş ortağıdır.",
+        "Konsept Ofis; yerli ve yabancı girişimcilere Ankara Çankaya'da sanal ofis, hazır ofis ve toplantı odası çözümleri sunar. Hikayemizi hemen keşfedin.",
       inLanguage: "tr-TR",
     },
     {

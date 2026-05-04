@@ -24,7 +24,7 @@ export default function ContentWithImage({
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start content-start gap-10 md:grid-cols-2 md:items-start md:gap-12">
         <div className="order-2 mt-0 self-start pt-0 md:order-1">
           <SectionHeading id="content-with-image-heading">{title}</SectionHeading>
-          <div className="mt-4 space-y-3 text-gray-600 leading-relaxed">
+          <div className="mt-4 space-y-3 text-[16px] leading-relaxed text-gray-600 [&_p]:text-[16px]">
             {children}
           </div>
         </div>

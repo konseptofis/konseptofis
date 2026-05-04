@@ -43,7 +43,7 @@ function ContactRow({
         <p className="mb-1 text-[11px] font-medium uppercase tracking-[2px] text-gray-500">
           {label}
         </p>
-        <div className="text-[14px] font-semibold text-gray-900">{children}</div>
+        <div className="text-[16px] font-semibold text-gray-900">{children}</div>
       </div>
     </div>
   );
@@ -74,7 +74,7 @@ export default function MapAndContact({ sectionClassName = "bg-white" }: Props) 
               İLETİŞİM & ADRES
             </span>
             <SectionHeading id="contact-heading">Bize Ulaşın</SectionHeading>
-            <p className="mt-3 max-w-[340px] text-[14px] leading-[1.7] text-gray-500">
+            <p className="mt-3 max-w-[340px] text-[16px] leading-[1.7] text-gray-500">
               Ankara Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı
               odası hizmetlerimiz için iletişime geçin.
             </p>

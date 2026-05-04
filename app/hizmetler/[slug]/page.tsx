@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CheckIcon } from "@heroicons/react/24/outline";
@@ -6,7 +7,10 @@ import SectionHeading from "@/app/components/SectionHeading";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import IntroImageSlider from "@/app/components/IntroImageSlider";
 import MapAndContact from "@/app/components/MapAndContact";
+import { serviceJsonLdDescription } from "@/app/lib/hizmet-detay-jsonld";
 import { getServiceDetail } from "@/app/lib/hizmet-detay-data";
+import { HIZMET_PAGE_SEO_BY_SLUG } from "@/app/lib/hizmet-page-seo";
+import { SITE } from "@/app/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -377,10 +381,39 @@ export default async function HizmetDetayPage({ params }: Props) {
   );
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = getServiceDetail(slug);
+  if (!data) return { title: "Hizmet bulunamadı" };
+
+  const custom = HIZMET_PAGE_SEO_BY_SLUG[slug];
+  const titleAbs = custom?.title ?? `${data.title} | ${SITE.name}`;
+  const description = custom?.description ?? serviceJsonLdDescription(data);
+  const path = `/hizmetler/${slug}`;
+  const url = `${SITE.domain.replace(/\/$/, "")}${path}`;
+
+  return {
+    title: { absolute: titleAbs },
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title: titleAbs,
+      description,
+      url,
+      siteName: SITE.name,
+      locale: "tr_TR",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title: titleAbs, description },
+    robots: { index: true, follow: true },
+  };
+}
+
 export function generateStaticParams() {
   return [
-    { slug: "sanal-ofis-hizmeti" },
+    { slug: "mahall-sanal-ofis" },
     { slug: "hazir-ofis-hizmeti" },
+    { slug: "makam-odasi-hizmeti" },
     { slug: "toplanti-odasi-hizmeti" },
   ];
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import ServiceOfferCardsGrid from "@/app/components/ServiceOfferCardsGrid";
@@ -9,10 +10,11 @@ import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
 const ZEBRA_WHITE = "bg-white";
 
-export const metadata = {
-  title: "Hizmetlerimiz - Konsept Ofis",
+export const metadata: Metadata = {
+  title: { absolute: "Hizmetlerimiz | Konsept Ofis" },
   description:
-    "Ankara Çankaya'da Konsept Ofis ayrıcalığıyla sanal ofis, toplantı ve makam odası kiralama hizmetlerimizi inceleyin. Profesyonel çözümlerle tanışın.",
+    "Şirketiniz için en uygun çalışma alanını seçin. Stopajsız sanal ofis, tam donanımlı hazır ofis ve saatlik toplantı odası kiralama hizmetlerimiz.",
+  alternates: { canonical: "/hizmetler" },
 };
 
 export default function HizmetlerPage() {
@@ -35,7 +37,7 @@ export default function HizmetlerPage() {
           <SectionHeading id="services-heading" className="mt-2 mb-4">
             Neler Sunuyoruz?
           </SectionHeading>
-          <p className="mb-10 max-w-3xl text-left text-[var(--color-text-muted)]">
+          <p className="mb-10 max-w-3xl text-left text-[16px] leading-relaxed text-[var(--color-text-muted)]">
             Ankara&apos;nın en prestijli lokasyonunda, işinize değer katacak esnek ve modern
             çalışma alanı çözümlerimizi keşfedin.
           </p>
@@ -58,7 +60,7 @@ export default function HizmetlerPage() {
             >
               Hangi paketin size uygun olduğuna karar veremediniz mi?
             </h3>
-            <p className="mt-3 text-white/90">
+            <p className="mt-3 text-[16px] leading-relaxed text-white/90">
               Hizmetlerimiz hakkında detaylı bilgi için iletişime geçin.
             </p>
           </div>

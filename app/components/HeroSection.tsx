@@ -86,7 +86,7 @@ export default function HeroSection() {
                   {slide.title}
                 </p>
               )}
-              <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-white/90 mx-auto px-1">
+              <p className="mt-4 sm:mt-6 max-w-2xl text-[16px] leading-relaxed text-white/90 mx-auto px-1">
                 {slide.description}
               </p>
               <div className="mt-10 flex w-full max-w-md flex-row justify-center gap-2 sm:max-w-xl sm:gap-4">

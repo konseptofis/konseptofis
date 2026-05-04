@@ -34,8 +34,8 @@ function UserBlock({
         {initials}
       </div>
       <div className="ml-2.5 min-w-0">
-        <span className="text-[13px] font-bold text-gray-900">{name}</span>
-        <p className="mt-0.5 text-[11px] text-gray-500">{role}</p>
+        <span className="text-[17px] font-bold text-gray-900">{name}</span>
+        <p className="mt-0.5 text-[14px] text-gray-500">{role}</p>
       </div>
     </div>
   );
@@ -78,7 +78,7 @@ export default function TestimonialsSection({
               Hakkımızda Ne Diyor?
             </SectionHeading>
           </div>
-          <p className="shrink-0 text-[13px] text-gray-500 md:self-end">
+          <p className="shrink-0 text-[16px] text-gray-500 md:self-end">
             {"\u2605"} 5.0&nbsp;&nbsp;·&nbsp;&nbsp;+15 Değerlendirme
           </p>
         </header>

@@ -238,17 +238,17 @@ const TOPLANTI_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
   },
 ];
 
-const SANAL_OFIS: ServiceDetailData = {
-  slug: "sanal-ofis-hizmeti",
-  title: "Sanal Ofis",
-  targetHeadingAccent: "Sanal Ofis",
+const MAHALL_SANAL_OFIS: ServiceDetailData = {
+  slug: "mahall-sanal-ofis",
+  title: "Mahall Sanal Ofis",
+  targetHeadingAccent: "Mahall Sanal Ofis",
   packageHeadingAccent: "Mahall Sanal Ofis",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
     { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
-    { label: "Sanal Ofis" },
+    { label: "Mahall Sanal Ofis" },
   ],
-  introTitle: "Ankara'da Prestijli Sanal Ofis Çözümleri",
+  introTitle: "Ankara'da Prestijli Mahall Sanal Ofis Çözümleri",
   introParagraphs: [
     "Fiziksel bir ofis kiralamanın yüksek maliyetlerine katlanmadan, Ankara'nın en prestijli iş merkezlerinden Mahall Ankara'da yasal iş adresinize sahip olun. Girişimciler, freelancerlar ve KOBİ'ler için tasarlanan sanal ofis hizmetimiz; vergi levhası, ticaret sicil adresi ve resmi yazışma ihtiyaçlarınızı kusursuz şekilde karşılar.",
     "Sadece kullandığınız hizmetler için ödeme yaparak bina aidatı, mobilya ve stopaj vergisi gibi ekstra giderlerden kurtulun. Gelen resmi tebligatlarınız ve kargolarınız profesyonel ekibimiz tarafından titizlikle yönetilirken, siz tam zamanlı bir ofis ihtiyacı duymadan işinizi büyütmeye ve kurumsal imajınızı güçlendirmeye odaklanın.",
@@ -283,7 +283,7 @@ const SANAL_OFIS: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Hemen Teklif Al", href: "/iletisim" },
   ],
-  targetTitle: "Sanal Ofis Çözümleri Kimler İçin İdealdir?",
+  targetTitle: "Mahall Sanal Ofis Kimler İçin İdealdir?",
   targetAudience: [
     {
       icon: ComputerDesktopIcon,
@@ -465,6 +465,103 @@ const HAZIR_OFIS: ServiceDetailData = {
   ],
 };
 
+const MAKAM_ODASI: ServiceDetailData = {
+  slug: "makam-odasi-hizmeti",
+  title: "Makam Odası",
+  targetHeadingAccent: "Makam Odası",
+  packageHeadingAccent: "Mahall Makam Odası",
+  breadcrumbs: [
+    { label: "Anasayfa", href: "/" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
+    { label: "Makam Odası" },
+  ],
+  introTitle: "Makam Odası Nedir ve İşinize Nasıl Değer Katar?",
+  introParagraphs: [
+    "Makam odası, üst düzey görüşmeler, müşteri sunumları ve yönetim toplantıları için tasarlanmış, mobilya ve altyapısı hazır prestijli bir çalışma alanıdır. Mahall Ankara'daki merkezimizde konforlu ve profesyonel bir ortamda kurumsal imajınızı güçlendirirsiniz; fiber internet, ikramlar ve resepsiyon hizmeti ile tek noktadan yönetilirsiniz.",
+    "Hazır ofis birimlerimizden daha geniş ve ayrıcalıklı düzenlenen makam alanlarımızda, gizlilik ve konfor ön plandadır. Esnek günlük veya aylık kiralama seçenekleriyle sabit uzun süreli taahhüt olmadan ihtiyacınız olduğunda premium bir ofis deneyimi sunuyoruz.",
+  ],
+  introFeatures: [
+    {
+      num: "01",
+      title: "Prestijli ve Konforlu Mekân",
+      description: "Önemli görüşmeler için özel düzenlenmiş, ferah makam birimi.",
+    },
+    {
+      num: "02",
+      title: "Tam Donanım ve Fiber İnternet",
+      description: "Sunum ve video görüşmeleri için hazır altyapı ve teknik destek.",
+    },
+    {
+      num: "03",
+      title: "Profesyonel Karşılama",
+      description: "Misafirleriniz resepsiyon ve lobi hizmetimizle ağırlanır.",
+    },
+    {
+      num: "04",
+      title: "Esnek Kiralama Süresi",
+      description: "Günlük veya aylık kullanım; iş takviminize göre planlama.",
+    },
+  ],
+  introCtas: [
+    { label: "Paketleri İncele", href: "/fiyatlar" },
+    { label: "Hemen Teklif Al", href: "/iletisim" },
+  ],
+  targetTitle: "Makam Odası Çözümleri Kimler İçin İdealdir?",
+  targetAudience: [
+    {
+      icon: BriefcaseIcon,
+      title: "Üst Düzey Yönetici ve Danışmanlar",
+      paragraph:
+        "Kritik müşteri görüşmeleri ve sunumlar için prestijli bir adres arayan yöneticiler ve danışmanlar, makam odası ile kurumsal imajlarını destekler. Tüm altyapı hazır olduğundan odak sadece görüşmeye kalır.",
+    },
+    {
+      icon: BuildingOffice2Icon,
+      title: "Şirket Temsilcileri ve Ortaklar",
+      paragraph:
+        "Şirketinizi Mahall Ankara'da temsil ederken geniş ve konforlu bir makam alanında ağırlama yapabilirsiniz. İkram ve ortak alan kullanımı ile profesyonel bir deneyim sunulur.",
+    },
+    {
+      icon: UserGroupIcon,
+      title: "Küçük Yönetim Kurulu ve Ekip Oturumları",
+      paragraph:
+        "Dar çekirdek toplantılar ve strateji oturumları için sessiz, donanımlı bir alan ihtiyacı duyan ekipler makam odasını tercih edebilir. Toplantı odası kiralamadan daha uzun süreli çalışma imkânı sunar.",
+    },
+  ],
+  features: [],
+  mahallSpotlightBlock: {
+    leftTitle: "Mahall Ankara'da Makam Odası ile Kurumsal Prestij",
+    leftParagraphs: [
+      "Çankaya Mahall Ankara'da konumlanan makam odalarımız; lokasyon, lobi ve resepsiyon ayrıcalığıyla markanızın görünürlüğünü güçlendirir.",
+      "Şeffaf fiyatlandırma ve esnek sürelerle bütçenizi korurken; sınırsız çay-kahve ve ortak alanlar ile tam hizmetli bir ofis deneyimi yaşarsınız.",
+    ],
+    sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
+  },
+  processTitle: "Sürecimiz Nasıl İşliyor?",
+  processSteps: [],
+  packageTitle: "Mahall Makam Odası Paketimizin Ayrıcalıkları",
+  packageIntroParagraphs: [
+    "Makam odası paketlerimiz; geniş çalışma alanı, premium mobilya, yüksek hızlı internet ve Mahall Ankara prestijini tek çatı altında sunar. Kişi sayısı ve kiralama süresine göre size uygun seçenekler oluşturulur.",
+    "Gizli aidat veya sürpriz ücretler olmadan net fiyatla ilerlersiniz. İhtiyaç halinde toplantı odası ve ek hizmetler için ekibimizden bilgi alabilirsiniz.",
+  ],
+  packageFeatureCards: HAZIR_PACKAGE_FEATURE_CARDS,
+  packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
+  packageListItems: [],
+  testimonialsTitle: "Müşterilerimiz Ne Diyor?",
+  testimonials: testimonialsFromIndices([1, 0, 3]),
+  faq: [
+    {
+      question: "Makam odası ile hazır ofis arasındaki fark nedir?",
+      answer:
+        "Makam odası genellikle daha geniş, prestijli düzenlenmiş ve üst düzey görüşmelere uygun birimlerdir. Hazır ofis birimleri günlük çalışma için optimize edilirken makam alanları misafir ağırlama ve yönetim odaklı toplantılar için idealdir. İhtiyacınıza göre birlikte en uygun seçeneği belirleyebiliriz.",
+    },
+    {
+      question: "Makam odasını günlük kiralayabilir miyim?",
+      answer:
+        "Evet. Günlük veya aylık esnek kiralama seçeneklerimiz mevcuttur. Doluluk ve paket türüne göre size uygun tarih ve süreyi planlarız. Detaylar için iletişime geçebilirsiniz.",
+    },
+  ],
+};
+
 const TOPLANTI_ODASI: ServiceDetailData = {
   slug: "toplanti-odasi-hizmeti",
   title: "Toplantı Odası",
@@ -563,8 +660,9 @@ const TOPLANTI_ODASI: ServiceDetailData = {
 };
 
 export const HIZMET_DETAY_MAP: Record<string, ServiceDetailData> = {
-  "sanal-ofis-hizmeti": SANAL_OFIS,
+  "mahall-sanal-ofis": MAHALL_SANAL_OFIS,
   "hazir-ofis-hizmeti": HAZIR_OFIS,
+  "makam-odasi-hizmeti": MAKAM_ODASI,
   "toplanti-odasi-hizmeti": TOPLANTI_ODASI,
 };
 
