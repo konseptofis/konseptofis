@@ -48,10 +48,18 @@ export default async function HizmetDetayPage({ params }: Props) {
   const mapSectionBg = ZEBRA_WHITE;
   const faqSectionBg = ZEBRA_GREEN;
 
+  const heroTitle = data.pageHeaderHeading ?? titleUpper;
+  const heroTone = data.pageHeaderHeading ? "seo" : "display";
+
   return (
     <main className="min-h-screen bg-[var(--background)]">
       {/* 1. Hero - H1 */}
-      <PageHeader title={titleUpper} breadcrumbs={data.breadcrumbs} />
+      <PageHeader
+        title={heroTitle}
+        breadcrumbs={data.breadcrumbs}
+        subtitle={data.pageHeaderLead ?? undefined}
+        heroTone={heroTone}
+      />
 
       {/* 2. Kapsamlı Hizmet Tanıtımı — anasayfa zebra: beyaz */}
       <section
@@ -335,7 +343,10 @@ export default async function HizmetDetayPage({ params }: Props) {
       </section>
 
       {/* 7. Bize Ulaşın — anasayfa MapAndContact + zebra */}
-      <MapAndContact sectionClassName={mapSectionBg} />
+      <MapAndContact
+        sectionClassName={mapSectionBg}
+        heading={data.mapContactHeading}
+      />
 
       {/* 8. SSS — anasayfa zebra devamı */}
       <section
@@ -344,7 +355,7 @@ export default async function HizmetDetayPage({ params }: Props) {
       >
         <div className="mx-auto max-w-4xl">
           <SectionHeading id="faq-heading" className="mb-4">
-            Sıkça Sorulan Sorular
+            {data.faqHeading ?? "Sıkça Sorulan Sorular"}
           </SectionHeading>
           <div className="mt-8">
             <AccordionFAQ items={data.faq} idPrefix={`service-${data.slug}-faq`} />

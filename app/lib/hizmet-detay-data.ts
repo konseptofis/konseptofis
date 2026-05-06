@@ -157,6 +157,14 @@ export type ServiceDetailData = {
   targetHeadingAccent?: string;
   /** Paket H2 içinde yeşile boyanacak tam alt dize (örn. "Mahall Sanal Ofis") */
   packageHeadingAccent?: string;
+  /** MapAndContact bölümü H2; yoksa "Bize Ulaşın". */
+  mapContactHeading?: string;
+  /** FAQ bölümü H2; yoksa "Sıkça Sorulan Sorular". */
+  faqHeading?: string;
+  /** Hero H1 metni (SEO cümle başlığı); yoksa `title` tam sayfa başlığı olarak büyük harfe çevrilir. */
+  pageHeaderHeading?: string;
+  /** Hero H1 altında kısa tanıtım (p). Genelde `pageHeaderHeading` ile birlikte kullanılır. */
+  pageHeaderLead?: string;
 };
 
 function testimonialsFromIndices(indices: readonly number[]): Testimonial[] {
@@ -468,14 +476,17 @@ const HAZIR_OFIS: ServiceDetailData = {
 const MAKAM_ODASI: ServiceDetailData = {
   slug: "makam-odasi-hizmeti",
   title: "Makam Odası",
-  targetHeadingAccent: "Makam Odası",
-  packageHeadingAccent: "Mahall Makam Odası",
+  pageHeaderHeading: "Ankara Prestijli Makam Odası Kiralama",
+  mapContactHeading: "Makam Odası Rezervasyonu İçin Bize Ulaşın",
+  faqHeading: "Makam Odası Kiralama Hakkında Sıkça Sorulan Sorular",
+  targetHeadingAccent: "Prestijli Makam Odası",
+  packageHeadingAccent: "Makam Odası Kiralama",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
     { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Makam Odası" },
   ],
-  introTitle: "Makam Odası Nedir ve İşinize Nasıl Değer Katar?",
+  introTitle: "Ankara Makam Odası Kiralama İşinize Nasıl Değer Katar?",
   introParagraphs: [
     "Makam odası, üst düzey görüşmeler, müşteri sunumları ve yönetim toplantıları için tasarlanmış, mobilya ve altyapısı hazır prestijli bir çalışma alanıdır. Mahall Ankara'daki merkezimizde konforlu ve profesyonel bir ortamda kurumsal imajınızı güçlendirirsiniz; fiber internet, ikramlar ve resepsiyon hizmeti ile tek noktadan yönetilirsiniz.",
     "Hazır ofis birimlerimizden daha geniş ve ayrıcalıklı düzenlenen makam alanlarımızda, gizlilik ve konfor ön plandadır. Esnek günlük veya aylık kiralama seçenekleriyle sabit uzun süreli taahhüt olmadan ihtiyacınız olduğunda premium bir ofis deneyimi sunuyoruz.",
@@ -506,7 +517,7 @@ const MAKAM_ODASI: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Hemen Teklif Al", href: "/iletisim" },
   ],
-  targetTitle: "Makam Odası Çözümleri Kimler İçin İdealdir?",
+  targetTitle: "Prestijli Makam Odası Çözümleri Kimler İçin İdealdir?",
   targetAudience: [
     {
       icon: BriefcaseIcon,
@@ -538,7 +549,7 @@ const MAKAM_ODASI: ServiceDetailData = {
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
-  packageTitle: "Mahall Makam Odası Paketimizin Ayrıcalıkları",
+  packageTitle: "Tam Donanımlı Makam Odası Kiralama Ayrıcalıkları",
   packageIntroParagraphs: [
     "Makam odası paketlerimiz; geniş çalışma alanı, premium mobilya, yüksek hızlı internet ve Mahall Ankara prestijini tek çatı altında sunar. Kişi sayısı ve kiralama süresine göre size uygun seçenekler oluşturulur.",
     "Gizli aidat veya sürpriz ücretler olmadan net fiyatla ilerlersiniz. İhtiyaç halinde toplantı odası ve ek hizmetler için ekibimizden bilgi alabilirsiniz.",
@@ -555,9 +566,24 @@ const MAKAM_ODASI: ServiceDetailData = {
         "Makam odası genellikle daha geniş, prestijli düzenlenmiş ve üst düzey görüşmelere uygun birimlerdir. Hazır ofis birimleri günlük çalışma için optimize edilirken makam alanları misafir ağırlama ve yönetim odaklı toplantılar için idealdir. İhtiyacınıza göre birlikte en uygun seçeneği belirleyebiliriz.",
     },
     {
-      question: "Makam odasını günlük kiralayabilir miyim?",
+      question: "Ankara'da makam odasını günlük kiralayabilir miyim?",
       answer:
-        "Evet. Günlük veya aylık esnek kiralama seçeneklerimiz mevcuttur. Doluluk ve paket türüne göre size uygun tarih ve süreyi planlarız. Detaylar için iletişime geçebilirsiniz.",
+        "Evet, Konsept Ofis'te makam odalarımızı sadece aylık/yıllık değil; önemli toplantılarınız, VIP misafir ağırlamalarınız veya mülakatlarınız için günlük olarak da kiralayabilirsiniz.",
+    },
+    {
+      question: "Makam odası kiraladığımda stopaj ödeyecek miyim?",
+      answer:
+        "Hayır. Konsept Ofis'ten alacağınız makam odası kiralama hizmeti faturalı bir hizmettir. Bu nedenle kira stopajı ödemezsiniz ve faturanızı şirket gideri olarak gösterebilirsiniz.",
+    },
+    {
+      question: "Misafirlerim için sekreterya ve karşılama hizmeti var mı?",
+      answer:
+        "Kesinlikle. Sizi ziyarete gelen üst düzey konuklarınız, prestijli Mahall Ankara lobimizde profesyonel ekibimiz tarafından karşılanır ve doğrudan makam odanıza yönlendirilir.",
+    },
+    {
+      question: "Makam odası kiralama fiyatlarına neler dahildir?",
+      answer:
+        "Kiralama fiyatlarımıza; lüks ofis mobilyaları, fiber internet, aidat, elektrik-su-ısıtma giderleri, temizlik hizmeti ve gün boyu sınırsız çay/kahve ikramları dahildir. Hiçbir sürpriz masraf çıkarılmaz.",
     },
   ],
 };
@@ -565,17 +591,19 @@ const MAKAM_ODASI: ServiceDetailData = {
 const TOPLANTI_ODASI: ServiceDetailData = {
   slug: "toplanti-odasi-hizmeti",
   title: "Toplantı Odası",
+  pageHeaderHeading: "Ankara Toplantı Odası Kiralama",
+  mapContactHeading: "Toplantı Odası Rezervasyonu İçin Bize Ulaşın",
   targetHeadingAccent: "Toplantı Odası",
-  packageHeadingAccent: "Mahall Toplantı Odası",
+  packageHeadingAccent: "Toplantı Odası Kiralama",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
     { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Toplantı Odası" },
   ],
-  introTitle: "Toplantı Odası Kiralama ve İşinize Nasıl Değer Katar?",
+  introTitle: "Saatlik Toplantı Odası Kiralamak, İşinize Nasıl Değer Katar?",
   introParagraphs: [
-    "Toplantı odası kiralama, müşteri görüşmeleri ve ekip toplantılarınız için saatlik veya blok saatler halinde tam donanımlı bir alan kullanmanızı sağlar. Ankara'da Mahall Ankara adresinde sunulan toplantı odalarımızda projeksiyon, internet ve ikram imkânları bulunur; gizli maliyet olmadan net fiyat sunulur.",
-    "Sürekli ofis kiralamak yerine yalnızca toplantı günlerinde profesyonel bir mekân kullanmak isteyen girişimciler ve ekipler için ideal bir çözümdür. Rezervasyon önceden yapılır; ihtiyacınız olan saat diliminde odalar kullanıma hazırdır.",
+    "Toplantı odası kiralama hizmetimiz; müşteri sunumları, eğitimler ve ekip toplantılarınız için size tam donanımlı profesyonel bir alan sunar. Ankara Çankaya'nın en prestijli lokasyonlarından Mahall Ankara'da yer alan odalarımız; yüksek hızlı internet, projeksiyon ve sınırsız ikram seçenekleriyle kullanıma hazırdır.",
+    "Sürekli ofis kiralama maliyetine katlanmak yerine, yalnızca ihtiyacınız olan saatlerde ödeme yaparak işinize prestij katın. Hemen rezervasyonunuzu yapın, misafirlerinizi profesyonel ekibimizle karşılayalım.",
   ],
   introFeatures: [
     {
@@ -603,7 +631,7 @@ const TOPLANTI_ODASI: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Rezervasyon Talebi", href: "/iletisim" },
   ],
-  targetTitle: "Toplantı Odası Çözümleri Kimler İçin İdealdir?",
+  targetTitle: "Ankara Toplantı Odası Çözümleri Kimler İçin İdealdir?",
   targetAudience: [
     {
       icon: BriefcaseIcon,
@@ -628,14 +656,14 @@ const TOPLANTI_ODASI: ServiceDetailData = {
   mahallSpotlightBlock: {
     leftTitle: "Mahall Ankara'da Profesyonel Toplantı Alanları",
     leftParagraphs: [
-      "Mahall Ankara'da konumlanan toplantı odalarımız; müşteri sunumları, iş geliştirme görüşmeleri ve ekip toplantıları için sessiz, aydınlatılmış ve tam donanımlı alanlar sunar.",
-      "Rezervasyon süreci hızlıdır; giriş ve yönlendirme profesyonel ekibimizce yönetilir. İkramlar ve teknik altyapı dahildir; böylece toplantınıza odaklanırsınız.",
+      "Mahall Ankara'da konumlanan toplantı odalarımız; müşteri sunumları, iş geliştirme görüşmeleri ve mülakatlar için sessiz, şık ve tam donanımlı alanlar sunar. Metroya ve ana arterlere yakın konumu sayesinde misafirleriniz ulaşım ve otopark sorunu yaşamaz.",
+      "Rezervasyon süreci hızlı ve pratiktir; toplantı günü misafirleriniz profesyonel lobi ekibimizce karşılanır ve odanıza yönlendirilir. Teknik altyapı ve ikram servisi bize ait, siz sadece işinize odaklanın.",
     ],
     sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
-  packageTitle: "Mahall Toplantı Odası Paketimizin Ayrıcalıkları",
+  packageTitle: "Tam Donanımlı Toplantı Odası Kiralama Ayrıcalıkları",
   packageIntroParagraphs: [
     "Toplantı odası paketlerimiz, saatlik veya blok rezervasyonla fiber internet, projeksiyon ve ikram dahil kullanım sunar. Mahall Ankara'da prestijli bir adreste, sabit ofis maliyeti olmadan profesyonel görüşmeler yaparsınız.",
     "Fiyatlar şeffaftır; KDV açıkça belirtilir. Randevu ve süre seçiminize göre oda sizin için ayrılır; olası ek ücretler için önceden bilgilendirilirsiniz.",
@@ -647,14 +675,29 @@ const TOPLANTI_ODASI: ServiceDetailData = {
   testimonials: testimonialsFromIndices([0, 1, 2]),
   faq: [
     {
-      question: "Toplantı odasını saatlik mi kiralıyorum?",
+      question: "Ankara'da toplantı odasını saatlik kiralayabilir miyim?",
       answer:
-        "Evet. Toplantı odalarımız saatlik veya blok saatler halinde kiralanabilir. Rezervasyon için önceden randevu almanız yeterlidir. Kullanım süreniz boyunca oda ve ekipmanlar size ayrılır.",
+        "Evet, Konsept Ofis olarak toplantı odalarımızı saatlik, yarım günlük (blok) veya tam günlük olarak kiralayabilirsiniz. Sadece kullandığınız süre kadar ödeme yaparsınız, gizli maliyet veya sabit ofis giderleriyle karşılaşmazsınız. İhtiyacınıza en uygun saat dilimini seçerek hemen rezervasyon oluşturabilirsiniz.",
     },
     {
-      question: "Fiyata KDV dahil mi?",
+      question: "Toplantı odası kiralama hizmetine hangi donanımlar dahildir?",
       answer:
-        "Tabloda belirtilen fiyatlara KDV eklenmektedir. Gizli ek ücret bulunmaz; projeksiyon, internet ve ikram kullanımı dahildir.",
+        "Kiraladığınız toplantı odasında; yüksek hızlı fiber internet, profesyonel sunumlar için büyük ekran (projeksiyon/akıllı TV), beyaz tahta (flipchart) ve ergonomik ofis mobilyaları kullanıma hazırdır. Sadece bilgisayarınızı alıp gelmeniz yeterlidir, tüm teknik altyapı tarafımızca sağlanır.",
+    },
+    {
+      question: "Kiralık toplantı odalarının kapasitesi kaç kişiliktir?",
+      answer:
+        "Mahall Ankara'daki toplantı odalarımız; ikili müşteri görüşmelerinden, 6 ile 10 kişilik ekip toplantılarına ve sunumlara kadar uygun esnek bir yapıya sahiptir. Toplantıdan önce katılımcı sayınızı belirtmeniz halinde, oda düzeni ekibiniz için en konforlu şekilde hazırlanır.",
+    },
+    {
+      question: "Toplantıya katılan misafirlerimiz için ikram ve karşılama hizmeti var mı?",
+      answer:
+        "Kesinlikle. Misafirleriniz prestijli lobi alanımızda profesyonel ekibimiz tarafından karşılanır ve toplantı odasına yönlendirilir. Ayrıca toplantı süreniz boyunca sizin ve misafirlerinizin çay, kahve ve su gibi temel ikram ihtiyaçları hizmetimize dahildir.",
+    },
+    {
+      question: "Toplantı odası fiyatlarına KDV dahil mi, ek ücret çıkar mı?",
+      answer:
+        "Fiyatlandırma politikamız tamamen şeffaftır. Size sunulan toplantı odası kiralama fiyatına KDV, teknik altyapı kullanımı ve temel ikramlar dahildir. Rezervasyon öncesi anlaşılan bedel dışında hiçbir sürpriz ek ücret veya aidat talep edilmez.",
     },
   ],
 };

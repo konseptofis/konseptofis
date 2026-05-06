@@ -233,7 +233,7 @@ export default function IletisimClient() {
                   />
                 </div>
                 <div>
-                  <span className="mb-2 block text-[17px] font-semibold text-gray-800">
+                  <span className="mb-2 block text-[17px] font-normal text-gray-800">
                     İlgilendiğiniz Hizmeti Seçin
                   </span>
                   <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -246,7 +246,7 @@ export default function IletisimClient() {
                         key={id}
                         type="button"
                         onClick={() => setService(service === id ? "" : (id as typeof service))}
-                        className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-2 px-1.5 py-2 text-[17px] font-medium leading-snug transition-colors sm:flex-row sm:gap-2 sm:px-2 sm:py-2.5 ${
+                        className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-[8px] border-2 px-1.5 py-2 text-[14px] font-medium leading-snug transition-colors sm:flex-row sm:gap-2 sm:px-2 sm:py-2.5 ${
                           service === id
                             ? "border-[#0b7041] bg-[#0b7041]/10 text-[#0b7041]"
                             : "border-[#e5e5e5] bg-white text-gray-700 hover:border-[#0b7041]/50"
@@ -278,7 +278,7 @@ export default function IletisimClient() {
                     />
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-3 pt-2">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-2">
                   <button
                     type="submit"
                     disabled={submitting}
@@ -286,17 +286,17 @@ export default function IletisimClient() {
                   >
                     {submitting ? "Gönderiliyor..." : "Gönder"}
                   </button>
-                  <label className="flex cursor-pointer items-start gap-2 text-[16px] leading-snug text-gray-700">
+                  <label className="flex min-w-0 cursor-pointer items-center gap-2 text-[13px] leading-snug text-gray-700">
                     <input
                       type="checkbox"
                       checked={kvkkAccepted}
                       onChange={(e) => setKvkkAccepted(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 rounded border-[#e5e5e5] text-[#0b7041] focus:ring-[#0b7041]"
+                      className="h-3.5 w-3.5 shrink-0 rounded border-[#e5e5e5] text-[#0b7041] focus:ring-[#0b7041]"
                     />
-                    <span>
+                    <span className="min-w-0">
                       <a
                         href="/kvkk-kapsaminda-aydinlatma-metni/"
-                        className="cursor-pointer text-[#0b7041] underline hover:no-underline"
+                        className="cursor-pointer text-[13px] text-[#0b7041] underline hover:no-underline"
                       >
                         KVKK
                       </a>{" "}

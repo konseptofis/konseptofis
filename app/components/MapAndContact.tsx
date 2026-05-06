@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { SITE } from "@/app/lib/data";
 import SectionHeading from "./SectionHeading";
 
-type Props = { sectionClassName?: string };
+type Props = { sectionClassName?: string; heading?: string };
 
 /** İkon ve metinler için nötr antrasit */
 const ANTHRACITE = "#383838";
@@ -49,7 +49,10 @@ function ContactRow({
   );
 }
 
-export default function MapAndContact({ sectionClassName = "bg-white" }: Props) {
+export default function MapAndContact({
+  sectionClassName = "bg-white",
+  heading = "Bize Ulaşın",
+}: Props) {
   const iconProps = {
     size: 16,
     strokeWidth: 1.75,
@@ -73,7 +76,7 @@ export default function MapAndContact({ sectionClassName = "bg-white" }: Props) 
             >
               İLETİŞİM & ADRES
             </span>
-            <SectionHeading id="contact-heading">Bize Ulaşın</SectionHeading>
+            <SectionHeading id="contact-heading">{heading}</SectionHeading>
             <p className="mt-3 max-w-[340px] text-[16px] leading-[1.7] text-gray-500">
               Ankara Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı
               odası hizmetlerimiz için iletişime geçin.
