@@ -5,7 +5,16 @@ import Link from "next/link";
 import { DocumentTextIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 
-const slides = [
+type HeroSlide = {
+  id: string;
+  title: string;
+  isH1: boolean;
+  description: string;
+  /** Tanımsızsa: Hemen Teklif Al → #fiyatlar (ilk slayt). */
+  primaryCta?: { label: string; href: string };
+};
+
+const slides: readonly HeroSlide[] = [
   {
     id: "sanal",
     title: "Ankara Sanal Ofis Hizmetleri",
@@ -14,18 +23,26 @@ const slides = [
       "İşinizi bir adım öteye taşıyın. Yasal iş adresi, hazır ofis ve toplantı odası çözümleriyle Ankara'da kurumsal adresiniz.",
   },
   {
-    id: "hazir",
-    title: "Hazır Ofis ile Profesyonel Çalışma Alanı",
+    id: "makam",
+    title: "Ankara Makam Odası Kiralama Çözümleri",
     isH1: false,
     description:
-      "Tam donanımlı ofis birimleri. Günlük veya aylık kiralama, Ankara Çankaya'da esnek çözümler.",
+      "Sizi en üst düzeyde temsil edecek, stopajsız ve esnek süreli tam donanımlı makam odası.",
+    primaryCta: {
+      label: "İnceleyin",
+      href: "/hizmetler/makam-odasi-hizmeti",
+    },
   },
   {
     id: "toplanti",
-    title: "Toplantı Odası Kiralama",
+    title: "Ankara Toplantı Odası Kiralama Çözümleri",
     isH1: false,
     description:
-      "Müşteri ve ekip toplantılarınız için saatlik rezervasyon. Gizli maliyet yok, net fiyat.",
+      "Ankara'da müşteri ve ekip görüşmeleriniz için tam donanımlı, saatlik toplantı odası kiralama hizmeti. Sürpriz masraflardan uzak, şeffaf fiyatlandırma ile profesyonel çalışma alanınızı hemen rezerve edin.",
+    primaryCta: {
+      label: "İnceleyin",
+      href: "/hizmetler/toplanti-odasi-hizmeti",
+    },
   },
 ];
 
@@ -74,13 +91,13 @@ export default function HeroSection() {
               {slide.isH1 ? (
                 <h1
                   id="hero-heading"
-                  className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+                  className="text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl"
                 >
                   {slide.title}
                 </h1>
               ) : (
                 <p
-                  className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+                  className="text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl"
                   aria-hidden
                 >
                   {slide.title}
@@ -91,11 +108,11 @@ export default function HeroSection() {
               </p>
               <div className="mt-10 flex w-full max-w-md flex-row justify-center gap-2 sm:max-w-xl sm:gap-4">
                 <Link
-                  href="#fiyatlar"
+                  href={slide.primaryCta?.href ?? "#fiyatlar"}
                   className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                 >
                   <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
-                  Hemen Teklif Al
+                  {slide.primaryCta?.label ?? "Hemen Teklif Al"}
                 </Link>
                 <a
                   href={`https://wa.me/${SITE.whatsapp}`}
@@ -104,7 +121,7 @@ export default function HeroSection() {
                   className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/80 bg-transparent px-2 py-2.5 text-center text-[13px] font-semibold text-white transition-colors hover:bg-white/10 sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                 >
                   <ChatBubbleLeftRightIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
-                  WhatsApp&apos;tan Ulaşın
+                  İletişime Geç
                 </a>
               </div>
             </div>

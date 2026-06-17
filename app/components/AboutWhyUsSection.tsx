@@ -40,12 +40,15 @@ export default function AboutWhyUsSection({
             Sanal Ofis için Neden Konsept Ofis?
           </SectionHeading>
           <p className="text-[16px] leading-relaxed text-[var(--color-text-muted)]">
-            2 sene önce yabancı ve yerli girişimcilerin,{" "}
-            <span className="text-[var(--color-green)]">hazır ofis</span> ve{" "}
-            <span className="text-[var(--color-green)]">sanal ofis</span> imkânlarından
-            yararlanmaları için kurulduk. Esnek hizmet çözümlerimiz ile binlerce
-            üyemizin sermayelerini ofislerine değil, işlerine yatırmasına ve
-            hedeflerine hızlı ulaşmalarına destek olduk.
+            Yerli ve yabancı girişimcilere Ankara&apos;nın iş ve finans merkezi
+            Çankaya&apos;da prestijli bir yasal iş adresi sunmak amacıyla yola
+            çıktık. Konsept Ofis olarak; esnek{" "}
+            <span className="text-[var(--color-green)]">sanal ofis</span> ve{" "}
+            <span className="text-[var(--color-green)]">hazır ofis</span>{" "}
+            çözümlerimizle binlerce işletmeyi yüksek kira, stopaj ve aidat
+            yükünden kurtarıyoruz. Mahall Ankara&apos;daki kurumsal altyapımız
+            sayesinde üyelerimiz sermayelerini dört duvara değil, doğrudan
+            işlerine yatırıyor ve büyüme hedeflerine çok daha hızlı ulaşıyor.
           </p>
         </div>
 

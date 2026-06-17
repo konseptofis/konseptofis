@@ -94,8 +94,7 @@ export default function IletisimClient() {
               </SectionHeading>
               <p className="text-[16px] leading-relaxed text-gray-600">
                 Sanal ofis, Makam odası ve Toplantı odası çözümlerimiz ile ilgili detaylı bilgi için
-                bizi dilediğiniz zaman arayabilirsiniz. Sizleri bir çay içmeye ofislerimize her zaman
-                bekleriz.
+                bizi dilediğiniz zaman arayabilirsiniz.
               </p>
               <ul className="space-y-4">
                 <li>

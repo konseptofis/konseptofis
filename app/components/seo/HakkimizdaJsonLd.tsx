@@ -22,7 +22,7 @@ const aboutPageJsonLd = {
       logo: `${ORIGIN}/ankara-sanal-ofis-logo.webp`,
       image: `${ORIGIN}/konsept-ofis-hakkimizda.webp`,
       description:
-        "2 sene önce yabancı ve yerli girişimcilerin, hazır ofis ve sanal ofis imkânlarından yararlanmaları için kurulduk. Esnek hizmet çözümlerimiz ile binlerce üyemizin sermayelerini ofislerine değil, işlerine yatırmasına destek olduk.",
+        "Yerli ve yabancı girişimcilere Ankara'nın iş ve finans merkezi Çankaya'da prestijli bir yasal iş adresi sunmak amacıyla yola çıktık. Konsept Ofis olarak; esnek sanal ofis ve hazır ofis çözümlerimizle binlerce işletmeyi yüksek kira, stopaj ve aidat yükünden kurtarıyoruz. Mahall Ankara'daki kurumsal altyapımız sayesinde üyelerimiz sermayelerini dört duvara değil, doğrudan işlerine yatırıyor ve büyüme hedeflerine çok daha hızlı ulaşıyor.",
       foundingDate: "2024",
       address: {
         "@type": "PostalAddress",

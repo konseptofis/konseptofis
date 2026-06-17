@@ -68,13 +68,10 @@ export default function ServiceOfferCardsGrid({
               {card.description}
             </p>
           </div>
-          <div className="flex items-center justify-between px-5 pb-5 pt-4">
+          <div className="flex items-center px-5 pb-5 pt-4">
             <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--color-green)]">
               Detayları gör
               <FooterChevron />
-            </span>
-            <span className="text-[11px] text-[var(--color-text-muted)]">
-              {card.priceLabel}
             </span>
           </div>
         </Link>

@@ -21,6 +21,10 @@ import SikSorulanSorularJsonLd from "./components/seo/SikSorulanSorularJsonLd";
 import { matchPricingPlanForService } from "./lib/hizmet-detay-jsonld";
 import { getServiceDetail } from "./lib/hizmet-detay-data";
 import { isReservedBlogRootSegment } from "./lib/blog-root-path";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const defaultSiteTitle = "Konsept Ofis";
 const defaultDescription =
@@ -96,7 +100,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="tr">
+    <html lang="tr" className={cn("font-sans", geist.variable)}>
       <head>
         {isHome ? <HomePageJsonLd /> : null}
         {isHakkimizda ? <HakkimizdaJsonLd /> : null}

@@ -81,7 +81,7 @@ export const PRICING_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Sözleşme süreleri ne kadar? Uzun vadeli taahhüt vermek zorunda mıyım?",
     answer:
-      "İş modelinize ve bütçenize en uygun, esnek kiralama seçeneklerini sunuyoruz. İster aylık periyotlarla isterseniz de yıllık indirimli fiyat avantajlarıyla sözleşme yapabilirsiniz. Sizi uzun vadeli, bağlayıcı ve iptal edilemez taahhütler altına sokmuyoruz; işinizin büyüme hızına göre paketinizi dilediğiniz zaman güncelleyebilir veya iptal edebilirsiniz.",
+      "İş modelinize ve bütçenize uygun esnek sözleşme seçenekleri sunuyoruz. Yıllık veya ihtiyaca göre belirlenen dönemsel paketlerle ilerleyebilir, yıllık taahhütlerde indirimli fiyat avantajlarından yararlanabilirsiniz. Sizi uzun vadeli, bağlayıcı ve iptal edilemez taahhütler altına sokmuyoruz; işinizin büyüme hızına göre paketinizi güncelleyebilir veya sözleşme koşullarımız çerçevesinde iptal edebilirsiniz.",
   },
   {
     question: "Sadece sanal ofis kiralarsam, gerektiğinde toplantı odası veya fiziki ofis kullanabilir miyim?",

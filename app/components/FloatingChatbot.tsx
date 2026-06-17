@@ -452,7 +452,7 @@ export default function FloatingChatbot() {
                     rel="noopener noreferrer"
                     className="w-full max-w-[280px] cursor-pointer select-none rounded-full border border-[var(--color-green)]/40 bg-[color-mix(in_srgb,var(--color-green)_16%,#ffffff)] px-4 py-2.5 text-center text-[13px] font-semibold text-[var(--color-green)] transition-colors hover:border-[var(--color-green)]/60 hover:bg-[color-mix(in_srgb,var(--color-green)_24%,#ffffff)]"
                   >
-                    {"Sorunuzu WhatsApp'tan sorun"}
+                    İletişime Geç
                   </a>
                 </div>
               )}

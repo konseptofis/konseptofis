@@ -27,15 +27,15 @@ const services: {
     icon: CubeIcon,
   },
   {
-    title: "Toplantı Odaları",
+    title: "Toplantı ve Makam Odaları",
     description:
-      "Misafirlerinizi tam donanımlı toplantı odalarında ağırlayın ve fark yaratın.",
+      "Misafirlerinizi tam donanımlı toplantı odalarımızda ve prestijli makam alanlarımızda ağırlayın; kurumsal sunumlarda ve üst düzey görüşmelerde fark yaratın.",
     icon: UserGroupIcon,
   },
   {
-    title: "Sınırsız Çay ve Kahve",
+    title: "Sınırsız Sıcak İkram",
     description:
-      "Leziz ikramlar eşliğinde sınırsız çay & kahve servisi ile motivasyonunuzu artırın.",
+      "Gün boyu sınırsız sıcak ikram seçeneklerimizle çay ve kahveye sürekli erişimin tadını çıkarın; motive ve enerjik çalışın.",
     icon: SunIcon,
   },
   {

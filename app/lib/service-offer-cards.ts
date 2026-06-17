@@ -5,7 +5,6 @@ export type ServiceOfferCard = {
   badge: string;
   description: string;
   href: string;
-  priceLabel: string;
 };
 
 /** Anasayfa ve hizmetler listesi grid’inde gösterilen kartlar (Hazır Ofis kartı yok). */
@@ -18,7 +17,6 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     description:
       "Ankara'da vergi levhası ve ticaret sicil adresi. NACE uyumlu, stopajsız ofis kiralama seçenekleri.",
     href: "/hizmetler/mahall-sanal-ofis",
-    priceLabel: "299 TL / ay'dan",
   },
   {
     id: "toplanti-odasi",
@@ -28,7 +26,6 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     description:
       "Müşteri ve ekip toplantıları için saatlik rezervasyonlu odalar. Net fiyat, gizli maliyet yok.",
     href: "/hizmetler/toplanti-odasi-hizmeti",
-    priceLabel: "150 TL / saat'ten",
   },
   {
     id: "makam-odasi",
@@ -38,7 +35,6 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     description:
       "Üst düzey görüşmeler ve müşteri sunumları için ferah, konforlu makam birimleri. Mahall Ankara'da kurumsal imaj.",
     href: "/hizmetler/makam-odasi-hizmeti",
-    priceLabel: "Esnek kiralama",
   },
 ];
 
@@ -54,5 +50,4 @@ export const HAZIR_OFIS_PLAN_CARD: ServiceOfferCard = {
   description:
     "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
   href: "/hizmetler/hazir-ofis-hizmeti",
-  priceLabel: "Esnek kiralama",
 };

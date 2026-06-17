@@ -14,9 +14,9 @@ const ICON_PATHS = {
 
 const LIST_ITEMS: { icon: keyof typeof ICON_PATHS; label: string }[] = [
   { icon: "shield", label: "Yasal ve Güvenilir Altyapı" },
-  { icon: "trophy", label: "+2 Yıllık Kesintisiz Hizmet" },
+  { icon: "trophy", label: "Kesintisiz Hizmet" },
   { icon: "creditCard", label: "Stopajsız Esnek Paketler" },
-  { icon: "users", label: "+1200 Mutlu Girişimci" },
+  { icon: "users", label: "Mutlu Girişimciler" },
 ];
 
 function RowIcon({ path }: { path: string }) {
