@@ -1,5 +1,3 @@
-"use client";
-
 import { HOMEPAGE_TESTIMONIALS } from "@/app/lib/testimonials";
 import SectionHeading from "./SectionHeading";
 

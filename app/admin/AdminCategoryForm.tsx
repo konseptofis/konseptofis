@@ -18,7 +18,11 @@ export default function AdminCategoryForm() {
         setError(null);
         setSubmitting(true);
         try {
-          await createCategory(name.trim());
+          await createCategory({
+            name: name.trim(),
+            meta_title: null,
+            meta_description: null,
+          });
           setName("");
           router.refresh();
         } catch (err) {

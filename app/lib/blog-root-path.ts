@@ -5,6 +5,7 @@ export const BLOG_POST_PATH_RESERVED_SEGMENTS = new Set([
   "admin",
   "api",
   "blog",
+  "kategori",
   "fiyatlar",
   "hakkimizda",
   "hizmetler",

@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 
@@ -13,8 +10,6 @@ const LEGAL_LINKS = [
 ] as const;
 
 export default function Footer() {
-  const pathname = usePathname();
-  if (pathname.startsWith("/admin")) return null;
   const currentYear = new Date().getFullYear();
 
   return (

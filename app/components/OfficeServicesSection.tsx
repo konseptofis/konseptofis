@@ -69,7 +69,7 @@ export default function OfficeServicesSection({
           </SectionHeading>
         </header>
 
-        <div className="grid grid-cols-2 gap-2 md:gap-5 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {services.map((item) => {
             const Icon = item.icon;
             return (

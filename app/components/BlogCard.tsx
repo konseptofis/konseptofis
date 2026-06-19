@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 type BlogCardProps = {
@@ -7,25 +8,61 @@ type BlogCardProps = {
   excerpt: string;
   date: string;
   category: string;
+  categorySlug?: string | null;
   featuredImage?: string | null;
   featuredImageAlt?: string | null;
 };
 
-export default function BlogCard({ slug, title, excerpt, date, category, featuredImage, featuredImageAlt }: BlogCardProps) {
+function CategoryBadge({
+  category,
+  categorySlug,
+}: {
+  category: string;
+  categorySlug?: string | null;
+}) {
+  const className =
+    "absolute left-3 top-3 z-10 rounded bg-[#0b7041] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#095530]";
+
+  if (categorySlug) {
+    return (
+      <Link href={`/kategori/${categorySlug}`} className={className}>
+        {category}
+      </Link>
+    );
+  }
+
+  return <span className={className}>{category}</span>;
+}
+
+export default function BlogCard({
+  slug,
+  title,
+  excerpt,
+  date,
+  category,
+  categorySlug,
+  featuredImage,
+  featuredImageAlt,
+}: BlogCardProps) {
   return (
     <article className="overflow-hidden rounded-lg border border-[#e5e5e5] bg-white shadow-md">
-      <Link href={`/${slug}`} className="block">
-        <div className="relative aspect-video w-full bg-[#f2f2f2]">
+      <div className="relative aspect-video w-full bg-[#f2f2f2]">
+        <Link href={`/${slug}`} className="relative block h-full w-full">
           {featuredImage ? (
-            <img src={featuredImage} alt={featuredImageAlt || title} className="h-full w-full object-cover" />
+            <Image
+              src={featuredImage}
+              alt={featuredImageAlt || title}
+              fill
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              className="object-cover"
+              loading="lazy"
+            />
           ) : null}
-          {category ? (
-            <div className="absolute left-3 top-3 rounded bg-[#0b7041] px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-              {category}
-            </div>
-          ) : null}
-        </div>
-      </Link>
+        </Link>
+        {category ? (
+          <CategoryBadge category={category} categorySlug={categorySlug} />
+        ) : null}
+      </div>
       <div className="p-5">
         <p className="text-xs text-gray-500">{date}</p>
         <h2 className="mt-2 line-clamp-2 text-lg font-bold text-black">

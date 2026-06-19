@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { DocumentTextIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
@@ -65,13 +66,17 @@ export default function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative -mt-20 overflow-hidden sm:-mt-28 px-3 pt-32 pb-12 sm:px-6 sm:pt-40 sm:pb-[75px] lg:px-8 lg:pt-44"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div
-          className="absolute inset-0 scale-[1.02] bg-cover bg-center blur-[2px]"
-          style={{
-            backgroundImage: "url(/ankara-sanal-ofis.webp)",
-          }}
-        />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="absolute inset-0 scale-[1.02] blur-[2px]">
+          <Image
+            src="/ankara-sanal-ofis.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
       </div>
       <div className="absolute inset-0 bg-[#051a12]/75" aria-hidden />
       <div className="relative z-10 mx-auto max-w-4xl">

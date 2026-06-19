@@ -11,6 +11,8 @@ import {
   type Expert,
   type ExpertSocialLinks,
 } from "@/app/actions/experts";
+import { getCategories } from "@/app/actions/categories";
+import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
 import { SITE } from "@/app/lib/data";
 
 export const revalidate = 0;
@@ -129,6 +131,8 @@ export default async function ExpertDetailPage({ params }: Props) {
   if (!expert) notFound();
 
   const posts = await getPublishedPostsByReviewer(expert.id);
+  const categories = await getCategories();
+  const categorySlugLookup = buildCategorySlugLookup(categories);
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-sans">
@@ -197,7 +201,7 @@ export default async function ExpertDetailPage({ params }: Props) {
 
               {expert.bio ? (
                 <div
-                  className="prose prose-gray mt-6 max-w-2xl text-left prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-base prose-headings:font-semibold prose-headings:text-black first:prose-headings:mt-0 prose-p:mb-3 prose-p:last:mb-0 prose-p:text-[15px] prose-p:leading-relaxed prose-p:text-gray-600 sm:prose-p:text-base sm:prose-p:leading-[1.65] prose-a:text-[#0b7041] prose-a:no-underline hover:prose-a:underline prose-strong:text-black"
+                  className="prose prose-gray mt-6 max-w-2xl break-words text-left prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-base prose-headings:font-semibold prose-headings:text-black first:prose-headings:mt-0 prose-p:mb-3 prose-p:last:mb-0 prose-p:text-[15px] prose-p:leading-relaxed prose-p:text-gray-600 sm:prose-p:text-base sm:prose-p:leading-[1.65] prose-a:text-[#0b7041] prose-a:no-underline hover:prose-a:underline prose-strong:text-black [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_pre]:overflow-x-auto"
                   dangerouslySetInnerHTML={{ __html: expert.bio }}
                 />
               ) : (
@@ -233,6 +237,7 @@ export default async function ExpertDetailPage({ params }: Props) {
                   excerpt={stripHtml(p.content ?? p.meta_description ?? "", 160)}
                   date={formatDate(p.created_at)}
                   category={p.category ?? ""}
+                  categorySlug={resolveCategorySlug(p.category, categorySlugLookup)}
                   featuredImage={p.featured_image}
                   featuredImageAlt={p.featured_image_alt ?? p.title}
                 />

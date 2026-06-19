@@ -4,6 +4,8 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { Expert } from "@/app/actions/experts";
+import { getCategoryBySlug } from "@/app/actions/categories";
+import { normalizeCategoryKey } from "@/lib/category-utils";
 
 export type FAQItem = { question: string; answer: string };
 
@@ -58,6 +60,16 @@ export async function getPublishedPosts(): Promise<Post[]> {
     .order("created_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as Post[];
+}
+
+/** Kategori slug'ına göre yayınlanmış yazılar (posts.category ↔ categories.name, case-insensitive). */
+export async function getPublishedPostsByCategory(categorySlug: string): Promise<Post[]> {
+  const category = await getCategoryBySlug(categorySlug);
+  if (!category) return [];
+
+  const targetKey = normalizeCategoryKey(category.name);
+  const posts = await getPublishedPosts();
+  return posts.filter((post) => normalizeCategoryKey(post.category ?? "") === targetKey);
 }
 
 export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { FAQ_ITEMS } from "@/app/lib/data";
 import SectionHeading from "./SectionHeading";
@@ -86,7 +87,7 @@ export default function FAQAccordion({ sectionClassName = "bg-white" }: Props) {
           {/* Sağ: yuvarlak köşeli kart + görsel (absolute img akışta genişlik vermez; sütun genişliği şart) */}
           <div className="hidden w-full max-w-[576px] shrink-0 justify-center lg:ml-auto lg:flex lg:justify-end">
             <div className="relative aspect-[576/648] w-full overflow-hidden rounded-[32px] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.12)]">
-              <img
+              <Image
                 id="faqImage"
                 src={faqImageSrc}
                 alt="Sıkça sorulan sorular görseli"

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { getCategories } from "@/app/actions/categories";
 
 type Props = { className?: string };
 
@@ -77,11 +78,47 @@ function ProductPromoCard() {
   );
 }
 
-/** Blog detay sağ sütun: sanal ofis tanıtım kartı */
-export default function BlogSidebar({ className = "" }: Props) {
+function CategoryListCard({
+  categories,
+}: {
+  categories: { name: string; slug: string }[];
+}) {
   return (
-    <div className={className}>
+    <CardShell>
+      <div className="px-[22px] py-5">
+        <h2 className="m-0 text-[13px] font-medium uppercase tracking-[0.06em] text-[var(--color-text-muted)]">
+          Kategoriler
+        </h2>
+        <ul className="mt-3 flex flex-col gap-1.5">
+          {categories.map((cat) => (
+            <li key={cat.slug}>
+              <Link
+                href={`/kategori/${cat.slug}`}
+                className="block rounded-md px-1 py-1 text-[13px] leading-snug text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-green)]"
+              >
+                {cat.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </CardShell>
+  );
+}
+
+/** Blog detay sağ sütun: sanal ofis tanıtım kartı + kategori listesi */
+export default async function BlogSidebar({ className = "" }: Props) {
+  let categories: { name: string; slug: string }[] = [];
+  try {
+    categories = await getCategories();
+  } catch {
+    // Supabase yoksa vb.
+  }
+
+  return (
+    <div className={`flex flex-col gap-5 ${className}`.trim()}>
       <ProductPromoCard />
+      {categories.length > 0 ? <CategoryListCard categories={categories} /> : null}
     </div>
   );
 }

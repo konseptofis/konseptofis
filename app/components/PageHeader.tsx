@@ -39,7 +39,6 @@ export default function PageHeader({
           className="object-cover object-center"
           priority
           sizes="100vw"
-          unoptimized
         />
         {/* Nötr karartma: metin okunur kalsın; yeşil #051a12 tek başına fotoğrafı yeşilmiş gibi gösteriyordu */}
         <div className="absolute inset-0 z-[1] bg-black/55" aria-hidden />

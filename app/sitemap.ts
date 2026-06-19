@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/app/lib/data";
 import { getPublishedPosts } from "@/app/actions/blog";
 import { getExperts } from "@/app/actions/experts";
+import { getCategories } from "@/app/actions/categories";
 import { HIZMET_DETAY_MAP, getServicePagePath } from "@/app/lib/hizmet-detay-data";
 
 /** Yayınlanan içerik değişince sitemap yenilensin (blog, fiyatlar vb.). */
@@ -37,6 +38,8 @@ const CORE_PAGES: readonly {
 
 const SERVICE_PRIORITY = 0.9;
 const BLOG_POST_PRIORITY = 0.72;
+
+const CATEGORY_PAGE_PRIORITY = 0.7;
 
 const EXPERT_PAGE_PRIORITY = 0.68;
 
@@ -90,5 +93,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // experts tablosu yoksa vb.
   }
 
-  return [...core, ...services, ...blogPosts, ...expertPages];
+  let categoryPages: MetadataRoute.Sitemap = [];
+  try {
+    const categories = await getCategories();
+    categoryPages = categories.map((cat) => ({
+      url: absoluteUrl(`/kategori/${cat.slug}`),
+      changeFrequency: "weekly" as const,
+      priority: CATEGORY_PAGE_PRIORITY,
+    }));
+  } catch {
+    // categories tablosu yoksa vb.
+  }
+
+  return [...core, ...services, ...blogPosts, ...categoryPages, ...expertPages];
 }

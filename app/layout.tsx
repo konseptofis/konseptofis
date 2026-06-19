@@ -4,7 +4,7 @@ import { SITE } from "@/app/lib/data";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import FloatingChatbot from "./components/FloatingChatbot";
+import FloatingChatbotLazy from "./components/FloatingChatbotLazy";
 import { getPostBySlug } from "./actions/blog";
 import { getExpertBySlug } from "./actions/experts";
 import { getPricingPlans } from "./actions/pricing";
@@ -21,6 +21,7 @@ import SikSorulanSorularJsonLd from "./components/seo/SikSorulanSorularJsonLd";
 import { matchPricingPlanForService } from "./lib/hizmet-detay-jsonld";
 import { getServiceDetail } from "./lib/hizmet-detay-data";
 import { isReservedBlogRootSegment } from "./lib/blog-root-path";
+import { manrope } from "@/lib/fonts";
 
 const defaultSiteTitle = "Konsept Ofis";
 const defaultDescription =
@@ -56,6 +57,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
   const isHome = pathname === "/";
   const isHakkimizda = pathname === "/hakkimizda";
   const isHizmetlerimiz = pathname === "/hizmetlerimiz";
@@ -96,7 +98,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="tr" className="font-sans">
+    <html lang="tr" className={`${manrope.variable} font-sans`}>
       <head>
         {isHome ? <HomePageJsonLd /> : null}
         {isHakkimizda ? <HakkimizdaJsonLd /> : null}
@@ -110,12 +112,12 @@ export default async function RootLayout({
         {isSikSorulanSorular ? <SikSorulanSorularJsonLd /> : null}
       </head>
       <body
-        className="font-sans antialiased text-foreground bg-background overflow-x-hidden"
+        className={`${manrope.className} antialiased text-foreground bg-background overflow-x-hidden`}
       >
         <Header />
         {children}
-        <Footer />
-        <FloatingChatbot />
+        {!isAdmin ? <Footer /> : null}
+        {!isAdmin ? <FloatingChatbotLazy /> : null}
       </body>
     </html>
   );

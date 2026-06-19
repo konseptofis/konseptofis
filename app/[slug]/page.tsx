@@ -12,6 +12,8 @@ import BlogSidebar from "@/app/components/blog/BlogSidebar";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import { processHeadings } from "@/lib/headings";
 import { getPostBySlug, getPublishedPosts } from "@/app/actions/blog";
+import { getCategories } from "@/app/actions/categories";
+import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
 import { SITE } from "@/app/lib/data";
 import { isReservedBlogRootSegment } from "@/app/lib/blog-root-path";
 
@@ -56,6 +58,8 @@ export default async function BlogPostRootPage({ params }: Props) {
   if (!post) notFound();
 
   const allPublished = await getPublishedPosts();
+  const categories = await getCategories();
+  const categorySlugLookup = buildCategorySlugLookup(categories);
   const related = allPublished.filter((p) => p.slug !== slug).slice(0, 3);
 
   const { html: contentWithIds, items: tocItems } = post.content
@@ -113,7 +117,7 @@ export default async function BlogPostRootPage({ params }: Props) {
 
             {post.content ? (
               <article
-                className="prose prose-gray max-w-none text-justify leading-relaxed prose-headings:text-left prose-headings:font-semibold prose-p:text-justify prose-blockquote:text-justify prose-td:text-justify prose-li:text-left prose-a:text-[#0b7041] prose-img:rounded-lg [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
+                className="prose prose-gray max-w-none break-words text-justify leading-relaxed prose-headings:text-left prose-headings:font-semibold prose-p:text-justify prose-blockquote:text-justify prose-td:text-justify prose-li:text-left prose-a:text-[#0b7041] prose-img:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_pre]:overflow-x-auto [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
                 dangerouslySetInnerHTML={{ __html: contentWithIds }}
                 style={{ fontSize: "16px", textAlign: "justify" }}
               />
@@ -195,6 +199,7 @@ export default async function BlogPostRootPage({ params }: Props) {
                   excerpt={stripHtml(p.content ?? p.meta_description ?? "", 160)}
                   date={formatDate(p.created_at)}
                   category={p.category ?? ""}
+                  categorySlug={resolveCategorySlug(p.category, categorySlugLookup)}
                   featuredImage={p.featured_image}
                   featuredImageAlt={p.featured_image_alt ?? p.title}
                 />

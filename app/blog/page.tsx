@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import BlogCard from "@/app/components/BlogCard";
 import { getPublishedPosts } from "@/app/actions/blog";
+import { getCategories } from "@/app/actions/categories";
+import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
 import { SITE } from "@/app/lib/data";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
@@ -48,6 +50,8 @@ export default async function BlogPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Math.max(1, parseInt(params.page ?? "1", 10) || 1);
   const allPosts = await getPublishedPosts();
+  const categories = await getCategories();
+  const categorySlugLookup = buildCategorySlugLookup(categories);
   const totalPages = Math.max(1, Math.ceil(allPosts.length / BLOG_POSTS_PER_PAGE));
   const currentPage = Math.max(1, Math.min(page, totalPages));
   const start = (currentPage - 1) * BLOG_POSTS_PER_PAGE;
@@ -76,6 +80,7 @@ export default async function BlogPage({ searchParams }: Props) {
                 excerpt={stripHtml(post.content ?? post.meta_description ?? "", 160)}
                 date={formatDate(post.created_at)}
                 category={post.category ?? ""}
+                categorySlug={resolveCategorySlug(post.category, categorySlugLookup)}
                 featuredImage={post.featured_image}
                 featuredImageAlt={post.featured_image_alt ?? post.title}
               />
