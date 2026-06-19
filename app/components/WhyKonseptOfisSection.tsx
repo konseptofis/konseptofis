@@ -1,4 +1,5 @@
 import SectionHeading from "./SectionHeading";
+import Link from "next/link";
 
 /** Heroicons 24 outline paths — inline SVG 15×15, stroke 1.6 */
 const ICON_PATHS = {
@@ -44,10 +45,13 @@ function RowIcon({ path }: { path: string }) {
 type WhyKonseptOfisSectionProps = {
   /** Örn. anasayfa / hizmetler zebra ile `bg-white` veya yeşilimsi ton */
   sectionClassName?: string;
+  /** "stopajsız ve aidatsız" ifadesini fiyatlar sayfasına bağlar */
+  linkPricingPhrase?: boolean;
 };
 
 export default function WhyKonseptOfisSection({
   sectionClassName = "bg-[var(--color-white)]",
+  linkPricingPhrase = false,
 }: WhyKonseptOfisSectionProps) {
   return (
     <section
@@ -66,9 +70,20 @@ export default function WhyKonseptOfisSection({
             </SectionHeading>
             <p className="mt-4 text-[16px] leading-[1.8] text-[var(--color-text-secondary)]">
               İster yeni bir şirket kuruluşu yapın, ister işinizi Ankara Çankaya&apos;nın merkezine
-              taşıyın; stopajsız ve aidatsız kiralık çalışma alanlarımızla yanınızdayız. Girişimciler ve
-              profesyoneller için sunduğumuz esnek sanal ofis paketleri, kargo yönetimi ve modern toplantı
-              odası altyapımızla sermayenizi fiziki ofis giderlerine değil, doğrudan işinizi büyütmeye
+              taşıyın;{" "}
+              {linkPricingPhrase ? (
+                <Link
+                  href="/fiyatlar"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  stopajsız ve aidatsız
+                </Link>
+              ) : (
+                "stopajsız ve aidatsız"
+              )}{" "}
+              kiralık çalışma alanlarımızla yanınızdayız. Girişimciler ve profesyoneller için
+              sunduğumuz esnek sanal ofis paketleri, kargo yönetimi ve modern toplantı odası
+              altyapımızla sermayenizi fiziki ofis giderlerine değil, doğrudan işinizi büyütmeye
               ayırın.
             </p>
           </div>

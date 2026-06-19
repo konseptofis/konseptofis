@@ -51,7 +51,7 @@ export const CHATBOT_TOPICS = [
         answer:
           "Aidat, elektrik, su ve internet faturası derdi olmadan; tam donanımlı ofisinize sadece bilgisayarınızı alıp hemen taşınabilirsiniz.",
         linkLabel: "Hazır Ofis Detayları",
-        href: "/hizmetler/hazir-ofis-kiralama",
+        href: "/hizmetlerimiz/hazir-ofis-kiralama",
       },
       {
         label: "Yasal iş adresi (Vergi Levhası) süreci",
@@ -73,14 +73,14 @@ export const CHATBOT_TOPICS = [
         answer:
           "Evet! İhtiyacınız olan gün ve saatte, tam donanımlı toplantı ve makam odalarımızı kiralayabilirsiniz. Misafirleriniz profesyonel ekibimiz tarafından karşılanır.",
         linkLabel: "Odaları İncele",
-        href: "/hizmetler/toplanti-odasi-kiralama",
+        href: "/hizmetlerimiz/toplanti-odasi-kiralama",
       },
       {
         label: "Sınırsız ikram ve donanım dahil mi?",
         answer:
           "Toplantı süresince yüksek hızlı internet, sunum tahtası/projeksiyon ve sınırsız sıcak/soğuk içecek ikramımız fiyatlara dahildir.",
         linkLabel: "Görsellere Göz At",
-        href: "/hizmetler/toplanti-odasi-kiralama",
+        href: "/hizmetlerimiz/toplanti-odasi-kiralama",
       },
       {
         label: "Misafirlerim nasıl karşılanıyor?",
@@ -137,7 +137,7 @@ export const CHATBOT_TOPICS = [
         answer:
           "Şirketiniz adına gelen tüm kargo, posta ve tebligatlar (resmi evraklar) resepsiyonumuz tarafından güvenle teslim alınır ve size anında WhatsApp/E-posta ile bilgi verilir.",
         linkLabel: "Sanal Ofis Özellikleri",
-        href: "/hizmetler/cankaya-sanal-ofis",
+        href: "/hizmetlerimiz/cankaya-sanal-ofis",
       },
       {
         label: "💬 Aradığım cevabı bulamadım",

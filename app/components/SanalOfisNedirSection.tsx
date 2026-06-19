@@ -78,7 +78,7 @@ export default function SanalOfisNedirSection({
           odası imkânı sunar. Yüksek ofis kirası, aidat ve stopaj gibi sabit giderler
           olmadan kurumsal bir kimlik kazanırsınız. Çankaya&apos;da detaylı bilgi için{" "}
           <Link
-            href="/hizmetler/cankaya-sanal-ofis"
+            href="/hizmetlerimiz/cankaya-sanal-ofis"
             className="font-medium text-[var(--color-green)] underline-offset-2 hover:underline"
           >
             Çankaya Sanal Ofis

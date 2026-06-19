@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   PhoneIcon,
   EnvelopeIcon,
@@ -93,8 +94,27 @@ export default function IletisimClient() {
                 Bize ulaşın
               </SectionHeading>
               <p className="text-[16px] leading-relaxed text-gray-600">
-                Sanal ofis, Makam odası ve Toplantı odası çözümlerimiz ile ilgili detaylı bilgi için
-                bizi dilediğiniz zaman arayabilirsiniz.
+                <Link
+                  href="/hizmetlerimiz/cankaya-sanal-ofis"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  Sanal ofis
+                </Link>
+                ,{" "}
+                <Link
+                  href="/hizmetlerimiz/makam-odasi-kiralama"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  Makam odası
+                </Link>{" "}
+                ve{" "}
+                <Link
+                  href="/hizmetlerimiz/toplanti-odasi-kiralama"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  Toplantı odası
+                </Link>{" "}
+                çözümlerimiz ile ilgili detaylı bilgi için bizi dilediğiniz zaman arayabilirsiniz.
               </p>
               <ul className="space-y-4">
                 <li>

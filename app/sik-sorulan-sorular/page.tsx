@@ -1,7 +1,7 @@
 import PageHeader from "@/app/components/PageHeader";
 import type { Metadata } from "next";
-import AccordionFAQ from "@/app/components/AccordionFAQ";
-import { FAQ_ITEMS } from "@/app/lib/data";
+import Link from "next/link";
+import SssFaq from "@/app/components/SssFaq";
 
 export const metadata: Metadata = {
   title: { absolute: "Sıkça Sorulan Sorular | Konsept Ofis" },
@@ -43,8 +43,18 @@ export default function SssPage() {
           </p>
 
           <div className="rounded-[8px] border border-[#e5e5e5] bg-white px-5 py-2 sm:px-7">
-            <AccordionFAQ items={FAQ_ITEMS} idPrefix="sss-page" />
+            <SssFaq />
           </div>
+
+          <p className="mt-8 text-center text-[16px] leading-relaxed text-gray-600">
+            Sorunuz burada yok mu?{" "}
+            <Link
+              href="/iletisim"
+              className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+            >
+              İletişime geçin
+            </Link>
+          </p>
         </div>
       </section>
     </main>

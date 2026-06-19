@@ -1,10 +1,10 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
-type FAQItem = { question: string; answer: string };
-
+type FAQItem = { question: string; answer: string | ReactNode };
 type AccordionFAQProps = {
   items: FAQItem[];
   idPrefix?: string;
@@ -43,7 +43,7 @@ export default function AccordionFAQ({ items, idPrefix = "faq" }: AccordionFAQPr
               hidden={!isOpen}
               className="pb-4"
             >
-              <p className="text-sm leading-relaxed text-gray-600">{item.answer}</p>
+              <div className="text-sm leading-relaxed text-gray-600">{item.answer}</div>
             </div>
           </li>
         );

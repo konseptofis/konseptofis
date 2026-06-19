@@ -8,7 +8,6 @@ export const BLOG_POST_PATH_RESERVED_SEGMENTS = new Set([
   "kategori",
   "fiyatlar",
   "hakkimizda",
-  "hizmetler",
   "hizmetlerimiz",
   "iletisim",
   "sik-sorulan-sorular",

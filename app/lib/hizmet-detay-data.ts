@@ -166,7 +166,7 @@ export type ServiceDetailData = {
   pageHeaderHeading?: string;
   /** Hero H1 altında kısa tanıtım (p). Genelde `pageHeaderHeading` ile birlikte kullanılır. */
   pageHeaderLead?: string;
-  /** SEO canonical yolu; yoksa `/hizmetler/{slug}`. */
+  /** SEO canonical yolu; yoksa `/hizmetlerimiz/{slug}`. */
   canonicalPath?: string;
   /** Sayfa içi çapraz linkler (SEO). */
   internalLinks?: readonly { href: string; label: string }[];
@@ -176,19 +176,19 @@ export type ServiceDetailData = {
 export const SERVICE_INTERNAL_LINK = {
   ankaraSanalOfis: { href: "/", label: "Ankara Sanal Ofis" },
   cankayaSanalOfis: {
-    href: "/hizmetler/cankaya-sanal-ofis",
+    href: "/hizmetlerimiz/cankaya-sanal-ofis",
     label: "Çankaya Sanal Ofis",
   },
   toplantiOdasi: {
-    href: "/hizmetler/toplanti-odasi-kiralama",
+    href: "/hizmetlerimiz/toplanti-odasi-kiralama",
     label: "Toplantı Odası Kiralama",
   },
   makamOdasi: {
-    href: "/hizmetler/makam-odasi-kiralama",
+    href: "/hizmetlerimiz/makam-odasi-kiralama",
     label: "Makam Odası Kiralama",
   },
   hazirOfis: {
-    href: "/hizmetler/hazir-ofis-kiralama",
+    href: "/hizmetlerimiz/hazir-ofis-kiralama",
     label: "Hazır Ofis Kiralama",
   },
 } as const;
@@ -275,7 +275,7 @@ const TOPLANTI_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
 const CANKAYA_SANAL_OFIS: ServiceDetailData = {
   slug: "cankaya-sanal-ofis",
   title: "Çankaya Sanal Ofis",
-  canonicalPath: "/hizmetler/cankaya-sanal-ofis",
+  canonicalPath: "/hizmetlerimiz/cankaya-sanal-ofis",
   pageHeaderHeading: "Çankaya Sanal Ofis",
   pageHeaderLead:
     "Çankaya'da yasal iş adresi, vergi levhası adresi ve esnek sanal ofis çözümleri. Mahall Ankara'nın prestijli merkezinde.",
@@ -861,7 +861,7 @@ export const HIZMET_DETAY_MAP: Record<string, ServiceDetailData> = {
 };
 
 export function getServicePagePath(detail: ServiceDetailData): string {
-  return detail.canonicalPath ?? `/hizmetler/${detail.slug}`;
+  return detail.canonicalPath ?? `/hizmetlerimiz/${detail.slug}`;
 }
 
 const SERVICE_SLUG_ALIASES: Record<string, string> = {

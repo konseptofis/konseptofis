@@ -11,12 +11,7 @@ const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
 
 function isHizmetlerPath(path: string): boolean {
-  return (
-    path === "/hizmetler" ||
-    path.startsWith("/hizmetler/") ||
-    path === "/hizmetlerimiz" ||
-    path.startsWith("/hizmetlerimiz/")
-  );
+  return path === "/hizmetlerimiz" || path.startsWith("/hizmetlerimiz/");
 }
 
 function isKurumsalPath(path: string): boolean {

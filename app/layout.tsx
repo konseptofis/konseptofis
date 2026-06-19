@@ -81,9 +81,7 @@ export default async function RootLayout({
   const expert =
     uzmanSlug != null && uzmanSlug.length > 0 ? await getExpertBySlug(uzmanSlug) : null;
 
-  const hizmetSlug =
-    pathname.match(/^\/hizmetler\/([^/]+)$/)?.[1] ??
-    pathname.match(/^\/hizmetlerimiz\/([^/]+)$/)?.[1];
+  const hizmetSlug = pathname.match(/^\/hizmetlerimiz\/([^/]+)$/)?.[1];
 
   let hizmetDetayLd: React.ReactNode = null;
   if (hizmetSlug) {

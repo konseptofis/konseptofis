@@ -23,23 +23,23 @@ function supabaseImageRemotePatterns(): NonNullable<
   }
 }
 
-/** WordPress /service/… → yeni hizmet sayfaları (tek hop, trailing slash dahil). */
+/** WordPress /service/… → hizmet detay (tek hop, trailing slash dahil). */
 const WP_SERVICE_REDIRECTS: readonly { source: string; destination: string }[] = [
   {
     source: "/service/sanal-ofis-hizmeti",
-    destination: "/hizmetler/cankaya-sanal-ofis",
+    destination: "/hizmetlerimiz/cankaya-sanal-ofis",
   },
   {
     source: "/service/hazir-ofis-hizmeti",
-    destination: "/hizmetler/hazir-ofis-kiralama",
+    destination: "/hizmetlerimiz/hazir-ofis-kiralama",
   },
   {
     source: "/service/toplanti-odasi-hizmeti",
-    destination: "/hizmetler/toplanti-odasi-kiralama",
+    destination: "/hizmetlerimiz/toplanti-odasi-kiralama",
   },
 ];
 
-/** WordPress /category/… → yeni /kategori/… (iç içe path en üstte, spesifik önce). */
+/** WordPress /category/… → yeni rotalar (iç içe path en üstte, spesifik önce). */
 const WP_CATEGORY_REDIRECTS: readonly { source: string; destination: string }[] = [
   {
     source: "/category/is-fikirleri/online-is-fikirleri",
@@ -47,7 +47,7 @@ const WP_CATEGORY_REDIRECTS: readonly { source: string; destination: string }[] 
   },
   {
     source: "/category/sanal-ofis",
-    destination: "/hizmetler/cankaya-sanal-ofis",
+    destination: "/hizmetlerimiz/cankaya-sanal-ofis",
   },
   {
     source: "/category/ticaret",
@@ -57,6 +57,12 @@ const WP_CATEGORY_REDIRECTS: readonly { source: string; destination: string }[] 
     source: "/category/is-fikirleri",
     destination: "/kategori/is-fikirleri",
   },
+];
+
+/** Eski /hizmetler rotaları → /hizmetlerimiz (tek hop). */
+const LEGACY_HIZMETLER_REDIRECTS: readonly { source: string; destination: string }[] = [
+  { source: "/hizmetler", destination: "/hizmetlerimiz" },
+  { source: "/hizmetler/:slug", destination: "/hizmetlerimiz/:slug" },
 ];
 
 const nextConfig: NextConfig = {
@@ -79,6 +85,7 @@ const nextConfig: NextConfig = {
     return [
       ...withSlashVariants(WP_CATEGORY_REDIRECTS),
       ...withSlashVariants(WP_SERVICE_REDIRECTS),
+      ...withSlashVariants(LEGACY_HIZMETLER_REDIRECTS),
     ];
   },
 };

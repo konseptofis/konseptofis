@@ -31,7 +31,7 @@ const slides: readonly HeroSlide[] = [
       "Sizi en üst düzeyde temsil edecek, stopajsız ve esnek süreli tam donanımlı makam odası.",
     primaryCta: {
       label: "İnceleyin",
-      href: "/hizmetler/makam-odasi-kiralama",
+      href: "/hizmetlerimiz/makam-odasi-kiralama",
     },
   },
   {
@@ -42,7 +42,7 @@ const slides: readonly HeroSlide[] = [
       "Ankara'da müşteri ve ekip görüşmeleriniz için tam donanımlı, saatlik toplantı odası kiralama hizmeti. Sürpriz masraflardan uzak, şeffaf fiyatlandırma ile profesyonel çalışma alanınızı hemen rezerve edin.",
     primaryCta: {
       label: "İnceleyin",
-      href: "/hizmetler/toplanti-odasi-kiralama",
+      href: "/hizmetlerimiz/toplanti-odasi-kiralama",
     },
   },
 ];

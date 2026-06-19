@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -49,7 +50,12 @@ const HOW_IT_WORKS_STEPS = [
   },
 ];
 
-const WHY_PREFERRED_ITEMS = [
+const WHY_PREFERRED_ITEMS: {
+  icon: typeof BuildingOffice2Icon;
+  title: string;
+  description: string;
+  href?: string;
+}[] = [
   {
     icon: BuildingOffice2Icon,
     title: "Prestijli Lokasyon",
@@ -79,12 +85,14 @@ const WHY_PREFERRED_ITEMS = [
     title: "Toplantı Odası Hizmeti",
     description:
       "Modern ve konforlu toplantı odalarımız, iş görüşmeleriniz ve sunumlarınız için ideal bir ortam sunar. Profesyonel bir izlenim bırakın.",
+    href: "/hizmetlerimiz/toplanti-odasi-kiralama",
   },
   {
     icon: BriefcaseIcon,
     title: "Makam Odası Hizmeti",
     description:
       "Prestijli ve konforlu makam odamız, önemli görüşmeleriniz ve toplantılarınız için özel bir alan sunar. İşinize değer katan bir çalışma ortamı.",
+    href: "/hizmetlerimiz/makam-odasi-kiralama",
   },
 ];
 
@@ -114,7 +122,30 @@ export default function HakkimizdaPage() {
                 Konsept Ofis olarak, serbest çalışanlardan kurumsal şirketlere kadar her ölçekten işletmeye prestijli ve maliyet etkin çalışma çözümleri sunmak için yola çıktık. Amacımız; sizi yüksek kira, aidat ve stopaj gibi geleneksel ofis yüklerinden kurtararak enerjinizi ve sermayenizi doğrudan işinizi büyütmeye ayırmanızı sağlamaktır.
               </p>
               <p className="text-[16px] leading-relaxed text-gray-600">
-                Ankara&apos;nın en prestijli iş merkezlerinden Mahall Ankara&apos;da; yasal iş adresi gereksinimlerinizi karşılayan sanal ofis paketleri, şirket kuruluşuna %100 uygun tam donanımlı hazır ofisler ve profesyonel toplantı odalarıyla hizmet veriyoruz. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf fiyatlandırma politikamızla işinizi geleceğe taşırken her adımda yanınızdayız.
+                Ankara&apos;nın en prestijli iş merkezlerinden Mahall Ankara&apos;da; yasal iş adresi
+                gereksinimlerinizi karşılayan{" "}
+                <Link
+                  href="/"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  sanal ofis paketleri
+                </Link>
+                , şirket kuruluşuna %100 uygun tam donanımlı{" "}
+                <Link
+                  href="/hizmetlerimiz/hazir-ofis-kiralama"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  hazır ofisler
+                </Link>{" "}
+                ve profesyonel{" "}
+                <Link
+                  href="/hizmetlerimiz/toplanti-odasi-kiralama"
+                  className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                >
+                  toplantı odalarıyla
+                </Link>{" "}
+                hizmet veriyoruz. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf
+                fiyatlandırma politikamızla işinizi geleceğe taşırken her adımda yanınızdayız.
               </p>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-md">
@@ -142,16 +173,25 @@ export default function HakkimizdaPage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {WHY_PREFERRED_ITEMS.map((item) => {
               const Icon = item.icon;
-              return (
-                <article
-                  key={item.title}
-                  className="group relative overflow-hidden rounded-[12px] border border-[#dfe7e3] bg-gradient-to-br from-[#eaf7f0] via-white to-white p-6 shadow-[0_10px_30px_-20px_rgba(11,112,65,0.55)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-22px_rgba(11,112,65,0.65)]"
-                >
+              const cardClassName =
+                "group relative overflow-hidden rounded-[12px] border border-[#dfe7e3] bg-gradient-to-br from-[#eaf7f0] via-white to-white p-6 shadow-[0_10px_30px_-20px_rgba(11,112,65,0.55)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-22px_rgba(11,112,65,0.65)]";
+              const cardContent = (
+                <>
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0b7041]/20 bg-[#0b7041]/10 transition-colors duration-300 group-hover:bg-[#0b7041]/15">
                     <Icon className="h-6 w-6 text-[#0b7041]" aria-hidden />
                   </div>
                   <h3 className="mb-2 pr-8 text-[17px] font-semibold text-gray-900">{item.title}</h3>
                   <p className="text-[14px] leading-relaxed text-gray-600">{item.description}</p>
+                </>
+              );
+
+              return item.href ? (
+                <Link key={item.title} href={item.href} className={`block ${cardClassName}`}>
+                  {cardContent}
+                </Link>
+              ) : (
+                <article key={item.title} className={cardClassName}>
+                  {cardContent}
                 </article>
               );
             })}
@@ -194,6 +234,34 @@ export default function HakkimizdaPage() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className={`${ZEBRA_GREEN} px-4 py-14 sm:px-6 sm:py-16 lg:px-8`}
+        aria-labelledby="hakkimizda-cta-heading"
+      >
+        <div className="mx-auto max-w-6xl text-center">
+          <h2
+            id="hakkimizda-cta-heading"
+            className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl"
+          >
+            Çalışma alanı çözümlerimizi yakından tanıyın
+          </h2>
+          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link
+              href="/hizmetlerimiz"
+              className="inline-flex items-center justify-center rounded-lg bg-[#0b7041] px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#095530] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
+            >
+              Hizmetlerimizi keşfedin
+            </Link>
+            <Link
+              href="/iletisim"
+              className="inline-flex items-center justify-center rounded-lg border border-[#e5e5e5] bg-white px-6 py-3 text-center text-sm font-semibold text-[#0b7041] transition-colors hover:border-[#0b7041]/40 hover:bg-[#0b7041]/5 focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
+            >
+              İletişime geçin
+            </Link>
           </div>
         </div>
       </section>

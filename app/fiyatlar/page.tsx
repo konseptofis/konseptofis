@@ -20,9 +20,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/fiyatlar" },
 };
 
-/** Anasayfa / hizmetler ile aynı zebra arka planları */
 const ZEBRA_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
 const ZEBRA_WHITE = "bg-white";
+
+/** Fiyat kartı başlığına göre ilgili hizmet detay sayfası */
+function getPricingDetailHref(title: string): string | null {
+  const normalized = title.toUpperCase();
+  if (normalized.includes("SANAL")) return "/hizmetlerimiz/cankaya-sanal-ofis";
+  if (normalized.includes("MAKAM")) return "/hizmetlerimiz/makam-odasi-kiralama";
+  if (normalized.includes("TOPLANTI")) return "/hizmetlerimiz/toplanti-odasi-kiralama";
+  return null;
+}
 
 const STANDARD_ITEMS = [
   {
@@ -72,7 +80,9 @@ export default async function FiyatlarPage() {
             Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis ve aidatsız hazır ofis çözümleriyle sürpriz maliyetlere son verin.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-            {pricingCards.map((card) => (
+            {pricingCards.map((card) => {
+              const detailHref = getPricingDetailHref(card.title);
+              return (
               <article
                 key={card.id}
                 className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-8 transition-shadow hover:shadow-md sm:p-10"
@@ -102,14 +112,25 @@ export default async function FiyatlarPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href="/iletisim"
-                  className="mt-8 block w-full rounded-lg bg-[#0b7041] py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[#095530] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
-                >
-                  İletişime Geç
-                </Link>
+                <div className="mt-8 flex flex-col gap-3">
+                  <Link
+                    href="/iletisim"
+                    className="block w-full rounded-lg bg-[#0b7041] py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[#095530] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
+                  >
+                    İletişime Geç
+                  </Link>
+                  {detailHref && (
+                    <Link
+                      href={detailHref}
+                      className="text-center text-sm font-medium text-[#0b7041] transition-colors hover:underline"
+                    >
+                      Detaylı bilgi →
+                    </Link>
+                  )}
+                </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -16,7 +16,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     badge: "En popüler",
     description:
       "Ankara'da vergi levhası ve ticaret sicil adresi. NACE uyumlu, stopajsız ofis kiralama seçenekleri.",
-    href: "/hizmetler/cankaya-sanal-ofis",
+    href: "/hizmetlerimiz/cankaya-sanal-ofis",
   },
   {
     id: "toplanti-odasi",
@@ -25,7 +25,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     badge: "Saatlik rezervasyon",
     description:
       "Müşteri ve ekip toplantıları için saatlik rezervasyonlu odalar. Net fiyat, gizli maliyet yok.",
-    href: "/hizmetler/toplanti-odasi-kiralama",
+    href: "/hizmetlerimiz/toplanti-odasi-kiralama",
   },
   {
     id: "makam-odasi",
@@ -34,7 +34,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     badge: "Prestijli alan",
     description:
       "Üst düzey görüşmeler ve müşteri sunumları için ferah, konforlu makam birimleri. Mahall Ankara'da kurumsal imaj.",
-    href: "/hizmetler/makam-odasi-kiralama",
+    href: "/hizmetlerimiz/makam-odasi-kiralama",
   },
   {
     id: "hazir-ofis",
@@ -43,7 +43,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     badge: "Günlük & aylık",
     description:
       "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
-    href: "/hizmetler/hazir-ofis-kiralama",
+    href: "/hizmetlerimiz/hazir-ofis-kiralama",
   },
 ];
 

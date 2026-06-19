@@ -15,6 +15,14 @@ function getEnv(name: string) {
   return value;
 }
 
+function escapeHtml(s: string) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as ContactPayload;
@@ -65,11 +73,11 @@ export async function POST(req: Request) {
 
     const html = `
       <h2>Yeni İletişim Formu Mesajı</h2>
-      <p><strong>İsim:</strong> ${name}</p>
-      <p><strong>E-posta:</strong> ${email || "-"}</p>
-      <p><strong>Telefon:</strong> ${phone}</p>
-      <p><strong>Hizmet:</strong> ${service || "-"}</p>
-      <p><strong>Mesaj:</strong><br/>${(message || "-").replace(/\n/g, "<br/>")}</p>
+      <p><strong>İsim:</strong> ${escapeHtml(name)}</p>
+      <p><strong>E-posta:</strong> ${escapeHtml(email || "-")}</p>
+      <p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>
+      <p><strong>Hizmet:</strong> ${escapeHtml(service || "-")}</p>
+      <p><strong>Mesaj:</strong><br/>${escapeHtml(message || "-").replace(/\n/g, "<br/>")}</p>
     `;
 
     await transporter.sendMail({

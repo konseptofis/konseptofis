@@ -24,7 +24,7 @@ const CORE_PAGES: readonly {
   priority: number;
 }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/hizmetler", changeFrequency: "weekly", priority: 0.95 },
+  { path: "/hizmetlerimiz", changeFrequency: "weekly", priority: 0.95 },
   { path: "/fiyatlar", changeFrequency: "weekly", priority: 0.95 },
   { path: "/iletisim", changeFrequency: "monthly", priority: 0.92 },
   { path: "/hakkimizda", changeFrequency: "monthly", priority: 0.88 },

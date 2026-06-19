@@ -1,4 +1,4 @@
-/** `/hizmetler/[slug]` için özel Meta Title ve Description (şablon uygulanmaz). */
+/** `/hizmetlerimiz/[slug]` için özel Meta Title ve Description (şablon uygulanmaz). */
 export const HIZMET_PAGE_SEO_BY_SLUG: Record<string, { title: string; description: string }> = {
   "cankaya-sanal-ofis": {
     title: "Çankaya Sanal Ofis | Yasal İş Adresi - Konsept Ofis",

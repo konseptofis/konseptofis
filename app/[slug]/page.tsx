@@ -23,6 +23,29 @@ type Props = { params: Promise<{ slug: string }> };
 
 const TITLE_SUFFIX = " | Konsept Ofis";
 const ORIGIN = SITE.domain.replace(/\/$/, "");
+const DEFAULT_OG_IMAGE = `${ORIGIN}/ankara-sanal-ofis-logo.webp`;
+
+function stripHtml(html: string, maxLen = 160): string {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return text.length <= maxLen ? text : text.slice(0, maxLen) + "…";
+}
+
+function postDescription(post: {
+  meta_description: string | null;
+  content: string | null;
+  title: string;
+}): string {
+  if (post.meta_description?.trim()) return post.meta_description.trim();
+  if (post.content?.trim()) return stripHtml(post.content, 160);
+  return post.title;
+}
+
+function postOgImageUrl(featuredImage: string | null | undefined): string {
+  const raw = featuredImage?.trim();
+  if (!raw) return DEFAULT_OG_IMAGE;
+  if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
+  return raw.startsWith("/") ? `${ORIGIN}${raw}` : `${ORIGIN}/${raw}`;
+}
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
@@ -31,16 +54,35 @@ export async function generateMetadata({ params }: Props) {
   if (!post) notFound();
   let title = post.meta_title ?? post.title;
   if (title.endsWith(TITLE_SUFFIX)) title = title.slice(0, -TITLE_SUFFIX.length);
+
+  const description = postDescription(post);
+  const canonicalPath = `/${slug}`;
+  const url = `${ORIGIN}${canonicalPath}`;
+  const imageUrl = postOgImageUrl(post.featured_image);
+  const imageAlt = post.featured_image_alt?.trim() || post.title;
+
   return {
     title,
-    description: post.meta_description ?? undefined,
-    alternates: { canonical: `${ORIGIN}/${slug}` },
+    description,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url,
+      siteName: SITE.name,
+      locale: "tr_TR",
+      publishedTime: post.created_at,
+      modifiedTime: post.updated_at || post.created_at,
+      images: [{ url: imageUrl, alt: imageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
-}
-
-function stripHtml(html: string, maxLen = 160): string {
-  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-  return text.length <= maxLen ? text : text.slice(0, maxLen) + "…";
 }
 
 function formatDate(iso: string): string {
