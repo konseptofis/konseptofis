@@ -5,23 +5,27 @@ type Props = { sectionClassName?: string };
 const items: { num: string; title: string; description: string }[] = [
   {
     num: "01",
-    title: "Güven Veren Kaliteli Hizmet",
-    description: "Sektörün en güvenilir iş ortağı olarak her adımda yanınızdayız.",
+    title: "Onlarca Firmaya Hizmet",
+    description:
+      "2022'den bu yana onlarca yerli ve yabancı işletmenin yasal adresi olduk.",
   },
   {
     num: "02",
-    title: "Sektörel Deneyim",
-    description: "Yılların birikimi ile sektörü derinlemesine tanıyan bir ekip.",
+    title: "Çankaya'nın Kalbinde",
+    description:
+      "Mahall Ankara'da, metro ve toplu taşımaya yürüme mesafesinde prestijli lokasyon.",
   },
   {
     num: "03",
-    title: "Her Bütçeye Uygun Fiyatlar",
-    description: "Startup'tan kurumsal firmalara kadar herkes için uygun paket.",
+    title: "Şeffaf, Sabit Fiyat",
+    description:
+      "Stopaj, aidat ve sürpriz fatura yok; sadece kullandığınız hizmete net ödeme.",
   },
   {
     num: "04",
-    title: "Onlarca Mutlu Firma",
-    description: "Binlerce üyemiz hedeflerine hızla ulaşmanın keyfini yaşıyor.",
+    title: "Aynı Gün Yasal Adres",
+    description:
+      "Evraklarınız tamamlandığında vergi levhası adresiniz aynı gün hazır.",
   },
 ];
 
@@ -40,15 +44,15 @@ export default function AboutWhyUsSection({
             Sanal Ofis için Neden Konsept Ofis?
           </SectionHeading>
           <p className="text-[16px] leading-relaxed text-[var(--color-text-muted)]">
-            Yerli ve yabancı girişimcilere Ankara&apos;nın iş ve finans merkezi
-            Çankaya&apos;da prestijli bir yasal iş adresi sunmak amacıyla yola
-            çıktık. Konsept Ofis olarak; esnek{" "}
-            <span className="text-[var(--color-green)]">sanal ofis</span> ve{" "}
-            <span className="text-[var(--color-green)]">hazır ofis</span>{" "}
-            çözümlerimizle binlerce işletmeyi yüksek kira, stopaj ve aidat
-            yükünden kurtarıyoruz. Mahall Ankara&apos;daki kurumsal altyapımız
-            sayesinde üyelerimiz sermayelerini dört duvara değil, doğrudan
-            işlerine yatırıyor ve büyüme hedeflerine çok daha hızlı ulaşıyor.
+            Ankara{" "}
+            <span className="text-[var(--color-green)]">sanal ofis</span> arayışınızda
+            doğru adres Konsept Ofis. Çankaya Mahall Ankara&apos;nın prestijli iş
+            merkezinde, fiziksel ofis maliyeti olmadan yasal iş adresinize kavuşun;
+            vergi levhası, ticaret sicil adresi ve tebligat yönetimi tek pakette.
+            2022&apos;den bu yana yüzlerce girişimciye stopajsız ofis kiralama ve
+            şeffaf fiyatlandırmayla hizmet veriyoruz. Sadece bir adres değil,
+            markanıza kurumsal kimlik kazandıran eksiksiz bir ofis ekosistemi
+            sunuyoruz.
           </p>
         </div>
 

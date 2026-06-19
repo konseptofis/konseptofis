@@ -17,11 +17,15 @@ export default function CategoryForm() {
     setError(null);
     setSubmitting(true);
     try {
-      await createCategory(trimmed);
+      const result = await createCategory(trimmed);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
       setName("");
       router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Bir hata oluştu.");
+    } catch {
+      setError("Kategori eklenirken beklenmeyen bir hata oluştu.");
     } finally {
       setSubmitting(false);
     }

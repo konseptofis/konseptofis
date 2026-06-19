@@ -105,8 +105,10 @@ export default function Header() {
 
   return (
     <header
-      className={`${headerPositionClass} z-50 w-full ${
-        showLightHeader ? "bg-white shadow-md" : "bg-transparent"
+      className={`${headerPositionClass} z-50 w-full transition-shadow duration-300 ${
+        showLightHeader
+          ? "bg-white shadow-[0_1px_3px_rgba(0,0,0,0.05),0_4px_12px_-2px_rgba(0,0,0,0.06)]"
+          : "bg-transparent"
       }`}
     >
       <div

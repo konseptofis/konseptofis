@@ -1,9 +1,6 @@
 import type { PricingPlan } from "@/app/actions/pricing";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
-import {
-  buildHizmetFaqPageJsonLd,
-  buildHizmetProductJsonLd,
-} from "@/app/lib/hizmet-detay-jsonld";
+import { buildHizmetDetailGraphJsonLd } from "@/app/lib/hizmet-detay-jsonld";
 
 type Props = {
   detail: ServiceDetailData;
@@ -11,21 +8,13 @@ type Props = {
 };
 
 export default function HizmetDetayJsonLd({ detail, pricingPlan }: Props) {
-  const productLd = buildHizmetProductJsonLd(detail, pricingPlan);
-  const faqLd = buildHizmetFaqPageJsonLd(detail);
+  const graphLd = buildHizmetDetailGraphJsonLd(detail, pricingPlan);
 
   return (
-    <>
-      <script
-        id={`ld-json-hizmet-product-${detail.slug}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
-      />
-      <script
-        id={`ld-json-hizmet-faq-${detail.slug}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
-      />
-    </>
+    <script
+      id={`ld-json-hizmet-graph-${detail.slug}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graphLd) }}
+    />
   );
 }

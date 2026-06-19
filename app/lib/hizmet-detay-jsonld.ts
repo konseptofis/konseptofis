@@ -1,6 +1,8 @@
 import type { PricingPlan } from "@/app/actions/pricing";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
+import { getServicePagePath } from "@/app/lib/hizmet-detay-data";
 import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { HOMEPAGE_TESTIMONIALS } from "@/app/lib/testimonials";
 import { SITE } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
@@ -73,7 +75,7 @@ export function serviceJsonLdImage(detail: ServiceDetailData): string {
   const slug = detail.slug.toLowerCase();
   let path: string | undefined;
   if (slug.includes("sanal")) {
-    path = SERVICE_OFFER_CARDS.find((c) => c.id === "mahall-sanal-ofis")?.image;
+    path = SERVICE_OFFER_CARDS.find((c) => c.id === "cankaya-sanal-ofis")?.image;
   } else if (slug.includes("makam")) {
     path = SERVICE_OFFER_CARDS.find((c) => c.id === "makam-odasi")?.image;
   } else if (slug.includes("hazir")) {
@@ -88,28 +90,116 @@ export function serviceJsonLdImage(detail: ServiceDetailData): string {
   return `${ORIGIN}/ankara-sanal-ofis.webp`;
 }
 
-export function buildHizmetProductJsonLd(
+function serviceAreaServed(detail: ServiceDetailData): string | Record<string, unknown> {
+  if (detail.slug === "cankaya-sanal-ofis") {
+    return { "@type": "Place", name: "Çankaya, Ankara" };
+  }
+  return "Ankara";
+}
+
+function buildLocalBusinessNode(): Record<string, unknown> {
+  return {
+    "@type": "LocalBusiness",
+    "@id": `${ORIGIN}/#localbusiness`,
+    name: SITE.name,
+    url: `${ORIGIN}/`,
+    telephone: SITE.phone,
+    email: SITE.email,
+    image: `${ORIGIN}/ankara-sanal-ofis.webp`,
+    hasMap: SITE.directionsUrl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
+      addressLocality: SITE.address.city,
+      postalCode: SITE.address.postalCode,
+      addressCountry: SITE.address.country,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 39.9208,
+      longitude: 32.8547,
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  };
+}
+
+function buildBreadcrumbList(detail: ServiceDetailData, pageUrl: string): Record<string, unknown> {
+  const items = detail.breadcrumbs.map((crumb, index) => {
+    const isLast = index === detail.breadcrumbs.length - 1;
+    const itemUrl = isLast ? pageUrl : crumb.href ? `${ORIGIN}${crumb.href}` : pageUrl;
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      item: itemUrl,
+    };
+  });
+
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    itemListElement: items,
+  };
+}
+
+function buildReviewNodes(): Record<string, unknown>[] {
+  return HOMEPAGE_TESTIMONIALS.map((t) => ({
+    "@type": "Review",
+    datePublished: t.datePublished,
+    author: {
+      "@type": "Person",
+      name: t.name,
+      jobTitle: t.role,
+    },
+    reviewBody: t.text,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: "5",
+      bestRating: "5",
+      worstRating: "1",
+    },
+  }));
+}
+
+export function buildHizmetDetailGraphJsonLd(
   detail: ServiceDetailData,
   pricingPlan: PricingPlan | null,
 ): Record<string, unknown> {
-  const pageUrl = `${ORIGIN}/hizmetler/${detail.slug}`;
-  const product: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${pageUrl}#product`,
-    name: `${detail.title} Paketi`,
+  const pageUrl = `${ORIGIN}${getServicePagePath(detail)}`;
+  const serviceName = detail.pageHeaderHeading ?? detail.title;
+
+  const serviceNode: Record<string, unknown> = {
+    "@type": "Service",
+    "@id": `${pageUrl}#service`,
+    name: serviceName,
     description: serviceJsonLdDescription(detail),
     image: serviceJsonLdImage(detail),
-    brand: {
+    url: pageUrl,
+    areaServed: serviceAreaServed(detail),
+    provider: {
       "@type": "Organization",
       "@id": `${ORIGIN}/#organization`,
+      name: SITE.name,
+      url: `${ORIGIN}/`,
     },
-    url: pageUrl,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      bestRating: "5",
+      worstRating: "1",
+      reviewCount: String(HOMEPAGE_TESTIMONIALS.length),
+    },
+    review: buildReviewNodes(),
   };
 
   if (pricingPlan) {
     const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
-    product.offers = {
+    serviceNode.offers = {
       "@type": "Offer",
       url: `${ORIGIN}/fiyatlar`,
       priceCurrency: "TRY",
@@ -125,7 +215,36 @@ export function buildHizmetProductJsonLd(
     };
   }
 
-  return product;
+  const graph: Record<string, unknown>[] = [
+    serviceNode,
+    buildLocalBusinessNode(),
+    buildBreadcrumbList(detail, pageUrl),
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: detail.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+/** @deprecated buildHizmetDetailGraphJsonLd kullanın */
+export function buildHizmetProductJsonLd(
+  detail: ServiceDetailData,
+  pricingPlan: PricingPlan | null,
+): Record<string, unknown> {
+  return buildHizmetDetailGraphJsonLd(detail, pricingPlan);
 }
 
 export function buildHizmetFaqPageJsonLd(detail: ServiceDetailData): Record<string, unknown> {

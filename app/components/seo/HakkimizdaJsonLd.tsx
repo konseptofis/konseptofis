@@ -22,7 +22,7 @@ const aboutPageJsonLd = {
       logo: `${ORIGIN}/ankara-sanal-ofis-logo.webp`,
       image: `${ORIGIN}/konsept-ofis-hakkimizda.webp`,
       description:
-        "Yerli ve yabancı girişimcilere Ankara'nın iş ve finans merkezi Çankaya'da prestijli bir yasal iş adresi sunmak amacıyla yola çıktık. Konsept Ofis olarak; esnek sanal ofis ve hazır ofis çözümlerimizle binlerce işletmeyi yüksek kira, stopaj ve aidat yükünden kurtarıyoruz. Mahall Ankara'daki kurumsal altyapımız sayesinde üyelerimiz sermayelerini dört duvara değil, doğrudan işlerine yatırıyor ve büyüme hedeflerine çok daha hızlı ulaşıyor.",
+        "Ankara sanal ofis arayışınızda doğru adres Konsept Ofis. Çankaya Mahall Ankara'nın prestijli iş merkezinde, fiziksel ofis maliyeti olmadan yasal iş adresinize kavuşun; vergi levhası, ticaret sicil adresi ve tebligat yönetimi tek pakette. 2022'den bu yana yüzlerce girişimciye stopajsız ofis kiralama ve şeffaf fiyatlandırmayla hizmet veriyoruz. Sadece bir adres değil, markanıza kurumsal kimlik kazandıran eksiksiz bir ofis ekosistemi sunuyoruz.",
       foundingDate: "2024",
       address: {
         "@type": "PostalAddress",

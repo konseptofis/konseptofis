@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import {
+  AcademicCapIcon,
   ArchiveBoxIcon,
   BuildingOffice2Icon,
   BriefcaseIcon,
@@ -62,10 +63,10 @@ export type PackageFeatureCard = {
   description: string;
 };
 
-const SANAL_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
+const CANKAYA_SANAL_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
   {
     icon: MapPinIcon,
-    title: "Mahall Ankara Yasal Adres",
+    title: "Çankaya Yasal Adres",
     description: "Vergi levhası ve Ticaret Sicil için prestijli merkez.",
   },
   {
@@ -165,7 +166,32 @@ export type ServiceDetailData = {
   pageHeaderHeading?: string;
   /** Hero H1 altında kısa tanıtım (p). Genelde `pageHeaderHeading` ile birlikte kullanılır. */
   pageHeaderLead?: string;
+  /** SEO canonical yolu; yoksa `/hizmetler/{slug}`. */
+  canonicalPath?: string;
+  /** Sayfa içi çapraz linkler (SEO). */
+  internalLinks?: readonly { href: string; label: string }[];
 };
+
+/** İlgili hizmetler pill anchor metinleri — tüm hizmet sayfalarında tutarlı. */
+export const SERVICE_INTERNAL_LINK = {
+  ankaraSanalOfis: { href: "/", label: "Ankara Sanal Ofis" },
+  cankayaSanalOfis: {
+    href: "/hizmetler/cankaya-sanal-ofis",
+    label: "Çankaya Sanal Ofis",
+  },
+  toplantiOdasi: {
+    href: "/hizmetler/toplanti-odasi-kiralama",
+    label: "Toplantı Odası Kiralama",
+  },
+  makamOdasi: {
+    href: "/hizmetler/makam-odasi-kiralama",
+    label: "Makam Odası Kiralama",
+  },
+  hazirOfis: {
+    href: "/hizmetler/hazir-ofis-kiralama",
+    label: "Hazır Ofis Kiralama",
+  },
+} as const;
 
 function testimonialsFromIndices(indices: readonly number[]): Testimonial[] {
   return indices.map((i) => {
@@ -246,39 +272,43 @@ const TOPLANTI_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
   },
 ];
 
-const MAHALL_SANAL_OFIS: ServiceDetailData = {
-  slug: "mahall-sanal-ofis",
-  title: "Mahall Sanal Ofis",
-  targetHeadingAccent: "Mahall Sanal Ofis",
-  packageHeadingAccent: "Mahall Sanal Ofis",
+const CANKAYA_SANAL_OFIS: ServiceDetailData = {
+  slug: "cankaya-sanal-ofis",
+  title: "Çankaya Sanal Ofis",
+  canonicalPath: "/hizmetler/cankaya-sanal-ofis",
+  pageHeaderHeading: "Çankaya Sanal Ofis",
+  pageHeaderLead:
+    "Çankaya'da yasal iş adresi, vergi levhası adresi ve esnek sanal ofis çözümleri. Mahall Ankara'nın prestijli merkezinde.",
+  targetHeadingAccent: "Çankaya Sanal Ofis",
+  packageHeadingAccent: "Çankaya Sanal Ofis",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
-    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
-    { label: "Mahall Sanal Ofis" },
+    { label: "Hizmetler", href: "/hizmetlerimiz" },
+    { label: "Çankaya Sanal Ofis" },
   ],
-  introTitle: "Ankara'da Prestijli Mahall Sanal Ofis Çözümleri",
+  introTitle: "Çankaya'da Prestijli Sanal Ofis ve Yasal Adres",
   introParagraphs: [
-    "Fiziksel bir ofis kiralamanın yüksek maliyetlerine katlanmadan, Ankara'nın en prestijli iş merkezlerinden Mahall Ankara'da yasal iş adresinize sahip olun. Girişimciler, freelancerlar ve KOBİ'ler için tasarlanan sanal ofis hizmetimiz; vergi levhası, ticaret sicil adresi ve resmi yazışma ihtiyaçlarınızı kusursuz şekilde karşılar.",
-    "Sadece kullandığınız hizmetler için ödeme yaparak bina aidatı, mobilya ve stopaj vergisi gibi ekstra giderlerden kurtulun. Gelen resmi tebligatlarınız ve kargolarınız profesyonel ekibimiz tarafından titizlikle yönetilirken, siz tam zamanlı bir ofis ihtiyacı duymadan işinizi büyütmeye ve kurumsal imajınızı güçlendirmeye odaklanın.",
+    "Çankaya sanal ofis, fiziksel bir işyeri kiralamadan şirketinize Çankaya'da yasal iş adresi sağlayan esnek bir çözümdür. Ankara'nın iş ve finans merkezi Çankaya'da, Mahall Ankara'nın prestijli konumunda kurumsal adresinize kavuşun. Vergi levhası, ticaret sicil adresi ve resmi tebligat ihtiyaçlarınızı tek çatı altında karşılayın.",
+    "Yüksek kira, aidat ve stopaj gibi sabit giderler olmadan; gelen evrak ve tebligatlarınız profesyonel ekibimizce yönetilirken siz işinizi büyütmeye odaklanın. Tam zamanlı bir ofise ihtiyaç duymadan tüzel kişilik adresinizi Çankaya'nın merkezine taşıyın.",
   ],
   introFeatures: [
     {
       num: "01",
       title: "Yasal ve Prestijli Adres",
       description:
-        "Vergi levhası ve resmi yazışmalarınız için kurumsal iş adresi.",
+        "Vergi levhası ve ticaret sicil için Çankaya'da kurumsal iş adresi.",
     },
     {
       num: "02",
-      title: "Kargo ve Posta Yönetimi",
+      title: "Kargo ve Tebligat Yönetimi",
       description:
-        "Gelen tüm evraklarınız anında teslim alınır ve size bildirilir.",
+        "Gelen evrak ve tebligatlarınız teslim alınır, anında bildirilir.",
     },
     {
       num: "03",
       title: "Stopaj ve Aidat Yok",
       description:
-        "Gizli maliyetler ve faturalar olmadan, sadece kullandığınızı ödeyin.",
+        "Gizli maliyet olmadan, sadece kullandığınız hizmete net ödeme.",
     },
     {
       num: "04",
@@ -291,93 +321,101 @@ const MAHALL_SANAL_OFIS: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Hemen Teklif Al", href: "/iletisim" },
   ],
-  targetTitle: "Mahall Sanal Ofis Kimler İçin İdealdir?",
+  internalLinks: [
+    SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.toplantiOdasi,
+    SERVICE_INTERNAL_LINK.makamOdasi,
+  ],
+  targetTitle: "Çankaya Sanal Ofis Kimler İçin İdealdir?",
   targetAudience: [
     {
       icon: ComputerDesktopIcon,
       title: "Freelancer ve Danışmanlar",
       paragraph:
-        "Bağımsız çalışanlar ve yazılımcılar için düşük sabit maliyetle yüksek prestij. Vergi levhası adresinizi sabitleyin, resmi posta ve tebligatlarınız güvenle takip edilsin.",
+        "Düşük sabit maliyetle Çankaya'da prestijli yasal adres; resmi posta ve tebligatlarınız güvenle takip edilir.",
     },
     {
       icon: RocketLaunchIcon,
       title: "Yeni Girişimciler ve KOBİ'ler",
       paragraph:
-        "Yeni kurulan şirketler için nakit akışını koruyan esnek çözüm. Yüksek ofis kirası ve taahhüt altına girmeden ticaret sicil ve vergi dairesi süreçlerinizi hemen başlatın.",
+        "Yüksek kira taahhüdü olmadan ticaret sicil ve vergi dairesi süreçlerinizi Çankaya merkezli başlatın.",
     },
     {
       icon: GlobeAltIcon,
       title: "Yurtdışı Merkezli Şirketler",
       paragraph:
-        "Türkiye'de faaliyet gösterecek yabancı sermayeli şirketler için yasal temsil adresi. Fiziksel ofis açmadan Ankara'nın prestijli lokasyonunda operasyonel maliyetlerinizi düşürün.",
+        "Türkiye'de faaliyet için yasal temsil adresi; fiziksel ofis açmadan Çankaya'da operasyonel varlık.",
     },
     {
       icon: ScaleIcon,
-      title: "Avukatlar ve Hukuk Büroları",
+      title: "Avukat ve Hukuk Büroları",
       paragraph:
-        "Avukat sanal ofis çözümleriyle baro kaydınız için prestijli yasal adres sağlayın. Duruşmadayken resmi tebligatlarınız güvenle teslim alınsın ve anında size bildirilsin.",
+        "Baro kaydınız için Çankaya'da prestijli yasal adres; duruşmadayken tebligatlarınız güvenle teslim alınır.",
     },
     {
       icon: ChatBubbleLeftRightIcon,
       title: "Klinik ve Uzman Psikologlar",
       paragraph:
-        "Online terapi süreçlerinizde ev adresinizi gizli tutarak kurumsal bir imaj çizin. Yüz yüze seanslarınız için ihtiyaç anında tam donanımlı toplantı odalarını kullanın.",
+        "Ev adresinizi gizli tutarak kurumsal imaj; yüz yüze görüşmeler için toplantı odası kullanımı.",
     },
     {
       icon: HeartIcon,
       title: "Online Diyetisyenler",
       paragraph:
-        "Fiziksel bir kliniğe yüksek kiralar ödemeden yasal adresinize sahip olun. Danışanlarınızla yüz yüze görüşmek istediğinizde prestijli lobi ve ofis alanlarımızda ağırlayın.",
+        "Fiziksel klinik kirası olmadan yasal adres; danışan görüşmeleri için prestijli ofis ve lobi imkanı.",
     },
   ],
   features: [],
   mahallSpotlightBlock: {
-    leftTitle: "Mahall Ankara'nın Merkezinde Prestijli İş Adresi",
+    leftTitle: "Çankaya'nın Merkezinde Prestijli İş Adresi",
     leftParagraphs: [
-      "Ankara'nın yeni iş merkezi Çankaya Mahall Ankara'da yer alan sanal ofisinizle, markanıza A+ bir imaj katın. Sadece bir yasal adres değil; metroya komşu, Danıştay'ın yanı başında ve prestijin zirvesinde bir çalışma ekosistemine dahil olun.",
-      "Stopaj avantajı, profesyonel kargo takibi ve şık bir lobi karşılamasıyla Ankara Mahall sanal ofis çözümümüz, işletmenizin kurumsal itibarını zirveye taşırken operasyonel maliyetlerinizi sıfıra indirir.",
+      "Çankaya, Ankara'nın bakanlıkların, mali müşavirlerin, hukuk bürolarının ve finans kuruluşlarının yoğunlaştığı idari ve ticari merkezidir. Şirketinizin yasal adresinin Çankaya'da olması kurumsal itibarınızı güçlendirir ve resmi işlemlerinizde konum avantajı sağlar.",
+      "Ofisimiz Çankaya'nın yeni iş merkezi Mahall Ankara'da yer alır. Metroya komşu, ana ulaşım hatlarına yürüme mesafesindeki A+ standartlardaki binamız, modern mimarisi ve prestijli lobisiyle markanıza güçlü bir ilk izlenim kazandırır.",
     ],
     sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
-  packageTitle: "Mahall Sanal Ofis Paketimizin Ayrıcalıkları",
+  packageTitle: "Çankaya Sanal Ofis Paketimizin Ayrıcalıkları",
   packageIntroParagraphs: [
-    "Ankara'nın en prestijli iş merkezi Çankaya Mahall Ankara'da, şirketinizin ihtiyaç duyduğu tüm yasal ve operasyonel süreçleri tek bir çatı altında topluyoruz. Mahall sanal ofis paketimiz ile sadece resmi bir yasal adres değil; markanızın kurumsal itibarını en üst seviyeye taşıyacak eksiksiz ve prestijli bir ofis ekosistemine dahil olursunuz.",
-    "Geleneksel ofislerin aksine kira stopajı, bina aidatı, elektrik veya su faturası gibi gizli masraflarla asla karşılaşmazsınız. Tamamen şeffaf ve sabit fiyatlandırma politikamız sayesinde bütçenizi korurken; tebligat yönetimi, prestijli lokasyon ve profesyonel karşılama gibi tüm ayrıcalıklara aynı gün içinde sahip olabilirsiniz.",
+    "Çankaya'daki Mahall Ankara'da, şirketinizin ihtiyaç duyduğu tüm yasal ve operasyonel süreçleri tek çatı altında topluyoruz. Çankaya sanal ofis paketimiz ile sadece resmi bir yasal adres değil; markanızın kurumsal itibarını en üst seviyeye taşıyacak eksiksiz bir ofis ekosistemine dahil olursunuz.",
+    "Geleneksel ofislerin aksine kira stopajı, bina aidatı, elektrik veya su faturası gibi gizli masraflarla karşılaşmazsınız. Tamamen şeffaf ve sabit fiyatlandırma politikamız sayesinde bütçenizi korurken; tebligat yönetimi, prestijli lokasyon ve profesyonel karşılama gibi tüm ayrıcalıklara aynı gün içinde sahip olabilirsiniz.",
   ],
-  packageFeatureCards: SANAL_PACKAGE_FEATURE_CARDS,
+  packageFeatureCards: CANKAYA_SANAL_PACKAGE_FEATURE_CARDS,
   packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
   packageListItems: [],
   testimonialsTitle: "Müşterilerimiz Ne Diyor?",
   testimonials: testimonialsFromIndices([0, 1, 2, 3]),
   faq: [
     {
-      question: "Sanal ofis adresi vergi levhasında kullanılabilir mi?",
+      question: "Çankaya sanal ofis adresi vergi levhasında kullanılabilir mi?",
       answer:
-        "Evet. Konsept Ofis sanal ofis adresi, vergi levhası ve ticaret sicil adresi olarak yasal iş adresi niteliğinde kullanılabilir. Adres, resmi evraklarda ve Ticaret Sicil Gazetesi ilanlarında geçerli kabul edilir. Vergi dairesi yoklamalarında bu adres iş adresi olarak beyan edilebilir. NACE kodlarına uyumlu adres tanımlaması ile şirket kuruluşu ve adres değişikliği işlemleri sorunsuz tamamlanır.",
+        "Evet, Çankaya sanal ofis adresi vergi levhası ve ticaret sicil adresi olarak yasal iş adresi niteliğinde kullanılabilir. Adres, resmi evraklarda ve Ticaret Sicil Gazetesi ilanlarında geçerli kabul edilir. Vergi dairesi yoklamalarında bu adres iş adresi olarak beyan edilebilir. NACE kodlarına uyumlu adres tanımlaması ile şirket kuruluşu ve adres değişikliği işlemleri sorunsuz tamamlanır.",
     },
     {
-      question: "Sanal ofiste stopaj veya aidat öder miyim?",
+      question: "Çankaya sanal ofiste stopaj veya aidat öder miyim?",
       answer:
-        "Hayır. Sanal ofis paketlerimizde stopaj kesintisi uygun koşullarda uygulanmaz; bina aidatı, elektrik, su veya ortak gider payı gibi ek maliyetler bulunmaz. Ödemeniz yalnızca seçtiğiniz paket bedeli ve yasal KDV üzerinden hesaplanır. Faturalandırma şeffaf ve önceden belirlenmiş fiyatlar üzerinden yapılır; gizli kalem yoktur.",
+        "Hayır, Çankaya sanal ofis paketlerimizde stopaj kesintisi uygun koşullarda uygulanmaz; bina aidatı, elektrik, su veya ortak gider payı gibi ek maliyetler bulunmaz. Ödemeniz yalnızca seçtiğiniz paket bedeli ve yasal KDV üzerinden hesaplanır. Faturalandırma şeffaf ve önceden belirlenmiş fiyatlar üzerinden yapılır; gizli kalem yoktur.",
     },
     {
-      question: "Posta ve kargo nasıl takip edilir?",
+      question: "Çankaya dışından da bu sanal ofis adresini alabilir miyim?",
       answer:
-        "Gelen posta, kargo ve tebligatlar merkezimizde kabul edilir ve kayıt altına alınır. Size e-posta veya tercih ettiğiniz kanal üzerinden anında bilgilendirme yapılır. Evraklar talep ettiğiniz şekilde elden teslim, kargo ile gönderim veya dijital kopya ile size ulaştırılır. Tebligat süreleri takip edilir; zamanında yanıt vermeniz için gerekli bildirimler sağlanır.",
+        "Evet, Çankaya dışından veya Türkiye'nin farklı illerinden bu sanal ofis adresini alabilirsiniz. Şirket kuruluşu, vergi levhası ve ticaret sicil işlemleriniz için Çankaya'da yasal iş adresiniz uzaktan tanımlanır; evrak ve tebligat yönetimi dijital bildirimlerle takip edilir. Yüz yüze görüşme gerektiğinde toplantı odası rezervasyonu yapabilirsiniz.",
     },
     {
-      question: "Toplantı odası veya hazır ofis ek olarak kullanılabilir mi?",
+      question: "Sanal ofis adresim aynı gün hazır olur mu?",
       answer:
-        "Evet. Sanal ofis paketinize ek olarak ihtiyaç duyduğunuzda saatlik toplantı odası veya günlük/aylık hazır ofis kiralayabilirsiniz. Aynı adres ve binada hizmet verildiği için müşteri görüşmeleriniz veya ekip toplantılarınız tek bir lokasyonda yürütülebilir. Rezervasyon ve fiyat bilgisi için bizimle iletişime geçebilirsiniz.",
+        "Evet, evraklarınız tamamlandığında Çankaya sanal ofis yasal adresiniz aynı gün kullanıma hazır olabilir. Gerekli belgelerin iletilmesinin ardından sözleşme süreci hızla tamamlanır; vergi levhası ve ticaret sicil adresi olarak göstermeye başlayabilirsiniz. Ekibimiz kurulum adımlarında size rehberlik eder.",
     },
   ],
 };
 
 const HAZIR_OFIS: ServiceDetailData = {
-  slug: "hazir-ofis-hizmeti",
+  slug: "hazir-ofis-kiralama",
   title: "Hazır Ofis",
+  pageHeaderHeading: "Ankara Hazır Ofis Kiralama",
+  pageHeaderLead:
+    "Tam donanımlı, anahtar teslim ofis birimi. Günlük veya aylık, taahhütsüz kiralama; Çankaya Mahall Ankara'da mobilya, internet ve altyapı dahil.",
   targetHeadingAccent: "Hazır Ofis",
   packageHeadingAccent: "Mahall Hazır Ofis",
   breadcrumbs: [
@@ -387,7 +425,7 @@ const HAZIR_OFIS: ServiceDetailData = {
   ],
   introTitle: "Hazır Ofis Nedir ve İşinize Nasıl Değer Katar?",
   introParagraphs: [
-    "Hazır ofis, mobilya ve teknik altyapısı hazır, günlük veya aylık kiralanabilen çalışma birimleridir. Ankara Çankaya'da tam donanımlı ofislerimizle sabit kira taahhüdü olmadan profesyonel bir çalışma ortamına sahip olursunuz. İnternet, elektrik, ortak alanlar ve güvenlikli giriş dahildir.",
+    "Ankara hazır ofis kiralama, mobilya ve teknik altyapısı hazır, günlük veya aylık kiralanabilen anahtar teslim çalışma birimi sunar. Çankaya'daki tam donanımlı ofislerimizle sabit kira taahhüdü olmadan profesyonel bir çalışma ortamına anında sahip olun; internet, elektrik, ortak alanlar ve güvenlikli giriş dahildir.",
     "Girişimciler ve küçük ekipler için hazır ofis, ofis maliyetlerini kontrol altında tutarken esnek süre seçenekleri sunar. Sınırsız çay-kahve, mutfak kullanımı ve isteğe bağlı toplantı odası erişimi ile tek bir fatura ile tüm ihtiyaçlar karşılanır.",
     "Mahall Ankara konumundaki merkezimizde farklı kapasitelerde hazır ofis birimleri bulunur. İhtiyacınıza göre kişi sayısı ve kiralama süresi belirlenir; büyüme veya daralma durumunda paket güncellenebilir.",
   ],
@@ -417,32 +455,55 @@ const HAZIR_OFIS: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Hemen Teklif Al", href: "/iletisim" },
   ],
+  internalLinks: [
+    SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.cankayaSanalOfis,
+    SERVICE_INTERNAL_LINK.toplantiOdasi,
+  ],
   targetTitle: "Hazır Ofis Çözümleri Kimler İçin İdealdir?",
   targetAudience: [
     {
       icon: RocketLaunchIcon,
       title: "Küçük Ekipler ve Startuplar",
       paragraph:
-        "Küçük ekip veya startup'lar için sabit ofis kirası nakit akışını zorlar. Hazır ofis ile aylık veya günlük esnek kiralama yapılır; mobilya ve altyapı hazır olduğu için taşınır taşınmaz çalışmaya başlanır. Toplantı odası ve ortak alanlar sayesinde hem bireysel hem ekip çalışması desteklenir.",
+        "Sabit ekip için esnek, taşınmaz çalışma alanı; mobilya ve altyapı hazır, anında başlayın.",
     },
     {
       icon: BriefcaseIcon,
       title: "Proje Bazlı Çalışanlar",
       paragraph:
-        "Belirli projeler için geçici ofis ihtiyacı duyan danışmanlar veya ekipler, hazır ofis ile kısa süreli profesyonel alan kiralayabilir. Proje bittiğinde sözleşme yenilenmeyebilir; böylece taahhüt riski olmadan merkezi bir adreste çalışılır.",
+        "Belirli projeler için geçici, kısa süreli profesyonel ofis; taahhüt riski olmadan merkezi adres.",
     },
     {
       icon: ComputerDesktopIcon,
       title: "Uzaktan ve Hibrit Çalışanlar",
       paragraph:
-        "Hibrit çalışma modelinde haftanın belirli günleri ofise gelmek isteyenler, hazır ofis ile sabit masaya sahip olabilir. İnternet ve altyapı hazır olduğundan verimli çalışma ortamı sunulur; ofis dışı günlerde ek maliyet oluşmaz.",
+        "Haftanın belirli günleri ofise gelenler için esnek, donanımlı masa ve birim.",
+    },
+    {
+      icon: BuildingOffice2Icon,
+      title: "Şube Açan Şirketler",
+      paragraph:
+        "Ankara'da fiziksel varlık için hızlı kurulumlu, yatırım gerektirmeyen hazır ofis çözümü.",
+    },
+    {
+      icon: GlobeAltIcon,
+      title: "Danışmanlar ve Serbest Meslek",
+      paragraph:
+        "Müşteri kabulüne uygun, kurumsal imajlı bağımsız çalışma birimi.",
+    },
+    {
+      icon: UserGroupIcon,
+      title: "Yeni Girişimciler",
+      paragraph:
+        "Yüksek başlangıç maliyeti olmadan, tam donanımlı ofisle işe hızlı başlangıç.",
     },
   ],
   features: [],
   mahallSpotlightBlock: {
-    leftTitle: "Mahall Ankara'da Hazır Ofis ile Prestij ve Konfor",
+    leftTitle: "Çankaya Mahall Ankara'da Hazır Ofis ile Prestij ve Konfor",
     leftParagraphs: [
-      "Çankaya Mahall Ankara'da yer alan hazır ofis birimlerimizle, markanıza merkezi ve kurumsal bir adres kazandırırsınız. Metro ve ana arterlere yakın konum; müşteri ve iş ortaklarınız için kolay ulaşım sunar.",
+      "Çankaya hazır ofis kiralama arayanlar için Mahall Ankara'daki birimlerimizle markanıza merkezi ve kurumsal bir adres kazandırırsınız. Metro ve ana arterlere yakın konum; müşteri ve iş ortaklarınız için kolay ulaşım sunar.",
       "Şeffaf fiyatlandırma, sınırsız çay-kahve ve profesyonel ortak alanlar ile hazır ofis deneyiminiz tek paketle yönetilir; ekibiniz büyüdükçe birim veya süre güncellemesi yapabilirsiniz.",
     ],
     sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
@@ -470,13 +531,35 @@ const HAZIR_OFIS: ServiceDetailData = {
       answer:
         "Paket türüne göre toplantı odası kullanımı dahil veya ek ücretle saatlik kullanım imkânı sunulmaktadır. Size uygun seçeneği birlikte belirleyebiliriz.",
     },
+    {
+      question: "Ankara'da hazır ofis kiralama maliyeti nasıl belirlenir?",
+      answer:
+        "Ankara'da hazır ofis kiralama maliyeti; kişi sayısı, kiralama süresi (günlük veya aylık) ve seçilen paket kapsamına göre belirlenir. Kısa süreli proje ofisi ihtiyaçlarında günlük, düzenli ekip kullanımında aylık planlar tercih edilir. Net fiyat teklifi için ekibimiz ihtiyacınıza göre paket önerir.",
+    },
+    {
+      question: "Hazır ofis ile sanal ofis arasındaki fark nedir?",
+      answer:
+        "Hazır ofis, fiziksel mobilyalı bir çalışma birimi sunarken; sanal ofis yalnızca yasal iş adresi ve operasyonel destek hizmetlerini kapsar. Hazır ofiste günlük çalışma alanı, internet ve ortak alan kullanımı vardır; sanal ofiste fiziksel masa olmadan kurumsal adres ve evrak yönetimi sağlanır.",
+    },
+    {
+      question: "Çankaya'da günlük hazır ofis kiralayabilir miyim?",
+      answer:
+        "Evet, Çankaya'daki Mahall Ankara'da hazır ofis birimlerimizi günlük veya aylık olarak kiralayabilirsiniz. Taahhütsüz esnek sürelerle ihtiyaç anında donanımlı ofise geçiş yapabilir; proje veya geçici ekip ihtiyaçları için ideal bir çözümdür.",
+    },
+    {
+      question: "Hazır ofis kiralamaya neler dahildir?",
+      answer:
+        "Hazır ofis kiralamasına mobilyalı çalışma birimi, yüksek hızlı internet, elektrik, sınırsız çay-kahve ikramı, ortak alan kullanımı ve güvenli giriş dahildir. Teknik altyapı ve temel ofis ihtiyaçları paket bedeline yansır; sürpriz aidat veya gizli kalem bulunmaz.",
+    },
   ],
 };
 
 const MAKAM_ODASI: ServiceDetailData = {
-  slug: "makam-odasi-hizmeti",
+  slug: "makam-odasi-kiralama",
   title: "Makam Odası",
   pageHeaderHeading: "Ankara Prestijli Makam Odası Kiralama",
+  pageHeaderLead:
+    "Üst düzey görüşmeler, müvekkil kabulü ve yönetim toplantıları için tam donanımlı, prestijli makam odası. Çankaya Mahall Ankara'da günlük veya aylık kiralama.",
   mapContactHeading: "Makam Odası Rezervasyonu İçin Bize Ulaşın",
   faqHeading: "Makam Odası Kiralama Hakkında Sıkça Sorulan Sorular",
   targetHeadingAccent: "Prestijli Makam Odası",
@@ -488,8 +571,8 @@ const MAKAM_ODASI: ServiceDetailData = {
   ],
   introTitle: "Ankara Makam Odası Kiralama İşinize Nasıl Değer Katar?",
   introParagraphs: [
-    "Makam odası, üst düzey görüşmeler, müşteri sunumları ve yönetim toplantıları için tasarlanmış, mobilya ve altyapısı hazır prestijli bir çalışma alanıdır. Mahall Ankara'daki merkezimizde konforlu ve profesyonel bir ortamda kurumsal imajınızı güçlendirirsiniz; fiber internet, ikramlar ve resepsiyon hizmeti ile tek noktadan yönetilirsiniz.",
-    "Hazır ofis birimlerimizden daha geniş ve ayrıcalıklı düzenlenen makam alanlarımızda, gizlilik ve konfor ön plandadır. Esnek günlük veya aylık kiralama seçenekleriyle sabit uzun süreli taahhüt olmadan ihtiyacınız olduğunda premium bir ofis deneyimi sunuyoruz.",
+    "Ankara makam odası kiralama hizmeti, üst düzey görüşmeler ve kurumsal temsil için tasarlanmış, mobilya ve altyapısı hazır prestijli bir çalışma alanı sunar. Çankaya'nın prestijli noktası Mahall Ankara'da konumlanan makam odalarımız; müvekkil kabulü, yönetici görüşmeleri, müşteri sunumları ve yönetim toplantıları için konforlu ve etkileyici bir ortam sağlar. Çankaya makam odası kiralama arayan profesyoneller için Mahall Ankara'daki prestijli konumumuz, kurumsal temsil ihtiyacınızı karşılar.",
+    "Hazır ofis birimlerimizden daha geniş ve ayrıcalıklı düzenlenen makam alanlarımızda gizlilik ve konfor ön plandadır. Esnek ofis kiralama ile günlük veya aylık kullanım planlayabilir; uzun süreli taahhüt olmadan ihtiyaç anında VIP görüşme alanı deneyimi yaşarsınız.",
   ],
   introFeatures: [
     {
@@ -517,32 +600,55 @@ const MAKAM_ODASI: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Hemen Teklif Al", href: "/iletisim" },
   ],
+  internalLinks: [
+    SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.cankayaSanalOfis,
+    SERVICE_INTERNAL_LINK.toplantiOdasi,
+  ],
   targetTitle: "Prestijli Makam Odası Çözümleri Kimler İçin İdealdir?",
   targetAudience: [
     {
-      icon: BriefcaseIcon,
-      title: "Üst Düzey Yönetici ve Danışmanlar",
+      icon: ScaleIcon,
+      title: "Avukatlar ve Hukuk Büroları",
       paragraph:
-        "Kritik müşteri görüşmeleri ve sunumlar için prestijli bir adres arayan yöneticiler ve danışmanlar, makam odası ile kurumsal imajlarını destekler. Tüm altyapı hazır olduğundan odak sadece görüşmeye kalır.",
+        "Müvekkil kabulü ve önemli görüşmeler için prestijli, gizliliğe uygun makam odası ortamı.",
+    },
+    {
+      icon: BriefcaseIcon,
+      title: "Üst Düzey Yöneticiler ve Danışmanlar",
+      paragraph:
+        "Kritik müşteri görüşmeleri ve sunumlar için kurumsal imajı güçlendiren prestijli alan.",
     },
     {
       icon: BuildingOffice2Icon,
+      title: "Danışmanlık Firmaları",
+      paragraph:
+        "Kurumsal müşteri kabulü ve strateji görüşmeleri için tam donanımlı, profesyonel temsil ofisi.",
+    },
+    {
+      icon: GlobeAltIcon,
       title: "Şirket Temsilcileri ve Ortaklar",
       paragraph:
-        "Şirketinizi Mahall Ankara'da temsil ederken geniş ve konforlu bir makam alanında ağırlama yapabilirsiniz. İkram ve ortak alan kullanımı ile profesyonel bir deneyim sunulur.",
+        "İş ortağı ve yatırımcı görüşmelerinde markanızı en üst düzeyde temsil eden ferah ortam.",
+    },
+    {
+      icon: DocumentTextIcon,
+      title: "Mali Müşavirler ve Serbest Meslek",
+      paragraph:
+        "Müşteri görüşmeleri ve resmi kabuller için Çankaya merkezli prestijli çalışma alanı.",
     },
     {
       icon: UserGroupIcon,
-      title: "Küçük Yönetim Kurulu ve Ekip Oturumları",
+      title: "Küçük Yönetim Kurulu ve Ekipler",
       paragraph:
-        "Dar çekirdek toplantılar ve strateji oturumları için sessiz, donanımlı bir alan ihtiyacı duyan ekipler makam odasını tercih edebilir. Toplantı odası kiralamadan daha uzun süreli çalışma imkânı sunar.",
+        "Yönetim toplantıları ve strateji oturumları için konforlu, donanımlı makam odası.",
     },
   ],
   features: [],
   mahallSpotlightBlock: {
-    leftTitle: "Mahall Ankara'da Makam Odası ile Kurumsal Prestij",
+    leftTitle: "Çankaya Mahall Ankara'da Makam Odası ile Kurumsal Prestij",
     leftParagraphs: [
-      "Çankaya Mahall Ankara'da konumlanan makam odalarımız; lokasyon, lobi ve resepsiyon ayrıcalığıyla markanızın görünürlüğünü güçlendirir.",
+      "Çankaya Mahall Ankara'da konumlanan makam odalarımız; müvekkil kabulü, danışmanlık görüşmeleri ve üst düzey iş toplantıları için lokasyon, lobi ve resepsiyon ayrıcalığıyla markanızın görünürlüğünü güçlendirir.",
       "Şeffaf fiyatlandırma ve esnek sürelerle bütçenizi korurken; sınırsız çay-kahve ve ortak alanlar ile tam hizmetli bir ofis deneyimi yaşarsınız.",
     ],
     sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
@@ -585,13 +691,25 @@ const MAKAM_ODASI: ServiceDetailData = {
       answer:
         "Kiralama fiyatlarımıza; lüks ofis mobilyaları, fiber internet, aidat, elektrik-su-ısıtma giderleri, temizlik hizmeti ve gün boyu sınırsız çay/kahve ikramları dahildir. Hiçbir sürpriz masraf çıkarılmaz.",
     },
+    {
+      question: "Makam odası müvekkil ve müşteri kabulü için uygun mu?",
+      answer:
+        "Evet, makam odalarımız avukatların müvekkil kabulü, danışmanlık firmalarının müşteri görüşmeleri ve üst düzey iş kabulleri için uygundur; prestijli, sessiz ve gizliliğe elverişli bir ortam sunar. Misafirleriniz prestijli lobi alanımızda profesyonel ekibimizce karşılanır ve makam odanıza yönlendirilir. Geniş çalışma masası, fiber internet ve ikram dahil donanım sayesinde müvekkil ve müşteri görüşmelerinize tam odaklanırsınız.",
+    },
+    {
+      question: "Çankaya'da günlük makam odası kiralanabilir mi?",
+      answer:
+        "Evet, Çankaya'daki Mahall Ankara'da yer alan makam odalarımız günlük veya aylık olarak kiralanabilir. Müvekkil kabulü, üst düzey görüşmeler ve yönetim toplantıları için prestijli ve donanımlı bir ortam sunar.",
+    },
   ],
 };
 
 const TOPLANTI_ODASI: ServiceDetailData = {
-  slug: "toplanti-odasi-hizmeti",
+  slug: "toplanti-odasi-kiralama",
   title: "Toplantı Odası",
   pageHeaderHeading: "Ankara Toplantı Odası Kiralama",
+  pageHeaderLead:
+    "Saatlik veya günlük, tam donanımlı toplantı odası. Arabuluculuk, müzakere, sunum ve mülakatlar için Çankaya Mahall Ankara'da profesyonel buluşma alanı.",
   mapContactHeading: "Toplantı Odası Rezervasyonu İçin Bize Ulaşın",
   targetHeadingAccent: "Toplantı Odası",
   packageHeadingAccent: "Toplantı Odası Kiralama",
@@ -600,10 +718,10 @@ const TOPLANTI_ODASI: ServiceDetailData = {
     { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Toplantı Odası" },
   ],
-  introTitle: "Saatlik Toplantı Odası Kiralamak, İşinize Nasıl Değer Katar?",
+  introTitle: "Saatlik Toplantı Odası Kiralamak İşinize Nasıl Değer Katar?",
   introParagraphs: [
-    "Toplantı odası kiralama hizmetimiz; müşteri sunumları, eğitimler ve ekip toplantılarınız için size tam donanımlı profesyonel bir alan sunar. Ankara Çankaya'nın en prestijli lokasyonlarından Mahall Ankara'da yer alan odalarımız; yüksek hızlı internet, projeksiyon ve sınırsız ikram seçenekleriyle kullanıma hazırdır.",
-    "Sürekli ofis kiralama maliyetine katlanmak yerine, yalnızca ihtiyacınız olan saatlerde ödeme yaparak işinize prestij katın. Hemen rezervasyonunuzu yapın, misafirlerinizi profesyonel ekibimizle karşılayalım.",
+    "Ankara toplantı odası kiralama hizmeti, sabit ofis maliyetine katlanmadan ihtiyaç duyduğunuz anda profesyonel bir buluşma alanı sağlar. Çankaya'nın prestijli noktası Mahall Ankara'da konumlanan odalarımız; arabuluculuk görüşmeleri, müşteri sunumları, eğitimler ve ekip toplantıları için tam donanımlı, tarafsız ve şık bir ortam sunar. Çankaya toplantı odası kiralama arayanlar için Mahall Ankara'daki merkezi konumumuz, kolay ulaşım ve prestijli ortam sunar.",
+    "Sürekli ofis kiralama maliyetine katlanmak yerine, yalnızca ihtiyacınız olan saatlerde ödeme yaparak görüşme odanıza prestij katın. Randevulu oda kiralama ile hemen rezervasyonunuzu yapın, misafirlerinizi profesyonel ekibimizle karşılayalım.",
   ],
   introFeatures: [
     {
@@ -631,32 +749,55 @@ const TOPLANTI_ODASI: ServiceDetailData = {
     { label: "Paketleri İncele", href: "/fiyatlar" },
     { label: "Rezervasyon Talebi", href: "/iletisim" },
   ],
+  internalLinks: [
+    SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.cankayaSanalOfis,
+    SERVICE_INTERNAL_LINK.makamOdasi,
+  ],
   targetTitle: "Ankara Toplantı Odası Çözümleri Kimler İçin İdealdir?",
   targetAudience: [
+    {
+      icon: ScaleIcon,
+      title: "Avukatlar ve Arabulucular",
+      paragraph:
+        "Zorunlu arabuluculuk ve müzakere görüşmeleri için tarafsız, prestijli ve gizliliğe uygun toplantı odası.",
+    },
     {
       icon: BriefcaseIcon,
       title: "Satış ve Müşteri Ekipleri",
       paragraph:
-        "Müşteri görüşmeleri için kurumsal bir ortam arayan satış ekipleri, saatlik toplantı odası ile sabit ofis maliyeti olmadan profesyonel buluşma alanı kullanır. Sunum ve projeksiyon imkânı ile etkileyici görüşmeler yapılabilir.",
+        "Kurumsal sunum ve müşteri görüşmeleri için projeksiyonlu, profesyonel buluşma alanı.",
     },
     {
       icon: ComputerDesktopIcon,
       title: "Danışmanlar ve Serbest Profesyoneller",
       paragraph:
-        "Müşterileriyle yüz yüze toplantı yapan danışmanlar, merkezi konumdaki toplantı odalarımızı randevu bazlı kiralayabilir. Gizli maliyet yok; yalnızca kullanılan saat üzerinden ödeme yapılır.",
+        "Merkezi konumda, randevu bazlı, gizli maliyet olmadan saatlik oda kiralama.",
     },
     {
       icon: UserGroupIcon,
-      title: "Küçük Ekipler",
+      title: "İK ve Mülakat Yapan Şirketler",
       paragraph:
-        "Düzenli ekip toplantıları yapan küçük şirketler, kendi ofisleri yeterli olmadığında veya tarafsız bir mekânda buluşmak istediğinde toplantı odası kiralayabilir. İnternet ve sunum altyapısı hazırdır.",
+        "Aday görüşmeleri ve mülakatlar için sessiz, kurumsal imajı güçlü görüşme odası.",
+    },
+    {
+      icon: AcademicCapIcon,
+      title: "Eğitim ve Seminer Verenler",
+      paragraph:
+        "Küçük grup eğitimleri ve atölyeler için fiber internet ve sunum altyapılı salon.",
+    },
+    {
+      icon: GlobeAltIcon,
+      title: "Küçük Ekipler ve Uzaktan Çalışanlar",
+      paragraph:
+        "Ofisi olmayan ekipler için ihtiyaç anında buluşma ve toplantı alanı.",
     },
   ],
   features: [],
   mahallSpotlightBlock: {
-    leftTitle: "Mahall Ankara'da Profesyonel Toplantı Alanları",
+    leftTitle: "Çankaya Mahall Ankara'da Profesyonel Toplantı Alanları",
     leftParagraphs: [
-      "Mahall Ankara'da konumlanan toplantı odalarımız; müşteri sunumları, iş geliştirme görüşmeleri ve mülakatlar için sessiz, şık ve tam donanımlı alanlar sunar. Metroya ve ana arterlere yakın konumu sayesinde misafirleriniz ulaşım ve otopark sorunu yaşamaz.",
+      "Mahall Ankara'da konumlanan toplantı odalarımız; arabuluculuk oturumları, iş geliştirme görüşmeleri, mülakatlar ve müşteri sunumları için sessiz, şık ve tam donanımlı alanlar sunar. Metroya ve ana arterlere yakın konumu sayesinde misafirleriniz ulaşım ve otopark sorunu yaşamaz.",
       "Rezervasyon süreci hızlı ve pratiktir; toplantı günü misafirleriniz profesyonel lobi ekibimizce karşılanır ve odanıza yönlendirilir. Teknik altyapı ve ikram servisi bize ait, siz sadece işinize odaklanın.",
     ],
     sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
@@ -699,16 +840,38 @@ const TOPLANTI_ODASI: ServiceDetailData = {
       answer:
         "Fiyatlandırma politikamız tamamen şeffaftır. Size sunulan toplantı odası kiralama fiyatına KDV, teknik altyapı kullanımı ve temel ikramlar dahildir. Rezervasyon öncesi anlaşılan bedel dışında hiçbir sürpriz ek ücret veya aidat talep edilmez.",
     },
+    {
+      question: "Toplantı odası arabuluculuk görüşmeleri için uygun mu?",
+      answer:
+        "Evet, toplantı odalarımız zorunlu arabuluculuk ve müzakere görüşmeleri için uygundur; tarafların rahatça görüşebileceği sessiz, tarafsız ve gizliliğe elverişli bir ortam sağlar. Mahall Ankara'daki merkezi konumumuz taraflar için kolay ulaşım sunar; randevu bazlı rezervasyonla odanız toplantı öncesinde hazırlanır. Projeksiyon, fiber internet ve ikram dahil donanım sayesinde görüşmenize odaklanabilirsiniz.",
+    },
+    {
+      question: "Çankaya'da saatlik toplantı odası kiralayabilir miyim?",
+      answer:
+        "Evet, Çankaya'daki Mahall Ankara'da bulunan toplantı odalarımızı saatlik veya günlük olarak kiralayabilirsiniz. Merkezi konumu, fiber internet ve sunum donanımıyla arabuluculuk, müzakere ve ekip toplantıları için uygundur.",
+    },
   ],
 };
 
 export const HIZMET_DETAY_MAP: Record<string, ServiceDetailData> = {
-  "mahall-sanal-ofis": MAHALL_SANAL_OFIS,
-  "hazir-ofis-hizmeti": HAZIR_OFIS,
-  "makam-odasi-hizmeti": MAKAM_ODASI,
-  "toplanti-odasi-hizmeti": TOPLANTI_ODASI,
+  "cankaya-sanal-ofis": CANKAYA_SANAL_OFIS,
+  "hazir-ofis-kiralama": HAZIR_OFIS,
+  "makam-odasi-kiralama": MAKAM_ODASI,
+  "toplanti-odasi-kiralama": TOPLANTI_ODASI,
+};
+
+export function getServicePagePath(detail: ServiceDetailData): string {
+  return detail.canonicalPath ?? `/hizmetler/${detail.slug}`;
+}
+
+const SERVICE_SLUG_ALIASES: Record<string, string> = {
+  "mahall-sanal-ofis": "cankaya-sanal-ofis",
+  "hazir-ofis-hizmeti": "hazir-ofis-kiralama",
+  "makam-odasi-hizmeti": "makam-odasi-kiralama",
+  "toplanti-odasi-hizmeti": "toplanti-odasi-kiralama",
 };
 
 export function getServiceDetail(slug: string): ServiceDetailData | undefined {
-  return HIZMET_DETAY_MAP[slug];
+  const resolved = SERVICE_SLUG_ALIASES[slug] ?? slug;
+  return HIZMET_DETAY_MAP[resolved];
 }

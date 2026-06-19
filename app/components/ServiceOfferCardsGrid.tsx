@@ -26,12 +26,12 @@ function FooterChevron() {
 
 type Props = {
   cards: ServiceOfferCard[];
-  /** Örn. anasayfa: gap-4 md:grid-cols-3 — sayfa grid'ine göre override */
+  /** Örn. anasayfa — sayfa grid'ine göre override */
   gridClassName?: string;
 };
 
 const DEFAULT_GRID =
-  "grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-4";
+  "grid grid-cols-1 auto-rows-fr items-stretch gap-4 md:grid-cols-2 md:gap-4 lg:gap-6";
 
 export default function ServiceOfferCardsGrid({
   cards,
@@ -51,7 +51,7 @@ export default function ServiceOfferCardsGrid({
               alt={`${card.title} - Ankara Konsept Ofis`}
               fill
               className="object-cover"
-              sizes="(max-width: 767px) 100vw, 33vw"
+              sizes="(max-width: 767px) 100vw, 50vw"
             />
             <span
               className="absolute bottom-3 right-3 rounded-[20px] border-[0.5px] border-[rgba(255,255,255,0.25)] px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white"

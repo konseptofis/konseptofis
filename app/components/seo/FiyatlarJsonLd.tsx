@@ -8,7 +8,7 @@ const ORIGIN = SITE.domain.replace(/\/$/, "");
 function matchServiceCard(planTitle: string) {
   const t = planTitle.toLowerCase();
   if (t.includes("sanal")) {
-    return SERVICE_OFFER_CARDS.find((c) => c.id === "mahall-sanal-ofis");
+    return SERVICE_OFFER_CARDS.find((c) => c.id === "cankaya-sanal-ofis");
   }
   if (t.includes("toplantı") || t.includes("toplanti")) {
     return SERVICE_OFFER_CARDS.find((c) => c.id === "toplanti-odasi");

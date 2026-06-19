@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/app/lib/data";
 import { getPublishedPosts } from "@/app/actions/blog";
 import { getExperts } from "@/app/actions/experts";
-import { HIZMET_DETAY_MAP } from "@/app/lib/hizmet-detay-data";
+import { HIZMET_DETAY_MAP, getServicePagePath } from "@/app/lib/hizmet-detay-data";
 
 /** Yayınlanan içerik değişince sitemap yenilensin (blog, fiyatlar vb.). */
 export const revalidate = 3600;
@@ -48,11 +48,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const serviceSlugs = Object.keys(HIZMET_DETAY_MAP).sort();
-  const services: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
-    url: absoluteUrl(`/hizmetler/${slug}`),
-    changeFrequency: "monthly" as const,
-    priority: SERVICE_PRIORITY,
-  }));
+  const services: MetadataRoute.Sitemap = serviceSlugs.map((slug) => {
+    const detail = HIZMET_DETAY_MAP[slug];
+    return {
+      url: absoluteUrl(getServicePagePath(detail)),
+      changeFrequency: "monthly" as const,
+      priority: SERVICE_PRIORITY,
+    };
+  });
 
   let blogPosts: MetadataRoute.Sitemap = [];
   try {

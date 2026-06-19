@@ -78,7 +78,7 @@ export default function MapAndContact({
             </span>
             <SectionHeading id="contact-heading">{heading}</SectionHeading>
             <p className="mt-3 max-w-[340px] text-[16px] leading-[1.7] text-gray-500">
-              Ankara Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı
+              Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı
               odası hizmetlerimiz için iletişime geçin.
             </p>
 
@@ -110,7 +110,7 @@ export default function MapAndContact({
           {/* Sağ panel — harita */}
           <div className="relative min-h-[280px] w-full md:min-h-[480px]">
             <iframe
-              title="Konsept Ofis Konum Haritası"
+              title="Konsept Ofis - Mahall Ankara, Çankaya harita konumu"
               src={SITE.mapEmbedUrl}
               width="100%"
               height="100%"

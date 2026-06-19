@@ -13,10 +13,14 @@ export default function CategoryList({ categories }: Props) {
   async function handleDelete(id: string) {
     if (!confirm("Bu kategoriyi silmek istediğinize emin misiniz? Yazılardaki atama kaldırılmaz, sadece listeden silinir.")) return;
     try {
-      await deleteCategory(id);
+      const result = await deleteCategory(id);
+      if (!result.ok) {
+        alert(result.error);
+        return;
+      }
       router.refresh();
-    } catch (err) {
-      alert(err instanceof Error ? err.message : "Silinirken hata oluştu.");
+    } catch {
+      alert("Kategori silinirken beklenmeyen bir hata oluştu.");
     }
   }
 

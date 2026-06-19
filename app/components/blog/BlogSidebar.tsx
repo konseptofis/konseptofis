@@ -65,7 +65,7 @@ function ProductPromoCard() {
             </p>
           </div>
           <Link
-            href="/hizmetler/mahall-sanal-ofis"
+            href="/hizmetler/cankaya-sanal-ofis"
             className="inline-flex items-center gap-0.5 rounded-lg bg-[var(--color-green)] px-4 py-[10px] text-[12.5px] font-medium text-white transition-colors hover:bg-[#095530] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-green)]"
           >
             İncele

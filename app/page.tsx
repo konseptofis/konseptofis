@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
+import SanalOfisNedirSection from "./components/SanalOfisNedirSection";
 import ContentWithImage from "./components/ContentWithImage";
 import AboutWhyUsSection from "./components/AboutWhyUsSection";
 import OfficeServicesSection from "./components/OfficeServicesSection";
@@ -43,30 +44,30 @@ export default function Home() {
       <HeroSection />
       <AboutWhyUsSection sectionClassName={HOME_BG_WHITE} />
       <ServiceCards sectionClassName={HOME_BG_GREEN} />
+      <SanalOfisNedirSection sectionClassName={HOME_BG_WHITE} />
       <ContentWithImage
         title="Ankara Çankaya'da Prestijli Sanal Ofis ve Yasal Adres Çözümleri"
         imageSrc="/cankaya-sanal-ofis.webp"
         imageAlt="Ankara Çankaya Mahall Ankara Konsept Ofis sanal ofis ve yasal iş adresi"
-        sectionClassName={HOME_BG_WHITE}
+        sectionClassName={HOME_BG_GREEN}
       >
         <p>
-          Konsept Ofis olarak, Ankara&apos;nın en prestijli iş merkezlerinden Mahall
-          Ankara&apos;da şirket kuruluşuna ve adres değişikliğine uygun yasal iş adresi ve
-          sanal ofis kiralama hizmetleri sunuyoruz. Fiziksel ofis maliyetlerine katlanmadan,
-          stopaj ödemeden ve profesyonel sekreterya desteğiyle işletmenize prestijli bir
-          kurumsal kimlik kazandırıyoruz.
+          Ankara&apos;nın yeni iş ve finans merkezi Çankaya Mahall Ankara, sanal
+          ofisiniz için stratejik bir konum sunar. Metro ve ana arterlere yürüme
+          mesafesindeki lokasyonumuz, müşteri ve iş ortaklarınızın size kolayca
+          ulaşmasını sağlar. A+ ofis standartlarındaki bina, modern mimarisi ve
+          prestijli lobisiyle markanızın kurumsal imajını ilk izlenimde güçlendirir.
         </p>
         <p>
-          Sürpriz faturaların ve gizli maliyetlerin olmadığı şeffaf paketlerimiz; kargo ve
-          tebligat yönetimi, misafir karşılama ve tam donanımlı toplantı odası kullanımını
-          kapsar. İster yeni bir girişimci olun ister şirketinizi prestijli bir lokasyona
-          taşımak isteyin, esnek çözümlerimizle siz sadece işinizi büyütmeye odaklanın.
+          Çankaya&apos;nın kamu kurumları, mali müşavirler ve hukuk bürolarının yoğun
+          olduğu bu merkezde yer almak; resmi işlemlerinizi hızlandırır ve
+          işletmenize güçlü bir konum avantajı kazandırır.
         </p>
       </ContentWithImage>
-      <OfficeServicesSection sectionClassName={HOME_BG_GREEN} />
-      <FAQAccordion sectionClassName={HOME_BG_WHITE} />
-      <TestimonialsSection sectionClassName={HOME_BG_GREEN} />
-      <MapAndContact sectionClassName={HOME_BG_WHITE} />
+      <OfficeServicesSection sectionClassName={HOME_BG_WHITE} />
+      <FAQAccordion sectionClassName={HOME_BG_GREEN} />
+      <TestimonialsSection sectionClassName={HOME_BG_WHITE} />
+      <MapAndContact sectionClassName={HOME_BG_GREEN} />
     </main>
   );
 }
