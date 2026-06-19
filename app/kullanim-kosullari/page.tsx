@@ -3,6 +3,7 @@ import PageHeader from "@/app/components/PageHeader";
 export const metadata = {
   title: "Kullanım Koşulları - Konsept Ofis",
   description: "Konsept Ofis web sitesi kullanım koşulları ve ilgili yasal metinler.",
+  alternates: { canonical: "/kullanim-kosullari" },
 };
 
 const sectionTitleClass =

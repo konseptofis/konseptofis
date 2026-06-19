@@ -135,10 +135,30 @@ export default async function BlogPostRootPage({ params }: Props) {
               <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-[2.5rem] md:leading-tight">
                 {post.title}
               </h1>
-              <p className="mt-3 text-left text-sm text-gray-600">
-                {post.category?.trim()
-                  ? `${post.category.trim()} | ${formatDate(post.created_at)}`
-                  : formatDate(post.created_at)}
+              <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-left text-sm text-gray-600">
+                {post.category?.trim() ? (
+                  <>
+                    <span>{post.category.trim()}</span>
+                    <span className="text-gray-400" aria-hidden>
+                      |
+                    </span>
+                  </>
+                ) : null}
+                <time dateTime={post.created_at}>{formatDate(post.created_at)}</time>
+                {post.reviewer?.name ? (
+                  <>
+                    <span className="text-gray-400" aria-hidden>
+                      |
+                    </span>
+                    <Link
+                      href={`/uzmanlar/${post.reviewer.slug}`}
+                      className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                    >
+                      {post.reviewer.name}
+                      {post.reviewer.job_title ? `, ${post.reviewer.job_title}` : ""}
+                    </Link>
+                  </>
+                ) : null}
               </p>
               {post.featured_image && (
                 <div className="mt-8 overflow-hidden rounded-lg shadow-md">

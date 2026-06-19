@@ -4,6 +4,7 @@ export const metadata = {
   title: "Açık Rıza Onayı - Konsept Ofis",
   description:
     "6698 sayılı KVKK kapsamında Konsept Ofis için açık rıza beyanı ve bilgilendirme metni.",
+  alternates: { canonical: "/acik-riza-onayi" },
 };
 
 export default function AcikRizaOnayiPage() {

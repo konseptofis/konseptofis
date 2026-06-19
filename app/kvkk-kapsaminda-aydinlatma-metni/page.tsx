@@ -5,6 +5,7 @@ export const metadata = {
   title: "KVKK Kapsamında Aydınlatma Metni - Konsept Ofis",
   description:
     "6698 sayılı KVKK kapsamında Konsept Ofis veri sorumlusu aydınlatma metni ve başvuru bilgileri.",
+  alternates: { canonical: "/kvkk-kapsaminda-aydinlatma-metni" },
 };
 
 const linkClass = "text-[#0b7041] underline hover:no-underline";

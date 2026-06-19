@@ -23,7 +23,9 @@ const siteOrigin = SITE.domain.replace(/\/$/, "");
 
 /** Site yeşili — globals ile uyumlu */
 const accent = "text-[var(--color-green)]";
-const hairline = "border border-[#e5e5e5]";
+const cardBorder = "border border-[var(--color-border-tertiary)]";
+const avatarSizes =
+  "h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36";
 
 function stripHtml(html: string, maxLen = 160): string {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -57,7 +59,7 @@ function ExpertSocialBar({ expert }: { expert: Expert }) {
   if (items.length === 0) return null;
 
   return (
-    <ul className="mt-8 flex flex-wrap gap-2 border-t border-[#e5e5e5] pt-8">
+    <ul className="mt-8 flex flex-wrap justify-center gap-2 border-t border-[var(--color-border-tertiary)] pt-8 md:justify-start">
       {items.map(({ href, label, Icon }) => (
         <li key={label}>
           <a
@@ -157,24 +159,26 @@ export default async function ExpertDetailPage({ params }: Props) {
         </nav>
 
         <article
-          className={`${hairline} overflow-hidden rounded-lg bg-white`}
+          className={`${cardBorder} overflow-hidden rounded-2xl bg-transparent`}
           aria-labelledby="expert-heading"
         >
-          <div className="flex flex-col gap-8 p-6 sm:p-8 md:flex-row md:items-stretch md:gap-10 md:p-10 lg:gap-12">
-            <div className="mx-auto flex shrink-0 justify-center md:mx-0 md:justify-start">
+          <div className="flex flex-col items-center gap-8 p-6 sm:p-8 md:flex-row md:items-start md:gap-10 md:p-10 lg:gap-12">
+            <div className="flex shrink-0 justify-center md:justify-start">
               {expert.avatar_url ? (
-                <div className={`${hairline} overflow-hidden rounded-lg bg-[var(--color-silver)]`}>
+                <div
+                  className={`${avatarSizes} ${cardBorder} shrink-0 overflow-hidden rounded-full bg-[var(--color-silver)]`}
+                >
                   <img
                     src={expert.avatar_url}
                     alt={expert.name}
-                    className="h-32 w-32 object-cover sm:h-36 sm:w-36 md:h-40 md:w-40"
-                    width={160}
-                    height={160}
+                    className="h-full w-full object-cover"
+                    width={144}
+                    height={144}
                   />
                 </div>
               ) : (
                 <div
-                  className={`flex h-32 w-32 items-center justify-center rounded-lg sm:h-36 sm:w-36 md:h-40 md:w-40 ${hairline} bg-[var(--color-background-secondary)] text-sm text-[var(--color-text-secondary)]`}
+                  className={`${avatarSizes} ${cardBorder} flex shrink-0 items-center justify-center rounded-full bg-[var(--color-background-secondary)] text-sm text-[var(--color-text-secondary)]`}
                   aria-hidden
                 >
                   —
@@ -184,12 +188,12 @@ export default async function ExpertDetailPage({ params }: Props) {
 
             <div className="min-w-0 flex-1 text-center md:text-left">
               <header>
-                <h2
+                <h1
                   id="expert-heading"
                   className="m-0 text-[30px] font-medium leading-snug tracking-tight text-[var(--color-text-primary)]"
                 >
                   {expert.name}
-                </h2>
+                </h1>
                 {expert.job_title ? (
                   <p
                     className={`mt-3 text-sm font-medium tracking-wide sm:text-[15px] ${accent}`}
