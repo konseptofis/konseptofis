@@ -5,9 +5,9 @@ type Props = { sectionClassName?: string };
 const items: { num: string; title: string; description: string }[] = [
   {
     num: "01",
-    title: "Onlarca Firmaya Hizmet",
+    title: "Birçok Firmaya Hizmet",
     description:
-      "2022'den bu yana onlarca yerli ve yabancı işletmenin yasal adresi olduk.",
+      "Kurulduğumuz günden bu yana yerli ve yabancı birçok işletmenin yasal adresi olduk.",
   },
   {
     num: "02",
@@ -49,7 +49,7 @@ export default function AboutWhyUsSection({
             doğru adres Konsept Ofis. Çankaya Mahall Ankara&apos;nın prestijli iş
             merkezinde, fiziksel ofis maliyeti olmadan yasal iş adresinize kavuşun;
             vergi levhası, ticaret sicil adresi ve tebligat yönetimi tek pakette.
-            2022&apos;den bu yana yüzlerce girişimciye stopajsız ofis kiralama ve
+            Kurulduğumuz günden bu yana çok sayıda girişimciye stopajsız ofis kiralama ve
             şeffaf fiyatlandırmayla hizmet veriyoruz. Sadece bir adres değil,
             markanıza kurumsal kimlik kazandıran eksiksiz bir ofis ekosistemi
             sunuyoruz.

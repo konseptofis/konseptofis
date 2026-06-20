@@ -1,4 +1,5 @@
 import type { Post } from "@/app/actions/blog";
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { SITE } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
@@ -32,8 +33,9 @@ function toIso8601(value: string): string {
 
 type Props = { post: Post };
 
-/** Blog tekil yazı: Article JSON-LD (head). */
+/** Blog tekil yazı: Article + BreadcrumbList JSON-LD (head). */
 export default function BlogArticleJsonLd({ post }: Props) {
+  const pageUrl = breadcrumbPageUrl(`/${post.slug}`);
   const reviewedBy = post.reviewer
     ? {
         "@type": "Person",
@@ -45,30 +47,43 @@ export default function BlogArticleJsonLd({ post }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${ORIGIN}/${post.slug}`,
-    },
-    headline: post.title,
-    description: articleDescription(post),
-    image: articleImageUrl(post),
-    datePublished: toIso8601(post.created_at),
-    dateModified: toIso8601(post.updated_at || post.created_at),
-    author: {
-      "@type": "Organization",
-      name: SITE.name,
-      url: `${ORIGIN}/`,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: SITE.name,
-      logo: {
-        "@type": "ImageObject",
-        url: LOGO_URL,
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${pageUrl}#article`,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": pageUrl,
+        },
+        headline: post.title,
+        description: articleDescription(post),
+        image: articleImageUrl(post),
+        datePublished: toIso8601(post.created_at),
+        dateModified: toIso8601(post.updated_at || post.created_at),
+        author: {
+          "@type": "Organization",
+          name: SITE.name,
+          url: `${ORIGIN}/`,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: SITE.name,
+          logo: {
+            "@type": "ImageObject",
+            url: LOGO_URL,
+          },
+        },
+        ...(reviewedBy ? { reviewedBy } : {}),
       },
-    },
-    ...(reviewedBy ? { reviewedBy } : {}),
+      buildBreadcrumbListJsonLd(
+        [
+          { label: "Anasayfa", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: post.title },
+        ],
+        pageUrl,
+      ),
+    ],
   };
 
   return (

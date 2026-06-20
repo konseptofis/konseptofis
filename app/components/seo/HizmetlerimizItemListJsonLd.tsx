@@ -1,11 +1,16 @@
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { SITE } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
+const pageUrl = breadcrumbPageUrl("/hizmetlerimiz");
 
 const itemListJsonLd = {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  itemListElement: [
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "@id": `${pageUrl}#itemlist`,
+      itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
@@ -51,6 +56,27 @@ const itemListJsonLd = {
         },
       },
     },
+    {
+      "@type": "ListItem",
+      position: 4,
+      item: {
+        "@type": "Service",
+        name: "Hazır Ofis",
+        url: `${ORIGIN}/hizmetlerimiz/hazir-ofis-kiralama`,
+        description:
+          "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
+        provider: {
+          "@type": "Organization",
+          name: SITE.name,
+        },
+      },
+    },
+  ],
+    },
+    buildBreadcrumbListJsonLd(
+      [{ label: "Anasayfa", href: "/" }, { label: "Hizmetlerimiz" }],
+      pageUrl,
+    ),
   ],
 };
 

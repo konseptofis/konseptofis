@@ -5,10 +5,12 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingChatbotLazy from "./components/FloatingChatbotLazy";
-import { getPostBySlug } from "./actions/blog";
+import { getPostBySlug, getPublishedPostsByCategory } from "./actions/blog";
+import { getCategoryBySlug } from "./actions/categories";
 import { getExpertBySlug } from "./actions/experts";
 import { getPricingPlans } from "./actions/pricing";
 import BlogArticleJsonLd from "./components/seo/BlogArticleJsonLd";
+import CategoryArchiveJsonLd from "./components/seo/CategoryArchiveJsonLd";
 import ExpertPersonJsonLd from "./components/seo/ExpertPersonJsonLd";
 import BlogJsonLd from "./components/seo/BlogJsonLd";
 import FiyatlarJsonLd from "./components/seo/FiyatlarJsonLd";
@@ -22,10 +24,28 @@ import { matchPricingPlanForService } from "./lib/hizmet-detay-jsonld";
 import { getServiceDetail } from "./lib/hizmet-detay-data";
 import { isReservedBlogRootSegment } from "./lib/blog-root-path";
 import { manrope } from "@/lib/fonts";
+import BreadcrumbListJsonLd from "./components/seo/BreadcrumbListJsonLd";
+import type { BreadcrumbJsonLdItem } from "./lib/breadcrumb-jsonld";
 
 const defaultSiteTitle = "Konsept Ofis";
 const defaultDescription =
   "Ankara Çankaya Mahall'da sanal ofis, makam odası ve toplantı odası çözümleri. Yasal iş adresi ve kurumsal ofis paketleri.";
+
+const LEGAL_BREADCRUMBS: Record<string, BreadcrumbJsonLdItem[]> = {
+  "/kullanim-kosullari": [
+    { label: "Anasayfa", href: "/" },
+    { label: "Kullanım Koşulları" },
+  ],
+  "/acik-riza-onayi": [{ label: "Anasayfa", href: "/" }, { label: "Açık Rıza Onayı" }],
+  "/kvkk-kapsaminda-aydinlatma-metni": [
+    { label: "Anasayfa", href: "/" },
+    { label: "KVKK Aydınlatma Metni" },
+  ],
+  "/kvkk-basvuru-formu": [
+    { label: "Anasayfa", href: "/" },
+    { label: "KVKK Başvuru Formu" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
@@ -65,6 +85,7 @@ export default async function RootLayout({
   const isBlog = pathname === "/blog";
   const isIletisim = pathname === "/iletisim";
   const isSikSorulanSorular = pathname === "/sik-sorulan-sorular";
+  const legalBreadcrumbs = LEGAL_BREADCRUMBS[pathname];
   const rootArticleMatch = pathname.match(/^\/([^/]+)$/);
   const rootArticleSeg = rootArticleMatch?.[1];
   const blogArticleSlug =
@@ -80,6 +101,15 @@ export default async function RootLayout({
   const uzmanSlug = uzmanMatch?.[1];
   const expert =
     uzmanSlug != null && uzmanSlug.length > 0 ? await getExpertBySlug(uzmanSlug) : null;
+
+  const kategoriMatch = pathname.match(/^\/kategori\/([^/]+)$/);
+  const kategoriSlug = kategoriMatch?.[1];
+  const category =
+    kategoriSlug != null && kategoriSlug.length > 0
+      ? await getCategoryBySlug(kategoriSlug)
+      : null;
+  const categoryPosts =
+    category != null ? await getPublishedPostsByCategory(kategoriSlug!) : [];
 
   const hizmetSlug = pathname.match(/^\/hizmetlerimiz\/([^/]+)$/)?.[1];
 
@@ -104,10 +134,18 @@ export default async function RootLayout({
         {isFiyatlar ? <FiyatlarJsonLd /> : null}
         {isBlog ? <BlogJsonLd /> : null}
         {blogPost ? <BlogArticleJsonLd post={blogPost} /> : null}
+        {category ? <CategoryArchiveJsonLd category={category} posts={categoryPosts} /> : null}
         {expert && !expert.seo_noindex ? <ExpertPersonJsonLd expert={expert} /> : null}
         {hizmetDetayLd}
         {isIletisim ? <IletisimJsonLd /> : null}
         {isSikSorulanSorular ? <SikSorulanSorularJsonLd /> : null}
+        {legalBreadcrumbs ? (
+          <BreadcrumbListJsonLd
+            items={legalBreadcrumbs}
+            pagePath={pathname}
+            id={`ld-json-breadcrumb-${pathname.slice(1).replace(/\//g, "-")}`}
+          />
+        ) : null}
       </head>
       <body
         className={`${manrope.className} antialiased text-foreground bg-background overflow-x-hidden`}

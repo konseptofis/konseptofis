@@ -22,7 +22,25 @@ export const SITE = {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.465236530671!2d32.75086257648828!3d39.908603686408135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xad33dfbbdecf2279%3A0x873a63ff266a8b3d!2sKonsept%20Ofis%20%7C%20Sanal%20Ofis%20-%20Haz%C4%B1r%20Ofis%20-%20Toplant%C4%B1%20Odas%C4%B1%20Kiralama%20Hizmetleri!5e0!3m2!1str!2str!4v1776771148030!5m2!1str!2str",
   directionsUrl:
     "https://www.google.com/maps/dir//Mahall+Ankara+C2+Blok+47+%C3%87ankaya+Ankara",
+  /** Mahall Ankara C2 Blok 47 — schema LocalBusiness geo (Google Maps). */
+  geo: {
+    lat: 39.908609804242744,
+    lng: 32.75344120719789,
+  },
 } as const;
+
+/** Schema.org GeoCoordinates — tüm LocalBusiness JSON-LD'lerde ortak. */
+export function siteGeoJsonLd(): {
+  "@type": "GeoCoordinates";
+  latitude: number;
+  longitude: number;
+} {
+  return {
+    "@type": "GeoCoordinates",
+    latitude: SITE.geo.lat,
+    longitude: SITE.geo.lng,
+  };
+}
 
 export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {

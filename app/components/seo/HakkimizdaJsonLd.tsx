@@ -1,6 +1,8 @@
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { SITE } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
+const pageUrl = breadcrumbPageUrl("/hakkimizda");
 
 const aboutPageJsonLd = {
   "@context": "https://schema.org",
@@ -22,7 +24,7 @@ const aboutPageJsonLd = {
       logo: `${ORIGIN}/ankara-sanal-ofis-logo.webp`,
       image: `${ORIGIN}/konsept-ofis-hakkimizda.webp`,
       description:
-        "Ankara sanal ofis arayışınızda doğru adres Konsept Ofis. Çankaya Mahall Ankara'nın prestijli iş merkezinde, fiziksel ofis maliyeti olmadan yasal iş adresinize kavuşun; vergi levhası, ticaret sicil adresi ve tebligat yönetimi tek pakette. 2022'den bu yana yüzlerce girişimciye stopajsız ofis kiralama ve şeffaf fiyatlandırmayla hizmet veriyoruz. Sadece bir adres değil, markanıza kurumsal kimlik kazandıran eksiksiz bir ofis ekosistemi sunuyoruz.",
+        "Ankara sanal ofis arayışınızda doğru adres Konsept Ofis. Çankaya Mahall Ankara'nın prestijli iş merkezinde, fiziksel ofis maliyeti olmadan yasal iş adresinize kavuşun; vergi levhası, ticaret sicil adresi ve tebligat yönetimi tek pakette. Kurulduğumuz günden bu yana çok sayıda girişimciye stopajsız ofis kiralama ve şeffaf fiyatlandırmayla hizmet veriyoruz. Sadece bir adres değil, markanıza kurumsal kimlik kazandıran eksiksiz bir ofis ekosistemi sunuyoruz.",
       foundingDate: "2024",
       address: {
         "@type": "PostalAddress",
@@ -46,6 +48,10 @@ const aboutPageJsonLd = {
         "https://www.linkedin.com/company/konseptofis/",
       ],
     },
+    buildBreadcrumbListJsonLd(
+      [{ label: "Anasayfa", href: "/" }, { label: "Hakkımızda" }],
+      pageUrl,
+    ),
   ],
 };
 

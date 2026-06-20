@@ -1,4 +1,5 @@
 import { getPricingPlans, type PricingPlan } from "@/app/actions/pricing";
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { PRICING_FAQ_ITEMS, SITE } from "@/app/lib/data";
 import { toOfferPriceString } from "@/app/lib/hizmet-detay-jsonld";
 import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
@@ -75,17 +76,28 @@ function plansToProductGraph(plans: PricingPlan[]) {
   });
 }
 
+const fiyatlarPageUrl = breadcrumbPageUrl("/fiyatlar");
+
 const faqPageJsonLd = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: PRICING_FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": `${fiyatlarPageUrl}#faq`,
+      mainEntity: PRICING_FAQ_ITEMS.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
     },
-  })),
+    buildBreadcrumbListJsonLd(
+      [{ label: "Anasayfa", href: "/" }, { label: "Fiyatlar" }],
+      fiyatlarPageUrl,
+    ),
+  ],
 };
 
 /**

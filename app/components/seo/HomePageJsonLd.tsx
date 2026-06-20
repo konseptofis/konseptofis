@@ -1,4 +1,4 @@
-import { FAQ_ITEMS, SITE } from "@/app/lib/data";
+import { FAQ_ITEMS, SITE, siteGeoJsonLd } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 
@@ -52,94 +52,13 @@ const localBusinessJson = {
     postalCode: SITE.address.postalCode,
     addressCountry: SITE.address.country,
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 39.9208,
-    longitude: 32.8547,
-  },
+  geo: siteGeoJsonLd(),
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     opens: "09:00",
     closes: "18:00",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5",
-    bestRating: "5",
-    worstRating: "1",
-    reviewCount: "4",
-  },
-  review: [
-    {
-      "@type": "Review",
-      datePublished: "2025-10-08",
-      author: {
-        "@type": "Person",
-        name: "Berkan Çevre",
-        jobTitle: "Serbest Avukat",
-      },
-      reviewBody:
-        "Avukat sanal ofis arayışımda en iyi lokasyon burasıydı. Baro kaydımı hemen Mahall Ankara'ya aldırdım. Tebligatlarım güvenle teslim alınıyor. Meslektaşlarıma öneririm.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
-    {
-      "@type": "Review",
-      datePublished: "2025-10-22",
-      author: {
-        "@type": "Person",
-        name: "Berat Bozkurt",
-        jobTitle: "Uzman Diyetisyen",
-      },
-      reviewBody:
-        "Online diyetisyen olarak fiziksel ofise ihtiyacım yoktu. Yasal adresimi buraya taşıdım. Yüz yüze görüşmelerim için toplantı odalarını kullanıyorum, çok prestijli bir yer.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
-    {
-      "@type": "Review",
-      datePublished: "2025-11-14",
-      author: {
-        "@type": "Person",
-        name: "Engin Eryılmaz",
-        jobTitle: "Klinik Psikolog",
-      },
-      reviewBody:
-        "Online terapi ağırlıklı çalışıyorum. Ev adresimi gizlemek için yasal adres hizmeti aldım. Nadir de olsa yüz yüze seanslar için sağladıkları toplantı odaları harika.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
-    {
-      "@type": "Review",
-      datePublished: "2025-12-03",
-      author: {
-        "@type": "Person",
-        name: "Furkan Altay",
-        jobTitle: "E-Ticaret Kurucusu",
-      },
-      reviewBody:
-        "Sürekli kargo ve resmi tebligat alıyorum. Evraklarım resepsiyonda güvenle teslim alınıp anında WhatsApp'tan bildiriliyor. E-ticaret operasyon yükümü tamamen sıfırladılar.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
-  ],
 };
 
 const webSiteDescription =

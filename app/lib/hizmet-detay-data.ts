@@ -283,7 +283,7 @@ const CANKAYA_SANAL_OFIS: ServiceDetailData = {
   packageHeadingAccent: "Çankaya Sanal Ofis",
   breadcrumbs: [
     { label: "Anasayfa", href: "/" },
-    { label: "Hizmetler", href: "/hizmetlerimiz" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
     { label: "Çankaya Sanal Ofis" },
   ],
   introTitle: "Çankaya'da Prestijli Sanal Ofis ve Yasal Adres",

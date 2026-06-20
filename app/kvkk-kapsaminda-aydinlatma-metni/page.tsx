@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageHeader from "@/app/components/PageHeader";
 
 export const metadata = {
-  title: "KVKK Kapsamında Aydınlatma Metni - Konsept Ofis",
+  title: { absolute: "KVKK Kapsamında Aydınlatma Metni | Konsept Ofis" },
   description:
     "6698 sayılı KVKK kapsamında Konsept Ofis veri sorumlusu aydınlatma metni ve başvuru bilgileri.",
   alternates: { canonical: "/kvkk-kapsaminda-aydinlatma-metni" },

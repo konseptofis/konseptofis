@@ -1,6 +1,8 @@
-import { SITE } from "@/app/lib/data";
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
+import { SITE, siteGeoJsonLd } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
+const pageUrl = breadcrumbPageUrl("/iletisim");
 
 const iletisimJsonLd = {
   "@context": "https://schema.org",
@@ -32,11 +34,7 @@ const iletisimJsonLd = {
         postalCode: SITE.address.postalCode,
         addressCountry: SITE.address.country,
       },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 39.9208,
-        longitude: 32.8547,
-      },
+      geo: siteGeoJsonLd(),
       contactPoint: {
         "@type": "ContactPoint",
         telephone: SITE.phone,
@@ -45,6 +43,10 @@ const iletisimJsonLd = {
         availableLanguage: ["Turkish", "tr"],
       },
     },
+    buildBreadcrumbListJsonLd(
+      [{ label: "Anasayfa", href: "/" }, { label: "İletişim" }],
+      pageUrl,
+    ),
   ],
 };
 

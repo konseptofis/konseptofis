@@ -1,16 +1,28 @@
 import { FAQ_ITEMS } from "@/app/lib/data";
+import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
+
+const pageUrl = breadcrumbPageUrl("/sik-sorulan-sorular");
 
 const faqPageJsonLd = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: FAQ_ITEMS.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
     },
-  })),
+    buildBreadcrumbListJsonLd(
+      [{ label: "Anasayfa", href: "/" }, { label: "Sık Sorulan Sorular" }],
+      pageUrl,
+    ),
+  ],
 };
 
 /** `/sik-sorulan-sorular`: sayfadaki `FAQ_ITEMS` ile aynı SSS → FAQPage. */

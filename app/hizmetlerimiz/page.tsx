@@ -22,7 +22,7 @@ export default function HizmetlerimizPage() {
     <main className="min-h-screen bg-[var(--background)]">
       <PageHeader
         title="Hizmetler"
-        breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hizmetler" }]}
+        breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Hizmetlerimiz" }]}
       />
 
       {/* Hizmetlerimiz — zebra: beyaz */}
