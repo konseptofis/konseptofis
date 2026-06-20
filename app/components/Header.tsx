@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
+import HizliTeklifModal from "@/app/components/HizliTeklifModal";
 
 const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
@@ -311,40 +312,7 @@ export default function Header() {
         )}
       </div>
 
-      {teklifModalOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="teklif-modal-title"
-        >
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <div className="flex items-center justify-between gap-4">
-              <h2 id="teklif-modal-title" className="text-xl font-semibold text-gray-900">
-                Hızlı teklif al
-              </h2>
-              <button
-                type="button"
-                onClick={() => setTeklifModalOpen(false)}
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                aria-label="Kapat"
-              >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
-            </div>
-            <p className="mt-4 text-sm text-gray-600">
-              Bu bölüm düzenlenecek. Hızlı teklif formu burada yer alacak.
-            </p>
-            <button
-              type="button"
-              onClick={() => setTeklifModalOpen(false)}
-              className="mt-6 w-full rounded-lg border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Kapat
-            </button>
-          </div>
-        </div>
-      )}
+      <HizliTeklifModal open={teklifModalOpen} onClose={() => setTeklifModalOpen(false)} />
     </header>
   );
 }

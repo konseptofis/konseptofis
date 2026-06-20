@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingChatbotLazy from "./components/FloatingChatbotLazy";
+import MobileContactBar from "./components/MobileContactBar";
 import { getPostBySlug, getPublishedPostsByCategory } from "./actions/blog";
 import { getCategoryBySlug } from "./actions/categories";
 import { getExpertBySlug } from "./actions/experts";
@@ -148,11 +149,12 @@ export default async function RootLayout({
         ) : null}
       </head>
       <body
-        className={`${manrope.className} antialiased text-foreground bg-background overflow-x-hidden`}
+        className={`${manrope.className} antialiased text-foreground bg-background overflow-x-hidden${!isAdmin ? " pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:pb-0" : ""}`}
       >
         <Header />
         {children}
         {!isAdmin ? <Footer /> : null}
+        {!isAdmin ? <MobileContactBar /> : null}
         {!isAdmin ? <FloatingChatbotLazy /> : null}
       </body>
     </html>

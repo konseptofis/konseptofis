@@ -92,6 +92,59 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+@import "prosemirror-tables/style/tables.css";
+
+/* TipTap editör: tablo tam genişlik + sürüklenebilir sütunlar */
+.ProseMirror {
+  --default-cell-min-width: 6rem;
+}
+
+.ProseMirror .tableWrapper {
+  width: 100%;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.ProseMirror .tableWrapper > table {
+  width: 100% !important;
+  min-width: 100% !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  min-width: 6rem;
+  vertical-align: top;
+}
+
+.ProseMirror th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  text-align: left;
+}
+
+.ProseMirror .column-resize-handle {
+  background-color: #0b7041;
+  opacity: 0.4;
+}
+
+/* Blog içeriği: tablo kaydırma sarmalayıcısı */
+.table-scroll {
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.table-scroll > table,
+.table-scroll table {
+  width: 100% !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
 @layer base {
   h2 {
     font-size: 30px;

@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { Upload, X } from "lucide-react";
-
-const BUCKET = "blog-images";
+import { uploadBlogImage } from "@/lib/admin/upload-blog-image";
 
 type Props = {
   value: string | null;
@@ -21,20 +19,14 @@ export default function FeaturedImageUpload({ value, onChange }: Props) {
     if (!file) return;
     setError(null);
     setUploading(true);
-    const supabase = createClient();
-    const ext = file.name.split(".").pop() ?? "jpg";
-    const name = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { data, error: err } = await supabase.storage.from(BUCKET).upload(name, file, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-    setUploading(false);
-    if (err) {
-      setError(err.message);
-      return;
+    try {
+      const publicUrl = await uploadBlogImage(file);
+      onChange(publicUrl);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Yükleme başarısız.");
+    } finally {
+      setUploading(false);
     }
-    const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(data.path);
-    onChange(urlData.publicUrl);
   }
 
   function handleRemove() {

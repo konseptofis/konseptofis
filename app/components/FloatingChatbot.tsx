@@ -6,7 +6,8 @@ import {
   CHATBOT_FAB_ICON_PATH,
   CHATBOT_TOPICS,
   CHATBOT_WELCOME_MESSAGE,
-  CHATBOT_WHATSAPP_SUPPORT_HREF,
+  getChatbotPhoneHref,
+  getChatbotWhatsAppHref,
   type ChatSubOption,
 } from "@/app/lib/chatbot-flow";
 import { SITE } from "@/app/lib/data";
@@ -153,6 +154,47 @@ function TypingRow() {
           style={{ animationDelay: "240ms" }}
         />
       </div>
+    </div>
+  );
+}
+
+const contactBtnBase =
+  "flex flex-1 items-center justify-center rounded-full border px-3 py-2 text-center text-[12px] font-semibold transition-colors";
+
+function ContactButtonPair({
+  whatsappLabel,
+  phoneLabel,
+}: {
+  whatsappLabel: string;
+  phoneLabel: string;
+}) {
+  return (
+    <div className="flex gap-2">
+      <a
+        href={getChatbotWhatsAppHref()}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${contactBtnBase} border-[var(--color-green)]/40 bg-[color-mix(in_srgb,var(--color-green)_14%,#ffffff)] text-[var(--color-green)] hover:border-[var(--color-green)]/60 hover:bg-[color-mix(in_srgb,var(--color-green)_22%,#ffffff)]`}
+      >
+        {whatsappLabel}
+      </a>
+      <a
+        href={getChatbotPhoneHref()}
+        className={`${contactBtnBase} border-[rgba(0,0,0,0.12)] bg-white text-[var(--foreground)] hover:border-[var(--color-green)]/40 hover:bg-[color-mix(in_srgb,var(--color-green)_8%,#ffffff)]`}
+      >
+        {phoneLabel}
+      </a>
+    </div>
+  );
+}
+
+function GlobalContactExit() {
+  return (
+    <div className="mt-4 border-t-[0.5px] border-[rgba(0,0,0,0.08)] pt-3">
+      <p className="m-0 mb-2 text-center text-[11.5px] font-medium text-[var(--color-text-muted)]">
+        Aradığını bulamadın mı?
+      </p>
+      <ContactButtonPair whatsappLabel="WhatsApp'tan Yaz" phoneLabel="Hemen Ara" />
     </div>
   );
 }
@@ -304,8 +346,7 @@ export default function FloatingChatbot() {
     <>
       {isOpen && (
         <div
-          className="chatbot-panel-in fixed right-6 z-50 w-[min(400px,calc(100vw-48px))] overflow-hidden rounded-[18px] border-[0.5px] border-[rgba(0,0,0,0.08)] bg-[var(--color-white)] font-sans"
-          style={{ bottom: "110px" }}
+          className="chatbot-panel-in fixed right-6 z-50 w-[min(400px,calc(100vw-48px))] overflow-hidden rounded-[18px] border-[0.5px] border-[rgba(0,0,0,0.08)] bg-[var(--color-white)] font-sans bottom-[calc(11.25rem+env(safe-area-inset-bottom))] md:bottom-[110px]"
           role="dialog"
           aria-modal="false"
           aria-labelledby={headingId}
@@ -324,15 +365,7 @@ export default function FloatingChatbot() {
               <p id={headingId} className="truncate text-[15px] font-semibold leading-tight">
                 {SITE.name}
               </p>
-              <p className="mt-0.5 flex items-center gap-1.5 text-[11.5px] font-medium text-white/90">
-                <span
-                  className="relative flex h-2 w-2 shrink-0 rounded-full bg-[#4ade80]"
-                  aria-hidden
-                >
-                  <span className="absolute inset-0 animate-ping rounded-full bg-[#4ade80] opacity-60" />
-                </span>
-                Şimdi çevrimiçi
-              </p>
+              <p className="mt-0.5 text-[11.5px] font-medium text-white/90">7/24 destek</p>
             </div>
           </header>
 
@@ -446,16 +479,10 @@ export default function FloatingChatbot() {
                   >
                     ← Başka bir konuda yardım al
                   </div>
-                  <a
-                    href={CHATBOT_WHATSAPP_SUPPORT_HREF}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full max-w-[280px] cursor-pointer select-none rounded-full border border-[var(--color-green)]/40 bg-[color-mix(in_srgb,var(--color-green)_16%,#ffffff)] px-4 py-2.5 text-center text-[13px] font-semibold text-[var(--color-green)] transition-colors hover:border-[var(--color-green)]/60 hover:bg-[color-mix(in_srgb,var(--color-green)_24%,#ffffff)]"
-                  >
-                    İletişime Geç
-                  </a>
                 </div>
               )}
+
+              <GlobalContactExit />
             </div>
 
             <footer className="border-t-[0.5px] border-t-[rgba(0,0,0,0.06)] px-[14px] pb-[13px] pt-[10px] text-center text-[10.5px] text-[var(--color-text-muted)]">
@@ -467,7 +494,7 @@ export default function FloatingChatbot() {
 
       <button
         type="button"
-        className={`fixed bottom-6 right-6 z-50 flex h-[76px] w-[76px] cursor-pointer items-center justify-center outline-none transition-transform duration-[180ms] hover:scale-[1.07] focus-visible:ring-2 focus-visible:ring-[var(--color-green)] focus-visible:ring-offset-2 ${
+        className={`fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-6 z-50 flex h-[76px] w-[76px] cursor-pointer items-center justify-center outline-none transition-transform duration-[180ms] hover:scale-[1.07] focus-visible:ring-2 focus-visible:ring-[var(--color-green)] focus-visible:ring-offset-2 md:bottom-6 ${
           isOpen
             ? "rounded-full bg-[var(--color-green)] text-white transition-[transform,background-color] duration-[180ms] hover:bg-[#095c37]"
             : "bg-transparent p-0 shadow-none hover:bg-transparent"
@@ -502,11 +529,6 @@ export default function FloatingChatbot() {
             <XMarkIcon className="h-8 w-8" />
           </span>
         </span>
-        {!isOpen && (
-          <span className="pointer-events-none absolute -right-0.5 -top-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#dc2626] text-[10px] font-semibold leading-none text-white">
-            1
-          </span>
-        )}
       </button>
     </>
   );

@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import {
+  CONTACT_SOURCE_DEFAULT,
+  CONTACT_SOURCE_QUICK_QUOTE,
+  isValidPhone,
+} from "@/lib/contact-utils";
 
 type ContactPayload = {
   name?: string;
@@ -7,6 +12,7 @@ type ContactPayload = {
   phone?: string;
   message?: string;
   service?: string;
+  source?: string;
 };
 
 function getEnv(name: string) {
@@ -31,8 +37,22 @@ export async function POST(req: Request) {
     const phone = body.phone?.trim() ?? "";
     const message = body.message?.trim() ?? "";
     const service = body.service?.trim() ?? "";
+    const source = body.source?.trim() || CONTACT_SOURCE_DEFAULT;
+    const isQuickQuote = source === CONTACT_SOURCE_QUICK_QUOTE;
 
-    if (!name || !phone || !message) {
+    if (!name || !phone) {
+      return NextResponse.json(
+        { error: "İsim ve telefon alanları zorunludur." },
+        { status: 400 }
+      );
+    }
+    if (!isValidPhone(phone)) {
+      return NextResponse.json(
+        { error: "Geçerli bir telefon numarası girin (en az 10 rakam)." },
+        { status: 400 }
+      );
+    }
+    if (!isQuickQuote && !message) {
       return NextResponse.json(
         { error: "İsim, telefon ve mesaj alanları zorunludur." },
         { status: 400 }
@@ -62,22 +82,25 @@ export async function POST(req: Request) {
       },
     });
 
-    const subject = `İletişim Formu - ${name}`;
+    const subject = `${source} - ${name}`;
+    const displayMessage = message || (isQuickQuote ? "Hızlı teklif talebi." : "-");
     const text = [
+      `Kaynak: ${source}`,
       `İsim: ${name}`,
       `E-posta: ${email || "-"}`,
       `Telefon: ${phone}`,
       `Hizmet: ${service || "-"}`,
-      `Mesaj: ${message || "-"}`,
+      `Mesaj: ${displayMessage}`,
     ].join("\n");
 
     const html = `
-      <h2>Yeni İletişim Formu Mesajı</h2>
+      <h2>Yeni ${escapeHtml(source)} Mesajı</h2>
+      <p><strong>Kaynak:</strong> ${escapeHtml(source)}</p>
       <p><strong>İsim:</strong> ${escapeHtml(name)}</p>
       <p><strong>E-posta:</strong> ${escapeHtml(email || "-")}</p>
       <p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>
       <p><strong>Hizmet:</strong> ${escapeHtml(service || "-")}</p>
-      <p><strong>Mesaj:</strong><br/>${escapeHtml(message || "-").replace(/\n/g, "<br/>")}</p>
+      <p><strong>Mesaj:</strong><br/>${escapeHtml(displayMessage).replace(/\n/g, "<br/>")}</p>
     `;
 
     await transporter.sendMail({

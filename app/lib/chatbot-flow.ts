@@ -2,11 +2,20 @@
  * Sohbet botu seçenek ağacı — metinleri ve linkleri buradan düzenleyebilirsiniz.
  */
 
+import { SITE } from "@/app/lib/data";
+
 export const CHATBOT_WELCOME_MESSAGE =
   "Konsept Ofis'e hoş geldiniz! 👋 Size en hızlı şekilde yardımcı olabilmem için lütfen ilgilendiğiniz konuyu seçin:";
 
-/** Tüm cevap kartları sonunda gösterilen WhatsApp yönlendirmesi */
-export const CHATBOT_WHATSAPP_SUPPORT_HREF = "https://wa.me/903129119557";
+/** WhatsApp yönlendirmesi — SITE.whatsapp tek kaynak */
+export function getChatbotWhatsAppHref(): string {
+  return `https://wa.me/${SITE.whatsapp}`;
+}
+
+/** Tıkla-ara telefon linki */
+export function getChatbotPhoneHref(): string {
+  return `tel:+${SITE.phoneRaw}`;
+}
 
 /**
  * public/ altındaki yüzen sohbet FAB ikon dosyası (adı değiştiyse burayı güncelleyin).
@@ -79,14 +88,14 @@ export const CHATBOT_TOPICS = [
         label: "Sınırsız ikram ve donanım dahil mi?",
         answer:
           "Toplantı süresince yüksek hızlı internet, sunum tahtası/projeksiyon ve sınırsız sıcak/soğuk içecek ikramımız fiyatlara dahildir.",
-        linkLabel: "Görsellere Göz At",
+        linkLabel: "Odayı İncele",
         href: "/hizmetlerimiz/toplanti-odasi-kiralama",
       },
       {
         label: "Misafirlerim nasıl karşılanıyor?",
         answer:
           "Sizin adınıza misafirlerinizi prestijli lobi alanımızda karşılıyor ve toplantı odanıza yönlendiriyoruz. Profesyonel imajınızı güçlendiriyoruz.",
-        linkLabel: "Bize Ulaşın",
+        linkLabel: "Hemen Teklif Al",
         href: "/iletisim",
       },
     ],
@@ -129,8 +138,8 @@ export const CHATBOT_TOPICS = [
         label: "Ofisiniz tam olarak nerede?",
         answer:
           "Ankara Çankaya'da, iş dünyasının merkezi olan Mahall Ankara C2 Blok'tayız. Danıştay Metro durağının hemen yanındayız.",
-        linkLabel: "Haritada Aç",
-        href: "/iletisim",
+        linkLabel: "Yol Tarifi Al",
+        href: SITE.directionsUrl,
       },
       {
         label: "Şirketime gelen kargolar ne oluyor?",
@@ -140,11 +149,11 @@ export const CHATBOT_TOPICS = [
         href: "/hizmetlerimiz/cankaya-sanal-ofis",
       },
       {
-        label: "💬 Aradığım cevabı bulamadım",
+        label: "Otopark ve ulaşım imkanları neler?",
         answer:
-          "Müşteri danışmanlarımız size özel çözümler sunmak ve sorularınızı yanıtlamak için hazır. Lütfen WhatsApp üzerinden bizimle iletişime geçin.",
-        linkLabel: "WhatsApp'tan Bağlan",
-        href: "https://wa.me/903129119557",
+          "Mahall Ankara otoparkı ve Danıştay Metro'ya yürüme mesafesindeyiz. Toplu taşıma veya özel araçla ofisimize kolayca ulaşabilirsiniz.",
+        linkLabel: "Yol Tarifi Al",
+        href: SITE.directionsUrl,
       },
     ],
   },

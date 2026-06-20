@@ -11,6 +11,7 @@ import AccordionFAQ from "@/app/components/AccordionFAQ";
 import BlogSidebar from "@/app/components/blog/BlogSidebar";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import { processHeadings } from "@/lib/headings";
+import { enhanceContentHtml } from "@/lib/enhance-content-html";
 import { getPostBySlug, getPublishedPosts } from "@/app/actions/blog";
 import { getCategories } from "@/app/actions/categories";
 import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
@@ -93,6 +94,9 @@ function formatDate(iso: string): string {
   });
 }
 
+const RELATED_POSTS_GRID =
+  "grid grid-cols-[repeat(auto-fill,minmax(min(100%,17.5rem),1fr))] gap-5 sm:gap-6";
+
 export default async function BlogPostRootPage({ params }: Props) {
   const { slug } = await params;
   if (isReservedBlogRootSegment(slug)) notFound();
@@ -107,6 +111,7 @@ export default async function BlogPostRootPage({ params }: Props) {
   const { html: contentWithIds, items: tocItems } = post.content
     ? processHeadings(post.content)
     : { html: "", items: [] };
+  const renderedContent = enhanceContentHtml(contentWithIds);
 
   const showToc = tocItems.length > 0 || (post.faqs && post.faqs.length > 0);
 
@@ -179,8 +184,8 @@ export default async function BlogPostRootPage({ params }: Props) {
 
             {post.content ? (
               <article
-                className="prose prose-gray max-w-none break-words text-justify leading-relaxed prose-headings:text-left prose-headings:font-semibold prose-p:text-justify prose-blockquote:text-justify prose-td:text-justify prose-li:text-left prose-a:text-[#0b7041] prose-img:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_pre]:overflow-x-auto [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-6 [&_h2]:mb-1.5 [&_h3]:mt-4 [&_h3]:mb-1.5 [&>:first-child]:mt-2"
-                dangerouslySetInnerHTML={{ __html: contentWithIds }}
+                className="prose prose-gray max-w-none break-words text-justify leading-relaxed prose-headings:text-left prose-headings:font-semibold prose-p:text-justify prose-blockquote:text-justify prose-td:text-justify prose-li:text-left prose-a:text-[#0b7041] prose-img:rounded-lg [&_img]:my-6 [&_img]:max-w-full [&_img]:h-auto [&_.tableWrapper]:my-6 [&_.tableWrapper]:w-full [&_.tableWrapper]:overflow-x-auto [&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold [&_th]:text-left [&_th]:align-top [&_th]:min-w-[6rem] [&_td]:border [&_td]:border-gray-200 [&_td]:px-4 [&_td]:py-2 [&_td]:align-top [&_td]:min-w-[6rem] [&_pre]:overflow-x-auto [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_li]:my-0.5 [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:mt-6 [&_h3]:mb-3 [&_h4]:mt-5 [&_h4]:mb-2.5 [&>:first-child]:mt-0"
+                dangerouslySetInnerHTML={{ __html: renderedContent }}
                 style={{ fontSize: "16px", textAlign: "justify" }}
               />
             ) : (
@@ -242,20 +247,25 @@ export default async function BlogPostRootPage({ params }: Props) {
 
       {related.length > 0 && (
         <section
-          className="bg-[#f9fafb] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
+          className="bg-[#f9fafb] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14"
           aria-labelledby="related-heading"
         >
           <div className="mx-auto max-w-6xl">
             <h2
               id="related-heading"
-              className="text-2xl font-semibold tracking-tight text-black sm:text-3xl"
+              className="mb-5 flex items-start gap-3 text-left text-xl font-semibold leading-snug tracking-tight text-[var(--color-text-primary)] sm:mb-6 sm:text-2xl"
             >
-              İlginizi Çekebilecek Diğer Yazılar
+              <span
+                className="mt-1 h-6 w-[3px] shrink-0 rounded-full bg-[var(--color-green)] sm:mt-1.5 sm:h-7"
+                aria-hidden
+              />
+              <span className="min-w-0 flex-1">İlginizi Çekebilecek Diğer Yazılar</span>
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className={RELATED_POSTS_GRID}>
               {related.map((p) => (
                 <BlogCard
                   key={p.id}
+                  compact
                   slug={p.slug}
                   title={p.title}
                   excerpt={stripHtml(p.content ?? p.meta_description ?? "", 160)}
