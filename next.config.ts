@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
+import { loadEnvConfig } from "@next/env";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+loadEnvConfig(projectRoot);
 
 function supabaseImageRemotePatterns(): NonNullable<
   NextConfig["images"]
