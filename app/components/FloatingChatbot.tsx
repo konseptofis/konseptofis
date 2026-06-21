@@ -188,7 +188,15 @@ function ContactButtonPair({
   );
 }
 
-function GlobalContactExit() {
+function GlobalContactExit({ mobile = false }: { mobile?: boolean }) {
+  if (mobile) {
+    return (
+      <div className="shrink-0 bg-transparent px-[14px] py-2">
+        <ContactButtonPair whatsappLabel="WhatsApp" phoneLabel="Ara" />
+      </div>
+    );
+  }
+
   return (
     <div className="mt-4 border-t-[0.5px] border-[rgba(0,0,0,0.08)] pt-3">
       <p className="m-0 mb-2 text-center text-[11.5px] font-medium text-[var(--color-text-muted)]">
@@ -346,12 +354,12 @@ export default function FloatingChatbot() {
     <>
       {isOpen && (
         <div
-          className="chatbot-panel-in fixed right-6 z-50 w-[min(400px,calc(100vw-48px))] overflow-hidden rounded-[18px] border-[0.5px] border-[rgba(0,0,0,0.08)] bg-[var(--color-white)] font-sans bottom-[calc(11.25rem+env(safe-area-inset-bottom))] md:bottom-[110px]"
+          className="chatbot-panel-in fixed z-50 flex flex-col overflow-hidden rounded-[18px] border-[0.5px] border-[rgba(0,0,0,0.08)] bg-[var(--color-white)] font-sans max-md:inset-x-3 max-md:top-[calc(0.5rem+env(safe-area-inset-top))] max-md:bottom-[calc(11.25rem+env(safe-area-inset-bottom))] max-md:w-auto max-md:max-w-none md:right-6 md:bottom-[110px] md:w-[min(400px,calc(100vw-48px))]"
           role="dialog"
           aria-modal="false"
           aria-labelledby={headingId}
         >
-          <header className="flex items-center gap-3 bg-[var(--color-green)] px-4 py-[15px] text-white">
+          <header className="flex shrink-0 items-center gap-3 bg-[var(--color-green)] px-4 py-[15px] text-white">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/25">
               <Image
                 src="/ankara-sanal-ofis-logo.webp"
@@ -369,10 +377,10 @@ export default function FloatingChatbot() {
             </div>
           </header>
 
-          <div className="flex max-h-[min(520px,calc(100vh-160px))] flex-col">
+          <div className="flex min-h-0 flex-1 flex-col md:max-h-[min(520px,calc(100dvh-160px))]">
             <div
               ref={scrollAreaRef}
-              className="flex min-h-[320px] flex-1 flex-col gap-[10px] overflow-y-auto px-[14px] py-4"
+              className="flex min-h-0 flex-1 flex-col gap-[10px] overflow-y-auto px-[14px] py-4 md:min-h-[320px]"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               {messages.map((m) => {
@@ -482,10 +490,16 @@ export default function FloatingChatbot() {
                 </div>
               )}
 
-              <GlobalContactExit />
+              <div className="hidden md:block">
+                <GlobalContactExit />
+              </div>
             </div>
 
-            <footer className="border-t-[0.5px] border-t-[rgba(0,0,0,0.06)] px-[14px] pb-[13px] pt-[10px] text-center text-[10.5px] text-[var(--color-text-muted)]">
+            <div className="md:hidden">
+              <GlobalContactExit mobile />
+            </div>
+
+            <footer className="hidden shrink-0 border-t-[0.5px] border-t-[rgba(0,0,0,0.06)] px-[14px] pb-[13px] pt-[10px] text-center text-[10.5px] text-[var(--color-text-muted)] md:block">
               {SITE.name} · 7/24 Destek
             </footer>
           </div>
