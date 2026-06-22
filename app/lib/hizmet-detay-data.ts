@@ -121,6 +121,26 @@ const MAHALL_OFFICE_SLIDER_IMAGES: readonly IntroSliderImage[] = [
   },
 ];
 
+/** Çankaya Sanal Ofis — Mahall spotlight slider (sayfaya özel görseller). */
+const CANKAYA_SANAL_OFIS_SLIDER_IMAGES: readonly IntroSliderImage[] = [
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-1.webp",
+    alt: "Mahall Ankara plazası ve Çankaya sanal ofis iş merkezi dış görünüm",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-2.webp",
+    alt: "Konsept Ofis Çankaya modern ofis iç mekânı ve çalışma alanı",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-3.webp",
+    alt: "Çankaya sanal ofis resepsiyon ve prestijli lobi alanı",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-4.webp",
+    alt: "Mahall Ankara tam donanımlı toplantı odası",
+  },
+];
+
 export type MahallSpotlightBlock = {
   leftTitle: string;
   leftParagraphs: readonly [string, string];
@@ -372,7 +392,7 @@ const CANKAYA_SANAL_OFIS: ServiceDetailData = {
       "Çankaya, Ankara'nın bakanlıkların, mali müşavirlerin, hukuk bürolarının ve finans kuruluşlarının yoğunlaştığı idari ve ticari merkezidir. Şirketinizin yasal adresinin Çankaya'da olması kurumsal itibarınızı güçlendirir ve resmi işlemlerinizde konum avantajı sağlar.",
       "Ofisimiz Çankaya'nın yeni iş merkezi Mahall Ankara'da yer alır. Metroya komşu, ana ulaşım hatlarına yürüme mesafesindeki A+ standartlardaki binamız, modern mimarisi ve prestijli lobisiyle markanıza güçlü bir ilk izlenim kazandırır.",
     ],
-    sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
+    sliderImages: CANKAYA_SANAL_OFIS_SLIDER_IMAGES,
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
