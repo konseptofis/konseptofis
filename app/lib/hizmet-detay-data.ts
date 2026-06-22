@@ -99,6 +99,10 @@ const CANKAYA_SANAL_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
 export type IntroSliderImage = {
   src: string;
   alt: string;
+  /** object-cover odak noktası; örn. "center 60%" */
+  objectPosition?: string;
+  /** Görsel kutusu için ek sınıflar (örn. max-width). */
+  containerClassName?: string;
 };
 
 /** Mahall bölümü ve benzeri slider’larda kullanılan ofis görselleri. */
@@ -124,27 +128,29 @@ const MAHALL_OFFICE_SLIDER_IMAGES: readonly IntroSliderImage[] = [
 /** Çankaya Sanal Ofis — Mahall spotlight slider (sayfaya özel görseller). */
 const CANKAYA_SANAL_OFIS_SLIDER_IMAGES: readonly IntroSliderImage[] = [
   {
-    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-1.webp",
-    alt: "Mahall Ankara plazası ve Çankaya sanal ofis iş merkezi dış görünüm",
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-1.webp?v=2",
+    alt: "Çankaya sanal ofis — Mahall Ankara plazası ve yasal iş adresi dış görünüm",
   },
   {
     src: "/assets/images/mahall-slider/cankaya-sanal-ofis-2.webp",
-    alt: "Konsept Ofis Çankaya modern ofis iç mekânı ve çalışma alanı",
+    alt: "Çankaya sanal ofis — modern ofis iç mekânı ve çalışma alanı",
   },
   {
     src: "/assets/images/mahall-slider/cankaya-sanal-ofis-3.webp",
-    alt: "Çankaya sanal ofis resepsiyon ve prestijli lobi alanı",
+    alt: "Çankaya sanal ofis — resepsiyon ve prestijli lobi alanı",
   },
   {
     src: "/assets/images/mahall-slider/cankaya-sanal-ofis-4.webp",
-    alt: "Mahall Ankara tam donanımlı toplantı odası",
+    alt: "Çankaya sanal ofis — tam donanımlı toplantı ve görüşme odası",
   },
 ];
 
 export type MahallSpotlightBlock = {
   leftTitle: string;
   leftParagraphs: readonly [string, string];
-  sliderImages: readonly IntroSliderImage[];
+  sliderImages?: readonly IntroSliderImage[];
+  /** Tanımlıysa slider yerine tek görsel (1280×900). */
+  spotlightImage?: IntroSliderImage;
 };
 
 export type ServiceDetailData = {
@@ -526,7 +532,10 @@ const HAZIR_OFIS: ServiceDetailData = {
       "Çankaya hazır ofis kiralama arayanlar için Mahall Ankara'daki birimlerimizle markanıza merkezi ve kurumsal bir adres kazandırırsınız. Metro ve ana arterlere yakın konum; müşteri ve iş ortaklarınız için kolay ulaşım sunar.",
       "Şeffaf fiyatlandırma, sınırsız çay-kahve ve profesyonel ortak alanlar ile hazır ofis deneyiminiz tek paketle yönetilir; ekibiniz büyüdükçe birim veya süre güncellemesi yapabilirsiniz.",
     ],
-    sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
+    spotlightImage: {
+      src: "/assets/images/mahall-slider/ankara-hazir-ofis.webp",
+      alt: "Ankara hazır ofis kiralama — Mahall Ankara tam donanımlı çalışma alanı",
+    },
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
@@ -671,7 +680,11 @@ const MAKAM_ODASI: ServiceDetailData = {
       "Çankaya Mahall Ankara'da konumlanan makam odalarımız; müvekkil kabulü, danışmanlık görüşmeleri ve üst düzey iş toplantıları için lokasyon, lobi ve resepsiyon ayrıcalığıyla markanızın görünürlüğünü güçlendirir.",
       "Şeffaf fiyatlandırma ve esnek sürelerle bütçenizi korurken; sınırsız çay-kahve ve ortak alanlar ile tam hizmetli bir ofis deneyimi yaşarsınız.",
     ],
-    sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
+    spotlightImage: {
+      src: CANKAYA_SANAL_OFIS_SLIDER_IMAGES[0]!.src,
+      alt: "Ankara makam odası kiralama — Mahall Ankara prestijli iş merkezi dış görünüm",
+      objectPosition: "center top",
+    },
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],
@@ -820,7 +833,11 @@ const TOPLANTI_ODASI: ServiceDetailData = {
       "Mahall Ankara'da konumlanan toplantı odalarımız; arabuluculuk oturumları, iş geliştirme görüşmeleri, mülakatlar ve müşteri sunumları için sessiz, şık ve tam donanımlı alanlar sunar. Metroya ve ana arterlere yakın konumu sayesinde misafirleriniz ulaşım ve otopark sorunu yaşamaz.",
       "Rezervasyon süreci hızlı ve pratiktir; toplantı günü misafirleriniz profesyonel lobi ekibimizce karşılanır ve odanıza yönlendirilir. Teknik altyapı ve ikram servisi bize ait, siz sadece işinize odaklanın.",
     ],
-    sliderImages: MAHALL_OFFICE_SLIDER_IMAGES,
+    spotlightImage: {
+      src: "/assets/images/mahall-slider/ankara-toplanti-odasi-1.webp",
+      alt: "Ankara toplantı odası kiralama — Mahall Ankara profesyonel görüşme alanı",
+      objectPosition: "center bottom",
+    },
   },
   processTitle: "Sürecimiz Nasıl İşliyor?",
   processSteps: [],

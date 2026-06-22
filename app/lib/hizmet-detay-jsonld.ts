@@ -62,14 +62,16 @@ export function serviceJsonLdDescription(detail: ServiceDetailData): string {
 }
 
 export function serviceJsonLdImage(detail: ServiceDetailData): string {
-  const sliderFirst = detail.mahallSpotlightBlock?.sliderImages[0]?.src?.trim();
-  if (sliderFirst) {
-    if (sliderFirst.startsWith("http://") || sliderFirst.startsWith("https://")) {
-      return sliderFirst;
+  const block = detail.mahallSpotlightBlock;
+  const imageSrc =
+    block?.spotlightImage?.src?.trim() ?? block?.sliderImages?.[0]?.src?.trim();
+  if (imageSrc) {
+    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
+      return imageSrc;
     }
-    return sliderFirst.startsWith("/")
-      ? `${ORIGIN}${sliderFirst}`
-      : `${ORIGIN}/${sliderFirst}`;
+    return imageSrc.startsWith("/")
+      ? `${ORIGIN}${imageSrc}`
+      : `${ORIGIN}/${imageSrc}`;
   }
 
   const slug = detail.slug.toLowerCase();

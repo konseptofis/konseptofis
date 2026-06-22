@@ -6,6 +6,7 @@ import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import AccordionFAQ from "@/app/components/AccordionFAQ";
 import IntroImageSlider from "@/app/components/IntroImageSlider";
+import IntroSpotlightImage from "@/app/components/IntroSpotlightImage";
 import MapAndContact from "@/app/components/MapAndContact";
 import { getServiceDetail } from "@/app/lib/hizmet-detay-data";
 
@@ -213,10 +214,14 @@ export default function HizmetDetayPageContent({ slug }: Props) {
                 </div>
               </div>
               <div className="flex min-h-0 min-w-0 flex-col lg:h-auto">
-                <IntroImageSlider
-                  images={data.mahallSpotlightBlock.sliderImages}
-                  className="lg:flex-1"
-                />
+                {data.mahallSpotlightBlock.spotlightImage ? (
+                  <IntroSpotlightImage image={data.mahallSpotlightBlock.spotlightImage} />
+                ) : (
+                  <IntroImageSlider
+                    images={data.mahallSpotlightBlock.sliderImages ?? []}
+                    className="lg:flex-1"
+                  />
+                )}
               </div>
             </div>
           </div>

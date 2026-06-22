@@ -53,8 +53,12 @@ export default function ServiceOfferCardsGrid({
               className="object-cover"
               sizes="(max-width: 767px) 100vw, 50vw"
             />
+            <div
+              className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-[#1a4a6e]/[0.22] via-[#2d6a9f]/[0.12] to-[#8bb8d9]/[0.04]"
+              aria-hidden
+            />
             <span
-              className="absolute bottom-3 right-3 rounded-[20px] border-[0.5px] border-[rgba(255,255,255,0.25)] px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white"
+              className="absolute bottom-3 right-3 z-[2] rounded-[20px] border-[0.5px] border-[rgba(255,255,255,0.25)] px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white"
               style={{ background: "rgba(255,255,255,0.15)" }}
             >
               {card.badge}

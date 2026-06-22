@@ -70,6 +70,11 @@ const LEGACY_HIZMETLER_REDIRECTS: readonly { source: string; destination: string
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: supabaseImageRemotePatterns(),
+    localPatterns: [
+      {
+        pathname: "/**",
+      },
+    ],
   },
   turbopack: {
     // C:\Users\ismail\package-lock.json yüzünden yanlış root seçilmesini önler (Server Action ID uyumsuzluğu).

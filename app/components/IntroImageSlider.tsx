@@ -8,6 +8,7 @@ const INTERVAL_MS = 4000;
 export type IntroImageSliderItem = {
   src: string;
   alt: string;
+  objectPosition?: string;
 };
 
 type Props = {
@@ -63,6 +64,7 @@ export default function IntroImageSlider({ images, className = "" }: Props) {
                 alt={img.alt}
                 fill
                 className="object-cover"
+                style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority={i === 0}
               />
