@@ -28,6 +28,7 @@ import {
   Heading,
 } from "lucide-react";
 import { uploadBlogImage } from "@/lib/admin/upload-blog-image";
+import LinkAnalysisPanel from "@/app/admin/components/LinkAnalysisPanel";
 
 type RichTextEditorProps = {
   content?: string;
@@ -351,10 +352,12 @@ export default function RichTextEditor({
   const [imageError, setImageError] = useState<string | null>(null);
   const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
   const [imageAlt, setImageAlt] = useState("");
+  const [analysisHtml, setAnalysisHtml] = useState(initialContent);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [, rerenderToolbar] = useReducer((n: number) => n + 1, 0);
   const openLinkPopoverRef = useRef<(open: boolean) => void>(() => {});
   const editorRef = useRef<Editor | null>(null);
+  const analysisDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   openLinkPopoverRef.current = setLinkOpen;
 
@@ -426,11 +429,24 @@ export default function RichTextEditor({
       }
     },
     onUpdate: ({ editor: ed }) => {
-      onChange(ed.getHTML());
+      const html = ed.getHTML();
+      onChange(html);
+      if (analysisDebounceRef.current) clearTimeout(analysisDebounceRef.current);
+      analysisDebounceRef.current = setTimeout(() => {
+        setAnalysisHtml(html);
+      }, 300);
     },
   });
 
   editorRef.current = editor;
+
+  useEffect(() => {
+    if (!editor) return;
+    setAnalysisHtml(editor.getHTML());
+    return () => {
+      if (analysisDebounceRef.current) clearTimeout(analysisDebounceRef.current);
+    };
+  }, [editor]);
 
   const handleImageFile = useCallback((file: File) => {
     setImageError(null);
@@ -460,7 +476,8 @@ export default function RichTextEditor({
   }, [editor, pendingImageFile, imageAlt]);
 
   return (
-    <div className="flex h-[400px] flex-col overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-[#0b7041] focus-within:ring-offset-0 sm:h-[500px]">
+    <div>
+      <div className="flex h-[400px] flex-col overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-[#0b7041] focus-within:ring-offset-0 sm:h-[500px]">
       <input
         ref={fileInputRef}
         type="file"
@@ -527,6 +544,8 @@ export default function RichTextEditor({
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <EditorContent editor={editor} />
       </div>
+      </div>
+      <LinkAnalysisPanel html={analysisHtml} />
     </div>
   );
 }

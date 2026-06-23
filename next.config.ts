@@ -90,6 +90,7 @@ const nextConfig: NextConfig = {
       ]);
 
     return [
+      { source: "/favicon.ico", destination: "/konsept-ofis-icon.png", permanent: false },
       ...withSlashVariants(WP_CATEGORY_REDIRECTS),
       ...withSlashVariants(WP_SERVICE_REDIRECTS),
       ...withSlashVariants(LEGACY_HIZMETLER_REDIRECTS),
