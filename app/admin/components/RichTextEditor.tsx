@@ -2,7 +2,6 @@
 
 import { useRef, useState, useCallback, useEffect, useReducer } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
-import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
@@ -38,7 +37,7 @@ type RichTextEditorProps = {
 };
 
 const EDITOR_PROSE =
-  "prose prose-sm max-w-none min-h-[400px] p-4 focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-inset rounded-b-[8px] [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_img]:my-4 [&_img]:max-w-full [&_img]:rounded-lg";
+  "prose prose-sm max-w-none min-h-full p-4 focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-inset [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_img]:my-4 [&_img]:max-w-full [&_img]:rounded-lg";
 
 function ToolbarDivider() {
   return <span className="mx-0.5 h-4 w-px shrink-0 bg-gray-300" aria-hidden />;
@@ -141,7 +140,7 @@ function LinkPopover({
   }
 
   return (
-    <div className="z-50 w-80 max-w-[min(20rem,calc(100vw-1rem))] rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
+    <div className="absolute left-0 top-full z-20 mt-1 w-80 max-w-[min(20rem,calc(100vw-1rem))] rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
       <label className="mb-1 block text-xs font-medium text-gray-600">URL</label>
       <input
         type="url"
@@ -433,11 +432,6 @@ export default function RichTextEditor({
 
   editorRef.current = editor;
 
-  useEffect(() => {
-    if (!editor || editor.isDestroyed || !linkOpen) return;
-    editor.view.dispatch(editor.state.tr.setMeta("linkPopover", "updatePosition"));
-  }, [editor, linkOpen]);
-
   const handleImageFile = useCallback((file: File) => {
     setImageError(null);
     setPendingImageFile(file);
@@ -466,7 +460,7 @@ export default function RichTextEditor({
   }, [editor, pendingImageFile, imageAlt]);
 
   return (
-    <div className="overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-[#0b7041] focus-within:ring-offset-0">
+    <div className="flex h-[400px] flex-col overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-[#0b7041] focus-within:ring-offset-0 sm:h-[500px]">
       <input
         ref={fileInputRef}
         type="file"
@@ -477,7 +471,7 @@ export default function RichTextEditor({
           if (file) handleImageFile(file);
         }}
       />
-      <div className="relative">
+      <div className="relative shrink-0">
         <Toolbar
           editor={editor}
           onLinkClick={() => {
@@ -489,27 +483,13 @@ export default function RichTextEditor({
           onImageClick={() => fileInputRef.current?.click()}
           imageUploading={imageUploading}
         />
-      </div>
-      {editor ? (
-        <BubbleMenu
-          editor={editor}
-          pluginKey="linkPopover"
-          shouldShow={() => linkOpen}
-          appendTo={() => document.body}
-          options={{
-            strategy: "fixed",
-            placement: "bottom-start",
-            offset: 8,
-            flip: true,
-            shift: { padding: 8 },
-          }}
-        >
+        {editor && linkOpen ? (
           <LinkPopover editor={editor} open={linkOpen} onClose={() => setLinkOpen(false)} />
-        </BubbleMenu>
-      ) : null}
-      {editor ? <TableToolbar editor={editor} /> : null}
+        ) : null}
+      </div>
+      <div className="shrink-0">{editor ? <TableToolbar editor={editor} /> : null}</div>
       {pendingImageFile ? (
-        <div className="border-b border-gray-200 bg-gray-50 px-4 py-3">
+        <div className="shrink-0 border-b border-gray-200 bg-gray-50 px-4 py-3">
           <p className="mb-2 text-sm font-medium text-gray-700">Görsel: {pendingImageFile.name}</p>
           <label className="mb-1 block text-xs text-gray-500">Alt metin (SEO için önerilir)</label>
           <input
@@ -544,7 +524,9 @@ export default function RichTextEditor({
           </div>
         </div>
       ) : null}
-      <EditorContent editor={editor} />
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }
