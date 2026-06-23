@@ -1,8 +1,15 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createPost, updatePost, type Post, type FAQItem } from "@/app/actions/blog";
+import {
+  createPost,
+  updatePost,
+  markPostReviewed,
+  clearPostReview,
+  type Post,
+  type FAQItem,
+} from "@/app/actions/blog";
 import type { Category } from "@/app/actions/categories";
 import type { Expert } from "@/app/actions/experts";
 import { toSlug } from "@/lib/slug";
@@ -33,7 +40,27 @@ export default function PostForm({ mode, post, categories = [], experts = [] }: 
   );
   const [submitting, setSubmitting] = useState(false);
   const [reviewerId, setReviewerId] = useState(post?.reviewer_id ?? "");
+  const [reviewedAt, setReviewedAt] = useState<string | null>(post?.reviewed_at ?? null);
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewMessage, setReviewMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setReviewedAt(post?.reviewed_at ?? null);
+    setReviewerId(post?.reviewer_id ?? "");
+  }, [post?.reviewed_at, post?.reviewer_id]);
+
+  const selectedReviewer = experts.find((ex) => ex.id === reviewerId);
+
+  function formatReviewDate(iso: string) {
+    return new Date(iso).toLocaleString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
 
   const updateSlugFromTitle = useCallback(() => {
     if (!slugTouched && title.trim()) setSlug(toSlug(title));
@@ -227,6 +254,80 @@ export default function PostForm({ mode, post, categories = [], experts = [] }: 
                 uzman ekleyin
               </a>
               .
+            </p>
+          ) : null}
+          {mode === "edit" && post ? (
+            <div className="mt-3 space-y-2 rounded-lg border border-gray-200 bg-gray-50/80 p-3">
+              {reviewedAt && selectedReviewer ? (
+                <p className="text-sm font-medium text-[#0b7041]">
+                  ✓ Denetlendi: {formatReviewDate(reviewedAt)} — {selectedReviewer.name}
+                </p>
+              ) : (
+                <p className="text-sm text-gray-600">
+                  Henüz denetim kaydı yok. Uzman seçip &quot;Denetle&quot; ile işaretleyin.
+                </p>
+              )}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  disabled={!reviewerId || reviewSubmitting}
+                  title={!reviewerId ? "Önce inceleyen uzman seçin" : undefined}
+                  onClick={async () => {
+                    if (!reviewerId || !post) return;
+                    setReviewMessage(null);
+                    setReviewSubmitting(true);
+                    try {
+                      await markPostReviewed({ id: post.id, reviewer_id: reviewerId });
+                      setReviewedAt(new Date().toISOString());
+                      setReviewMessage(reviewedAt ? "Denetim tarihi güncellendi." : "İçerik denetlendi olarak işaretlendi.");
+                      router.refresh();
+                    } catch (err) {
+                      setReviewMessage(err instanceof Error ? err.message : "Denetim kaydedilemedi.");
+                    } finally {
+                      setReviewSubmitting(false);
+                    }
+                  }}
+                  className="rounded-lg bg-[#0b7041] px-3 py-2 text-sm font-medium text-white hover:bg-[#095530] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {reviewSubmitting
+                    ? "Kaydediliyor…"
+                    : reviewedAt
+                      ? "Yeniden Denetle"
+                      : "Denetle"}
+                </button>
+                {reviewedAt ? (
+                  <button
+                    type="button"
+                    disabled={reviewSubmitting}
+                    onClick={async () => {
+                      if (!post) return;
+                      setReviewMessage(null);
+                      setReviewSubmitting(true);
+                      try {
+                        await clearPostReview(post.id);
+                        setReviewedAt(null);
+                        setReviewMessage("Denetim kaydı kaldırıldı.");
+                        router.refresh();
+                      } catch (err) {
+                        setReviewMessage(err instanceof Error ? err.message : "Denetim kaldırılamadı.");
+                      } finally {
+                        setReviewSubmitting(false);
+                      }
+                    }}
+                    className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    Denetimi Kaldır
+                  </button>
+                ) : null}
+              </div>
+              {!reviewerId ? (
+                <p className="text-xs text-amber-700">Önce inceleyen uzman seçin.</p>
+              ) : null}
+              {reviewMessage ? <p className="text-xs text-gray-600">{reviewMessage}</p> : null}
+            </div>
+          ) : mode === "create" ? (
+            <p className="mt-1.5 text-xs text-gray-500">
+              Denetim işareti yazı kaydedildikten sonra düzenleme ekranından yapılır.
             </p>
           ) : null}
         </div>

@@ -153,7 +153,7 @@ export default async function BlogPostRootPage({ params }: Props) {
                   </>
                 ) : null}
                 <time dateTime={post.created_at}>{formatDate(post.created_at)}</time>
-                {post.reviewer?.name ? (
+                {post.reviewer?.name && !post.reviewed_at ? (
                   <>
                     <span className="text-gray-400" aria-hidden>
                       |
@@ -168,6 +168,22 @@ export default async function BlogPostRootPage({ params }: Props) {
                   </>
                 ) : null}
               </p>
+              {post.reviewed_at && post.reviewer?.name ? (
+                <p className="mt-2 text-sm text-gray-600">
+                  Bu içerik{" "}
+                  <time dateTime={post.reviewed_at} className="font-medium text-gray-700">
+                    {formatDate(post.reviewed_at)}
+                  </time>{" "}
+                  tarihinde{" "}
+                  <Link
+                    href={`/uzmanlar/${post.reviewer.slug}`}
+                    className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+                  >
+                    {post.reviewer.name}
+                  </Link>{" "}
+                  tarafından incelenmiştir.
+                </p>
+              ) : null}
               {post.featured_image && (
                 <div className="mt-8 overflow-hidden rounded-lg shadow-md">
                   <img

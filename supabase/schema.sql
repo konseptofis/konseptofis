@@ -138,4 +138,7 @@ CREATE POLICY "Public can read experts"
 ALTER TABLE public.posts
   ADD COLUMN IF NOT EXISTS reviewer_id UUID REFERENCES public.experts(id) ON DELETE SET NULL;
 
+ALTER TABLE public.posts
+  ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ;
+
 CREATE INDEX IF NOT EXISTS posts_reviewer_id_idx ON public.posts (reviewer_id);

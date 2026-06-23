@@ -22,6 +22,7 @@ export type Post = {
   status: string;
   created_at: string;
   updated_at: string;
+  reviewed_at?: string | null;
   faqs?: FAQItem[] | null;
   reviewer_id?: string | null;
   reviewer?: Expert | null;
@@ -129,6 +130,59 @@ export async function createPost(input: CreateInput) {
 
 type UpdateInput = CreateInput & { id: string };
 
+function revalidatePostPaths(slug: string, prevSlug?: string) {
+  revalidatePath("/admin/posts");
+  revalidatePath("/blog");
+  revalidatePath(`/${slug}`);
+  revalidatePath("/[slug]", "page");
+  revalidatePath(`/blog/${slug}`);
+  revalidatePath("/blog/[slug]", "page");
+  if (prevSlug && prevSlug !== slug) {
+    revalidatePath(`/${prevSlug}`);
+    revalidatePath(`/blog/${prevSlug}`);
+  }
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/uzmanlar", "layout");
+}
+
+export async function markPostReviewed(input: { id: string; reviewer_id: string }) {
+  const supabase = await createClient();
+  const { data: post, error: fetchError } = await supabase
+    .from("posts")
+    .select("slug")
+    .eq("id", input.id)
+    .maybeSingle();
+  if (fetchError) throw fetchError;
+  if (!post?.slug) throw new Error("Yazı bulunamadı.");
+
+  const { error } = await supabase
+    .from("posts")
+    .update({
+      reviewer_id: input.reviewer_id,
+      reviewed_at: new Date().toISOString(),
+    })
+    .eq("id", input.id);
+  if (error) throw error;
+
+  revalidatePostPaths(post.slug as string);
+}
+
+export async function clearPostReview(id: string) {
+  const supabase = await createClient();
+  const { data: post, error: fetchError } = await supabase
+    .from("posts")
+    .select("slug")
+    .eq("id", id)
+    .maybeSingle();
+  if (fetchError) throw fetchError;
+  if (!post?.slug) throw new Error("Yazı bulunamadı.");
+
+  const { error } = await supabase.from("posts").update({ reviewed_at: null }).eq("id", id);
+  if (error) throw error;
+
+  revalidatePostPaths(post.slug as string);
+}
+
 export async function updatePost(input: UpdateInput) {
   const supabase = await createClient();
   const { data: prev } = await supabase.from("posts").select("slug").eq("id", input.id).maybeSingle();
@@ -151,18 +205,7 @@ export async function updatePost(input: UpdateInput) {
     })
     .eq("id", input.id);
   if (error) throw error;
-  revalidatePath("/admin/posts");
-  revalidatePath("/blog");
-  revalidatePath(`/${input.slug}`);
-  revalidatePath("/[slug]", "page");
-  revalidatePath(`/blog/${input.slug}`);
-  revalidatePath("/blog/[slug]", "page");
-  if (prevSlug && prevSlug !== input.slug) {
-    revalidatePath(`/${prevSlug}`);
-    revalidatePath(`/blog/${prevSlug}`);
-  }
-  revalidatePath("/sitemap.xml");
-  revalidatePath("/uzmanlar", "layout");
+  revalidatePostPaths(input.slug, prevSlug);
 }
 
 export async function deletePost(id: string) {
