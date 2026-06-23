@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 import HizliTeklifModal from "@/app/components/HizliTeklifModal";
+import { subscribeHizliTeklifModalOpen } from "@/app/lib/open-hizli-teklif-modal";
 
 const SCROLL_DOWN = 100;
 const SCROLL_UP = 40;
@@ -25,6 +26,7 @@ function isKurumsalPath(path: string): boolean {
 }
 
 function isPathActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
   if (href === "/hizmetlerimiz") return isHizmetlerPath(pathname);
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -46,6 +48,7 @@ type NavLinkItem =
   | { label: string; children: { href: string; label: string }[] };
 
 const navLinks: NavLinkItem[] = [
+  { href: "/", label: "Anasayfa" },
   { href: "/hizmetlerimiz", label: "Hizmetler" },
   { href: "/fiyatlar", label: "Fiyatlar" },
   {
@@ -92,6 +95,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHomePage, isAdminPath]);
 
+  useEffect(() => {
+    return subscribeHizliTeklifModalOpen(() => setTeklifModalOpen(true));
+  }, []);
+
 
   const showLightHeader = !isHomePage || isLight || menuOpen;
   const linkClass = showLightHeader ? "text-black hover:opacity-80" : "text-white/90 hover:text-white";
@@ -134,10 +141,17 @@ export default function Header() {
               <EnvelopeIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" aria-hidden />
               <span className="truncate">{SITE.email}</span>
             </a>
-            <span className="inline-flex items-center gap-1.5 shrink-0">
+            <a
+              href="https://maps.app.goo.gl/Lk1V32cY8ji77A5e7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 shrink-0 font-medium ${
+                showLightHeader ? "hover:opacity-80" : "hover:text-white"
+              }`}
+            >
               <MapPinIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" aria-hidden />
               Mahall Ankara
-            </span>
+            </a>
           </div>
         </div>
       </div>

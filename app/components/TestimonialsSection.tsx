@@ -10,12 +10,10 @@ const BORDER = "#e5e5e5";
 function UserBlock({
   initials,
   name,
-  role,
   layout,
 }: {
   initials: string;
   name: string;
-  role: string;
   layout: "card" | "card-wide";
 }) {
   const rowClass =
@@ -33,7 +31,6 @@ function UserBlock({
       </div>
       <div className="ml-2.5 min-w-0">
         <span className="text-[17px] font-bold text-gray-900">{name}</span>
-        <p className="mt-0.5 text-[14px] text-gray-500">{role}</p>
       </div>
     </div>
   );
@@ -95,13 +92,13 @@ export default function TestimonialsSection({
                       <ReviewCardBody text={item.text} dense />
                     </div>
                     <div className="min-w-0 md:self-center">
-                      <UserBlock initials={item.initials} name={item.name} role={item.role} layout="card-wide" />
+                      <UserBlock initials={item.initials} name={item.name} layout="card-wide" />
                     </div>
                   </>
                 ) : (
                   <>
                     <ReviewCardBody text={item.text} />
-                    <UserBlock initials={item.initials} name={item.name} role={item.role} layout="card" />
+                    <UserBlock initials={item.initials} name={item.name} layout="card" />
                   </>
                 )}
               </article>

@@ -9,6 +9,9 @@ export const QUICK_QUOTE_SERVICES = [
 export const CONTACT_SOURCE_QUICK_QUOTE = "Hızlı Teklif";
 export const CONTACT_SOURCE_DEFAULT = "İletişim Formu";
 
+export const KVKK_CONSENT_ERROR =
+  "Devam edebilmek için KVKK Aydınlatma Metni'ni ve Açık Rıza Onayı'nı kabul etmeniz gerekmektedir.";
+
 /** Basit TR telefon kontrolü: en az 10 rakam */
 export function isValidPhone(phone: string): boolean {
   const digits = phone.replace(/\D/g, "");

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect, useReducer } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
@@ -140,7 +141,7 @@ function LinkPopover({
   }
 
   return (
-    <div className="absolute left-0 top-full z-20 mt-1 w-80 rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
+    <div className="z-50 w-80 max-w-[min(20rem,calc(100vw-1rem))] rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
       <label className="mb-1 block text-xs font-medium text-gray-600">URL</label>
       <input
         type="url"
@@ -354,6 +355,7 @@ export default function RichTextEditor({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [, rerenderToolbar] = useReducer((n: number) => n + 1, 0);
   const openLinkPopoverRef = useRef<(open: boolean) => void>(() => {});
+  const editorRef = useRef<Editor | null>(null);
 
   openLinkPopoverRef.current = setLinkOpen;
 
@@ -405,6 +407,10 @@ export default function RichTextEditor({
           }
           event.preventDefault();
           queueMicrotask(() => {
+            const ed = editorRef.current;
+            if (ed?.isActive("link")) {
+              ed.chain().focus().extendMarkRange("link").run();
+            }
             openLinkPopoverRef.current(true);
             rerenderToolbar();
           });
@@ -424,6 +430,13 @@ export default function RichTextEditor({
       onChange(ed.getHTML());
     },
   });
+
+  editorRef.current = editor;
+
+  useEffect(() => {
+    if (!editor || editor.isDestroyed || !linkOpen) return;
+    editor.view.dispatch(editor.state.tr.setMeta("linkPopover", "updatePosition"));
+  }, [editor, linkOpen]);
 
   const handleImageFile = useCallback((file: File) => {
     setImageError(null);
@@ -467,14 +480,33 @@ export default function RichTextEditor({
       <div className="relative">
         <Toolbar
           editor={editor}
-          onLinkClick={() => setLinkOpen((v) => !v)}
+          onLinkClick={() => {
+            if (editor?.isActive("link")) {
+              editor.chain().focus().extendMarkRange("link").run();
+            }
+            setLinkOpen((v) => !v);
+          }}
           onImageClick={() => fileInputRef.current?.click()}
           imageUploading={imageUploading}
         />
-        {editor && linkOpen ? (
-          <LinkPopover editor={editor} open={linkOpen} onClose={() => setLinkOpen(false)} />
-        ) : null}
       </div>
+      {editor ? (
+        <BubbleMenu
+          editor={editor}
+          pluginKey="linkPopover"
+          shouldShow={() => linkOpen}
+          appendTo={() => document.body}
+          options={{
+            strategy: "fixed",
+            placement: "bottom-start",
+            offset: 8,
+            flip: true,
+            shift: { padding: 8 },
+          }}
+        >
+          <LinkPopover editor={editor} open={linkOpen} onClose={() => setLinkOpen(false)} />
+        </BubbleMenu>
+      ) : null}
       {editor ? <TableToolbar editor={editor} /> : null}
       {pendingImageFile ? (
         <div className="border-b border-gray-200 bg-gray-50 px-4 py-3">

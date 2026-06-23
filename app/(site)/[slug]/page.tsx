@@ -121,7 +121,7 @@ export default async function BlogPostRootPage({ params }: Props) {
       <BlogArticleJsonLd post={post} />
       <main className="min-h-screen bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-10 lg:px-8">
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-10 xl:gap-12 lg:items-start">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10 xl:gap-12 lg:items-start">
           <div className="min-w-0 text-left">
             <header className="pb-6">
               <nav

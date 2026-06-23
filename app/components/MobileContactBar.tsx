@@ -1,4 +1,4 @@
-import { getChatbotPhoneHref, getChatbotWhatsAppHref } from "@/app/lib/chatbot-flow";
+import { SITE } from "@/app/lib/data";
 import { Phone } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -23,7 +23,7 @@ export default function MobileContactBar() {
     >
       <div className="flex gap-2.5 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
         <a
-          href={getChatbotWhatsAppHref()}
+          href={`https://wa.me/${SITE.whatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--color-green)] px-4 text-[15px] font-semibold text-white transition-colors hover:bg-[#095530] active:bg-[#084d2e]"
@@ -32,7 +32,7 @@ export default function MobileContactBar() {
           WhatsApp
         </a>
         <a
-          href={getChatbotPhoneHref()}
+          href={`tel:+${SITE.phoneRaw}`}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border-2 border-[var(--color-green)] bg-white px-4 text-[15px] font-semibold text-[var(--color-green)] transition-colors hover:bg-[color-mix(in_srgb,var(--color-green)_8%,#ffffff)] active:bg-[color-mix(in_srgb,var(--color-green)_14%,#ffffff)]"
         >
           <Phone className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden />

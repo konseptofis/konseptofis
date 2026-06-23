@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
 
@@ -22,9 +23,17 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href="/"
-              className="text-xl font-semibold text-[#0b7041] hover:opacity-80"
+              className="inline-flex items-center hover:opacity-80"
+              aria-label="Konsept Ofis Anasayfa"
             >
-              {SITE.name}
+              <Image
+                src="/ankara-sanal-ofis-logo.webp?v=2"
+                alt="Konsept Ofis"
+                width={207}
+                height={46}
+                className="h-[38px] w-auto sm:h-[42px]"
+                unoptimized
+              />
             </Link>
             <p className="mt-3 text-sm text-gray-600">
               Ankara sanal ofis, hazır ofis ve toplantı odası kiralama. Yasal iş
@@ -131,7 +140,7 @@ export default function Footer() {
               ))}
             </nav>
             <p className="shrink-0 text-sm text-gray-500 sm:text-right">
-              © {currentYear} {SITE.name}. Tüm hakları saklıdır.
+              © {currentYear} Tüm hakları saklıdır.
             </p>
           </div>
         </div>

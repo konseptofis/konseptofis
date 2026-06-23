@@ -14,6 +14,8 @@ import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { SITE } from "@/app/lib/data";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
+import KvkkConsentText from "@/app/components/KvkkConsentText";
+import { KVKK_CONSENT_ERROR } from "@/lib/contact-utils";
 
 export default function IletisimClient() {
   const [service, setService] = useState<"sanal" | "makam" | "toplanti" | "">("");
@@ -31,7 +33,7 @@ export default function IletisimClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!kvkkAccepted) {
-      alert("Devam edebilmek için KVKK Aydınlatma Metni'ni kabul etmeniz gerekmektedir.");
+      alert(KVKK_CONSENT_ERROR);
       return;
     }
     try {
@@ -313,13 +315,7 @@ export default function IletisimClient() {
                       className="h-3.5 w-3.5 shrink-0 rounded border-[#e5e5e5] text-[#0b7041] focus:ring-[#0b7041]"
                     />
                     <span className="min-w-0">
-                      <a
-                        href="/kvkk-kapsaminda-aydinlatma-metni/"
-                        className="cursor-pointer text-[13px] text-[#0b7041] underline hover:no-underline"
-                      >
-                        KVKK
-                      </a>{" "}
-                      Aydınlatma Metni&apos;ni okudum ve kabul ediyorum. *
+                      <KvkkConsentText />
                     </span>
                   </label>
                 </div>

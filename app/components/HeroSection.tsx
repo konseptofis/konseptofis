@@ -5,14 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { DocumentTextIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/app/lib/data";
+import { openHizliTeklifModal } from "@/app/lib/open-hizli-teklif-modal";
 
 type HeroSlide = {
   id: string;
   title: string;
   isH1: boolean;
   description: string;
-  /** Tanımsızsa: Hemen Teklif Al → #fiyatlar (ilk slayt). */
-  primaryCta?: { label: string; href: string };
+  /** Tanımsızsa: Hemen Teklif Al → hızlı teklif modalı. */
+  primaryCta?: { label: string; href?: string; openModal?: boolean };
 };
 
 const slides: readonly HeroSlide[] = [
@@ -112,13 +113,24 @@ export default function HeroSection() {
                 {slide.description}
               </p>
               <div className="mt-10 flex w-full max-w-md flex-row justify-center gap-2 sm:max-w-xl sm:gap-4">
-                <Link
-                  href={slide.primaryCta?.href ?? "#fiyatlar"}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
-                >
-                  <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
-                  {slide.primaryCta?.label ?? "Hemen Teklif Al"}
-                </Link>
+                {slide.primaryCta?.href && !slide.primaryCta.openModal ? (
+                  <Link
+                    href={slide.primaryCta.href}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
+                  >
+                    <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
+                    {slide.primaryCta.label}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={openHizliTeklifModal}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
+                  >
+                    <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
+                    {slide.primaryCta?.label ?? "Hemen Teklif Al"}
+                  </button>
+                )}
                 <a
                   href={`https://wa.me/${SITE.whatsapp}`}
                   target="_blank"

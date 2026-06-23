@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   CONTACT_SOURCE_QUICK_QUOTE,
   isValidPhone,
+  KVKK_CONSENT_ERROR,
   QUICK_QUOTE_SERVICES,
 } from "@/lib/contact-utils";
+import KvkkConsentText from "@/app/components/KvkkConsentText";
 
 type Props = {
   open: boolean;
@@ -68,7 +69,7 @@ export default function HizliTeklifModal({ open, onClose }: Props) {
       return;
     }
     if (!kvkkAccepted) {
-      setError("Devam edebilmek için KVKK Aydınlatma Metni'ni kabul etmeniz gerekmektedir.");
+      setError(KVKK_CONSENT_ERROR);
       return;
     }
 
@@ -199,14 +200,7 @@ export default function HizliTeklifModal({ open, onClose }: Props) {
                   className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#e5e5e5] text-[#0b7041] focus:ring-[#0b7041]"
                 />
                 <span>
-                  <Link
-                    href="/kvkk-kapsaminda-aydinlatma-metni/"
-                    className="text-[#0b7041] underline hover:no-underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    KVKK
-                  </Link>{" "}
-                  Aydınlatma Metni&apos;ni okudum ve kabul ediyorum. *
+                  <KvkkConsentText onLinkClick={(e) => e.stopPropagation()} />
                 </span>
               </label>
               {error ? <p className="text-sm text-red-600">{error}</p> : null}
