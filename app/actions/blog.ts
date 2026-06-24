@@ -41,6 +41,35 @@ export async function getPosts(): Promise<Post[]> {
   return (data ?? []) as Post[];
 }
 
+export type AdminPostRef = { id: string; title: string };
+
+/** Admin: kategori id → yazılar (posts.category metni ↔ categories.name). Tek posts sorgusu. */
+export async function getAdminPostsByCategoryId(
+  categories: { id: string; name: string }[]
+): Promise<Record<string, AdminPostRef[]>> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("id, title, category")
+    .order("title", { ascending: true });
+  if (error) throw error;
+
+  const byNameKey = new Map<string, AdminPostRef[]>();
+  for (const post of data ?? []) {
+    const key = normalizeCategoryKey(post.category ?? "");
+    if (!key) continue;
+    const list = byNameKey.get(key) ?? [];
+    list.push({ id: post.id as string, title: post.title as string });
+    byNameKey.set(key, list);
+  }
+
+  const result: Record<string, AdminPostRef[]> = {};
+  for (const cat of categories) {
+    result[cat.id] = byNameKey.get(normalizeCategoryKey(cat.name)) ?? [];
+  }
+  return result;
+}
+
 export async function getPostById(id: string): Promise<Post | null> {
   const supabase = await createClient();
   const { data, error } = await supabase.from("posts").select(POST_SELECT).eq("id", id).single();

@@ -52,8 +52,17 @@ export default async function AdminPostsPage() {
                       <div className="h-12 w-20 rounded bg-gray-200" />
                     )}
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-900">
-                    {post.title}
+                  <td className="px-4 py-3">
+                    <div className="font-medium text-gray-900">{post.title}</div>
+                    <span
+                      className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
+                        post.category?.trim()
+                          ? "bg-[#0b7041]/10 text-[#0b7041]"
+                          : "bg-gray-100 text-gray-500"
+                      }`}
+                    >
+                      {post.category?.trim() ? `Kategori: ${post.category}` : "Kategorisiz"}
+                    </span>
                   </td>
                   <td className="px-4 py-3">
                     <span

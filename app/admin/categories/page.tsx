@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, Tag } from "lucide-react";
+import { getAdminPostsByCategoryId } from "@/app/actions/blog";
 import { getCategories } from "@/app/actions/categories";
 import CategoryForm from "../components/CategoryForm";
 import CategoryList from "../components/CategoryList";
 
 export default async function AdminCategoriesPage() {
   const categories = await getCategories();
+  const postsByCategoryId = await getAdminPostsByCategoryId(categories);
 
   return (
     <div>
@@ -25,7 +27,7 @@ export default async function AdminCategoriesPage() {
       </p>
 
       <CategoryForm />
-      <CategoryList categories={categories} />
+      <CategoryList categories={categories} postsByCategoryId={postsByCategoryId} />
     </div>
   );
 }
