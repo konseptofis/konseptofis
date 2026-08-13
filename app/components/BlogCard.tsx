@@ -54,7 +54,12 @@ export default function BlogCard({
       <div
         className={`relative w-full bg-[#f2f2f2] ${compact ? "aspect-[5/3]" : "aspect-video"}`}
       >
-        <Link href={`/${slug}`} className="relative block h-full w-full">
+        <Link
+          href={`/${slug}`}
+          className="relative block h-full w-full"
+          aria-label={`${title} yazısını aç`}
+          tabIndex={-1}
+        >
           {featuredImage ? (
             <Image
               src={featuredImage}
@@ -91,8 +96,9 @@ export default function BlogCard({
         <Link
           href={`/${slug}`}
           className={`inline-flex items-center gap-1 text-sm font-medium text-[#0b7041] hover:underline ${compact ? "mt-3" : "mt-4"}`}
+          aria-label={`${title} yazısının devamını oku`}
         >
-          Devamını Oku
+          Yazının Devamı
           <ChevronRightIcon className="h-4 w-4" aria-hidden />
         </Link>
       </div>

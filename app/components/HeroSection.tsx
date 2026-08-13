@@ -19,7 +19,7 @@ type HeroSlide = {
 const slides: readonly HeroSlide[] = [
   {
     id: "sanal",
-    title: "Ankara Sanal Ofis Hizmetleri",
+    title: "Ankara Sanal Ofis, Hazır Ofis ve Toplantı Odası",
     isH1: true,
     description:
       "İşinizi bir adım öteye taşıyın. Yasal iş adresi, hazır ofis ve toplantı odası çözümleriyle Ankara'da kurumsal adresiniz.",
@@ -116,7 +116,7 @@ export default function HeroSection() {
                 {slide.primaryCta?.href && !slide.primaryCta.openModal ? (
                   <Link
                     href={slide.primaryCta.href}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
+                    className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                   >
                     <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                     {slide.primaryCta.label}
@@ -125,7 +125,7 @@ export default function HeroSection() {
                   <button
                     type="button"
                     onClick={openHizliTeklifModal}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
+                    className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-white px-2 py-2.5 text-center text-[13px] font-semibold text-[#0b7041] transition-colors hover:bg-[#f2f2f2] sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                   >
                     <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                     {slide.primaryCta?.label ?? "Hemen Teklif Al"}
@@ -135,7 +135,7 @@ export default function HeroSection() {
                   href={`https://wa.me/${SITE.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/80 bg-transparent px-2 py-2.5 text-center text-[13px] font-semibold text-white transition-colors hover:bg-white/10 sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
+                  className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-white/80 bg-transparent px-2 py-2.5 text-center text-[13px] font-semibold text-white transition-colors hover:bg-white/10 sm:gap-2 sm:px-6 sm:py-3.5 sm:text-base"
                 >
                   <ChatBubbleLeftRightIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                   İletişime Geç
@@ -160,7 +160,7 @@ export default function HeroSection() {
               aria-selected={index === activeIndex}
               aria-controls={`hero-slide-${index}`}
               onClick={() => goTo(index)}
-              className={`h-2.5 w-2.5 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0b7041] ${
+              className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0b7041] ${
                 index === activeIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/70"
               }`}
             />

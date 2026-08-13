@@ -30,7 +30,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
   {
     id: "makam-odasi",
     title: "Makam Odası",
-    image: "/cankaya-sanal-ofis-kapak.png",
+    image: "/cankaya-sanal-ofis-kapak.webp",
     badge: "Prestijli alan",
     description:
       "Üst düzey görüşmeler ve müşteri sunumları için ferah, konforlu makam birimleri. Mahall Ankara'da kurumsal imaj.",
@@ -39,7 +39,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
   {
     id: "hazir-ofis",
     title: "Hazır Ofis",
-    image: "/ankara-hazir-ofis-kapak.png",
+    image: "/ankara-hazir-ofis-kapak.webp",
     badge: "Günlük & aylık",
     description:
       "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",

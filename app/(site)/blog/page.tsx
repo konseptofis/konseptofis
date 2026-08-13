@@ -9,30 +9,44 @@ import { SITE } from "@/app/lib/data";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import BlogJsonLd from "@/app/components/seo/BlogJsonLd";
 
-const BLOG_TITLE = "Blog | Konsept Ofis";
+const BLOG_TITLE = "Sanal Ofis ve Girişimcilik Rehberi | Konsept Ofis";
+const BLOG_HEADING = "Sanal Ofis ve Girişimcilik Rehberi";
+const BLOG_INTRO =
+  "Şirket kuruluşu, yasal iş adresi, sanal ofis avantajları, e-ticaret vergisi ve girişimcilik süreçleri hakkında uzman onaylı güncel rehberler.";
 const BLOG_DESCRIPTION =
   "Şirket kuruluş maliyetleri, sanal ofis avantajları, e-ticaret vergi rehberi ve girişimcilik ekosistemi hakkında uzman onaylı en güncel makaleler.";
-
-export const metadata: Metadata = {
-  title: { absolute: BLOG_TITLE },
-  description: BLOG_DESCRIPTION,
-  alternates: { canonical: "/blog" },
-  openGraph: {
-    title: BLOG_TITLE,
-    description: BLOG_DESCRIPTION,
-    url: `${SITE.domain.replace(/\/$/, "")}/blog`,
-    siteName: SITE.name,
-    locale: "tr_TR",
-    type: "website",
-  },
-  twitter: { card: "summary_large_image", title: BLOG_TITLE, description: BLOG_DESCRIPTION },
-};
+const ORIGIN = SITE.domain.replace(/\/$/, "");
 
 export const revalidate = 300;
 
 const BLOG_POSTS_PER_PAGE = 6;
 
 type Props = { searchParams: Promise<{ page?: string }> };
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const params = await searchParams;
+  const page = Math.max(1, parseInt(params.page ?? "1", 10) || 1);
+  const isPaged = page > 1;
+
+  const title = isPaged ? `Blog Yazıları – Sayfa ${page} | Konsept Ofis` : BLOG_TITLE;
+  const canonicalPath = isPaged ? `/blog?page=${page}` : "/blog";
+  const url = `${ORIGIN}${canonicalPath}`;
+
+  return {
+    title: { absolute: title },
+    description: BLOG_DESCRIPTION,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      title,
+      description: BLOG_DESCRIPTION,
+      url,
+      siteName: SITE.name,
+      locale: "tr_TR",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description: BLOG_DESCRIPTION },
+  };
+}
 
 function stripHtml(html: string, maxLen = 160): string {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -45,6 +59,11 @@ function formatDate(iso: string): string {
     month: "long",
     year: "numeric",
   });
+}
+
+/** page 1 → /blog (asla ?page=1 üretme); N>1 → /blog?page=N. */
+function blogPageHref(p: number): string {
+  return p <= 1 ? "/blog" : `/blog?page=${p}`;
 }
 
 export default async function BlogPage({ searchParams }: Props) {
@@ -63,7 +82,9 @@ export default async function BlogPage({ searchParams }: Props) {
       <BlogJsonLd />
       <main className="min-h-screen bg-[var(--background)]">
       <PageHeader
-        title="Blog"
+        title={BLOG_HEADING}
+        subtitle={BLOG_INTRO}
+        heroTone="seo"
         breadcrumbs={[{ label: "Anasayfa", href: "/" }, { label: "Blog" }]}
       />
       <section
@@ -72,7 +93,7 @@ export default async function BlogPage({ searchParams }: Props) {
       >
         <div className="mx-auto max-w-6xl">
           <h2 id="blog-heading" className="sr-only">
-            Blog yazıları
+            Sanal ofis ve girişimcilik yazıları
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
@@ -102,7 +123,7 @@ export default async function BlogPage({ searchParams }: Props) {
               aria-label="Blog sayfa navigasyonu"
             >
               <Link
-                href={currentPage <= 1 ? "/blog" : `/blog?page=${currentPage - 1}`}
+                href={blogPageHref(currentPage - 1)}
                 className={`inline-flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   currentPage <= 1
                     ? "cursor-not-allowed border-[#e5e5e5] bg-[#f5f5f5] text-gray-400"
@@ -117,7 +138,7 @@ export default async function BlogPage({ searchParams }: Props) {
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                   <Link
                     key={p}
-                    href={p === 1 ? "/blog" : `/blog?page=${p}`}
+                    href={blogPageHref(p)}
                     className={`min-w-[2.5rem] rounded-lg border px-3 py-2 text-center text-sm font-medium transition-colors ${
                       p === currentPage
                         ? "border-[#0b7041] bg-[#0b7041] text-white"
@@ -130,7 +151,7 @@ export default async function BlogPage({ searchParams }: Props) {
                 ))}
               </div>
               <Link
-                href={currentPage >= totalPages ? `/blog?page=${totalPages}` : `/blog?page=${currentPage + 1}`}
+                href={blogPageHref(Math.min(currentPage + 1, totalPages))}
                 className={`inline-flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   currentPage >= totalPages
                     ? "cursor-not-allowed border-[#e5e5e5] bg-[#f5f5f5] text-gray-400"

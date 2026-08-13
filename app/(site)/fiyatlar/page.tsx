@@ -15,7 +15,7 @@ import { getPricingPlans } from "@/app/actions/pricing";
 import FiyatlarJsonLd from "@/app/components/seo/FiyatlarJsonLd";
 
 export const metadata: Metadata = {
-  title: { absolute: "Sanal Ofis ve Hazır Ofis Fiyatları 2026 | Konsept Ofis" },
+  title: { absolute: "Sanal Ofis Fiyatları 2026 | Konsept Ofis" },
   description:
     "Ankara sanal ofis, makam odası ve toplantı odası kiralama fiyatlarımızı inceleyin. Sürpriz fatura, aidat ve stopaj olmadan esnek ofis paketleri.",
   alternates: { canonical: "/fiyatlar" },
@@ -79,10 +79,10 @@ export default async function FiyatlarPage() {
       >
         <div className="mx-auto max-w-6xl">
           <SectionHeading id="pricing-heading" className="mb-4">
-            Ankara Sanal Ofis ve Hazır Ofis Fiyatları
+            Ankara Sanal Ofis Fiyatları
           </SectionHeading>
           <p className="mb-10 text-left text-[16px] leading-relaxed text-gray-600">
-            Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis ve aidatsız hazır ofis çözümleriyle sürpriz maliyetlere son verin.
+            Ankara Çankaya&apos;da yasal iş adresi, stopajsız sanal ofis, makam odası ve toplantı odası çözümleriyle sürpriz maliyetlere son verin.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {pricingCards.map((card) => {

@@ -42,10 +42,15 @@ function productImage(planTitle: string): string {
   return path.startsWith("http") ? path : `${ORIGIN}${path}`;
 }
 
+/** Görünür (parse edilebilir, pozitif) fiyatı olan paketler; teklif-usulü/boş fiyatlar Product olmaz. */
+function hasVisiblePrice(price: string): boolean {
+  return parseFloat(toOfferPriceString(price)) > 0;
+}
+
 function plansToProductGraph(plans: PricingPlan[]) {
   const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
 
-  return plans.map((card) => {
+  return plans.filter((card) => hasVisiblePrice(card.price)).map((card) => {
     const offerUrl = productLandingUrl(card.title);
     return {
       "@type": "Product" as const,
@@ -105,11 +110,12 @@ const faqPageJsonLd = {
  */
 export default async function FiyatlarJsonLd() {
   const plans = await getPricingPlans();
+  const productNodes = plansToProductGraph(plans);
   const productGraph =
-    plans.length > 0
+    productNodes.length > 0
       ? {
           "@context": "https://schema.org",
-          "@graph": plansToProductGraph(plans),
+          "@graph": productNodes,
         }
       : null;
 

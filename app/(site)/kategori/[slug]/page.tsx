@@ -4,13 +4,15 @@ import Link from "next/link";
 import PageHeader from "@/app/components/PageHeader";
 import BlogCard from "@/app/components/BlogCard";
 import { getPublishedPostsByCategory } from "@/app/actions/blog";
-import { getCategoryBySlug, getCategories, getPublicCategorySlugs } from "@/app/actions/categories";
+import { getCategoryBySlug, getCategories } from "@/app/actions/categories";
 import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
 import { SITE } from "@/app/lib/data";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import CategoryArchiveJsonLd from "@/app/components/seo/CategoryArchiveJsonLd";
 
-export const revalidate = 300;
+// searchParams (sayfalama) dinamik API; generateStaticParams (SSG) ile birlikte
+// DYNAMIC_SERVER_USAGE → 500 veriyordu. Kategori sayfasını SSR yaparak 500 kökten çözülür.
+export const dynamic = "force-dynamic";
 
 const POSTS_PER_PAGE = 6;
 
@@ -34,19 +36,18 @@ function formatDate(iso: string): string {
   });
 }
 
-export async function generateStaticParams() {
+async function getCategorySafe(slug: string) {
   try {
-    const slugs = await getPublicCategorySlugs();
-    return slugs.map((slug) => ({ slug }));
+    return await getCategoryBySlug(slug);
   } catch {
-    return [];
+    return null;
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const category = await getCategoryBySlug(slug);
-  if (!category) return { title: "Kategori bulunamadı" };
+  const category = await getCategorySafe(slug);
+  if (!category) return { title: "Kategori bulunamadı", robots: { index: false, follow: false } };
 
   const title = category.meta_title?.trim() || `${category.name} - Konsept Ofis Blog`;
   const description =
@@ -73,15 +74,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryArchivePage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { page: pageParam } = await searchParams;
-  const category = await getCategoryBySlug(slug);
+  const category = await getCategorySafe(slug);
   if (!category) notFound();
 
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
   const categoryPath = `/kategori/${category.slug}`;
 
   const [allPosts, allCategories] = await Promise.all([
-    getPublishedPostsByCategory(slug),
-    getCategories(),
+    getPublishedPostsByCategory(slug).catch(() => []),
+    getCategories().catch(() => []),
   ]);
   const categorySlugLookup = buildCategorySlugLookup(allCategories);
 

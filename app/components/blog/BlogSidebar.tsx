@@ -39,9 +39,9 @@ function KonseptOfisPromoCard() {
         </span>
       </div>
 
-      <h2 className="mt-3 text-[18px] font-bold leading-snug text-gray-900 xl:text-[20px]">
+      <p className="mt-3 text-[18px] font-bold leading-snug text-gray-900 xl:text-[20px]">
         Fiziksel ofis olmadan şirketinize yasal adres edinin
-      </h2>
+      </p>
 
       <div className="mt-2 flex items-center gap-1.5 text-sm text-gray-500">
         <MapPin size={14} strokeWidth={2} className="shrink-0" aria-hidden />

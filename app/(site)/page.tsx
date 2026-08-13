@@ -11,9 +11,9 @@ import MapAndContact from "@/app/components/MapAndContact";
 import HomePageJsonLd from "@/app/components/seo/HomePageJsonLd";
 import { SITE } from "@/app/lib/data";
 
-const HOME_TITLE = "Ankara Sanal Ofis Kiralama | Konsept Ofis";
+const HOME_TITLE = "Ankara Sanal Ofis, Hazır Ofis ve Toplantı Odası Kiralama | Konsept Ofis";
 const HOME_DESCRIPTION =
-  "Ankara sanal ofis kiralama hizmetiyle stopajsız, aidatsız yasal iş adresi edinin. Mahall Ankara'da prestijli şirket kuruluşu için hemen teklif alın!";
+  "Ankara Çankaya'da sanal ofis, hazır ofis, makam ve toplantı odası kiralama. Stopajsız, aidatsız yasal iş adresi ve esnek ofis çözümleri için hemen teklif alın!";
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

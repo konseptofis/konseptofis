@@ -77,11 +77,17 @@ export default function BlogArticleJsonLd({ post }: Props) {
       image: articleImageUrl(post),
       datePublished: toIso8601(post.created_at),
       dateModified: toIso8601(post.updated_at || post.created_at),
-      author: {
-        "@type": "Organization",
-        name: SITE.name,
-        url: `${ORIGIN}/`,
-      },
+      author: post.reviewer
+        ? {
+            "@type": "Person",
+            name: post.reviewer.name,
+            url: `${ORIGIN}/uzmanlar/${post.reviewer.slug}`,
+          }
+        : {
+            "@type": "Organization",
+            name: SITE.name,
+            url: `${ORIGIN}/`,
+          },
       publisher: {
         "@type": "Organization",
         name: SITE.name,

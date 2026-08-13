@@ -233,9 +233,9 @@ export default async function BlogPostRootPage({ params }: Props) {
                 Paylaş
               </span>
               <a
-                href="#"
+                href={`mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(`${ORIGIN}/${slug}`)}`}
                 className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#0b7041]"
-                aria-label="E-posta ile paylaş"
+                aria-label={`${post.title} yazısını e-posta ile paylaş`}
               >
                 <EnvelopeIcon className="h-5 w-5" />
                 E-posta
@@ -250,13 +250,10 @@ export default async function BlogPostRootPage({ params }: Props) {
               </button>
             </div>
 
-            <div className="mt-10 lg:hidden">
-              <BlogSidebar />
-            </div>
           </div>
 
           <aside
-            className="sticky top-20 hidden min-w-0 shrink-0 self-start lg:mt-12 lg:block"
+            className="mt-10 min-w-0 shrink-0 self-start lg:mt-12 lg:sticky lg:top-20"
             aria-label="Sanal ofis tanıtımı"
           >
             <BlogSidebar />

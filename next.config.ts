@@ -67,6 +67,16 @@ const LEGACY_HIZMETLER_REDIRECTS: readonly { source: string; destination: string
   { source: "/hizmetler/:slug", destination: "/hizmetlerimiz/:slug" },
 ];
 
+/** Diğer eski/typo URL'ler → nihai canonical (tek hop). */
+const MISC_LEGACY_REDIRECTS: readonly { source: string; destination: string }[] = [
+  { source: "/sanal-ofis", destination: "/hizmetlerimiz/cankaya-sanal-ofis" },
+  // Eski WordPress'te 's' düşmüş typo slug → doğru şahıs şirketi yazısı.
+  {
+    source: "/ahis-sirketi-kurmak-sahis-sirketi-nasil-kurulur-2026",
+    destination: "/sahis-sirketi-kurmak-sahis-sirketi-nasil-kurulur-2026",
+  },
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: supabaseImageRemotePatterns(),
@@ -81,19 +91,18 @@ const nextConfig: NextConfig = {
     root: projectRoot,
   },
   async redirects() {
-    const withSlashVariants = (
+    // Eski URL'ler → nihai canonical, kalıcı (permanent: true = 308; SEO'da 301 ile eşdeğer).
+    // Trailing-slash normalizasyonu Next'in otomatik davranışına bırakılır.
+    const permanent = (
       rules: readonly { source: string; destination: string }[]
-    ) =>
-      rules.flatMap(({ source, destination }) => [
-        { source, destination, permanent: true },
-        { source: `${source}/`, destination, permanent: true },
-      ]);
+    ) => rules.map(({ source, destination }) => ({ source, destination, permanent: true }));
 
     return [
       { source: "/favicon.ico", destination: "/konsept-ofis-icon.png", permanent: false },
-      ...withSlashVariants(WP_CATEGORY_REDIRECTS),
-      ...withSlashVariants(WP_SERVICE_REDIRECTS),
-      ...withSlashVariants(LEGACY_HIZMETLER_REDIRECTS),
+      ...permanent(WP_CATEGORY_REDIRECTS),
+      ...permanent(WP_SERVICE_REDIRECTS),
+      ...permanent(LEGACY_HIZMETLER_REDIRECTS),
+      ...permanent(MISC_LEGACY_REDIRECTS),
     ];
   },
 };
