@@ -13,6 +13,7 @@ import {
 import type { Category } from "@/app/actions/categories";
 import type { Expert } from "@/app/actions/experts";
 import { toSlug } from "@/lib/slug";
+import { POST_PREVIEW_STORAGE_KEY, type PostPreviewData } from "@/app/lib/post-preview";
 import RichTextEditor from "./RichTextEditor";
 import FeaturedImageUpload from "./FeaturedImageUpload";
 
@@ -69,6 +70,32 @@ export default function PostForm({ mode, post, categories = [], experts = [] }: 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
     if (!slugTouched) setSlug(toSlug(e.target.value));
+  }
+
+  function handlePreview() {
+    const payload: PostPreviewData = {
+      title,
+      content,
+      featured_image: featuredImage,
+      featured_image_alt: featuredImageAlt.trim() || null,
+      category: category.trim() || null,
+      faqs: faqs.filter((f) => f.question.trim() || f.answer.trim()),
+      reviewer: selectedReviewer
+        ? {
+            name: selectedReviewer.name,
+            slug: selectedReviewer.slug,
+            job_title: selectedReviewer.job_title ?? null,
+          }
+        : null,
+      reviewed_at: reviewedAt,
+      created_at: post?.created_at ?? new Date().toISOString(),
+    };
+    try {
+      localStorage.setItem(POST_PREVIEW_STORAGE_KEY, JSON.stringify(payload));
+      window.open("/onizleme", "_blank", "noopener");
+    } catch {
+      setError("Önizleme açılamadı. Tarayıcı depolama izinlerini kontrol edin.");
+    }
   }
 
   return (
@@ -417,6 +444,14 @@ export default function PostForm({ mode, post, categories = [], experts = [] }: 
             className="rounded-lg bg-[#0b7041] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#095530] disabled:opacity-50"
           >
             {submitting ? "Kaydediliyor…" : mode === "create" ? "Yayına Al / Taslak Kaydet" : "Güncelle"}
+          </button>
+          <button
+            type="button"
+            onClick={handlePreview}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-[#0b7041] px-5 py-2.5 text-sm font-medium text-[#0b7041] hover:bg-[#0b7041]/5"
+            title="Yazdığınız içeriği yeni sekmede canlı görünümde açar (kaydetmez)"
+          >
+            👁️ Önizle
           </button>
           <button
             type="button"
