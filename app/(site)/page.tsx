@@ -70,7 +70,7 @@ export default function Home() {
       <OfficeServicesSection sectionClassName={HOME_BG_WHITE} />
       <FAQAccordion sectionClassName={HOME_BG_GREEN} />
       <TestimonialsSection sectionClassName={HOME_BG_WHITE} />
-      <MapAndContact sectionClassName={HOME_BG_GREEN} />
+      <MapAndContact heading="Bize Şimdi Ulaşın" sectionClassName={HOME_BG_GREEN} />
     </main>
     </>
   );
