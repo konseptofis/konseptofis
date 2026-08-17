@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { DocumentTextIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
@@ -48,19 +48,53 @@ const slides: readonly HeroSlide[] = [
   },
 ];
 
+const SWIPE_THRESHOLD_PX = 40;
+
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const swipeStartX = useRef<number | null>(null);
+  const didSwipe = useRef(false);
 
   const goTo = useCallback((index: number) => {
     setActiveIndex((index + slides.length) % slides.length);
   }, []);
 
   const next = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo]);
+  const prev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo]);
 
   useEffect(() => {
     const t = setInterval(next, 5000);
     return () => clearInterval(t);
   }, [next]);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    swipeStartX.current = e.clientX;
+    didSwipe.current = false;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    const startX = swipeStartX.current;
+    swipeStartX.current = null;
+    if (startX == null) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+    didSwipe.current = true;
+    if (dx < 0) next();
+    else prev();
+  }
+
+  function onPointerCancel() {
+    swipeStartX.current = null;
+  }
+
+  function onClickCapture(e: React.MouseEvent<HTMLDivElement>) {
+    if (!didSwipe.current) return;
+    didSwipe.current = false;
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
   return (
     <section
@@ -82,7 +116,13 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[#051a12]/75" aria-hidden />
       <div className="relative z-10 mx-auto max-w-4xl">
         {/* Slider içerik */}
-        <div className="relative min-h-[320px] text-center sm:min-h-[360px] lg:min-h-[400px]">
+        <div
+          className="relative min-h-[320px] touch-pan-y text-center sm:min-h-[360px] lg:min-h-[400px]"
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
+          onClickCapture={onClickCapture}
+        >
           {slides.map((slide, index) => (
             <div
               key={slide.id}
