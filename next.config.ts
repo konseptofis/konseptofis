@@ -36,6 +36,10 @@ const WP_SERVICE_REDIRECTS: readonly { source: string; destination: string }[] =
     destination: "/hizmetlerimiz/hazir-ofis-kiralama",
   },
   {
+    source: "/service/hazir-odasi-hizmeti",
+    destination: "/hizmetlerimiz/hazir-ofis-kiralama",
+  },
+  {
     source: "/service/toplanti-odasi-hizmeti",
     destination: "/hizmetlerimiz/toplanti-odasi-kiralama",
   },
@@ -70,6 +74,8 @@ const LEGACY_HIZMETLER_REDIRECTS: readonly { source: string; destination: string
 /** Diğer eski/typo URL'ler → nihai canonical (tek hop). */
 const MISC_LEGACY_REDIRECTS: readonly { source: string; destination: string }[] = [
   { source: "/sanal-ofis", destination: "/hizmetlerimiz/cankaya-sanal-ofis" },
+  { source: "/sanal-ofis-hizmeti", destination: "/" },
+  { source: "/ankara-sanal-ofis", destination: "/" },
   // Eski WordPress'te 's' düşmüş typo slug → doğru şahıs şirketi yazısı.
   {
     source: "/ahis-sirketi-kurmak-sahis-sirketi-nasil-kurulur-2026",

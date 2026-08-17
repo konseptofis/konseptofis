@@ -17,6 +17,7 @@ export const BLOG_POST_PATH_RESERVED_SEGMENTS = new Set([
   "kvkk-basvuru-formu",
   "kvkk-kapsaminda-aydinlatma-metni",
   "sanal-ofis-hizmeti",
+  "ankara-sanal-ofis",
   "cankaya-sanal-ofis",
   "mahall-sanal-ofis",
   "mahall-sanal-ofis-hizmeti",
