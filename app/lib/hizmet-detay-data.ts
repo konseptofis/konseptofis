@@ -11,7 +11,6 @@ import {
   GlobeAltIcon,
   HeartIcon,
   MapPinIcon,
-  PhoneIcon,
   RocketLaunchIcon,
   ScaleIcon,
   ShieldCheckIcon,
@@ -86,13 +85,13 @@ const CANKAYA_SANAL_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
   },
   {
     icon: CalendarDaysIcon,
-    title: "İndirimli Toplantı Odası",
+    title: "Toplantı Odası",
     description: "İhtiyaç anında tam donanımlı profesyonel alanlar.",
   },
   {
-    icon: PhoneIcon,
-    title: "Çağrı Yönlendirme",
-    description: "İsteğe bağlı profesyonel telefon hattı ve sekreterya.",
+    icon: BuildingOffice2Icon,
+    title: "Makam Odası",
+    description: "Tam donanımlı profesyonel oda.",
   },
 ];
 
