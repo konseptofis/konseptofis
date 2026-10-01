@@ -1,32 +1,36 @@
-import { FAQ_ITEMS } from "@/app/lib/data";
+import { faqItemsWithPrices } from "@/app/lib/data";
+import { getSiteDisplayPrices } from "@/app/lib/site-pricing";
 import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 
 const pageUrl = breadcrumbPageUrl("/sik-sorulan-sorular");
 
-const faqPageJsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}#faq`,
-      mainEntity: FAQ_ITEMS.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
-    },
-    buildBreadcrumbListJsonLd(
-      [{ label: "Anasayfa", href: "/" }, { label: "Sık Sorulan Sorular" }],
-      pageUrl,
-    ),
-  ],
-};
+/** `/sik-sorulan-sorular`: sayfadaki SSS ile aynı FAQPage. */
+export default async function SikSorulanSorularJsonLd() {
+  const prices = await getSiteDisplayPrices();
+  const items = faqItemsWithPrices(prices);
 
-/** `/sik-sorulan-sorular`: sayfadaki `FAQ_ITEMS` ile aynı SSS → FAQPage. */
-export default function SikSorulanSorularJsonLd() {
+  const faqPageJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: items.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+      buildBreadcrumbListJsonLd(
+        [{ label: "Anasayfa", href: "/" }, { label: "Sık Sorulan Sorular" }],
+        pageUrl,
+      ),
+    ],
+  };
+
   return (
     <script
       id="ld-json-sik-sorulan-sorular-faq"

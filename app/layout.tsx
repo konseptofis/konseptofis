@@ -11,14 +11,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: { default: defaultSiteTitle, template: "%s | Konsept Ofis" },
   description: defaultDescription,
-  keywords: [
-    "Ankara sanal ofis",
-    "Mahall sanal ofis",
-    "hazır ofis Ankara",
-    "toplantı odası Ankara",
-    "yasal iş adresi",
-    "Çankaya ofis",
-  ],
   openGraph: {
     title: defaultSiteTitle,
     description: defaultDescription,

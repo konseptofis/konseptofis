@@ -1,4 +1,4 @@
-import { getPricingPlans, type PricingPlan } from "@/app/actions/pricing";
+import { getPricingPlans, type PricingPlan } from "@/app/lib/pricing-plans";
 import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { PRICING_FAQ_ITEMS, SITE } from "@/app/lib/data";
 import { toOfferPriceString } from "@/app/lib/hizmet-detay-jsonld";

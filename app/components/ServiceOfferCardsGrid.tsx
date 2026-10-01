@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ServiceOfferCard } from "@/app/lib/service-offer-cards";
+import { HOME_CARD, HOME_H3 } from "@/app/lib/home-ui";
 
 function FooterChevron() {
   return (
@@ -26,8 +27,9 @@ function FooterChevron() {
 
 type Props = {
   cards: ServiceOfferCard[];
-  /** Örn. anasayfa — sayfa grid'ine göre override */
   gridClassName?: string;
+  imageHeightClass?: string;
+  descriptionClassName?: string;
 };
 
 const DEFAULT_GRID =
@@ -36,6 +38,8 @@ const DEFAULT_GRID =
 export default function ServiceOfferCardsGrid({
   cards,
   gridClassName = DEFAULT_GRID,
+  imageHeightClass = "h-[176px]",
+  descriptionClassName = "flex-1 text-[15px] leading-[1.65] text-[#3D4743]",
 }: Props) {
   return (
     <div className={gridClassName}>
@@ -43,34 +47,30 @@ export default function ServiceOfferCardsGrid({
         <Link
           key={card.id}
           href={card.href}
-          className="flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[var(--color-border-tertiary)] bg-[var(--color-white)] transition-[border-color] duration-150 ease-out hover:border-[var(--color-green)]"
+          className={`flex h-full cursor-pointer flex-col overflow-hidden ${HOME_CARD}`}
         >
-          <div className="relative h-[176px] w-full shrink-0 overflow-hidden bg-[var(--color-silver)]">
+          <div
+            className={`relative w-full shrink-0 overflow-hidden bg-[#F5F7F6] ${imageHeightClass}`}
+          >
             <Image
               src={card.image}
-              alt={`${card.title} - Ankara Konsept Ofis`}
+              alt={card.title}
               fill
               className="object-cover"
-              sizes="(max-width: 767px) 100vw, 50vw"
+              sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
-            <div
-              className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-[#1a4a6e]/[0.22] via-[#2d6a9f]/[0.12] to-[#8bb8d9]/[0.04]"
-              aria-hidden
-            />
-            <span
-              className="absolute bottom-3 right-3 z-[2] rounded-[20px] border-[0.5px] border-[rgba(255,255,255,0.25)] px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white"
-              style={{ background: "rgba(255,255,255,0.15)" }}
-            >
-              {card.badge}
-            </span>
+            {card.badge ? (
+              <span
+                className="absolute bottom-3 right-3 z-[2] rounded-[20px] border-[0.5px] border-[rgba(255,255,255,0.25)] px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white"
+                style={{ background: "rgba(255,255,255,0.15)" }}
+              >
+                {card.badge}
+              </span>
+            ) : null}
           </div>
           <div className="flex flex-1 flex-col px-5 pb-2 pt-5">
-            <h3 className="mb-1.5 text-[17px] font-medium leading-snug text-[var(--color-text-primary)]">
-              {card.title}
-            </h3>
-            <p className="flex-1 text-[14px] leading-[1.65] text-[var(--color-text-muted)]">
-              {card.description}
-            </p>
+            <h3 className={`${HOME_H3} mb-1.5`}>{card.title}</h3>
+            <p className={descriptionClassName}>{card.description}</p>
           </div>
           <div className="flex items-center px-5 pb-5 pt-4">
             <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--color-green)]">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { Facebook, Instagram } from "lucide-react";
 import { SITE } from "@/app/lib/data";
 
 const LEGAL_LINKS = [
@@ -39,6 +40,26 @@ export default function Footer() {
               Ankara sanal ofis, hazır ofis ve toplantı odası kiralama. Yasal iş
               adresi, vergi levhası adresi.
             </p>
+            <div className="mt-4 flex items-center gap-2">
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="inline-flex items-center justify-center rounded-[8px] border border-[#e5e5e5] p-2 text-gray-600 transition-colors hover:border-[#0b7041] hover:text-[#0b7041]"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href={SITE.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="inline-flex items-center justify-center rounded-[8px] border border-[#e5e5e5] p-2 text-gray-600 transition-colors hover:border-[#0b7041] hover:text-[#0b7041]"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           <div>
@@ -97,7 +118,7 @@ export default function Footer() {
             </h3>
             <address className="mt-4 space-y-3 not-italic">
               <a
-                href={`tel:${SITE.phoneRaw.replace(/\s/g, "")}`}
+                href={SITE.phoneHref}
                 className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#0b7041]"
               >
                 <PhoneIcon className="h-4 w-4 shrink-0" aria-hidden />
@@ -113,7 +134,7 @@ export default function Footer() {
               <p className="flex items-start gap-2 text-sm text-gray-600">
                 <MapPinIcon className="h-4 w-4 shrink-0 mt-0.5" aria-hidden />
                 <span className="break-words">
-                  {SITE.address.line1}, {SITE.address.line2}, {SITE.address.city}
+                  {SITE.address.display}
                 </span>
               </p>
             </address>

@@ -2,7 +2,7 @@ export type ServiceOfferCard = {
   id: string;
   title: string;
   image: string;
-  badge: string;
+  badge?: string;
   description: string;
   href: string;
 };
@@ -13,9 +13,8 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     id: "cankaya-sanal-ofis",
     title: "Çankaya Sanal Ofis",
     image: "/mahall-sanal-ofis-ankara-konsept-ofis.webp",
-    badge: "En popüler",
     description:
-      "Ankara'da vergi levhası ve ticaret sicil adresi. NACE uyumlu, stopajsız ofis kiralama seçenekleri.",
+      "Çankaya'da vergi levhası ve ticaret sicil adresi. NACE uyumlu, stopajsız ofis kiralama seçenekleri.",
     href: "/hizmetlerimiz/cankaya-sanal-ofis",
   },
   {
@@ -40,7 +39,7 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     id: "hazir-ofis",
     title: "Hazır Ofis",
     image: "/ankara-hazir-ofis-kapak.webp",
-    badge: "Günlük & aylık",
+    badge: "Günlük ve aylık",
     description:
       "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
     href: "/hizmetlerimiz/hazir-ofis-kiralama",

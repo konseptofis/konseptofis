@@ -1,32 +1,8 @@
 "use server";
 
-import { cache } from "react";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-
-export type PricingPlan = {
-  id: string;
-  title: string;
-  price: string;
-  period: string;
-  kdv: string;
-  features: string[];
-  order_index: number;
-};
-
-export const getPricingPlans = cache(async (): Promise<PricingPlan[]> => {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("pricing_plans")
-    .select("*")
-    .order("order_index", { ascending: true });
-  if (error) throw error;
-  const rows = (data ?? []) as (Omit<PricingPlan, "features"> & { features: unknown })[];
-  return rows.map((r) => ({
-    ...r,
-    features: Array.isArray(r.features) ? r.features : [],
-  }));
-});
+import { type PricingPlan } from "@/app/lib/pricing-plans";
 
 export async function getPricingPlanById(id: string): Promise<PricingPlan | null> {
   const supabase = await createClient();
@@ -68,6 +44,10 @@ export async function updatePricingPlan(input: UpdateInput) {
     })
     .eq("id", input.id);
   if (error) throw error;
+  revalidateTag("pricing-plans", "max");
+  revalidatePath("/");
   revalidatePath("/fiyatlar");
+  revalidatePath("/sik-sorulan-sorular");
+  revalidatePath("/hizmetlerimiz", "layout");
   revalidatePath("/admin/pricing");
 }

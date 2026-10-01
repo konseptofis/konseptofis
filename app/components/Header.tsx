@@ -124,7 +124,7 @@ export default function Header() {
             }`}
           >
             <a
-              href={`tel:${SITE.phoneRaw.replace(/\s/g, "")}`}
+                href={SITE.phoneHref}
               className={`inline-flex items-center gap-1.5 font-medium ${
                 showLightHeader ? "hover:opacity-80" : "hover:text-white"
               }`}
@@ -142,7 +142,7 @@ export default function Header() {
               <span className="truncate">{SITE.email}</span>
             </a>
             <a
-              href="https://maps.app.goo.gl/Lk1V32cY8ji77A5e7"
+              href={SITE.directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-1.5 shrink-0 font-medium ${

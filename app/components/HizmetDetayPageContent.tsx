@@ -56,6 +56,8 @@ export default function HizmetDetayPageContent({ slug }: Props) {
         breadcrumbs={data.breadcrumbs}
         subtitle={data.pageHeaderLead ?? undefined}
         heroTone={heroTone}
+        backgroundImage={data.pageHeaderBackgroundImage}
+        backgroundImageAlt={data.pageHeaderImageAlt}
       />
 
       {/* 2. Kapsamlı Hizmet Tanıtımı — anasayfa zebra: beyaz */}

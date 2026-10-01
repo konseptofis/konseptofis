@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/sik-sorulan-sorular" },
 };
 
+export const revalidate = 300;
+
 export default function SssPage() {
   return (
     <>

@@ -1,5 +1,5 @@
 import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
-import { SITE, siteGeoJsonLd } from "@/app/lib/data";
+import { SITE, siteGeoJsonLd, siteOpeningHoursJsonLd, sitePostalAddressJsonLd } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 const pageUrl = breadcrumbPageUrl("/iletisim");
@@ -27,14 +27,10 @@ const iletisimJsonLd = {
       email: SITE.email,
       image: `${ORIGIN}/ankara-sanal-ofis.webp`,
       hasMap: SITE.directionsUrl,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
-        addressLocality: SITE.address.city,
-        postalCode: SITE.address.postalCode,
-        addressCountry: SITE.address.country,
-      },
+      address: sitePostalAddressJsonLd(),
       geo: siteGeoJsonLd(),
+      openingHoursSpecification: siteOpeningHoursJsonLd(),
+      sameAs: SITE.sameAs,
       contactPoint: {
         "@type": "ContactPoint",
         telephone: SITE.phone,

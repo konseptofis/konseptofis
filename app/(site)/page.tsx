@@ -2,76 +2,99 @@ import type { Metadata } from "next";
 import HeroSection from "@/app/components/HeroSection";
 import ServiceCards from "@/app/components/ServiceCards";
 import SanalOfisNedirSection from "@/app/components/SanalOfisNedirSection";
-import ContentWithImage from "@/app/components/ContentWithImage";
-import AboutWhyUsSection from "@/app/components/AboutWhyUsSection";
-import OfficeServicesSection from "@/app/components/OfficeServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
 import FAQAccordion from "@/app/components/FAQAccordion";
 import MapAndContact from "@/app/components/MapAndContact";
 import HomePageJsonLd from "@/app/components/seo/HomePageJsonLd";
+import AboutWhyUsSection from "@/app/components/AboutWhyUsSection";
+import HomePricingSection from "@/app/components/home/HomePricingSection";
+import HomeYasalGroup from "@/app/components/home/HomeYasalGroup";
+import HomeHowToRentSection from "@/app/components/home/HomeHowToRentSection";
+import HomeAudienceSection from "@/app/components/home/HomeAudienceSection";
+import HomeMahallSection from "@/app/components/home/HomeMahallSection";
+import HomeCtaBand from "@/app/components/home/HomeCtaBand";
 import { SITE } from "@/app/lib/data";
+import { getSiteDisplayPrices } from "@/app/lib/site-pricing";
 
-const HOME_TITLE = "Ankara Sanal Ofis, Hazır Ofis ve Toplantı Odası Kiralama | Konsept Ofis";
-const HOME_DESCRIPTION =
-  "Ankara Çankaya'da sanal ofis, hazır ofis, makam ve toplantı odası kiralama. Stopajsız, aidatsız yasal iş adresi ve esnek ofis çözümleri için hemen teklif alın!";
+/** Panel güncellemesi `revalidatePath("/")` + `revalidateTag("pricing-plans")` ile yenilenir. */
+export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: { absolute: HOME_TITLE },
-  description: HOME_DESCRIPTION,
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: HOME_TITLE,
-    description: HOME_DESCRIPTION,
-    url: SITE.domain.replace(/\/$/, "") + "/",
-    siteName: SITE.name,
-    locale: "tr_TR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: HOME_TITLE,
-    description: HOME_DESCRIPTION,
-  },
-  robots: { index: true, follow: true },
-};
+const HOME_OG_IMAGE = {
+  path: "/og/ankara-sanal-ofis-og.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Mahall Ankara – Konsept Ofis sanal ofis adresi",
+} as const;
 
-/** Anasayfa zebra: Hero sonrası beyazla başlar, yeşilimsi ton ile sırayla devam eder */
-const HOME_BG_GREEN = "bg-[rgb(11_112_65_/_0.045)]";
-const HOME_BG_WHITE = "bg-white";
+function homeMetaDescription(sanalMonthly: string): string {
+  const price = sanalMonthly.trim();
+  if (!price) {
+    return "Ankara sanal ofis. Mahall Ankara'da vergi levhası ve ticaret sicil adresi, kargo ve tebligat takibi. Stopaj ve aidat yok.";
+  }
+  return `Ankara sanal ofis aylık ${price} TL + KDV. Mahall Ankara'da vergi levhası ve ticaret sicil adresi, kargo ve tebligat takibi. Stopaj ve aidat yok.`;
+}
 
-export default function Home() {
+export async function generateMetadata(): Promise<Metadata> {
+  const prices = await getSiteDisplayPrices();
+  const monthly = prices.sanalMonthlyLabel;
+  const title = monthly
+    ? `Ankara Sanal Ofis – Aylık ${monthly} | Konsept Ofis`
+    : "Ankara Sanal Ofis | Konsept Ofis";
+  const description = homeMetaDescription(prices.sanalMonthly);
+  const origin = SITE.domain.replace(/\/$/, "");
+  const ogImageUrl = `${origin}${HOME_OG_IMAGE.path}`;
+
+  return {
+    title: { absolute: title },
+    description,
+    alternates: { canonical: "/" },
+    openGraph: {
+      title,
+      description,
+      url: `${origin}/`,
+      siteName: SITE.name,
+      locale: "tr_TR",
+      type: "website",
+      images: [
+        {
+          url: ogImageUrl,
+          width: HOME_OG_IMAGE.width,
+          height: HOME_OG_IMAGE.height,
+          alt: HOME_OG_IMAGE.alt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+export default async function Home() {
+  const prices = await getSiteDisplayPrices();
+
   return (
     <>
       <HomePageJsonLd />
       <main id="main-content">
-      <HeroSection />
-      <AboutWhyUsSection sectionClassName={HOME_BG_WHITE} />
-      <ServiceCards sectionClassName={HOME_BG_GREEN} />
-      <SanalOfisNedirSection sectionClassName={HOME_BG_WHITE} />
-      <ContentWithImage
-        title="Ankara Çankaya'da Prestijli Sanal Ofis ve Yasal Adres Çözümleri"
-        imageSrc="/cankaya-sanal-ofis.webp"
-        imageAlt="Ankara Çankaya Mahall Ankara Konsept Ofis sanal ofis ve yasal iş adresi"
-        sectionClassName={HOME_BG_GREEN}
-      >
-        <p>
-          Ankara&apos;nın yeni iş ve finans merkezi Çankaya Mahall Ankara, sanal
-          ofisiniz için stratejik bir konum sunar. Metro ve ana arterlere yürüme
-          mesafesindeki lokasyonumuz, müşteri ve iş ortaklarınızın size kolayca
-          ulaşmasını sağlar. A+ ofis standartlarındaki bina, modern mimarisi ve
-          prestijli lobisiyle markanızın kurumsal imajını ilk izlenimde güçlendirir.
-        </p>
-        <p>
-          Çankaya&apos;nın kamu kurumları, mali müşavirler ve hukuk bürolarının yoğun
-          olduğu bu merkezde yer almak; resmi işlemlerinizi hızlandırır ve
-          işletmenize güçlü bir konum avantajı kazandırır.
-        </p>
-      </ContentWithImage>
-      <OfficeServicesSection sectionClassName={HOME_BG_WHITE} />
-      <FAQAccordion sectionClassName={HOME_BG_GREEN} />
-      <TestimonialsSection sectionClassName={HOME_BG_WHITE} />
-      <MapAndContact heading="Bize Şimdi Ulaşın" sectionClassName={HOME_BG_GREEN} />
-    </main>
+        <HeroSection monthlyPriceLabel={prices.sanalMonthlyLabel} />
+        <AboutWhyUsSection />
+        <SanalOfisNedirSection />
+        <HomePricingSection />
+        <HomeHowToRentSection />
+        <HomeYasalGroup />
+        <HomeCtaBand />
+        <HomeAudienceSection />
+        <HomeMahallSection />
+        <ServiceCards />
+        <FAQAccordion />
+        <TestimonialsSection />
+        <MapAndContact heading="Bize Şimdi Ulaşın" />
+      </main>
     </>
   );
 }

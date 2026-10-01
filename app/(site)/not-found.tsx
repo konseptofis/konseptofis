@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PhoneIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
-import { SITE } from "@/app/lib/data";
+import { SITE, siteWhatsAppHref } from "@/app/lib/data";
 
 export const metadata: Metadata = {
   title: { absolute: "Sayfa Bulunamadı - Konsept Ofis" },
@@ -99,7 +99,7 @@ export default function NotFound() {
                 {SITE.phone}
               </a>
               <a
-                href={`https://wa.me/${SITE.whatsapp}`}
+                href={siteWhatsAppHref()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[15px] font-medium text-[var(--color-text-muted)] transition-colors hover:text-[#0b7041]"

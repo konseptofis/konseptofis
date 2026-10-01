@@ -1,9 +1,9 @@
-import type { PricingPlan } from "@/app/actions/pricing";
+import type { PricingPlan } from "@/app/lib/pricing-plans";
 import { buildBreadcrumbListJsonLd } from "@/app/lib/breadcrumb-jsonld";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
 import { getServicePagePath } from "@/app/lib/hizmet-detay-data";
 import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
-import { SITE, siteGeoJsonLd } from "@/app/lib/data";
+import { SITE, siteGeoJsonLd, siteOpeningHoursJsonLd, sitePostalAddressJsonLd } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 
@@ -109,20 +109,10 @@ function buildLocalBusinessNode(): Record<string, unknown> {
     email: SITE.email,
     image: `${ORIGIN}/ankara-sanal-ofis.webp`,
     hasMap: SITE.directionsUrl,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: `${SITE.address.line1}, ${SITE.address.line2}`,
-      addressLocality: SITE.address.city,
-      postalCode: SITE.address.postalCode,
-      addressCountry: SITE.address.country,
-    },
+    address: sitePostalAddressJsonLd(),
     geo: siteGeoJsonLd(),
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "18:00",
-    },
+    openingHoursSpecification: siteOpeningHoursJsonLd(),
+    sameAs: SITE.sameAs,
   };
 }
 

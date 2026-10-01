@@ -6,6 +6,7 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
+  ClockIcon,
   BuildingOffice2Icon,
   ComputerDesktopIcon,
   UserGroupIcon,
@@ -121,7 +122,7 @@ export default function IletisimClient() {
               <ul className="space-y-4">
                 <li>
                   <a
-                    href={`tel:${SITE.phoneRaw.replace(/\s/g, "")}`}
+                    href={SITE.phoneHref}
                     className="flex cursor-pointer items-center gap-3 text-[16px] text-gray-700 hover:text-[#0b7041]"
                   >
                     <PhoneIcon className="h-5 w-5 shrink-0 text-[#0b7041]" aria-hidden />
@@ -141,14 +142,20 @@ export default function IletisimClient() {
                   <div className="flex items-start gap-3 text-[16px] text-gray-700">
                     <MapPinIcon className="h-5 w-5 shrink-0 text-[#0b7041] mt-0.5" aria-hidden />
                     <span className="text-[16px] leading-relaxed">
-                      {SITE.address.line1}, {SITE.address.line2}, {SITE.address.city}
+                      {SITE.address.display}
                     </span>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-start gap-3 text-[16px] text-gray-700">
+                    <ClockIcon className="h-5 w-5 shrink-0 text-[#0b7041] mt-0.5" aria-hidden />
+                    <span className="text-[16px] leading-relaxed">{SITE.hours.display}</span>
                   </div>
                 </li>
               </ul>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://www.facebook.com/profile.php?id=61574808733053"
+                  href={SITE.social.facebook}
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   aria-label="Facebook"

@@ -11,7 +11,7 @@ import PageHeader from "@/app/components/PageHeader";
 import PricingFAQ from "@/app/components/PricingFAQ";
 import SectionHeading from "@/app/components/SectionHeading";
 import { PRICING_FAQ_ITEMS } from "@/app/lib/data";
-import { getPricingPlans } from "@/app/actions/pricing";
+import { getPricingPlans } from "@/app/lib/pricing-plans";
 import FiyatlarJsonLd from "@/app/components/seo/FiyatlarJsonLd";
 
 export const metadata: Metadata = {

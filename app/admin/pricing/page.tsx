@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Pencil } from "lucide-react";
-import { getPricingPlans } from "@/app/actions/pricing";
+import { getPricingPlans } from "@/app/lib/pricing-plans";
 
 export default async function AdminPricingPage() {
   const plans = await getPricingPlans();

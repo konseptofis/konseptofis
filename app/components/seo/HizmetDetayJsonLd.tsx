@@ -1,4 +1,4 @@
-import type { PricingPlan } from "@/app/actions/pricing";
+import type { PricingPlan } from "@/app/lib/pricing-plans";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
 import { buildHizmetDetailGraphJsonLd } from "@/app/lib/hizmet-detay-jsonld";
 

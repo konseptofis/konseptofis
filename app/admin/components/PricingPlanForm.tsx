@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { updatePricingPlan, type PricingPlan } from "@/app/actions/pricing";
+import { updatePricingPlan } from "@/app/actions/pricing";
+import type { PricingPlan } from "@/app/lib/pricing-plans";
 
 type Props = { plan: PricingPlan };
 

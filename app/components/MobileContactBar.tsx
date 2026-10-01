@@ -1,4 +1,4 @@
-import { SITE } from "@/app/lib/data";
+import { SITE, siteWhatsAppHref } from "@/app/lib/data";
 import { Phone } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -23,7 +23,7 @@ export default function MobileContactBar() {
     >
       <div className="flex gap-2.5 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
         <a
-          href={`https://wa.me/${SITE.whatsapp}`}
+          href={siteWhatsAppHref()}
           target="_blank"
           rel="noopener noreferrer"
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--color-green)] px-4 text-[15px] font-semibold text-white transition-colors hover:bg-[#095530] active:bg-[#084d2e]"

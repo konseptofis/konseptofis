@@ -4,30 +4,111 @@
 
 export const SITE = {
   name: "Konsept Ofis",
+  /** Google Business Profile'daki işletme adı (JSON-LD name ile birebir). */
+  gbpName:
+    "Konsept Ofis | Sanal Ofis - Hazır Ofis - Toplantı Odası Kiralama Hizmetleri",
   domain: "https://konseptofis.com",
   phone: "0 (312) 911 95 57",
   phoneRaw: "903129119557",
+  phoneHref: "tel:+903129119557",
   email: "iletisim@konseptofis.com",
   address: {
-    line1: "Mahall Ankara",
-    line2: "C2 Blok No:47, Çankaya",
+    line1: "Mahall Ankara, Mustafa Kemal, Dumlupınar Blv. No:274/2",
+    line2: "C2 Blok No:47",
+    locality: "Çankaya",
     city: "Ankara",
     country: "TR",
-    postalCode: "06420",
-    full: "Mahall Ankara, C2 Blok No:47, Çankaya, Ankara, TR",
+    postalCode: "06570",
+    streetAddress: "Mahall Ankara, Mustafa Kemal, Dumlupınar Blv. No:274/2 C2 Blok No:47",
+    display:
+      "Mahall Ankara, Mustafa Kemal, Dumlupınar Blv. No:274/2 C2 Blok No:47, 06570 Çankaya/Ankara",
+    full: "Mahall Ankara, Mustafa Kemal, Dumlupınar Blv. No:274/2 C2 Blok No:47, 06570 Çankaya/Ankara",
   },
-  whatsapp: "903129119557",
-  // Google Maps'te "Mahall Ankara C2 Blok 47 Çankaya" arayıp Paylaş > Harita yerleştir ile alacağınız embed URL'sini buraya yapıştırın.
+  /** WhatsApp numarası (ülke kodu, + yok). Tüm wa.me linkleri buradan. */
+  whatsapp: "905465250563",
+  hours: {
+    label: "Çalışma saatleri",
+    value: "Her gün 09:00–18:00",
+    display: "Çalışma saatleri: Her gün 09:00–18:00",
+    opens: "09:00",
+    closes: "18:00",
+    days: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ] as const,
+  },
+  reviews: {
+    rating: "5.0",
+    count: 13,
+  },
+  social: {
+    instagram: "https://www.instagram.com/konseptofis/",
+    facebook: "https://www.facebook.com/profile.php?id=61572999246300",
+  },
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.465236530671!2d32.75086257648828!3d39.908603686408135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xad33dfbbdecf2279%3A0x873a63ff266a8b3d!2sKonsept%20Ofis%20%7C%20Sanal%20Ofis%20-%20Haz%C4%B1r%20Ofis%20-%20Toplant%C4%B1%20Odas%C4%B1%20Kiralama%20Hizmetleri!5e0!3m2!1str!2str!4v1776771148030!5m2!1str!2str",
-  directionsUrl:
-    "https://www.google.com/maps/dir//Mahall+Ankara+C2+Blok+47+%C3%87ankaya+Ankara",
-  /** Mahall Ankara C2 Blok 47 — schema LocalBusiness geo (Google Maps). */
+  directionsUrl: "https://maps.app.goo.gl/Lk1V32cY8ji77A5e7",
+  gbpReviewsUrl: "https://maps.app.goo.gl/Lk1V32cY8ji77A5e7",
+  /** GBP / harita embed merkezi. */
   geo: {
-    lat: 39.908609804242744,
-    lng: 32.75344120719789,
+    lat: 39.9086,
+    lng: 32.7509,
   },
+  sameAs: [
+    "https://www.instagram.com/konseptofis/",
+    "https://www.facebook.com/profile.php?id=61572999246300",
+    "https://maps.app.goo.gl/Lk1V32cY8ji77A5e7",
+  ],
 } as const;
+
+/** Tüm WhatsApp CTA'ları bu href'i kullanır; numara `SITE.whatsapp`. */
+export function siteWhatsAppHref(): string {
+  return `https://wa.me/${SITE.whatsapp}`;
+}
+
+export function siteReviewsLabel(): string {
+  return `\u2605 ${SITE.reviews.rating} · ${SITE.reviews.count} Google yorumu`;
+}
+
+export type HomepageGoogleReview = {
+  name: string;
+  initials: string;
+  text: string;
+  date: string;
+};
+
+/** Anasayfa Google yorum kartları — metin/isim GBP ile güncellenecek. */
+export const HOMEPAGE_GOOGLE_REVIEWS: readonly HomepageGoogleReview[] = [
+  {
+    initials: "BÇ",
+    name: "Berkan Çevre",
+    text: "Avukat sanal ofis arayışımda en iyi lokasyon burasıydı. Baro kaydımı hemen Mahall Ankara'ya aldırdım. Tebligatlarım güvenle teslim alınıyor. Meslektaşlarıma öneririm.",
+    date: "",
+  },
+  {
+    initials: "BB",
+    name: "Berat Bozkurt",
+    text: "Online diyetisyen olarak fiziksel ofise ihtiyacım yoktu. Yasal adresimi buraya taşıdım. Yüz yüze görüşmelerim için toplantı odalarını kullanıyorum, çok prestijli bir yer.",
+    date: "",
+  },
+  {
+    initials: "EE",
+    name: "Engin Eryılmaz",
+    text: "Online terapi ağırlıklı çalışıyorum. Ev adresimi gizlemek için yasal adres hizmeti aldım. Nadir de olsa yüz yüze seanslar için sağladıkları toplantı odaları harika.",
+    date: "",
+  },
+  {
+    initials: "FA",
+    name: "Furkan Altay",
+    text: "Sürekli kargo ve resmi tebligat alıyorum. Evraklarım resepsiyonda güvenle teslim alınıp anında WhatsApp'tan bildiriliyor. E-ticaret operasyon yükümü tamamen sıfırladılar.",
+    date: "",
+  },
+];
 
 /** Schema.org GeoCoordinates — tüm LocalBusiness JSON-LD'lerde ortak. */
 export function siteGeoJsonLd(): {
@@ -40,6 +121,42 @@ export function siteGeoJsonLd(): {
     latitude: SITE.geo.lat,
     longitude: SITE.geo.lng,
   };
+}
+
+/** Schema.org PostalAddress — GBP NAP ile birebir. */
+export function sitePostalAddressJsonLd(): {
+  "@type": "PostalAddress";
+  streetAddress: string;
+  addressLocality: string;
+  addressRegion: string;
+  postalCode: string;
+  addressCountry: string;
+} {
+  return {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address.streetAddress,
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.city,
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  };
+}
+
+/** Schema.org OpeningHoursSpecification — LocalBusiness JSON-LD. */
+export function siteOpeningHoursJsonLd(): {
+  "@type": "OpeningHoursSpecification";
+  dayOfWeek: readonly string[];
+  opens: string;
+  closes: string;
+}[] {
+  return [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: SITE.hours.days,
+      opens: SITE.hours.opens,
+      closes: SITE.hours.closes,
+    },
+  ];
 }
 
 export const FAQ_ITEMS: { question: string; answer: string }[] = [
@@ -78,7 +195,68 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
     answer:
       "Evet, sözleşme sürecimiz oldukça hızlıdır. Gerekli evrakları iletmenizin ardından dakikalar içinde sözleşmeniz hazırlanır. Sözleşme onaylandığı anda Ankara Çankaya'daki prestijli adresimizi yeni şirket kuruluşunuz veya adres değişikliğiniz için anında yasal iş adresi olarak göstermeye başlayabilirsiniz.",
   },
+  {
+    question: "Sanal ofis fiyatları ne kadar?",
+    answer: "Aylık paket bedeli fiyatlar sayfasındadır; stopaj ve aidat yok.",
+  },
+  {
+    question: "Vergi dairesi yoklamaya geldiğinde ne olur?",
+    answer:
+      "İşe başlama bildiriminden sonra vergi dairesi, beyan ettiğiniz adreste işyerinin bulunduğunu tespit etmek için yoklama yapar. Yoklama memuru adrese gelir, sözleşmeyi ve tabelayı/yönlendirmeyi kontrol eder. Sanal ofiste bu süreç sözleşmeniz ve resepsiyonumuz üzerinden yürür; yoklama tamamlandığında vergi levhanız Mahall Ankara adresiyle düzenlenir.",
+  },
+  {
+    question: "Hangi faaliyetler için sanal ofis kullanılamaz?",
+    answer:
+      "Fiziksel işyeri gerektiren faaliyetler sanal ofis adresiyle yürütülemez: imalat ve üretim, gıda hazırlama, depolama, perakende mağaza, işyeri açma ve çalışma ruhsatı gerektiren hizmetler ile sağlık kuruluşu gibi denetime tabi fiziksel tesisler bunlara örnektir. Danışmanlık, yazılım, e-ticaret, aracılık, eğitim, serbest meslek ve benzeri faaliyetlerde sanal ofis adresi kullanılabilir.",
+  },
+  {
+    question: "Sanal ofis için hangi belgeler gerekir?",
+    answer:
+      "Yeni şirket kuracaksanız kimlik fotokopisi, ikametgâh belgesi, iletişim bilgileri ve şirket türüne göre ana sözleşme taslağı/unvan bilgisi gerekir. Mevcut şirketinizi taşıyacaksanız vergi levhası, imza sirküleri, ticaret sicil gazetesi/faaliyet belgesi ve yetkili kimlik fotokopisi gerekir.",
+  },
+  {
+    question: "Sanal ofis kira gideri olarak gösterilebilir mi?",
+    answer:
+      "Faturalı hizmettir, gider olarak kaydedilir; stopaj kesintisi yoktur.",
+  },
+  {
+    question: "Toplantı odasını nasıl rezerve ederim?",
+    answer:
+      "WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapılır; ücret saatliktir.",
+  },
+  {
+    question: "Şahıs şirketi sanal ofis adresi kullanabilir mi?",
+    answer:
+      "Evet. Şahıs şirketi işe başlama bildiriminde sanal ofis adresinizi iş adresi olarak gösterebilirsiniz. Sanal ofis sözleşmeniz adres belgesi olarak sunulur, vergi dairesi yoklamayı bu adreste yapar ve vergi levhanız Mahall Ankara adresiyle düzenlenir.",
+  },
 ];
+
+export type FaqItem = { question: string; answer: string };
+
+/** SSS cevaplarındaki fiyat cümleleri panel verisine bağlanır. */
+export function faqItemsWithPrices(prices: {
+  sanalMonthlyLabel: string;
+  hourlyLabel: string;
+}): FaqItem[] {
+  return FAQ_ITEMS.map((item) => {
+    if (item.question === "Sanal ofis fiyatları ne kadar?" && prices.sanalMonthlyLabel) {
+      const hourly = prices.hourlyLabel
+        ? `; toplantı/makam odası saatlik ${prices.hourlyLabel}`
+        : "";
+      return {
+        ...item,
+        answer: `Aylık ${prices.sanalMonthlyLabel}; stopaj ve aidat yok${hourly}.`,
+      };
+    }
+    if (item.question === "Toplantı odasını nasıl rezerve ederim?" && prices.hourlyLabel) {
+      return {
+        ...item,
+        answer: `WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapılır; ücret saatlik ${prices.hourlyLabel}.`,
+      };
+    }
+    return item;
+  });
+}
 
 export const PRICING_FAQ_ITEMS: { question: string; answer: string }[] = [
   {

@@ -11,12 +11,14 @@ type PageHeaderProps = {
   subtitle?: string | null;
   /** display: büyük görsel başlık; seo: cümle yapısında H1 (okunabilir takip). */
   heroTone?: "display" | "seo";
+  backgroundImageAlt?: string;
 };
 
 export default function PageHeader({
   title,
   breadcrumbs,
   backgroundImage = "/hero-banner.webp",
+  backgroundImageAlt = "",
   subtitle,
   heroTone = "display",
 }: PageHeaderProps) {
@@ -34,7 +36,7 @@ export default function PageHeader({
       <div className="absolute inset-0 z-0">
         <Image
           src={backgroundImage}
-          alt=""
+          alt={backgroundImageAlt}
           fill
           className="object-cover object-center"
           priority

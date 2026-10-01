@@ -17,7 +17,33 @@ function absoluteUrl(path: string): string {
   return `${baseUrl}${p}`;
 }
 
-/** Kurumsal öncelik: ana sayfa ve dönüşüm sayfaları üstte; blog yazıları doğru lastModified ile. */
+/**
+ * Statik sayfa içerik revizyon tarihleri (build anı değil).
+ * Sayfa metni değişince burayı güncelleyin.
+ */
+const PAGE_LASTMOD: Record<string, string> = {
+  "/": "2026-10-01",
+  "/hizmetlerimiz": "2026-08-13",
+  "/hizmetlerimiz/cankaya-sanal-ofis": "2026-10-01",
+  "/hizmetlerimiz/hazir-ofis-kiralama": "2026-08-13",
+  "/hizmetlerimiz/makam-odasi-kiralama": "2026-08-13",
+  "/hizmetlerimiz/toplanti-odasi-kiralama": "2026-08-13",
+  "/fiyatlar": "2026-08-13",
+  "/iletisim": "2026-10-01",
+  "/hakkimizda": "2026-08-13",
+  "/sik-sorulan-sorular": "2026-10-01",
+  "/blog": "2026-08-13",
+  "/kullanim-kosullari": "2026-06-01",
+  "/acik-riza-onayi": "2026-06-01",
+  "/kvkk-basvuru-formu": "2026-06-01",
+  "/kvkk-kapsaminda-aydinlatma-metni": "2026-06-01",
+};
+
+function lastModifiedFor(path: string): Date | undefined {
+  const iso = PAGE_LASTMOD[path];
+  return iso ? new Date(`${iso}T00:00:00+03:00`) : undefined;
+}
+
 const CORE_PAGES: readonly {
   path: string;
   changeFrequency: Freq;
@@ -38,14 +64,13 @@ const CORE_PAGES: readonly {
 
 const SERVICE_PRIORITY = 0.9;
 const BLOG_POST_PRIORITY = 0.72;
-
 const CATEGORY_PAGE_PRIORITY = 0.7;
-
 const EXPERT_PAGE_PRIORITY = 0.68;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const core: MetadataRoute.Sitemap = CORE_PAGES.map(({ path, changeFrequency, priority }) => ({
     url: absoluteUrl(path),
+    lastModified: lastModifiedFor(path),
     changeFrequency,
     priority,
   }));
@@ -53,8 +78,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const serviceSlugs = Object.keys(HIZMET_DETAY_MAP).sort();
   const services: MetadataRoute.Sitemap = serviceSlugs.map((slug) => {
     const detail = HIZMET_DETAY_MAP[slug];
+    const path = getServicePagePath(detail);
     return {
-      url: absoluteUrl(getServicePagePath(detail)),
+      url: absoluteUrl(path),
+      lastModified: lastModifiedFor(path),
       changeFrequency: "monthly" as const,
       priority: SERVICE_PRIORITY,
     };
@@ -98,6 +125,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categories = await getCategories();
     categoryPages = categories.map((cat) => ({
       url: absoluteUrl(`/kategori/${cat.slug}`),
+      lastModified: lastModifiedFor(`/kategori/${cat.slug}`),
       changeFrequency: "weekly" as const,
       priority: CATEGORY_PAGE_PRIORITY,
     }));
