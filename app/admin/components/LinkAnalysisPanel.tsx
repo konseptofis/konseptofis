@@ -1,8 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { analyzeLinksFromHtml } from "@/app/lib/admin/link-analysis";
+import {
+  analyzeLinksFromHtml,
+  type LinkAnalysisResult,
+} from "@/app/lib/admin/link-analysis";
 
 type Props = {
   html: string;
@@ -37,9 +40,22 @@ function LinkRow({
   );
 }
 
+const EMPTY_ANALYSIS: LinkAnalysisResult = { internal: [], external: [], warnings: [] };
+
+const subscribeNoop = () => () => {};
+
 export default function LinkAnalysisPanel({ html }: Props) {
   const [open, setOpen] = useState(true);
-  const analysis = useMemo(() => analyzeLinksFromHtml(html), [html]);
+  const hydrated = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+
+  const analysis = useMemo(
+    () => (hydrated ? analyzeLinksFromHtml(html) : EMPTY_ANALYSIS),
+    [html, hydrated],
+  );
 
   const total = analysis.internal.length + analysis.external.length;
 

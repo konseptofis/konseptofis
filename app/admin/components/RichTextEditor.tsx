@@ -1,32 +1,26 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
-import { Table } from "@tiptap/extension-table";
-import TableRow from "@tiptap/extension-table-row";
-import TableCell from "@tiptap/extension-table-cell";
-import TableHeader from "@tiptap/extension-table-header";
+import { TableKit } from "@tiptap/extension-table";
 import {
   Bold,
   Italic,
-  List,
-  ListOrdered,
   Heading2,
   Heading3,
+  List,
+  ListOrdered,
   Quote,
   Link2,
-  Unlink,
-  Table as TableIcon,
+  Link2Off,
+  Table,
   ImagePlus,
-  Plus,
-  Columns2,
-  Trash2,
-  Heading,
+  X,
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import { uploadBlogImage } from "@/lib/admin/upload-blog-image";
 import LinkAnalysisPanel from "@/app/admin/components/LinkAnalysisPanel";
 
@@ -37,408 +31,166 @@ type RichTextEditorProps = {
   placeholder?: string;
 };
 
-const EDITOR_PROSE =
-  "prose prose-sm max-w-none min-h-full p-4 focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-inset [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:list-item [&_img]:my-4 [&_img]:max-w-full [&_img]:rounded-lg";
+type BlogLinkItem = {
+  title: string;
+  slug: string;
+};
 
-function ToolbarDivider() {
-  return <span className="mx-0.5 h-4 w-px shrink-0 bg-gray-300" aria-hidden />;
-}
+const EDITOR_CLASS =
+  "focus:outline-none min-h-[260px] text-gray-700 [&_p]:my-2 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 [&_h2]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-gray-900 [&_h3]:mt-4 [&_h3]:mb-2 [&_h2:hover::after]:content-['_H2'] [&_h2:hover::after]:ml-1.5 [&_h2:hover::after]:text-[10px] [&_h2:hover::after]:font-mono [&_h2:hover::after]:text-gray-400 [&_h3:hover::after]:content-['_H3'] [&_h3:hover::after]:ml-1.5 [&_h3:hover::after]:text-[10px] [&_h3:hover::after]:font-mono [&_h3:hover::after]:text-gray-400 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-0.5 [&_a]:text-[#0b7041] [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_img]:my-4 [&_img]:max-w-full [&_img]:rounded-lg [&_table]:my-4 [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-gray-300 [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:border-gray-300 [&_th]:bg-gray-50 [&_th]:px-2 [&_th]:py-1 [&_th]:font-semibold";
 
-function ToolbarBtn({
+const BTN_BASE =
+  "inline-flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40";
+const BTN_IDLE = "border-gray-300 bg-white text-gray-700 hover:bg-gray-100";
+const BTN_ACTIVE = "border-[#0b7041] bg-[#0b7041] text-white hover:bg-[#095530]";
+
+const INPUT_CLASS =
+  "mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-[#0b7041] focus:outline-none focus:ring-1 focus:ring-[#0b7041]";
+
+function ToolbarButton({
   active,
-  onClick,
-  onMouseDown,
-  title,
-  children,
   disabled,
+  title,
+  onClick,
+  children,
 }: {
   active?: boolean;
-  onClick?: () => void;
-  onMouseDown?: (e: React.MouseEvent) => void;
-  title: string;
-  children: React.ReactNode;
   disabled?: boolean;
+  title: string;
+  onClick: () => void;
+  children: ReactNode;
 }) {
   return (
     <button
       type="button"
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      disabled={disabled}
       title={title}
-      className={`rounded p-2 text-gray-700 transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
-        active ? "bg-gray-300 text-gray-900" : "hover:bg-gray-200"
-      }`}
+      disabled={disabled}
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={onClick}
+      className={`${BTN_BASE} ${active ? BTN_ACTIVE : BTN_IDLE}`}
     >
       {children}
     </button>
   );
 }
 
-function buildLinkRel(newTab: boolean, nofollow: boolean): string | undefined {
-  const parts: string[] = [];
-  if (nofollow) parts.push("nofollow");
-  if (newTab) parts.push("noopener", "noreferrer");
-  return parts.length > 0 ? parts.join(" ") : undefined;
-}
-
-function parseLinkRel(rel: string | undefined): { newTab: boolean; nofollow: boolean } {
-  const tokens = (rel ?? "").split(/\s+/).filter(Boolean);
-  return {
-    newTab: tokens.includes("noopener") || tokens.includes("noreferrer"),
-    nofollow: tokens.includes("nofollow"),
-  };
-}
-
-function LinkPopover({
-  editor,
+function Modal({
   open,
+  title,
   onClose,
+  children,
 }: {
-  editor: Editor;
   open: boolean;
+  title: string;
   onClose: () => void;
+  children: ReactNode;
 }) {
-  const attrs = editor.getAttributes("link");
-  const editingLink = editor.isActive("link");
-  const [url, setUrl] = useState(attrs.href ?? "https://");
-  const [newTab, setNewTab] = useState(
-    attrs.target === "_blank" || attrs.target == null || attrs.target === ""
-  );
-  const [nofollow, setNofollow] = useState(parseLinkRel(attrs.rel).nofollow);
-
   useEffect(() => {
     if (!open) return;
-    const a = editor.getAttributes("link");
-    setUrl(a.href ?? "https://");
-    const parsed = parseLinkRel(a.rel);
-    setNofollow(parsed.nofollow);
-    setNewTab(a.target ? a.target === "_blank" : true);
-  }, [open, editor]);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   if (!open) return null;
 
-  function applyLink() {
-    const href = url.trim();
-    if (!href) return;
-    const rel = buildLinkRel(newTab, nofollow);
-    editor
-      .chain()
-      .focus()
-      .extendMarkRange("link")
-      .setLink({
-        href,
-        target: newTab ? "_blank" : null,
-        rel: rel ?? null,
-      })
-      .run();
-    onClose();
-  }
-
-  function removeLink() {
-    editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    onClose();
-  }
-
   return (
-    <div className="absolute left-0 top-full z-20 mt-1 w-80 max-w-[min(20rem,calc(100vw-1rem))] rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
-      <label className="mb-1 block text-xs font-medium text-gray-600">URL</label>
-      <input
-        type="url"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        className="mb-3 w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
-        placeholder="https://"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            applyLink();
-          }
-        }}
-      />
-      <label className="mb-2 flex cursor-pointer items-center gap-2 text-sm text-gray-700">
-        <input type="checkbox" checked={newTab} onChange={(e) => setNewTab(e.target.checked)} />
-        Yeni sekmede aç
-      </label>
-      <label className="mb-3 flex cursor-pointer items-center gap-2 text-sm text-gray-700">
-        <input type="checkbox" checked={nofollow} onChange={(e) => setNofollow(e.target.checked)} />
-        nofollow ekle
-      </label>
-      <div className="flex justify-end gap-2">
-        {editingLink ? (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="flex max-h-[85vh] w-full max-w-md flex-col rounded-lg bg-white p-5 shadow-xl">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-base font-semibold text-gray-900">{title}</h3>
           <button
             type="button"
-            onClick={removeLink}
-            className="mr-auto rounded px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
+            onClick={onClose}
+            className="rounded p-1 text-gray-500 hover:bg-gray-100"
+            aria-label="Kapat"
           >
-            Kaldır
+            <X className="size-4" />
           </button>
-        ) : null}
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100"
-        >
-          İptal
-        </button>
-        <button
-          type="button"
-          onClick={applyLink}
-          className="rounded bg-[#0b7041] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#095530]"
-        >
-          Uygula
-        </button>
+        </div>
+        {children}
       </div>
     </div>
   );
 }
 
-function TableToolbar({ editor }: { editor: Editor }) {
-  if (!editor.isActive("table")) return null;
-  return (
-    <div className="flex flex-wrap items-center gap-1 border-b border-gray-200 bg-gray-50 px-2 py-1.5">
-      <span className="mr-1 text-xs font-medium text-gray-500">Tablo:</span>
-      <ToolbarBtn
-        title="Satır ekle (alt)"
-        onClick={() => editor.chain().focus().addRowAfter().run()}
-      >
-        <Plus className="h-3.5 w-3.5" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        title="Sütun ekle (sağ)"
-        onClick={() => editor.chain().focus().addColumnAfter().run()}
-      >
-        <Columns2 className="h-3.5 w-3.5" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        title="Başlık satırı"
-        onClick={() => editor.chain().focus().toggleHeaderRow().run()}
-      >
-        <Heading className="h-3.5 w-3.5" />
-      </ToolbarBtn>
-      <ToolbarDivider />
-      <ToolbarBtn title="Satır sil" onClick={() => editor.chain().focus().deleteRow().run()}>
-        <Trash2 className="h-3.5 w-3.5" />
-      </ToolbarBtn>
-      <ToolbarBtn title="Sütun sil" onClick={() => editor.chain().focus().deleteColumn().run()}>
-        <Columns2 className="h-3.5 w-3.5 rotate-90" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        title="Tabloyu sil"
-        onClick={() => editor.chain().focus().deleteTable().run()}
-      >
-        <span className="text-xs font-medium">Tablo sil</span>
-      </ToolbarBtn>
-    </div>
-  );
+function relHas(rel: string | null | undefined, token: string): boolean {
+  return (rel ?? "").split(/\s+/).includes(token);
 }
 
-function Toolbar({
-  editor,
-  onLinkClick,
-  onImageClick,
-  imageUploading,
-}: {
-  editor: Editor | null;
-  onLinkClick: () => void;
-  onImageClick: () => void;
-  imageUploading: boolean;
-}) {
-  if (!editor) return null;
-  return (
-    <div className="relative flex flex-wrap items-center gap-1 rounded-t-[8px] border-b border-gray-200 bg-gray-100/80 p-2">
-      <ToolbarBtn
-        active={editor.isActive("bold")}
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        title="Kalın"
-      >
-        <Bold className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        active={editor.isActive("italic")}
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        title="İtalik"
-      >
-        <Italic className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarDivider />
-      <ToolbarBtn
-        active={editor.isActive("heading", { level: 2 })}
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        title="Başlık 2"
-      >
-        <Heading2 className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        active={editor.isActive("heading", { level: 3 })}
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        title="Başlık 3"
-      >
-        <Heading3 className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarDivider />
-      <ToolbarBtn
-        active={editor.isActive("bulletList")}
-        onMouseDown={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBulletList().run();
-        }}
-        title="Madde imi"
-      >
-        <List className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        active={editor.isActive("orderedList")}
-        onMouseDown={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleOrderedList().run();
-        }}
-        title="Numaralı liste"
-      >
-        <ListOrdered className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarBtn
-        active={editor.isActive("blockquote")}
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        title="Alıntı"
-      >
-        <Quote className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarDivider />
-      <ToolbarBtn
-        active={editor.isActive("link")}
-        onClick={onLinkClick}
-        title="Link ekle / düzenle"
-      >
-        <Link2 className="h-4 w-4" />
-      </ToolbarBtn>
-      {editor.isActive("link") ? (
-        <ToolbarBtn
-          onClick={() => editor.chain().focus().extendMarkRange("link").unsetLink().run()}
-          title="Linki kaldır"
-        >
-          <Unlink className="h-4 w-4" />
-        </ToolbarBtn>
-      ) : null}
-      <ToolbarDivider />
-      <ToolbarBtn
-        title="Tablo ekle (3×3)"
-        onClick={() =>
-          editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
-        }
-      >
-        <TableIcon className="h-4 w-4" />
-      </ToolbarBtn>
-      <ToolbarDivider />
-      <ToolbarBtn title="Görsel ekle" onClick={onImageClick} disabled={imageUploading}>
-        <ImagePlus className="h-4 w-4" />
-      </ToolbarBtn>
-      {imageUploading ? (
-        <span className="text-xs text-gray-500">Görsel yükleniyor…</span>
-      ) : null}
-    </div>
-  );
+function normalizeUrl(raw: string): string {
+  const url = raw.trim();
+  if (url.startsWith("/") || url.startsWith("#") || /^(https?:|mailto:|tel:)/i.test(url)) return url;
+  return `https://${url}`;
 }
 
 export default function RichTextEditor({
   content,
   value,
   onChange,
-  placeholder = "İçerik...",
+  placeholder = "İçeriği buraya yazın",
 }: RichTextEditorProps) {
   const initialContent = content ?? value ?? "";
-  const [linkOpen, setLinkOpen] = useState(false);
-  const [imageUploading, setImageUploading] = useState(false);
-  const [imageError, setImageError] = useState<string | null>(null);
-  const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
-  const [imageAlt, setImageAlt] = useState("");
+  const [notice, setNotice] = useState<string | null>(null);
   const [analysisHtml, setAnalysisHtml] = useState(initialContent);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [, rerenderToolbar] = useReducer((n: number) => n + 1, 0);
-  const openLinkPopoverRef = useRef<(open: boolean) => void>(() => {});
-  const editorRef = useRef<Editor | null>(null);
   const analysisDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  openLinkPopoverRef.current = setLinkOpen;
+  const [linkDialogOpen, setLinkDialogOpen] = useState(false);
+  const [linkFilter, setLinkFilter] = useState("");
+  const [blogItems, setBlogItems] = useState<BlogLinkItem[]>([]);
+  const [blogLoading, setBlogLoading] = useState(false);
+  const [customUrl, setCustomUrl] = useState("");
+  const [linkNofollow, setLinkNofollow] = useState(false);
+  const [linkNewTab, setLinkNewTab] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
+  const [imageAlt, setImageAlt] = useState("");
+  const [imageUploading, setImageUploading] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
-      StarterKit.configure({ heading: { levels: [2, 3] } }),
-      Placeholder.configure({ placeholder }),
-      Link.configure({
-        openOnClick: false,
-        enableClickSelection: false,
-        autolink: true,
-        linkOnPaste: true,
-        HTMLAttributes: {
-          rel: "noopener noreferrer",
-          target: "_blank",
+      StarterKit.configure({
+        heading: { levels: [2, 3] },
+        codeBlock: false,
+        code: false,
+        horizontalRule: false,
+        link: {
+          openOnClick: false,
+          autolink: true,
+          linkOnPaste: true,
+          HTMLAttributes: { target: "_self", rel: "" },
         },
       }),
+      Placeholder.configure({ placeholder }),
       Image.configure({
         inline: false,
-        HTMLAttributes: {
-          class: "rounded-lg",
-          loading: "lazy",
-        },
+        HTMLAttributes: { class: "rounded-lg", loading: "lazy" },
       }),
-      Table.configure({
-        resizable: true,
-        renderWrapper: true,
-        cellMinWidth: 100,
-        HTMLAttributes: {
-          class: "w-full",
-        },
+      TableKit.configure({
+        table: { resizable: false, renderWrapper: true },
       }),
-      TableRow,
-      TableHeader,
-      TableCell,
     ],
     content: initialContent,
-    immediatelyRender: false,
-    editorProps: {
-      attributes: {
-        class: EDITOR_PROSE,
-      },
-      handleDOMEvents: {
-        click: (view, event) => {
-          const target = event.target as HTMLElement | null;
-          const anchor = target?.closest("a");
-          if (!anchor || !view.dom.contains(anchor)) {
-            return false;
-          }
-          event.preventDefault();
-          queueMicrotask(() => {
-            const ed = editorRef.current;
-            if (ed?.isActive("link")) {
-              ed.chain().focus().extendMarkRange("link").run();
-            }
-            openLinkPopoverRef.current(true);
-            rerenderToolbar();
-          });
-          return false;
-        },
-      },
-    },
-    onSelectionUpdate: () => {
-      rerenderToolbar();
-    },
-    onTransaction: ({ transaction }) => {
-      if (transaction.selectionSet) {
-        rerenderToolbar();
-      }
-    },
     onUpdate: ({ editor: ed }) => {
       const html = ed.getHTML();
       onChange(html);
       if (analysisDebounceRef.current) clearTimeout(analysisDebounceRef.current);
-      analysisDebounceRef.current = setTimeout(() => {
-        setAnalysisHtml(html);
-      }, 300);
+      analysisDebounceRef.current = setTimeout(() => setAnalysisHtml(html), 300);
+    },
+    editorProps: {
+      attributes: { class: EDITOR_CLASS },
     },
   });
-
-  editorRef.current = editor;
 
   useEffect(() => {
     if (!editor) return;
@@ -448,11 +200,87 @@ export default function RichTextEditor({
     };
   }, [editor]);
 
-  const handleImageFile = useCallback((file: File) => {
-    setImageError(null);
-    setPendingImageFile(file);
-    setImageAlt("");
-  }, []);
+  useEffect(() => {
+    if (!notice) return;
+    const t = setTimeout(() => setNotice(null), 3000);
+    return () => clearTimeout(t);
+  }, [notice]);
+
+  useEffect(() => {
+    if (!linkDialogOpen) return;
+    let cancelled = false;
+    (async () => {
+      setBlogLoading(true);
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("posts")
+          .select("title,slug")
+          .eq("status", "published")
+          .order("updated_at", { ascending: false });
+        if (cancelled || error) return;
+        setBlogItems(
+          (data ?? [])
+            .filter((p) => p.title && p.slug)
+            .map((p) => ({ title: p.title as string, slug: p.slug as string })),
+        );
+      } finally {
+        if (!cancelled) setBlogLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [linkDialogOpen]);
+
+  const openLinkDialog = useCallback(() => {
+    if (!editor) return;
+    if (editor.isActive("link")) {
+      editor.chain().focus().extendMarkRange("link").run();
+      const attrs = editor.getAttributes("link");
+      setCustomUrl(attrs.href ?? "");
+      setLinkNofollow(relHas(attrs.rel, "nofollow"));
+      setLinkNewTab(attrs.target === "_blank");
+    } else {
+      const { from, to } = editor.state.selection;
+      if (from === to) {
+        setNotice("Önce link vermek istediğiniz metni seçin.");
+        return;
+      }
+      setCustomUrl("");
+      setLinkNofollow(false);
+      setLinkNewTab(false);
+    }
+    setLinkFilter("");
+    setLinkDialogOpen(true);
+  }, [editor]);
+
+  const applyLink = useCallback(
+    (href: string) => {
+      if (!editor) return;
+      const relParts: string[] = [];
+      if (linkNewTab) relParts.push("noopener", "noreferrer");
+      if (linkNofollow) relParts.push("nofollow");
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({
+          href,
+          target: linkNewTab ? "_blank" : "_self",
+          rel: relParts.length ? relParts.join(" ") : null,
+        })
+        .run();
+      setLinkDialogOpen(false);
+    },
+    [editor, linkNofollow, linkNewTab],
+  );
+
+  const insertCustomLink = useCallback(() => {
+    const url = customUrl.trim();
+    if (!url) return;
+    applyLink(normalizeUrl(url));
+  }, [customUrl, applyLink]);
 
   const confirmImageInsert = useCallback(async () => {
     if (!editor || !pendingImageFile) return;
@@ -475,9 +303,38 @@ export default function RichTextEditor({
     }
   }, [editor, pendingImageFile, imageAlt]);
 
+  const closeImageDialog = useCallback(() => {
+    if (imageUploading) return;
+    setPendingImageFile(null);
+    setImageAlt("");
+    setImageError(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }, [imageUploading]);
+
+  const filteredBlog = linkFilter.trim()
+    ? blogItems.filter(
+        (p) =>
+          p.title.toLocaleLowerCase("tr-TR").includes(linkFilter.toLocaleLowerCase("tr-TR")) ||
+          p.slug.toLowerCase().includes(linkFilter.toLowerCase()),
+      )
+    : blogItems;
+
   return (
     <div>
-      <div className="flex h-[400px] flex-col overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-[#0b7041] focus-within:ring-offset-0 sm:h-[500px]">
+      <div className="flex h-[440px] flex-col overflow-hidden rounded-lg border border-gray-300 bg-white sm:h-[560px]">
+        {editor ? <Toolbar editor={editor} onLink={openLinkDialog} onImage={() => fileInputRef.current?.click()} /> : null}
+        {notice ? (
+          <div className="shrink-0 border-b border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-900">
+            {notice}
+          </div>
+        ) : null}
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3 text-sm focus-within:ring-2 focus-within:ring-inset focus-within:ring-[#0b7041] [&_.tiptap]:outline-none [&_.tiptap_.is-empty::before]:pointer-events-none [&_.tiptap_.is-empty::before]:float-left [&_.tiptap_.is-empty::before]:h-0 [&_.tiptap_.is-empty::before]:text-gray-400 [&_.tiptap_.is-empty::before]:content-[attr(data-placeholder)]">
+          <EditorContent editor={editor} />
+        </div>
+      </div>
+
+      <LinkAnalysisPanel html={analysisHtml} />
+
       <input
         ref={fileInputRef}
         type="file"
@@ -485,67 +342,233 @@ export default function RichTextEditor({
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
-          if (file) handleImageFile(file);
+          if (!file) return;
+          setImageError(null);
+          setImageAlt("");
+          setPendingImageFile(file);
         }}
       />
-      <div className="relative shrink-0">
-        <Toolbar
-          editor={editor}
-          onLinkClick={() => {
-            if (editor?.isActive("link")) {
-              editor.chain().focus().extendMarkRange("link").run();
-            }
-            setLinkOpen((v) => !v);
-          }}
-          onImageClick={() => fileInputRef.current?.click()}
-          imageUploading={imageUploading}
-        />
-        {editor && linkOpen ? (
-          <LinkPopover editor={editor} open={linkOpen} onClose={() => setLinkOpen(false)} />
-        ) : null}
-      </div>
-      <div className="shrink-0">{editor ? <TableToolbar editor={editor} /> : null}</div>
-      {pendingImageFile ? (
-        <div className="shrink-0 border-b border-gray-200 bg-gray-50 px-4 py-3">
-          <p className="mb-2 text-sm font-medium text-gray-700">Görsel: {pendingImageFile.name}</p>
-          <label className="mb-1 block text-xs text-gray-500">Alt metin (SEO için önerilir)</label>
-          <input
-            type="text"
-            value={imageAlt}
-            onChange={(e) => setImageAlt(e.target.value)}
-            className="mb-2 w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
-            placeholder="Görseli kısaca betimleyin"
-          />
-          {imageError ? <p className="mb-2 text-sm text-red-600">{imageError}</p> : null}
-          <div className="flex gap-2">
-            <button
-              type="button"
-              disabled={imageUploading}
-              onClick={() => void confirmImageInsert()}
-              className="rounded bg-[#0b7041] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#095530] disabled:opacity-50"
-            >
-              {imageUploading ? "Yükleniyor…" : "Yükle ve ekle"}
-            </button>
-            <button
-              type="button"
-              disabled={imageUploading}
-              onClick={() => {
-                setPendingImageFile(null);
-                setImageAlt("");
-                if (fileInputRef.current) fileInputRef.current.value = "";
+
+      <Modal open={linkDialogOpen} title="Link ekle" onClose={() => setLinkDialogOpen(false)}>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600">
+              Özel URL (boş bırakırsanız blog yazılarından seçin)
+            </label>
+            <input
+              value={customUrl}
+              onChange={(e) => setCustomUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  insertCustomLink();
+                }
               }}
-              className="rounded px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200"
-            >
-              İptal
-            </button>
+              placeholder="/sayfa-slug veya https://..."
+              className={INPUT_CLASS}
+              autoFocus
+            />
           </div>
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+            <input
+              type="checkbox"
+              checked={linkNofollow}
+              onChange={(e) => setLinkNofollow(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            Nofollow olarak işaretle (SEO)
+          </label>
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+            <input
+              type="checkbox"
+              checked={linkNewTab}
+              onChange={(e) => setLinkNewTab(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            Yeni sekmede aç
+          </label>
         </div>
+
+        {customUrl.trim() ? (
+          <button
+            type="button"
+            onClick={insertCustomLink}
+            className="mt-4 w-full rounded-md bg-[#0b7041] px-4 py-2 text-sm font-medium text-white hover:bg-[#095530]"
+          >
+            Linki uygula
+          </button>
+        ) : (
+          <>
+            <input
+              value={linkFilter}
+              onChange={(e) => setLinkFilter(e.target.value)}
+              placeholder="Blog yazısı ara..."
+              className={`${INPUT_CLASS} mt-4`}
+            />
+            <ul className="mt-2 max-h-[40vh] flex-1 space-y-0.5 overflow-y-auto rounded-md border border-gray-200 p-1">
+              {blogLoading ? (
+                <li className="px-3 py-4 text-sm text-gray-500">Yazılar yükleniyor…</li>
+              ) : filteredBlog.length === 0 ? (
+                <li className="px-3 py-4 text-sm text-gray-500">Eşleşen yazı yok.</li>
+              ) : (
+                filteredBlog.map((post) => (
+                  <li key={post.slug}>
+                    <button
+                      type="button"
+                      onClick={() => applyLink(`/${post.slug}`)}
+                      className="w-full rounded px-3 py-2 text-left text-sm hover:bg-gray-100"
+                    >
+                      <span className="font-medium text-gray-900">{post.title}</span>
+                      <span className="ml-2 text-xs text-gray-500">/{post.slug}</span>
+                    </button>
+                  </li>
+                ))
+              )}
+            </ul>
+          </>
+        )}
+      </Modal>
+
+      <Modal open={pendingImageFile !== null} title="Görsel ekle" onClose={closeImageDialog}>
+        <p className="mb-3 truncate text-sm text-gray-700">{pendingImageFile?.name}</p>
+        <label className="block text-xs font-medium text-gray-600">Alt metin (SEO için önerilir)</label>
+        <input
+          value={imageAlt}
+          onChange={(e) => setImageAlt(e.target.value)}
+          placeholder="Görseli kısaca betimleyin"
+          className={INPUT_CLASS}
+          autoFocus
+        />
+        {imageError ? <p className="mt-2 text-sm text-red-600">{imageError}</p> : null}
+        <button
+          type="button"
+          disabled={imageUploading}
+          onClick={() => void confirmImageInsert()}
+          className="mt-4 w-full rounded-md bg-[#0b7041] px-4 py-2 text-sm font-medium text-white hover:bg-[#095530] disabled:opacity-50"
+        >
+          {imageUploading ? "Yükleniyor…" : "Yükle ve ekle"}
+        </button>
+      </Modal>
+    </div>
+  );
+}
+
+function Toolbar({
+  editor,
+  onLink,
+  onImage,
+}: {
+  editor: Editor;
+  onLink: () => void;
+  onImage: () => void;
+}) {
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    const rerender = () => forceRender((n) => n + 1);
+    editor.on("transaction", rerender);
+    return () => {
+      editor.off("transaction", rerender);
+    };
+  }, [editor]);
+
+  const chain = () => editor.chain().focus();
+  const inTable = editor.isActive("table");
+
+  return (
+    <div className="flex shrink-0 flex-wrap items-center gap-1.5 border-b border-gray-200 bg-gray-50 px-2 py-2">
+      <ToolbarButton
+        title="Başlık 2"
+        active={editor.isActive("heading", { level: 2 })}
+        onClick={() => chain().toggleHeading({ level: 2 }).run()}
+      >
+        <Heading2 className="size-4" />
+        H2
+      </ToolbarButton>
+      <ToolbarButton
+        title="Başlık 3"
+        active={editor.isActive("heading", { level: 3 })}
+        onClick={() => chain().toggleHeading({ level: 3 }).run()}
+      >
+        <Heading3 className="size-4" />
+        H3
+      </ToolbarButton>
+      <ToolbarButton title="Kalın" active={editor.isActive("bold")} onClick={() => chain().toggleBold().run()}>
+        <Bold className="size-4" />
+        Kalın
+      </ToolbarButton>
+      <ToolbarButton title="İtalik" active={editor.isActive("italic")} onClick={() => chain().toggleItalic().run()}>
+        <Italic className="size-4" />
+        İtalik
+      </ToolbarButton>
+      <ToolbarButton
+        title="Madde listesi"
+        active={editor.isActive("bulletList")}
+        onClick={() => chain().toggleBulletList().run()}
+      >
+        <List className="size-4" />
+        Madde
+      </ToolbarButton>
+      <ToolbarButton
+        title="Numaralı liste"
+        active={editor.isActive("orderedList")}
+        onClick={() => chain().toggleOrderedList().run()}
+      >
+        <ListOrdered className="size-4" />
+        Numaralı
+      </ToolbarButton>
+      <ToolbarButton
+        title="Alıntı"
+        active={editor.isActive("blockquote")}
+        onClick={() => chain().toggleBlockquote().run()}
+      >
+        <Quote className="size-4" />
+        Alıntı
+      </ToolbarButton>
+      <ToolbarButton title="Link ekle / düzenle" active={editor.isActive("link")} onClick={onLink}>
+        <Link2 className="size-4" />
+        Link
+      </ToolbarButton>
+      <ToolbarButton
+        title="Linki kaldır"
+        disabled={!editor.isActive("link")}
+        onClick={() => chain().extendMarkRange("link").unsetLink().run()}
+      >
+        <Link2Off className="size-4" />
+        Link kaldır
+      </ToolbarButton>
+      <ToolbarButton
+        title="Tablo ekle"
+        active={inTable}
+        disabled={inTable}
+        onClick={() => chain().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+      >
+        <Table className="size-4" />
+        Tablo
+      </ToolbarButton>
+      {inTable ? (
+        <>
+          <ToolbarButton title="Satır ekle" onClick={() => chain().addRowAfter().run()}>
+            + Satır
+          </ToolbarButton>
+          <ToolbarButton title="Sütun ekle" onClick={() => chain().addColumnAfter().run()}>
+            + Sütun
+          </ToolbarButton>
+          <ToolbarButton title="Satırı sil" onClick={() => chain().deleteRow().run()}>
+            Satır sil
+          </ToolbarButton>
+          <ToolbarButton title="Sütunu sil" onClick={() => chain().deleteColumn().run()}>
+            Sütun sil
+          </ToolbarButton>
+          <ToolbarButton title="Tabloyu sil" onClick={() => chain().deleteTable().run()}>
+            Tablo sil
+          </ToolbarButton>
+        </>
       ) : null}
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <EditorContent editor={editor} />
-      </div>
-      </div>
-      <LinkAnalysisPanel html={analysisHtml} />
+      <ToolbarButton title="Görsel ekle" onClick={onImage}>
+        <ImagePlus className="size-4" />
+        Görsel
+      </ToolbarButton>
     </div>
   );
 }

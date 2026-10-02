@@ -3,6 +3,7 @@ import Image from "next/image";
 import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { Facebook, Instagram } from "lucide-react";
 import { SITE } from "@/app/lib/data";
+import FooterMenuGroup from "@/app/components/FooterMenuGroup";
 
 const LEGAL_LINKS = [
   { href: "/kvkk-kapsaminda-aydinlatma-metni/", label: "KVKK Aydınlatma Metni" },
@@ -10,6 +11,35 @@ const LEGAL_LINKS = [
   { href: "/kvkk-basvuru-formu/", label: "KVKK Başvuru Formu" },
   { href: "/kullanim-kosullari/", label: "Kullanım Koşulları" },
 ] as const;
+
+const QUICK_LINKS = [
+  { href: "/hizmetlerimiz", label: "Hizmetler" },
+  { href: "/sik-sorulan-sorular", label: "SSS" },
+  { href: "/iletisim", label: "İletişim" },
+] as const;
+
+const SERVICE_LINKS = [
+  { href: "/hizmetlerimiz/cankaya-sanal-ofis", label: "Çankaya Sanal Ofis" },
+  { href: "/hizmetlerimiz/hazir-ofis-kiralama", label: "Hazır Ofis Kiralama" },
+  { href: "/hizmetlerimiz/makam-odasi-kiralama", label: "Makam Odası Kiralama" },
+  { href: "/hizmetlerimiz/toplanti-odasi-kiralama", label: "Toplantı Odası Kiralama" },
+] as const;
+
+const LINK_CLASS = "text-sm text-gray-600 hover:text-[#0b7041]";
+
+function LinkList({ links }: { links: readonly { href: string; label: string }[] }) {
+  return (
+    <ul className="m-0 list-none space-y-2 p-0">
+      {links.map(({ href, label }) => (
+        <li key={href}>
+          <Link href={href} className={LINK_CLASS}>
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,8 +50,8 @@ export default function Footer() {
       aria-label="Site alt bilgisi"
     >
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="grid gap-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="sm:col-span-2 lg:col-span-1">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_3fr]">
+          <div>
             <Link
               href="/"
               className="inline-flex items-center hover:opacity-80"
@@ -62,86 +92,45 @@ export default function Footer() {
             </div>
           </div>
 
-          <div>
-            <h3 className="subheading-sm tracking-wide text-black" style={{ fontSize: 16 }}>
-              Hızlı Bağlantılar
-            </h3>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <Link
-                  href="/hizmetlerimiz"
-                  className="text-sm text-gray-600 hover:text-[#0b7041]"
-                >
-                  Hizmetler
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/sik-sorulan-sorular"
-                  className="text-sm text-gray-600 hover:text-[#0b7041]"
-                >
-                  SSS
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/iletisim"
-                  className="text-sm text-gray-600 hover:text-[#0b7041]"
-                >
-                  İletişim
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <div className="grid grid-cols-2 items-start gap-x-4 gap-y-6 md:grid-cols-4 md:gap-x-6">
+            <FooterMenuGroup title="Hizmetlerimiz">
+              <LinkList links={SERVICE_LINKS} />
+            </FooterMenuGroup>
 
-          <div>
-            <h3 className="subheading-sm tracking-wide text-black" style={{ fontSize: 16 }}>
-              Önemli Bilgiler
-            </h3>
-            <ul className="mt-4 space-y-2">
-              {LEGAL_LINKS.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-sm text-gray-600 hover:text-[#0b7041]"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <FooterMenuGroup title="Hızlı Bağlantılar">
+              <LinkList links={QUICK_LINKS} />
+            </FooterMenuGroup>
 
-          <div>
-            <h3 className="subheading-sm tracking-wide text-black" style={{ fontSize: 16 }}>
-              İletişim
-            </h3>
-            <address className="mt-4 space-y-3 not-italic">
-              <a
-                href={SITE.phoneHref}
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#0b7041]"
-              >
-                <PhoneIcon className="h-4 w-4 shrink-0" aria-hidden />
-                {SITE.phone}
-              </a>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#0b7041]"
-              >
-                <EnvelopeIcon className="h-4 w-4 shrink-0" aria-hidden />
-                {SITE.email}
-              </a>
-              <p className="flex items-start gap-2 text-sm text-gray-600">
-                <MapPinIcon className="h-4 w-4 shrink-0 mt-0.5" aria-hidden />
-                <span className="break-words">
-                  {SITE.address.display}
-                </span>
-              </p>
-            </address>
+            <FooterMenuGroup title="Önemli Bilgiler">
+              <LinkList links={LEGAL_LINKS} />
+            </FooterMenuGroup>
+
+            <FooterMenuGroup title="İletişim">
+              <address className="space-y-3 not-italic">
+                <a
+                  href={SITE.phoneHref}
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#0b7041]"
+                >
+                  <PhoneIcon className="h-4 w-4 shrink-0" aria-hidden />
+                  {SITE.phone}
+                </a>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="flex items-start gap-2 break-all text-sm text-gray-600 hover:text-[#0b7041]"
+                >
+                  <EnvelopeIcon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                  {SITE.email}
+                </a>
+                <p className="flex items-start gap-2 text-sm text-gray-600">
+                  <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                  <span className="break-words">{SITE.address.display}</span>
+                </p>
+              </address>
+            </FooterMenuGroup>
           </div>
         </div>
 
-        <div className="mt-6 border-t border-[#f2f2f2] pt-4">
+        <div className="mt-8 border-t border-[#f2f2f2] pt-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
             <nav
               className="flex flex-wrap items-center"
@@ -154,7 +143,7 @@ export default function Footer() {
                       |
                     </span>
                   ) : null}
-                  <Link href={href} className="text-sm text-gray-600 hover:text-[#0b7041]">
+                  <Link href={href} className={LINK_CLASS}>
                     {label}
                   </Link>
                 </span>

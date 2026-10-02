@@ -55,27 +55,27 @@ export default function HomeMahallSection() {
           </p>
         </div>
 
-        <ul className="mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 md:grid md:h-[520px] md:grid-cols-4 md:grid-rows-2 md:overflow-visible md:pb-0">
-          <li className="relative h-56 w-[85%] shrink-0 snap-center overflow-hidden rounded-xl bg-[#F5F7F6] md:col-span-2 md:row-span-2 md:h-auto md:w-auto">
+        <ul className="mt-10 grid list-none grid-cols-2 gap-3 p-0 md:h-[520px] md:grid-cols-4 md:grid-rows-2">
+          <li className="relative col-span-2 aspect-[4/3] overflow-hidden rounded-xl bg-[#F5F7F6] md:row-span-2 md:aspect-auto">
             <Image
               src={featured.src}
               alt={featured.alt}
               fill
               className="object-cover"
-              sizes="(max-width: 767px) 85vw, 50vw"
+              sizes="(max-width: 767px) 100vw, 50vw"
             />
           </li>
           {tiles.map((img) => (
             <li
               key={img.src}
-              className="relative h-56 w-[85%] shrink-0 snap-center overflow-hidden rounded-xl bg-[#F5F7F6] md:h-auto md:w-auto"
+              className="relative aspect-square overflow-hidden rounded-xl bg-[#F5F7F6] md:aspect-auto"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 767px) 85vw, 25vw"
+                sizes="(max-width: 767px) 50vw, 25vw"
               />
             </li>
           ))}

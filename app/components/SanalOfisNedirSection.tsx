@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Building2, MapPin, Users, type LucideIcon } from "lucide-react";
@@ -50,10 +51,10 @@ function ValueCell({ cell }: { cell: Cell }) {
       </span>
     ) : null;
 
-  const textClass = "text-[15px] leading-snug text-[#3D4743]";
+  const textClass = "text-[13px] leading-snug text-[#3D4743] md:text-[15px]";
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-1.5 md:flex-row md:gap-2">
       {icon}
       <span className={textClass}>{cell.text}</span>
     </div>
@@ -98,9 +99,10 @@ export default function SanalOfisNedirSection({
     },
   ];
 
-  const labelSticky =
-    "sticky left-0 z-20 bg-[#F5F7F6] px-4 text-left text-[15px] font-medium leading-snug text-[#3D4743] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)] md:shadow-none";
-  const cellPad = "px-4 py-[18px] align-middle min-h-[60px]";
+  const labelCol =
+    "hidden w-1/4 bg-[#F5F7F6] px-4 text-left text-[15px] font-medium leading-snug text-[#3D4743] md:table-cell";
+  const cellPad = "px-2 py-3 align-middle md:min-h-[60px] md:px-4 md:py-[18px]";
+  const valueCol = "w-1/3 md:w-1/4";
   const divider = "border-b border-[#E6EBE8]";
   const sanalDivider = "border-b border-[#EEF1EF]";
 
@@ -150,44 +152,38 @@ export default function SanalOfisNedirSection({
           </ul>
         </div>
 
-        <div className="mt-14 overflow-x-auto">
-          <table className="w-full min-w-[640px] border-separate border-spacing-0 bg-transparent">
+        <div className="mt-10 md:mt-14">
+          <table className="w-full table-fixed border-separate border-spacing-0 bg-transparent">
             <caption className="sr-only">
               Sanal ofis, hazır ofis ve klasik ofis karşılaştırması
             </caption>
-            <colgroup>
-              <col style={{ width: "25%" }} />
-              <col style={{ width: "25%" }} />
-              <col style={{ width: "25%" }} />
-              <col style={{ width: "25%" }} />
-            </colgroup>
             <thead>
               <tr>
-                <th scope="col" className={`${labelSticky} ${cellPad} ${divider} pt-7`}>
+                <th scope="col" className={`${labelCol} ${cellPad} ${divider} pt-7`}>
                   <span className="sr-only">Özellik</span>
                 </th>
                 <th
                   scope="col"
-                  className={`${cellPad} ${divider} pt-7 text-center text-[16px] font-semibold text-[#3D4743]`}
+                  className={`${valueCol} ${cellPad} ${divider} pt-7 text-center text-[13px] font-semibold leading-snug text-[#3D4743] md:text-[16px]`}
                 >
-                  Klasik Ofis Kiralama
+                  Klasik Ofis<span className="hidden md:inline"> Kiralama</span>
                 </th>
                 <th
                   scope="col"
-                  className={`${cellPad} ${sanalDivider} bg-white pt-7 text-center align-middle rounded-t-2xl`}
+                  className={`${valueCol} ${cellPad} ${sanalDivider} bg-white pt-7 text-center align-middle rounded-t-2xl`}
                 >
                   <div className="flex flex-col items-center gap-1.5">
-                    <span className="rounded-full bg-[var(--color-green)] px-2.5 py-1 text-[12px] font-semibold leading-none text-white">
+                    <span className="rounded-full bg-[var(--color-green)] px-2 py-1 text-[11px] font-semibold leading-none text-white md:px-2.5 md:text-[12px]">
                       Önerilen
                     </span>
-                    <span className="text-[17px] font-semibold text-[var(--color-green)]">
+                    <span className="text-[14px] font-semibold text-[var(--color-green)] md:text-[17px]">
                       Sanal Ofis
                     </span>
                   </div>
                 </th>
                 <th
                   scope="col"
-                  className={`${cellPad} ${divider} pt-7 text-center text-[16px] font-semibold text-[#3D4743]`}
+                  className={`${valueCol} ${cellPad} ${divider} pt-7 text-center text-[13px] font-semibold leading-snug text-[#3D4743] md:text-[16px]`}
                 >
                   Hazır Ofis
                 </th>
@@ -199,8 +195,18 @@ export default function SanalOfisNedirSection({
                 const rowDiv = last ? "" : divider;
                 const sanalDiv = last ? "border-b-0" : sanalDivider;
                 return (
-                  <tr key={row.label}>
-                    <th scope="row" className={`${labelSticky} ${cellPad} ${rowDiv}`}>
+                  <Fragment key={row.label}>
+                  <tr className="md:hidden">
+                    <th
+                      colSpan={3}
+                      scope="colgroup"
+                      className="px-2 pb-1.5 pt-5 text-left text-[14px] font-semibold text-[#1F2A24]"
+                    >
+                      {row.label}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row" className={`${labelCol} ${cellPad} ${rowDiv}`}>
                       {row.label}
                     </th>
                     <td className={`${cellPad} ${rowDiv} text-center`}>
@@ -215,6 +221,7 @@ export default function SanalOfisNedirSection({
                       <ValueCell cell={row.hazir} />
                     </td>
                   </tr>
+                  </Fragment>
                 );
               })}
             </tbody>

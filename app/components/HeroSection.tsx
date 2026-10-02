@@ -13,7 +13,7 @@ export default function HeroSection({ monthlyPriceLabel }: Props) {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative -mt-20 flex h-[480px] flex-col justify-end overflow-hidden pb-10 pt-28 sm:-mt-28 sm:pb-14 sm:pt-36 md:h-[560px]"
+      className="relative -mt-20 flex flex-col justify-start overflow-hidden pb-12 pt-[172px] sm:-mt-28 sm:pb-14 sm:pt-[208px] md:h-[560px] md:justify-end md:pt-36"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="absolute inset-0 scale-[1.02] blur-[2px]">
@@ -31,11 +31,11 @@ export default function HeroSection({ monthlyPriceLabel }: Props) {
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-5 text-center md:px-6">
         <h1
           id="hero-heading"
-          className="text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl"
+          className="text-[34px] font-bold leading-[1.15] tracking-tight text-white sm:text-[38px] md:text-3xl lg:text-4xl"
         >
           Ankara Sanal Ofis
         </h1>
-        <p className="mt-4 max-w-2xl px-1 text-[16px] leading-[1.65] text-white/90 sm:mt-6">
+        <p className="mt-4 max-w-2xl px-1 text-[17px] leading-[1.6] text-white/90 sm:mt-6 md:text-[16px] md:leading-[1.65]">
           Mahall Ankara&apos;da yasal iş adresi: vergi levhası, ticaret sicil, kargo ve tebligat
           tek pakette. {priceClause}stopaj ve aidat yok.
         </p>
