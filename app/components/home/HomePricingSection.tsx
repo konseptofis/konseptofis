@@ -10,9 +10,8 @@ const SANAL_FEATURES = [
   "Yasal iş adresi",
   "Vergi levhası ve ticaret sicil adresi",
   "Posta, kargo ve tebligat takibi",
-  "WhatsApp ile anlık bildirim",
+  "Anlık bilgilendirme",
   "Stopaj ve aidat yok",
-  "Toplantı odası saatlik kullanım",
 ] as const;
 
 const DETAIL_HREF: Record<"toplanti" | "makam", string> = {
@@ -95,12 +94,6 @@ export default async function HomePricingSection() {
                         : "border-[#E3E8E5]"
                     }`}
                   >
-                    {featured ? (
-                      <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[var(--color-green)] px-3 py-1 text-[12px] font-semibold leading-none text-white">
-                        En çok tercih edilen
-                      </span>
-                    ) : null}
-
                     <h3 className="m-0 text-[18px] font-semibold leading-snug text-[var(--color-text-primary)]">
                       {card.title}
                     </h3>

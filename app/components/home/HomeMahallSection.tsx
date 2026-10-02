@@ -21,8 +21,8 @@ const GALLERY = [
     alt: "Konsept Ofis toplantı odası",
   },
   {
-    src: "/assets/images/mahall-slider/ofis-ic-mekan.webp",
-    alt: "Konsept Ofis hazır ofis çalışma birimi",
+    src: "/konsept-ofis-hakkimizda.webp",
+    alt: "Konsept Ofis ortak çalışma alanında çalışan ekip",
   },
 ] as const;
 

@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-import Link from "next/link";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Building2, MapPin, Users, type LucideIcon } from "lucide-react";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -66,43 +64,43 @@ type Props = { sectionClassName?: string };
 export default function SanalOfisNedirSection({
   sectionClassName = HOME_BG_MUTED,
 }: Props) {
-  const rows: { label: string; sanal: Cell; hazir: Cell; klasik: Cell }[] = [
+  const rows: { label: string; klasik: Cell; sanal: Cell }[] = [
     {
-      label: "Yasal adres",
-      sanal: { text: "Var", kind: "positive" },
-      hazir: { text: "Var", kind: "positive" },
-      klasik: { text: "Var", kind: "positive" },
+      label: "Emlakçı komisyonu",
+      klasik: { text: "Var", kind: "negative" },
+      sanal: { text: "Yok", kind: "positive" },
     },
     {
-      label: "Fiziksel çalışma alanı",
-      sanal: { text: "Yok, toplantı odası saatlik", kind: "neutral" },
-      hazir: { text: "Var, mobilyalı", kind: "positive" },
-      klasik: { text: "Var, boş teslim", kind: "neutral" },
+      label: "Depozito",
+      klasik: { text: "Var", kind: "negative" },
+      sanal: { text: "Yok", kind: "positive" },
     },
     {
       label: "Stopaj",
-      sanal: { text: "Yok", kind: "positive" },
-      hazir: { text: "Yok", kind: "positive" },
       klasik: { text: "%20 kira stopajı", kind: "negative" },
+      sanal: { text: "Yok", kind: "positive" },
     },
     {
       label: "Aidat, elektrik, su, internet",
+      klasik: { text: "Ek maliyet", kind: "negative" },
       sanal: { text: "Yok", kind: "positive" },
-      hazir: { text: "Fiyata dahil", kind: "positive" },
-      klasik: { text: "Ayrıca ödenir", kind: "negative" },
     },
     {
       label: "Kurulum süresi",
-      sanal: { text: "Aynı gün", kind: "positive" },
-      hazir: { text: "Aynı gün", kind: "positive" },
       klasik: { text: "Haftalar", kind: "negative" },
+      sanal: { text: "Aynı gün", kind: "positive" },
+    },
+    {
+      label: "Fiziksel çalışma alanı",
+      klasik: { text: "Boş teslim", kind: "negative" },
+      sanal: { text: "Makam odası ve toplantı odası", kind: "positive" },
     },
   ];
 
   const labelCol =
-    "hidden w-1/4 bg-[#F5F7F6] px-4 text-left text-[15px] font-medium leading-snug text-[#3D4743] md:table-cell";
+    "w-[34%] px-2 text-left text-[13px] font-medium leading-snug text-[#3D4743] md:px-4 md:text-[15px]";
   const cellPad = "px-2 py-3 align-middle md:min-h-[60px] md:px-4 md:py-[18px]";
-  const valueCol = "w-1/3 md:w-1/4";
+  const valueCol = "w-[33%]";
   const divider = "border-b border-[#E6EBE8]";
   const sanalDivider = "border-b border-[#EEF1EF]";
 
@@ -155,7 +153,7 @@ export default function SanalOfisNedirSection({
         <div className="mt-10 md:mt-14">
           <table className="w-full table-fixed border-separate border-spacing-0 bg-transparent">
             <caption className="sr-only">
-              Sanal ofis, hazır ofis ve klasik ofis karşılaştırması
+              Klasik ofis kiralama ve sanal ofis karşılaştırması
             </caption>
             <thead>
               <tr>
@@ -166,7 +164,7 @@ export default function SanalOfisNedirSection({
                   scope="col"
                   className={`${valueCol} ${cellPad} ${divider} pt-7 text-center text-[13px] font-semibold leading-snug text-[#3D4743] md:text-[16px]`}
                 >
-                  Klasik Ofis<span className="hidden md:inline"> Kiralama</span>
+                  Klasik Ofis Kiralama
                 </th>
                 <th
                   scope="col"
@@ -181,12 +179,6 @@ export default function SanalOfisNedirSection({
                     </span>
                   </div>
                 </th>
-                <th
-                  scope="col"
-                  className={`${valueCol} ${cellPad} ${divider} pt-7 text-center text-[13px] font-semibold leading-snug text-[#3D4743] md:text-[16px]`}
-                >
-                  Hazır Ofis
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -195,17 +187,7 @@ export default function SanalOfisNedirSection({
                 const rowDiv = last ? "" : divider;
                 const sanalDiv = last ? "border-b-0" : sanalDivider;
                 return (
-                  <Fragment key={row.label}>
-                  <tr className="md:hidden">
-                    <th
-                      colSpan={3}
-                      scope="colgroup"
-                      className="px-2 pb-1.5 pt-5 text-left text-[14px] font-semibold text-[#1F2A24]"
-                    >
-                      {row.label}
-                    </th>
-                  </tr>
-                  <tr>
+                  <tr key={row.label}>
                     <th scope="row" className={`${labelCol} ${cellPad} ${rowDiv}`}>
                       {row.label}
                     </th>
@@ -217,11 +199,7 @@ export default function SanalOfisNedirSection({
                     >
                       <ValueCell cell={row.sanal} />
                     </td>
-                    <td className={`${cellPad} ${rowDiv} text-center`}>
-                      <ValueCell cell={row.hazir} />
-                    </td>
                   </tr>
-                  </Fragment>
                 );
               })}
             </tbody>
@@ -229,12 +207,6 @@ export default function SanalOfisNedirSection({
         </div>
 
         <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
-          <Link
-            href="/hizmetlerimiz/hazir-ofis-kiralama"
-            className="text-center text-[15px] font-semibold text-[var(--color-green)] underline-offset-2 hover:underline sm:mr-4"
-          >
-            Hazır ofis seçenekleri
-          </Link>
           <TeklifAlButton className={BTN_PRIMARY}>Sanal ofis teklifi al</TeklifAlButton>
         </div>
       </div>
