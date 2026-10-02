@@ -10,45 +10,29 @@ import {
 import SectionHeading from "@/app/components/SectionHeading";
 import { HOME_BG_MUTED, HOME_CONTAINER, HOME_H3, HOME_SECTION_Y } from "@/app/lib/home-ui";
 
-const AUDIENCE_CARDS: {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-}[] = [
+const AUDIENCE_CARDS: { title: string; icon: LucideIcon }[] = [
   {
     title: "Avukatlar ve Hukuk Büroları İçin Sanal Ofis",
-    description:
-      "Baro kaydınız için prestijli yasal adres; duruşmadayken tebligatlarınız güvenle teslim alınır.",
     icon: Scale,
   },
   {
     title: "E-Ticaret İşletmeleri İçin Sanal Ofis",
-    description:
-      "Depo veya ev adresi yerine kurumsal iş adresi; yoğun kargo ve evrak trafiğiniz profesyonelce yönetilir.",
     icon: ShoppingCart,
   },
   {
     title: "Yeni Girişimciler ve KOBİ'ler İçin Sanal Ofis",
-    description:
-      "Yüksek kira taahhüdü olmadan ticaret sicil ve vergi dairesi süreçlerinizi hemen başlatın.",
     icon: Rocket,
   },
   {
     title: "Freelancer ve Danışmanlar İçin Sanal Ofis",
-    description:
-      "Düşük sabit maliyetle prestijli yasal adres; resmi posta ve tebligatlarınız güvenle takip edilir.",
     icon: Laptop,
   },
   {
     title: "Psikolog, Diyetisyen ve Online Danışmanlar İçin Sanal Ofis",
-    description:
-      "Ev adresinizi gizli tutarak kurumsal imaj; yüz yüze görüşmeler için toplantı odası kullanımı.",
     icon: HeartPulse,
   },
   {
     title: "Yurtdışı Merkezli Şirketler İçin Ankara Sanal Ofis",
-    description:
-      "Türkiye'de faaliyet için yasal temsil adresi; fiziksel ofis açmadan Ankara'da operasyonel varlık.",
     icon: Globe,
   },
 ];
@@ -61,17 +45,14 @@ const TABLE_ROWS = [
 function AudienceCell({ item }: { item: (typeof AUDIENCE_CARDS)[number] }) {
   const Icon = item.icon;
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex h-full min-h-[72px] items-center gap-4">
       <div
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-[#0b7041]/[0.08]"
         aria-hidden
       >
         <Icon className="h-5 w-5 text-[#0b7041]" strokeWidth={1.75} />
       </div>
-      <div className="min-w-0 flex-1">
-        <h3 className={`${HOME_H3} mb-1`}>{item.title}</h3>
-        <p className="m-0 text-[15px] leading-[1.65] text-[#3D4743]">{item.description}</p>
-      </div>
+      <h3 className={`${HOME_H3} m-0 min-w-0 flex-1`}>{item.title}</h3>
     </div>
   );
 }
@@ -109,7 +90,7 @@ export default function HomeAudienceSection() {
                         <td
                           key={item.title}
                           className={[
-                            "align-top p-5 md:p-6 max-md:block",
+                            "h-full align-middle p-5 max-md:block",
                             "border-[#E3E8E5] max-md:border-b",
                             isLastRow && isLastCol ? "max-md:border-b-0" : "",
                             !isLastCol ? "md:border-r md:border-[#E3E8E5]" : "",

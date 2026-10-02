@@ -16,7 +16,7 @@ export default async function HomeCtaBand() {
             Şirket adresiniz bugün hazır olsun
           </p>
           <p className="mt-3 m-0 text-[16px] leading-[1.65] text-white/80">
-            Belgelerinizi gönderin, sözleşmeniz aynı gün düzenlensin. Aylık{" "}
+            İletişime geçin, sözleşmeniz aynı gün düzenlensin. Aylık{" "}
             {monthly || "—"} TL + KDV.
           </p>
         </div>
