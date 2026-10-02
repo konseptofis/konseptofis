@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LayoutDashboard, FileText, Banknote, Tag, UserCircle } from "lucide-react";
+import { LayoutDashboard, FileText, Banknote, Tag, UserCircle, ScanSearch } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import AdminLogoutButton from "./AdminLogoutButton";
 
@@ -69,6 +69,13 @@ export default async function AdminLayout({
           >
             <Banknote className="h-5 w-5" />
             Fiyatlar
+          </Link>
+          <Link
+            href="/admin/seo-tarama"
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
+          >
+            <ScanSearch className="h-5 w-5" />
+            SEO Tarama
           </Link>
         </nav>
         <div className="border-t border-gray-800 p-3">
