@@ -3,6 +3,7 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
 export type ExpertSocialLinks = {
   linkedin_url?: string | null;
@@ -50,7 +51,7 @@ export type ExpertReviewedPost = {
 };
 
 export async function getPublicExpertSlugs(): Promise<string[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from("experts").select("slug");
   if (error) throw error;
   return (data ?? []).map((r) => r.slug as string);
@@ -67,7 +68,7 @@ export async function getExperts(): Promise<Expert[]> {
 }
 
 export const getExpertBySlug = cache(async (slug: string): Promise<Expert | null> => {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from("experts").select("*").eq("slug", slug).single();
   if (error) {
     if (error.code === "PGRST116") return null;
@@ -87,7 +88,7 @@ export async function getExpertById(id: string): Promise<Expert | null> {
 }
 
 export async function getPublishedPostsByReviewer(expertId: string): Promise<ExpertReviewedPost[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("posts")
     .select(

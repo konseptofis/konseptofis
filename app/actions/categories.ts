@@ -8,6 +8,8 @@ import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
 
+import { createPublicClient } from "@/lib/supabase/public";
+
 import { toSlug } from "@/lib/slug";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -161,6 +163,30 @@ async function uniqueCategorySlug(
 export const getCategories = cache(async (): Promise<Category[]> => {
 
   const supabase = await createClient();
+
+  const { data, error } = await supabase
+
+    .from("categories")
+
+    .select(CATEGORY_SELECT)
+
+    .order("name", { ascending: true });
+
+  if (error) {
+
+    throw new Error(formatDbError(error));
+
+  }
+
+  return (data ?? []) as Category[];
+
+});
+
+
+
+export const getPublicCategories = cache(async (): Promise<Category[]> => {
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
 

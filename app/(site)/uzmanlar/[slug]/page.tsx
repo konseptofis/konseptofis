@@ -11,7 +11,7 @@ import {
   type Expert,
   type ExpertSocialLinks,
 } from "@/app/actions/experts";
-import { getCategories } from "@/app/actions/categories";
+import { getPublicCategories } from "@/app/actions/categories";
 import { buildCategorySlugLookup, resolveCategorySlug } from "@/lib/category-utils";
 import { SITE } from "@/app/lib/data";
 import ExpertPersonJsonLd from "@/app/components/seo/ExpertPersonJsonLd";
@@ -134,7 +134,7 @@ export default async function ExpertDetailPage({ params }: Props) {
   if (!expert) notFound();
 
   const posts = await getPublishedPostsByReviewer(expert.id);
-  const categories = await getCategories();
+  const categories = await getPublicCategories();
   const categorySlugLookup = buildCategorySlugLookup(categories);
 
   return (
