@@ -19,6 +19,11 @@ const DETAIL_HREF: Record<"toplanti" | "makam", string> = {
   makam: "/hizmetlerimiz/makam-odasi-kiralama",
 };
 
+const DETAIL_LABEL: Record<"toplanti" | "makam", string> = {
+  toplanti: "Toplantı Odası Kiralama",
+  makam: "Makam Odası Kiralama",
+};
+
 type PlanKind = "sanal" | "toplanti" | "makam";
 
 function planKind(title: string): PlanKind | null {
@@ -82,8 +87,7 @@ export default async function HomePricingSection() {
               const kind = planKind(card.title);
               const featured = kind === "sanal";
               const features = cardFeatures(card, kind);
-              const detailHref =
-                kind === "toplanti" || kind === "makam" ? DETAIL_HREF[kind] : null;
+              const detailKind = kind === "toplanti" || kind === "makam" ? kind : null;
 
               return (
                 <li key={card.id} className="flex min-h-0">
@@ -123,9 +127,9 @@ export default async function HomePricingSection() {
                         <TeklifAlButton className={`${BTN_PRIMARY} w-full`}>
                           Hemen Teklif Al
                         </TeklifAlButton>
-                      ) : detailHref ? (
-                        <Link href={detailHref} className={`${BTN_PRIMARY} w-full`}>
-                          Detaylar
+                      ) : detailKind ? (
+                        <Link href={DETAIL_HREF[detailKind]} className={`${BTN_PRIMARY} w-full`}>
+                          {DETAIL_LABEL[detailKind]}
                         </Link>
                       ) : null}
                     </div>

@@ -44,10 +44,9 @@ export default function ServiceOfferCardsGrid({
   return (
     <div className={gridClassName}>
       {cards.map((card) => (
-        <Link
+        <article
           key={card.id}
-          href={card.href}
-          className={`flex h-full cursor-pointer flex-col overflow-hidden ${HOME_CARD}`}
+          className={`relative flex h-full cursor-pointer flex-col overflow-hidden ${HOME_CARD}`}
         >
           <div
             className={`relative w-full shrink-0 overflow-hidden bg-[#F5F7F6] ${imageHeightClass}`}
@@ -69,7 +68,14 @@ export default function ServiceOfferCardsGrid({
             ) : null}
           </div>
           <div className="flex flex-1 flex-col px-5 pb-2 pt-5">
-            <h3 className={`${HOME_H3} mb-1.5`}>{card.title}</h3>
+            <h3 className={`${HOME_H3} mb-1.5`}>
+              <Link
+                href={card.href}
+                className="after:absolute after:inset-0 after:z-[3] after:rounded-xl after:content-[''] focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-[var(--color-green)]"
+              >
+                {card.title}
+              </Link>
+            </h3>
             <p className={descriptionClassName}>{card.description}</p>
           </div>
           <div className="flex items-center px-5 pb-5 pt-4">
@@ -78,7 +84,7 @@ export default function ServiceOfferCardsGrid({
               <FooterChevron />
             </span>
           </div>
-        </Link>
+        </article>
       ))}
     </div>
   );
