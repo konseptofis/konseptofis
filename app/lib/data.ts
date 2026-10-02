@@ -176,7 +176,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Stopajsız ofis kiralama nedir?",
     answer:
-      "Uygun koşullarda, sanal ofis hizmetimiz ve yıllık sanal ofis abonelerimizin saatlik ücretle kullandığı makam odası ile toplantı odası stopaj kesintisi olmadan faturalandırılabilir. Detaylar için bizimle iletişime geçebilirsiniz.",
+      "Sanal ofis hizmetimiz stopaj kesintisi olmadan faturalandırılır. Klasik ofis kiralamada kiracının kesip ödediği %20 stopaj, sanal ofiste söz konusu değildir; ödediğiniz bedel faturalı hizmet bedelidir.",
   },
   {
     question: "Toplantı odası saatlik kiralanabilir mi?",
@@ -205,7 +205,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Vergi dairesi yoklamaya geldiğinde ne olur?",
     answer:
-      "İşe başlama bildiriminden sonra vergi dairesi, beyan ettiğiniz adreste işyerinin bulunduğunu tespit etmek için yoklama yapar. Yoklama memuru adrese gelir, sözleşmeyi ve tabelayı/yönlendirmeyi kontrol eder. Sanal ofiste bu süreç sözleşmeniz ve resepsiyonumuz üzerinden yürür; yoklama tamamlandığında vergi levhanız Mahall Ankara adresiyle düzenlenir.",
+      "İşe başlama bildiriminden sonra vergi dairesi, beyan ettiğiniz adreste işyerinin bulunduğunu tespit etmek için yoklama yapar. Yoklama memuru adrese gelir, sözleşmeyi ve tabelayı/yönlendirmeyi kontrol eder. Sanal ofiste bu süreç sözleşmeniz ve resepsiyonumuz üzerinden yürür; yoklama tamamlandığında vergi levhanız Konsept Ofis'in adresiyle düzenlenir.",
   },
   {
     question: "Hangi faaliyetler için sanal ofis kullanılamaz?",
@@ -225,12 +225,12 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Toplantı odasını nasıl rezerve ederim?",
     answer:
-      "Yıllık sanal ofis abonelerimiz WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapar; ücret saatliktir.",
+      "WhatsApp veya telefon ile rezervasyon yapabilirsiniz; ücret saatliktir.",
   },
   {
     question: "Şahıs şirketi sanal ofis adresi kullanabilir mi?",
     answer:
-      "Evet. Şahıs şirketi işe başlama bildiriminde sanal ofis adresinizi iş adresi olarak gösterebilirsiniz. Sanal ofis sözleşmeniz adres belgesi olarak sunulur, vergi dairesi yoklamayı bu adreste yapar ve vergi levhanız Mahall Ankara adresiyle düzenlenir.",
+      "Evet. Şahıs şirketi işe başlama bildiriminde sanal ofis adresinizi iş adresi olarak gösterebilirsiniz. Sanal ofis sözleşmeniz adres belgesi olarak sunulur, vergi dairesi yoklamayı bu adreste yapar ve vergi levhanız Konsept Ofis'in adresiyle düzenlenir.",
   },
 ];
 
@@ -254,7 +254,7 @@ export function faqItemsWithPrices(prices: {
     if (item.question === "Toplantı odasını nasıl rezerve ederim?" && prices.hourlyLabel) {
       return {
         ...item,
-        answer: `Yıllık sanal ofis abonelerimiz WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapar; ücret saatlik ${prices.hourlyLabel}.`,
+        answer: `WhatsApp veya telefon ile rezervasyon yapabilirsiniz; ücret saatlik ${prices.hourlyLabel}.`,
       };
     }
     return item;

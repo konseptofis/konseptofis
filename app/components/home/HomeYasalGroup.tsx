@@ -51,7 +51,7 @@ const SOURCE_LINK =
 const YOKLAMA_STEPS = [
   "İşe başlama bildirimi yapılır",
   "Yoklama memuru adresi kontrol eder",
-  "Vergi levhası Mahall Ankara adresiyle düzenlenir",
+  "Vergi levhası Konsept Ofis'in adresiyle düzenlenir",
 ] as const;
 
 export default function HomeYasalGroup() {
@@ -195,8 +195,8 @@ export default function HomeYasalGroup() {
             <p className="m-0 text-[16px] font-normal leading-[1.7] text-[#3D4743]">
               Sanal ofiste bu süreç, sözleşmeniz ve resepsiyonumuz üzerinden yürür; yoklama
               sırasında şirket yetkilisine telefonla ulaşılabilmesi, gerekirse yetkilinin hazır
-              bulunması istenebilir. Yoklama tamamlandığında vergi levhanız Mahall Ankara adresiyle
-              düzenlenir.
+              bulunması istenebilir. Yoklama tamamlandığında vergi levhanız Konsept Ofis&apos;in
+              adresiyle düzenlenir.
             </p>
           </div>
 
