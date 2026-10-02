@@ -81,6 +81,10 @@ const MISC_LEGACY_REDIRECTS: readonly { source: string; destination: string }[] 
     source: "/ahis-sirketi-kurmak-sahis-sirketi-nasil-kurulur-2026",
     destination: "/sahis-sirketi-kurmak-sahis-sirketi-nasil-kurulur-2026",
   },
+  {
+    source: "/e-ticaret-nasil-yapilir",
+    destination: "/e-ticaret-nasil-yapilir-12-adimda-e-ticaret",
+  },
 ];
 
 /** Kaldırılan hazır ofis hizmeti → makam odası (301; sonda / olan varyant önce Next'in 308'iyle buraya düşer). */
