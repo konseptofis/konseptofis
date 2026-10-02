@@ -5,11 +5,7 @@ import { DocumentTextIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/o
 import { siteWhatsAppHref } from "@/app/lib/data";
 import { openHizliTeklifModal } from "@/app/lib/open-hizli-teklif-modal";
 
-type Props = { monthlyPriceLabel?: string };
-
-export default function HeroSection({ monthlyPriceLabel }: Props) {
-  const priceClause = monthlyPriceLabel ? `Aylık ${monthlyPriceLabel}, ` : "";
-
+export default function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
@@ -35,9 +31,13 @@ export default function HeroSection({ monthlyPriceLabel }: Props) {
         >
           Ankara Sanal Ofis
         </h1>
-        <p className="mt-4 max-w-2xl px-1 text-[17px] leading-[1.6] text-white/90 sm:mt-6 md:text-[16px] md:leading-[1.65]">
-          Mahall Ankara&apos;da yasal iş adresi: vergi levhası, ticaret sicil, kargo ve tebligat
-          tek pakette. {priceClause}stopaj ve aidat yok.
+        <p className="mt-4 max-w-2xl px-1 text-[17px] font-medium leading-[1.5] text-white sm:mt-6 md:text-[20px]">
+          Sanal ofis ile şirketinizin yasal adresi Mahall Ankara&apos;da, siz işinizi istediğiniz
+          yerden yürütün.
+        </p>
+        <p className="mt-3 max-w-2xl px-1 text-[15px] leading-[1.6] text-white/85 md:text-[16px] md:leading-[1.65]">
+          Vergi levhası ve ticaret sicil adresi, kargo ve tebligat takibi tek pakette; stopaj ve
+          aidat yok.
         </p>
         <div className="mt-8 flex w-full max-w-md flex-row justify-center gap-2 sm:max-w-xl sm:gap-4">
           <button

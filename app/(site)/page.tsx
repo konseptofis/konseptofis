@@ -74,14 +74,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home() {
-  const prices = await getSiteDisplayPrices();
-
+export default function Home() {
   return (
     <>
       <HomePageJsonLd />
       <main id="main-content">
-        <HeroSection monthlyPriceLabel={prices.sanalMonthlyLabel} />
+        <HeroSection />
         <AboutWhyUsSection />
         <SanalOfisNedirSection />
         <HomePricingSection />
