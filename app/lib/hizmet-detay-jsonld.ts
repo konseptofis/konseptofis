@@ -2,7 +2,7 @@ import type { PricingPlan } from "@/app/lib/pricing-plans";
 import { buildBreadcrumbListJsonLd } from "@/app/lib/breadcrumb-jsonld";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
 import { getServicePagePath } from "@/app/lib/hizmet-detay-data";
-import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 import { SITE, siteGeoJsonLd, siteOpeningHoursJsonLd, sitePostalAddressJsonLd } from "@/app/lib/data";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
@@ -80,8 +80,6 @@ export function serviceJsonLdImage(detail: ServiceDetailData): string {
     path = SERVICE_OFFER_CARDS.find((c) => c.id === "cankaya-sanal-ofis")?.image;
   } else if (slug.includes("makam")) {
     path = SERVICE_OFFER_CARDS.find((c) => c.id === "makam-odasi")?.image;
-  } else if (slug.includes("hazir")) {
-    path = HAZIR_OFIS_PLAN_CARD.image;
   } else if (slug.includes("toplanti")) {
     path = SERVICE_OFFER_CARDS.find((c) => c.id === "toplanti-odasi")?.image;
   }

@@ -19,7 +19,7 @@ import {
 export const metadata: Metadata = {
   title: { absolute: "Hakkımızda | Konsept Ofis" },
   description:
-    "Konsept Ofis; yerli ve yabancı girişimcilere Ankara Çankaya'da sanal ofis, hazır ofis ve toplantı odası çözümleri sunar. Hikayemizi hemen keşfedin.",
+    "Konsept Ofis; yerli ve yabancı girişimcilere Ankara Çankaya'da sanal ofis sunar; yıllık abonelerimiz makam odası ve toplantı odasını saatlik ücretle kullanabilir. Hikayemizi hemen keşfedin.",
   alternates: { canonical: "/hakkimizda" },
 };
 
@@ -33,7 +33,7 @@ const HOW_IT_WORKS_STEPS = [
     icon: CursorArrowRaysIcon,
     title: "İhtiyacınızı Belirleyin",
     description:
-      "Sanal ofis, hazır ofis veya toplantı odası paketlerimizden bütçenize ve şirket yapınıza en uygun olanı seçin.",
+      "Yıllık sanal ofis paketinizi seçin; gerektiğinde makam odası ve toplantı odasını saatlik ücretle kullanın.",
   },
   {
     step: "02",
@@ -131,23 +131,23 @@ export default function HakkimizdaPage() {
                   href="/"
                   className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
                 >
-                  sanal ofis paketleri
-                </Link>
-                , şirket kuruluşuna %100 uygun tam donanımlı{" "}
+                  sanal ofis paketleriyle
+                </Link>{" "}
+                hizmet veriyoruz; yıllık sanal ofis abonelerimiz{" "}
                 <Link
-                  href="/hizmetlerimiz/hazir-ofis-kiralama"
+                  href="/hizmetlerimiz/makam-odasi-kiralama"
                   className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
                 >
-                  hazır ofisler
+                  makam odası
                 </Link>{" "}
-                ve profesyonel{" "}
+                ve{" "}
                 <Link
                   href="/hizmetlerimiz/toplanti-odasi-kiralama"
                   className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
                 >
-                  toplantı odalarıyla
+                  toplantı odalarımızı
                 </Link>{" "}
-                hizmet veriyoruz. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf
+                saatlik ücretle kullanabiliyor. Modern altyapımız, deneyimli karşılama ekibimiz ve şeffaf
                 fiyatlandırma politikamızla işinizi geleceğe taşırken her adımda yanınızdayız.
               </p>
             </div>

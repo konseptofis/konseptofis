@@ -8,16 +8,11 @@ export const HIZMET_PAGE_SEO_BY_SLUG: Record<string, { title: string; descriptio
   "toplanti-odasi-kiralama": {
     title: "Toplantı Odası Kiralama Ankara | Saatlik Rezervasyon",
     description:
-      "Ankara Çankaya'da tam donanımlı, yüksek hızlı fiber internet ve sınırsız ikramlı toplantı odası kiralama. Müşterilerinizi ve ekibinizi prestijle ağırlayın.",
+      "Yıllık sanal ofis abonelerine Ankara Çankaya'da saatlik toplantı odası. Fiber internet ve sınırsız ikram dahil; müşterilerinizi ve ekibinizi prestijle ağırlayın.",
   },
   "makam-odasi-kiralama": {
     title: "Makam Odası Kiralama | Konsept Ofis",
     description:
-      "Birinci sınıf lüks mobilyalarla donatılmış makam odası kiralama. Önemli görüşmeleriniz için Ankara Çankaya'da prestijli ve sessiz çalışma alanı.",
-  },
-  "hazir-ofis-kiralama": {
-    title: "Ankara Hazır Ofis Kiralama | Konsept Ofis",
-    description:
-      "Bilgisayarınızı alıp gelerek hemen çalışmaya başlayın. Ankara'da stopajsız, aidatsız ve tüm faturaların dahil olduğu modern hazır ofis kiralama.",
+      "Yıllık sanal ofis abonelerine Ankara Çankaya'da saatlik makam odası. Önemli görüşmeleriniz için lüks mobilyalı, prestijli ve sessiz alan.",
   },
 };

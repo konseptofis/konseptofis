@@ -15,15 +15,15 @@ export default function ServiceCards() {
           Size en uygun çözümü seçin
         </SectionHeading>
         <p className="m-0 text-[16px] leading-[1.7] text-[#3D4743]">
-          Konsept Ofis&apos;te sanal ofisin yanı sıra ihtiyacınıza göre hazır ofis, toplantı odası
-          ve makam odası kiralama seçenekleri de sunuyoruz. Tüm hizmetlerimiz Çankaya&apos;daki
-          Mahall Ankara&apos;da; saatlik, günlük veya aylık kullanabilir, yasal adresinizi ve
+          Konsept Ofis&apos;te sanal ofisin yanı sıra ihtiyacınıza göre toplantı odası ve makam
+          odası kiralama seçenekleri de sunuyoruz. Tüm hizmetlerimiz Çankaya&apos;daki Mahall
+          Ankara&apos;da; saatlik olarak kullanabilir, yasal adresinizi ve
           çalışma alanınızı aynı yerden yönetebilirsiniz.
         </p>
         <div className="mt-10">
           <ServiceOfferCardsGrid
             cards={SERVICE_OFFER_CARDS}
-            gridClassName="grid grid-cols-1 auto-rows-fr items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            gridClassName="grid grid-cols-1 auto-rows-fr items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3"
             imageHeightClass="h-[160px]"
             descriptionClassName="line-clamp-2 text-[15px] leading-[1.65] text-[#3D4743]"
           />

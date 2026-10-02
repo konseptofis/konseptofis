@@ -4,7 +4,7 @@ import { HOME_CONTAINER, HOME_SECTION_Y } from "@/app/lib/home-ui";
 
 const GALLERY = [
   {
-    src: "/assets/images/mahall-slider/mahall-plaza.webp",
+    src: "/ilk-gorsel.webp",
     alt: "Mahall Ankara C2 Blok – Konsept Ofis sanal ofis adresi",
     featured: true,
   },
@@ -21,8 +21,8 @@ const GALLERY = [
     alt: "Konsept Ofis toplantı odası",
   },
   {
-    src: "/konsept-ofis-hakkimizda.webp",
-    alt: "Konsept Ofis ortak çalışma alanında çalışan ekip",
+    src: "/anasayfa-sag-en-alt.JPEG",
+    alt: "Konsept Ofis ofis iç mekanı",
   },
 ] as const;
 

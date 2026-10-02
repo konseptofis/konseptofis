@@ -13,7 +13,7 @@ const iletisimJsonLd = {
       url: `${ORIGIN}/iletisim`,
       name: "İletişim ve Adres Bilgileri | Konsept Ofis",
       description:
-        "Mahall Ankara Çankaya'daki merkezimize ulaşın. Sanal ofis, hazır ofis ve toplantı odası kiralama hizmetlerimiz için bizimle hemen iletişime geçin.",
+        "Mahall Ankara Çankaya'daki merkezimize ulaşın. Sanal ofis hizmetimiz ve yıllık abonelerimize saatlik makam odası, toplantı odası kullanımı için bizimle hemen iletişime geçin.",
       inLanguage: "tr-TR",
       mainEntity: {
         "@id": `${ORIGIN}/#localbusiness`,

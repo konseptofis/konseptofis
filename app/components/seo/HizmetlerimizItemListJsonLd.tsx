@@ -34,7 +34,7 @@ const itemListJsonLd = {
         name: "Toplantı Odası",
         url: `${ORIGIN}/hizmetlerimiz/toplanti-odasi-kiralama`,
         description:
-          "Müşteri ve ekip toplantıları için saatlik rezervasyonlu, tam donanımlı toplantı odaları.",
+          "Yıllık sanal ofis abonelerine saatlik rezervasyonlu, tam donanımlı toplantı odaları.",
         provider: {
           "@type": "Organization",
           name: SITE.name,
@@ -49,22 +49,7 @@ const itemListJsonLd = {
         name: "Makam Odası",
         url: `${ORIGIN}/hizmetlerimiz/makam-odasi-kiralama`,
         description:
-          "Üst düzey görüşmeler ve müşteri sunumları için prestijli, donanımlı makam odası kiralama; Mahall Ankara.",
-        provider: {
-          "@type": "Organization",
-          name: SITE.name,
-        },
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      item: {
-        "@type": "Service",
-        name: "Hazır Ofis",
-        url: `${ORIGIN}/hizmetlerimiz/hazir-ofis-kiralama`,
-        description:
-          "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
+          "Yıllık sanal ofis abonelerine saatlik; üst düzey görüşmeler ve müşteri sunumları için prestijli makam odası, Mahall Ankara.",
         provider: {
           "@type": "Organization",
           name: SITE.name,

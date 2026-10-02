@@ -2,6 +2,7 @@ export type ServiceOfferCard = {
   id: string;
   title: string;
   image: string;
+  imageAlt?: string;
   badge?: string;
   description: string;
   href: string;
@@ -23,28 +24,17 @@ export const SERVICE_OFFER_CARDS: ServiceOfferCard[] = [
     image: "/toplanti-odasi-konsept-ofis.webp",
     badge: "Saatlik rezervasyon",
     description:
-      "Müşteri ve ekip toplantıları için saatlik rezervasyonlu odalar. Net fiyat, gizli maliyet yok.",
+      "Yıllık sanal ofis abonelerine saatlik rezervasyonlu toplantı odaları. Net fiyat, gizli maliyet yok.",
     href: "/hizmetlerimiz/toplanti-odasi-kiralama",
   },
   {
     id: "makam-odasi",
     title: "Makam Odası",
-    image: "/cankaya-sanal-ofis-kapak.webp",
-    badge: "Prestijli alan",
+    image: "/assets/images/mahall-slider/ankara-hazir-ofis.webp",
+    imageAlt: "Konsept Ofis makam odası – Mahall Ankara",
+    badge: "Saatlik rezervasyon",
     description:
-      "Üst düzey görüşmeler ve müşteri sunumları için ferah, konforlu makam birimleri. Mahall Ankara'da kurumsal imaj.",
+      "Yıllık sanal ofis abonelerine saatlik, prestijli makam odası. Üst düzey görüşmeler için Mahall Ankara'da kurumsal imaj.",
     href: "/hizmetlerimiz/makam-odasi-kiralama",
   },
-  {
-    id: "hazir-ofis",
-    title: "Hazır Ofis",
-    image: "/ankara-hazir-ofis-kapak.webp",
-    badge: "Günlük ve aylık",
-    description:
-      "Mobilya ve altyapı hazır çalışma birimleri. Çankaya'da esnek günlük veya aylık kiralama; net fiyat, gizli maliyet yok.",
-    href: "/hizmetlerimiz/hazir-ofis-kiralama",
-  },
 ];
-
-/** Fiyatlar JSON-LD ve hazır ofis detay şema yedek görseli için (grid kartıyla aynı). */
-export const HAZIR_OFIS_PLAN_CARD: ServiceOfferCard = SERVICE_OFFER_CARDS[3]!;

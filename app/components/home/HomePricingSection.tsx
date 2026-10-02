@@ -71,9 +71,9 @@ export default async function HomePricingSection() {
           fiyata yasal iş adresi, posta, kargo ve tebligat takibi, profesyonel telefon hattı ve
           Mahall Ankara&apos;daki adres prestiji dahildir. Stopaj, bina aidatı, elektrik, su veya
           internet faturası ödemezsiniz; ödediğiniz tutar faturalı ve gider olarak gösterilebilir.
-          Toplantı odası ve makam odası saatlik{" "}
+          Yıllık sanal ofis abonelerimiz toplantı odası ve makam odasını saatlik{" "}
           <strong>{prices.hourlyLabel || "fiyatlar sayfasındaki paket bedeli"}</strong> ile
-          kiralanır.
+          kiralayabilir.
         </p>
 
         {plans.length > 0 ? (

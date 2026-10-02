@@ -14,7 +14,7 @@ const ZEBRA_WHITE = "bg-white";
 export const metadata: Metadata = {
   title: { absolute: "Hizmetlerimiz | Konsept Ofis" },
   description:
-    "Şirketiniz için en uygun çalışma alanını seçin. Stopajsız sanal ofis, tam donanımlı hazır ofis ve saatlik toplantı odası kiralama hizmetlerimiz.",
+    "Stopajsız sanal ofis ile Mahall Ankara'da yasal iş adresi. Yıllık sanal ofis abonelerimiz makam odası ve toplantı odasını saatlik ücretle kullanabilir.",
   alternates: { canonical: "/hizmetlerimiz" },
 };
 

@@ -20,7 +20,6 @@ const QUICK_LINKS = [
 
 const SERVICE_LINKS = [
   { href: "/hizmetlerimiz/cankaya-sanal-ofis", label: "Çankaya Sanal Ofis" },
-  { href: "/hizmetlerimiz/hazir-ofis-kiralama", label: "Hazır Ofis Kiralama" },
   { href: "/hizmetlerimiz/makam-odasi-kiralama", label: "Makam Odası Kiralama" },
   { href: "/hizmetlerimiz/toplanti-odasi-kiralama", label: "Toplantı Odası Kiralama" },
 ] as const;
@@ -67,8 +66,8 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-3 text-sm text-gray-600">
-              Ankara sanal ofis, hazır ofis ve toplantı odası kiralama. Yasal iş
-              adresi, vergi levhası adresi.
+              Ankara sanal ofis kiralama. Yasal iş adresi, vergi levhası adresi;
+              yıllık abonelerimize saatlik makam odası ve toplantı odası.
             </p>
             <div className="mt-4 flex items-center gap-2">
               <a

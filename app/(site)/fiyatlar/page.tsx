@@ -185,7 +185,7 @@ export default async function FiyatlarPage() {
             Sıkça Sorulan Sorular
           </SectionHeading>
           <p className="mb-10 text-left text-[16px] leading-relaxed text-gray-600">
-            Ankara Çankaya&apos;daki sanal ofis ve hazır ofis çözümlerimiz hakkında aklınıza takılan tüm detayları, şeffaf hizmet anlayışımızla sizin için yanıtladık.
+            Ankara Çankaya&apos;daki sanal ofis hizmetimiz ve yıllık sanal ofis abonelerimizin saatlik ücretle kullanabildiği makam odası ile toplantı odası hakkında aklınıza takılan tüm detayları, şeffaf hizmet anlayışımızla sizin için yanıtladık.
           </p>
           <div>
             <PricingFAQ />

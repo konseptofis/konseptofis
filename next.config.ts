@@ -33,11 +33,11 @@ const WP_SERVICE_REDIRECTS: readonly { source: string; destination: string }[] =
   },
   {
     source: "/service/hazir-ofis-hizmeti",
-    destination: "/hizmetlerimiz/hazir-ofis-kiralama",
+    destination: "/hizmetlerimiz/makam-odasi-kiralama",
   },
   {
     source: "/service/hazir-odasi-hizmeti",
-    destination: "/hizmetlerimiz/hazir-ofis-kiralama",
+    destination: "/hizmetlerimiz/makam-odasi-kiralama",
   },
   {
     source: "/service/toplanti-odasi-hizmeti",
@@ -83,6 +83,18 @@ const MISC_LEGACY_REDIRECTS: readonly { source: string; destination: string }[] 
   },
 ];
 
+/** Kaldırılan hazır ofis hizmeti → makam odası (301; sonda / olan varyant önce Next'in 308'iyle buraya düşer). */
+const HAZIR_OFIS_REDIRECTS: readonly { source: string; destination: string }[] = [
+  {
+    source: "/hizmetlerimiz/hazir-ofis-kiralama",
+    destination: "/hizmetlerimiz/makam-odasi-kiralama",
+  },
+  {
+    source: "/hizmetlerimiz/hazir-ofis-hizmeti",
+    destination: "/hizmetlerimiz/makam-odasi-kiralama",
+  },
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: supabaseImageRemotePatterns(),
@@ -105,6 +117,11 @@ const nextConfig: NextConfig = {
 
     return [
       { source: "/favicon.ico", destination: "/konsept-ofis-icon.png", permanent: false },
+      ...HAZIR_OFIS_REDIRECTS.map(({ source, destination }) => ({
+        source,
+        destination,
+        statusCode: 301 as const,
+      })),
       ...permanent(WP_CATEGORY_REDIRECTS),
       ...permanent(WP_SERVICE_REDIRECTS),
       ...permanent(LEGACY_HIZMETLER_REDIRECTS),

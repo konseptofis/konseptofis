@@ -2,7 +2,6 @@ export const QUICK_QUOTE_SERVICES = [
   "Sanal Ofis",
   "Toplantı Odası",
   "Makam Odası",
-  "Hazır Ofis",
   "Diğer",
 ] as const;
 

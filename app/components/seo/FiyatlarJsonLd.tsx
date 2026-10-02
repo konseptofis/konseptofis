@@ -2,7 +2,7 @@ import { getPricingPlans, type PricingPlan } from "@/app/lib/pricing-plans";
 import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcrumb-jsonld";
 import { PRICING_FAQ_ITEMS, SITE } from "@/app/lib/data";
 import { toOfferPriceString } from "@/app/lib/hizmet-detay-jsonld";
-import { HAZIR_OFIS_PLAN_CARD, SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 
@@ -16,9 +16,6 @@ function matchServiceCard(planTitle: string) {
   }
   if (t.includes("makam")) {
     return SERVICE_OFFER_CARDS.find((c) => c.id === "makam-odasi");
-  }
-  if (t.includes("hazır") || t.includes("hazir")) {
-    return HAZIR_OFIS_PLAN_CARD;
   }
   return undefined;
 }

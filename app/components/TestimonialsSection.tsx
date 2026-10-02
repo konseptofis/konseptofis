@@ -12,7 +12,7 @@ export default function TestimonialsSection() {
     >
       <div className={HOME_CONTAINER}>
         <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <SectionHeading id="testimonials-heading">Hakkımızda Ne Diyor?</SectionHeading>
+          <SectionHeading id="testimonials-heading">Müşterilerimiz Ne Diyor?</SectionHeading>
           <a
             href={SITE.gbpReviewsUrl}
             target="_blank"

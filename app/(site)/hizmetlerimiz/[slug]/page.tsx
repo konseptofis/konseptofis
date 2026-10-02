@@ -38,7 +38,6 @@ export async function generateMetadata({ params }: Props) {
 
 export function generateStaticParams() {
   return [
-    { slug: "hazir-ofis-kiralama" },
     { slug: "makam-odasi-kiralama" },
     { slug: "toplanti-odasi-kiralama" },
   ];

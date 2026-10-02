@@ -65,7 +65,7 @@ export default function WhyKonseptOfisSection({
               NEDEN KONSEPT OFİS?
             </p>
             <SectionHeading id="why-heading" className="mt-2 !leading-[1.3]">
-              Ankara&apos;da Prestijli Hazır Ofis ve{" "}
+              Ankara&apos;da Prestijli Makam Odası ve{" "}
               <span className="text-[var(--color-green)]">Yasal İş Adresi</span>
             </SectionHeading>
             <p className="mt-4 text-[16px] leading-[1.8] text-[var(--color-text-secondary)]">

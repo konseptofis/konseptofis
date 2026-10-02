@@ -67,8 +67,8 @@ export default function MapAndContact({
           <div className="flex min-h-0 flex-col border-b border-[#E3E8E5] bg-white px-6 py-9 md:border-b-0 md:border-r md:px-10 md:py-12">
             <SectionHeading id="contact-heading">{heading}</SectionHeading>
             <p className="mt-3 max-w-[340px] text-[16px] leading-[1.65] text-[#3D4743]">
-              Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis, hazır ofis ve toplantı odası
-              hizmetlerimiz için iletişime geçin.
+              Çankaya&apos;daki merkezimize bekliyoruz. Sanal ofis hizmetimiz ve yıllık abonelerimizin
+              saatlik ücretle kullanabildiği makam odası ile toplantı odası için iletişime geçin.
             </p>
 
             <address className="mt-10 not-italic">

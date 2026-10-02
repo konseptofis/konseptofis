@@ -173,12 +173,12 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Stopajsız ofis kiralama nedir?",
     answer:
-      "Uygun koşullarda, sanal ofis ve hazır ofis hizmetlerimiz stopaj kesintisi olmadan faturalandırılabilir. Detaylar için bizimle iletişime geçebilirsiniz.",
+      "Uygun koşullarda, sanal ofis hizmetimiz ve yıllık sanal ofis abonelerimizin saatlik ücretle kullandığı makam odası ile toplantı odası stopaj kesintisi olmadan faturalandırılabilir. Detaylar için bizimle iletişime geçebilirsiniz.",
   },
   {
     question: "Toplantı odası saatlik kiralanabilir mi?",
     answer:
-      "Evet. Toplantı odalarımız saatlik kiralanabilir. Randevu alarak ihtiyacınız olan saat diliminde kullanım sağlayabilirsiniz.",
+      "Evet. Yıllık sanal ofis abonelerimiz toplantı odası ve makam odasını saatlik ücretle kiralayabilir. Randevu alarak ihtiyacınız olan saat diliminde kullanım sağlayabilirsiniz.",
   },
   {
     question: "Ankara dışından da sanal ofis alabilir miyim?",
@@ -222,7 +222,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Toplantı odasını nasıl rezerve ederim?",
     answer:
-      "WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapılır; ücret saatliktir.",
+      "Yıllık sanal ofis abonelerimiz WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapar; ücret saatliktir.",
   },
   {
     question: "Şahıs şirketi sanal ofis adresi kullanabilir mi?",
@@ -251,7 +251,7 @@ export function faqItemsWithPrices(prices: {
     if (item.question === "Toplantı odasını nasıl rezerve ederim?" && prices.hourlyLabel) {
       return {
         ...item,
-        answer: `WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapılır; ücret saatlik ${prices.hourlyLabel}.`,
+        answer: `Yıllık sanal ofis abonelerimiz WhatsApp veya telefon ile en az 1 gün önce rezervasyon yapar; ücret saatlik ${prices.hourlyLabel}.`,
       };
     }
     return item;
@@ -262,7 +262,7 @@ export const PRICING_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Fiyatlarınıza stopaj, aidat veya gizli ekstra masraflar dâhil mi?",
     answer:
-      "Konsept Ofis olarak tamamen şeffaf bir fiyatlandırma politikası izliyoruz. Sanal ofis ve hazır ofis kiralama paketlerimizde stopaj vergisi ödemezsiniz, çünkü tarafınıza KDV'li hizmet faturası kesilir. Ayrıca bina aidatı, elektrik, su, yüksek hızlı internet, temizlik veya mutfak giderleri (sınırsız çay/kahve) gibi sürpriz maliyetlerle karşılaşmazsınız; hepsi aylık/yıllık fiyata dâhildir.",
+      "Konsept Ofis olarak tamamen şeffaf bir fiyatlandırma politikası izliyoruz. Sanal ofis paketlerimizde stopaj vergisi ödemezsiniz, çünkü tarafınıza KDV'li hizmet faturası kesilir. Ayrıca bina aidatı, elektrik, su, yüksek hızlı internet, temizlik veya mutfak giderleri (sınırsız çay/kahve) gibi sürpriz maliyetlerle karşılaşmazsınız; hepsi paket fiyatına dâhildir.",
   },
   {
     question: "Sanal ofis paketinizle yeni bir şirket kurabilir miyim? Yasal adres olarak geçerli mi?",
@@ -277,12 +277,12 @@ export const PRICING_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Sözleşme süreleri ne kadar? Uzun vadeli taahhüt vermek zorunda mıyım?",
     answer:
-      "İş modelinize ve bütçenize uygun esnek sözleşme seçenekleri sunuyoruz. Yıllık veya ihtiyaca göre belirlenen dönemsel paketlerle ilerleyebilir, yıllık taahhütlerde indirimli fiyat avantajlarından yararlanabilirsiniz. Sizi uzun vadeli, bağlayıcı ve iptal edilemez taahhütler altına sokmuyoruz; işinizin büyüme hızına göre paketinizi güncelleyebilir veya sözleşme koşullarımız çerçevesinde iptal edebilirsiniz.",
+      "Hayır. Sanal ofis sözleşmelerimiz yıllıktır ancak sizi bağlamaz: memnun kalmazsanız ya da daha kısa süreye ihtiyacınız varsa dilediğiniz ay ayrılabilirsiniz ve kalan ayların bedeli size iade edilir. Örneğin 7. ayda ayrılırsanız kalan 5 aylık bedel geri ödenir; 6 aylık ihtiyacınız varsa 6. ayın sonunda ayrılabilirsiniz. Toplantı odası ve makam odası için ayrıca bir sözleşme gerekmez; yıllık sanal ofis abonelerimiz bu odaları ihtiyaç duydukları saatlerde, saatlik ücretle kullanır.",
   },
   {
-    question: "Sadece sanal ofis kiralarsam, gerektiğinde toplantı odası veya fiziki ofis kullanabilir miyim?",
+    question: "Sadece sanal ofis kiralarsam, gerektiğinde toplantı odası veya makam odası kullanabilir miyim?",
     answer:
-      "Tabii ki. Sadece yasal adres (sanal ofis) abonemiz olsanız dahi, müşteri görüşmeleri, yatırımcı mülakatları veya ekip sunumları için saatlik veya günlük olarak donanımlı toplantı salonlarımızı kiralayabilirsiniz. Ayrıca iş hacminiz büyüdüğünde fiziki bir alana ihtiyaç duyarsanız, dilediğiniz an tam donanımlı hazır ofis paketlerimize geçiş yapabilirsiniz.",
+      "Tabii ki. Yıllık sanal ofis abonelerimiz; müşteri görüşmeleri, yatırımcı mülakatları veya ekip sunumları için donanımlı toplantı odalarımızı ve makam odamızı saatlik ücretle kullanabilir.",
   },
   {
     question: "Müşterilerim veya misafirlerim ofise geldiğinde nasıl bir karşılama yapılıyor?",

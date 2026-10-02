@@ -7,7 +7,7 @@ import SikSorulanSorularJsonLd from "@/app/components/seo/SikSorulanSorularJsonL
 export const metadata: Metadata = {
   title: { absolute: "Sıkça Sorulan Sorular | Konsept Ofis" },
   description:
-    "Sanal ofis yasal mı? Stopaj ödenir mi? Kargo ve tebligatlar nasıl teslim alınır? Sanal ve hazır ofisler hakkında merak ettiğiniz tüm cevaplar burada.",
+    "Sanal ofis yasal mı? Stopaj ödenir mi? Kargo ve tebligatlar nasıl teslim alınır? Sanal ofis ve yıllık abonelerimize saatlik makam odası, toplantı odası kullanımı hakkında merak ettiğiniz tüm cevaplar burada.",
   alternates: { canonical: "/sik-sorulan-sorular" },
 };
 
@@ -42,8 +42,8 @@ export default function SssPage() {
             Merak Edilenler
           </h2>
           <p className="mb-8 max-w-3xl text-left leading-relaxed text-gray-600">
-            Sanal ofis, hazır ofis, toplantı odası kiralama ve yasal iş adresi
-            süreçleriyle ilgili en sık sorulan soruları aşağıda
+            Sanal ofis, yıllık abonelerimize saatlik makam odası ve toplantı odası kullanımı ve yasal
+            iş adresi süreçleriyle ilgili en sık sorulan soruları aşağıda
             bulabilirsiniz.
           </p>
 

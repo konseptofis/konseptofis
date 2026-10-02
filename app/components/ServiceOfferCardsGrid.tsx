@@ -33,7 +33,7 @@ type Props = {
 };
 
 const DEFAULT_GRID =
-  "grid grid-cols-1 auto-rows-fr items-stretch gap-4 md:grid-cols-2 md:gap-4 lg:gap-6";
+  "grid grid-cols-1 auto-rows-fr items-stretch gap-4 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-6";
 
 export default function ServiceOfferCardsGrid({
   cards,
@@ -54,10 +54,10 @@ export default function ServiceOfferCardsGrid({
           >
             <Image
               src={card.image}
-              alt={card.title}
+              alt={card.imageAlt ?? card.title}
               fill
               className="object-cover"
-              sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             {card.badge ? (
               <span

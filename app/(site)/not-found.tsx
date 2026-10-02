@@ -18,7 +18,6 @@ const QUICK_LINKS = [
   { href: "/hizmetlerimiz/cankaya-sanal-ofis", label: "Çankaya Sanal Ofis" },
   { href: "/hizmetlerimiz/toplanti-odasi-kiralama", label: "Toplantı Odası" },
   { href: "/hizmetlerimiz/makam-odasi-kiralama", label: "Makam Odası" },
-  { href: "/hizmetlerimiz/hazir-ofis-kiralama", label: "Hazır Ofis" },
 ] as const;
 
 export default function NotFound() {
