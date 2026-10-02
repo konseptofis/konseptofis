@@ -33,8 +33,7 @@ export default function HomeYoklamaSection({ sectionClassName = "bg-white" }: Pr
             <h3 className={H3}>Mevcut şirketimin adresini taşıyabilir miyim?</h3>
             <p className={BODY_P}>
               Evet. Adres değişikliğini ticaret sicil müdürlüğüne tescil ettirir ve vergi dairesine
-              bildirirsiniz; vergi dairesi yeni adreste yoklama yapar. Bu süreçte tebligatlarınız yeni
-              adresimizde teslim alınır.
+              bildirirsiniz; vergi dairesi yeni adreste yoklama yapar.
             </p>
           </article>
         </div>

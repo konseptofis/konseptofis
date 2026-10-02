@@ -25,24 +25,24 @@ const SUITABLE = [
 ];
 
 const NEW_COMPANY = [
-  "Kimlik fotokopisi (önlü arkalı)",
-  "İkametgâh belgesi (e-Devlet)",
-  "İletişim e-postası ve telefonu",
-  "Şirket türüne göre: ana sözleşme taslağı / unvan bilgisi",
+  "Yetkili kimlik fotokopisi",
+  "Yetkili ikametgâh adresi",
+  "Yetkili iletişim bilgileri",
+  "Şirket unvanı",
 ];
 
 const MOVE_COMPANY = [
-  "Vergi levhası",
-  "İmza sirküleri",
-  "Ticaret sicil gazetesi / faaliyet belgesi",
   "Yetkili kimlik fotokopisi",
+  "Yetkili ikametgâh adresi",
+  "Yetkili iletişim bilgileri",
+  "Yetkili imza sirküleri",
+  "Şirket unvanı",
 ];
 
 const SOLE_PROPRIETOR = [
-  "Kimlik fotokopisi",
-  "İkametgâh belgesi (e-Devlet)",
-  "Sanal ofis sözleşmesi (adres belgesi olarak)",
-  "İşe başlama bildirimi (e-Devlet İnteraktif Vergi Dairesi veya mali müşavir aracılığıyla)",
+  "Yetkili kimlik fotokopisi",
+  "Yetkili ikametgâh adresi",
+  "Yetkili iletişim bilgileri",
 ];
 
 const SOURCE_LINK =
@@ -217,8 +217,7 @@ export default function HomeYasalGroup() {
               </h3>
               <p className="m-0 text-[15px] leading-[1.65] text-[#3D4743]">
                 Evet. Adres değişikliğini ticaret sicil müdürlüğüne tescil ettirir ve vergi
-                dairesine bildirirsiniz; vergi dairesi yeni adreste yoklama yapar. Bu süreçte
-                tebligatlarınız yeni adresimizde teslim alınır.
+                dairesine bildirirsiniz; vergi dairesi yeni adreste yoklama yapar.
               </p>
             </div>
           </div>

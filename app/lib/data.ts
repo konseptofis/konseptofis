@@ -212,7 +212,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Sanal ofis için hangi belgeler gerekir?",
     answer:
-      "Yeni şirket kuracaksanız kimlik fotokopisi, ikametgâh belgesi, iletişim bilgileri ve şirket türüne göre ana sözleşme taslağı/unvan bilgisi gerekir. Mevcut şirketinizi taşıyacaksanız vergi levhası, imza sirküleri, ticaret sicil gazetesi/faaliyet belgesi ve yetkili kimlik fotokopisi gerekir.",
+      "Yeni şirket kuruluşunda yetkilinin kimlik fotokopisi, ikametgâh adresi, iletişim bilgileri ve şirket unvanı yeterlidir. Mevcut şirketinizi taşıyorsanız bunlara ek olarak yetkili imza sirküleri istenir. Şahıs şirketi için yetkilinin kimlik fotokopisi, ikametgâh adresi ve iletişim bilgileri yeterlidir.",
   },
   {
     question: "Sanal ofis kira gideri olarak gösterilebilir mi?",
