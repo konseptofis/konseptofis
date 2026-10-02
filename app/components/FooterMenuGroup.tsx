@@ -6,9 +6,10 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 type Props = {
   title: string;
   children: ReactNode;
+  buttonClassName?: string;
 };
 
-export default function FooterMenuGroup({ title, children }: Props) {
+export default function FooterMenuGroup({ title, children, buttonClassName = "w-full" }: Props) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
 
@@ -20,7 +21,7 @@ export default function FooterMenuGroup({ title, children }: Props) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={panelId}
-          className="flex w-full items-center justify-between gap-2 py-1 text-left text-[15px] font-semibold tracking-wide text-black md:pointer-events-none md:py-0 md:text-[16px]"
+          className={`${buttonClassName} flex items-center justify-between gap-2 py-1 text-left text-[15px] font-semibold tracking-wide text-black md:pointer-events-none md:py-0 md:text-[16px]`}
         >
           {title}
           <ChevronDownIcon
