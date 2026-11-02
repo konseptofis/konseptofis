@@ -158,12 +158,13 @@ export default function Header() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav
-          className="flex items-center justify-between py-3 sm:py-4"
+          className="flex items-center justify-between gap-4 py-3 sm:py-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6"
           aria-label="Ana menü"
         >
+          {/* lg+: logo | menü (tam orta) | teklif butonu — yan sütunlar eşit genişlikte. lg altında hamburger menü. */}
           <Link
             href="/"
-            className="inline-flex items-center"
+            className="inline-flex shrink-0 items-center justify-self-start"
             aria-label="Konsept Ofis Anasayfa"
           >
             <Image
@@ -176,7 +177,7 @@ export default function Header() {
               unoptimized
             />
           </Link>
-          <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm lg:text-base font-medium">
+          <div className="hidden lg:flex items-center gap-8 text-base font-medium">
             {navLinks.map((item) =>
               "href" in item ? (
                 <Link
@@ -240,10 +241,12 @@ export default function Header() {
                 </div>
               )
             )}
+          </div>
+          <div className="hidden lg:flex justify-end">
             <button
               type="button"
               onClick={() => setTeklifModalOpen(true)}
-              className="ml-2 cursor-pointer rounded-lg bg-[#0b7041] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#095530] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
+              className="cursor-pointer whitespace-nowrap rounded-lg bg-[#0b7041] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#095530] focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2"
             >
               Hızlı teklif al
             </button>
@@ -251,7 +254,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMenuOpen((o) => !o)}
-            className={`md:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2 ${showLightHeader ? "text-black hover:bg-[#f2f2f2]" : "text-white hover:bg-white/10"}`}
+            className={`lg:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#0b7041] focus:ring-offset-2 ${showLightHeader ? "text-black hover:bg-[#f2f2f2]" : "text-white hover:bg-white/10"}`}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
           >
@@ -259,7 +262,7 @@ export default function Header() {
           </button>
         </nav>
         {menuOpen && (
-          <div className="md:hidden absolute left-0 right-0 top-full mt-0 rounded-b-xl border border-t-0 border-[#e5e5e5] bg-white px-4 py-3 shadow-xl">
+          <div className="lg:hidden absolute left-0 right-0 top-full mt-0 rounded-b-xl border border-t-0 border-[#e5e5e5] bg-white px-4 py-3 shadow-xl">
             <nav className="flex flex-col gap-0.5" aria-label="Mobil menü">
               {navLinks.map((item) =>
                 "href" in item ? (

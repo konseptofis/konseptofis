@@ -1,6 +1,7 @@
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import MobileContactBar from "@/app/components/MobileContactBar";
+import ScrollToTopButton from "@/app/components/ScrollToTopButton";
 
 export default function SiteLayout({
   children,
@@ -13,6 +14,7 @@ export default function SiteLayout({
       </div>
       <Footer />
       <MobileContactBar />
+      <ScrollToTopButton />
     </>
   );
 }

@@ -24,6 +24,7 @@ const SERVICE_LINKS = [
   { href: "/hizmetlerimiz/cankaya-sanal-ofis", label: "Çankaya Sanal Ofis" },
   { href: "/hizmetlerimiz/makam-odasi-kiralama", label: "Makam Odası Kiralama" },
   { href: "/hizmetlerimiz/toplanti-odasi-kiralama", label: "Toplantı Odası Kiralama" },
+  { href: "/ankara-maltepe-vergi-dairesi-sanal-ofis", label: "Maltepe Vergi Dairesi Sanal Ofis" },
 ] as const;
 
 const SOCIAL_LINKS = [
