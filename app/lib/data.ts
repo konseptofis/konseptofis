@@ -4,6 +4,8 @@
 
 export const SITE = {
   name: "Konsept Ofis",
+  /** Ticaret sicilindeki resmi unvan (ATO levhası, marka tescil belgesi). */
+  legalName: "Konsept Grup Ofis Hizmetleri Danışmanlık Limited Şirketi",
   /** Google Business Profile'daki işletme adı (JSON-LD name ile birebir). */
   gbpName:
     "Konsept Ofis | Sanal Ofis - Hazır Ofis - Toplantı Odası Kiralama Hizmetleri",

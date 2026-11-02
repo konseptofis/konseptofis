@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/app/components/PageHeader";
 import SectionHeading from "@/app/components/SectionHeading";
 import HakkimizdaJsonLd from "@/app/components/seo/HakkimizdaJsonLd";
+import { SITE } from "@/app/lib/data";
 import {
   CursorArrowRaysIcon,
   DocumentTextIcon,
@@ -94,6 +95,29 @@ const WHY_PREFERRED_ITEMS: {
     description:
       "Prestijli ve konforlu makam odamız, önemli görüşmeleriniz ve toplantılarınız için özel bir alan sunar. İşinize değer katan bir çalışma ortamı.",
     href: "/hizmetlerimiz/makam-odasi-kiralama",
+  },
+];
+
+const OFFICIAL_DOCUMENTS = [
+  {
+    issuer: "Ankara Ticaret Odası",
+    title: "ATO Oda Kayıt Levhası",
+    details: [{ label: "Ticaret Sicil No", value: "523795" }],
+    preview: "/belgeler/ato-levha.jpg",
+    pdf: "/belgeler/ato-levha.pdf",
+    alt: "Konsept Grup Ofis Hizmetleri Danışmanlık Ltd. Şti. Ankara Ticaret Odası kayıt levhası, ticaret sicil no 523795",
+  },
+  {
+    issuer: "Türk Patent ve Marka Kurumu",
+    title: "Marka Tescil Belgesi",
+    details: [
+      { label: "Tescil No", value: "2026 037775" },
+      { label: "Sınıf", value: "35" },
+      { label: "Koruma", value: "26.03.2026'dan itibaren 10 yıl" },
+    ],
+    preview: "/belgeler/konsept-ofis-marka-tescili.jpg",
+    pdf: "/belgeler/konsept-ofis-marka-tescili.pdf",
+    alt: "konseptofis markası Türk Patent ve Marka Kurumu marka tescil belgesi, tescil no 2026 037775",
   },
 ];
 
@@ -202,9 +226,71 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* Nasıl Çalışır? — zebra: beyaz */}
+      {/* Resmi Belgelerimiz — zebra: beyaz */}
       <section
-        className={`${ZEBRA_WHITE} px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24`}
+        className={`${ZEBRA_WHITE} px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20`}
+        aria-labelledby="belgelerimiz-heading"
+      >
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-green)]">
+            Şeffaflık ve Güven
+          </p>
+          <SectionHeading id="belgelerimiz-heading" className="mt-2 mb-4">
+            Resmi Belgelerimiz
+          </SectionHeading>
+          <p className="max-w-3xl text-[15px] leading-relaxed text-gray-600 sm:text-[16px]">
+            Konsept Ofis, <strong className="font-semibold text-gray-800">{SITE.legalName}</strong>{" "}
+            unvanıyla Ankara Ticaret Odası&apos;na kayıtlı bir şirkettir. &quot;konseptofis&quot; markası
+            Türk Patent ve Marka Kurumu nezdinde şirketimiz adına tescillidir. Belgelerin aslını
+            aşağıdan PDF olarak görüntüleyebilirsiniz.
+          </p>
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2">
+            {OFFICIAL_DOCUMENTS.map((doc) => (
+              <article
+                key={doc.pdf}
+                className="group relative flex flex-col overflow-hidden rounded-[12px] border border-[#dfe7e3] bg-white shadow-[0_10px_30px_-20px_rgba(11,112,65,0.55)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-22px_rgba(11,112,65,0.65)]"
+              >
+                <div className="relative aspect-[4/3] w-full border-b border-[#dfe7e3] bg-gray-50 sm:aspect-[16/11]">
+                  <Image
+                    src={doc.preview}
+                    alt={doc.alt}
+                    fill
+                    className="object-contain p-3 sm:p-5"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-[#0b7041]">
+                    {doc.issuer}
+                  </p>
+                  <h3 className="mt-1 text-[17px] font-semibold text-gray-900">{doc.title}</h3>
+                  <dl className="mt-3 space-y-1.5 text-[14px] leading-snug text-gray-600">
+                    {doc.details.map((d) => (
+                      <div key={d.label} className="flex flex-wrap gap-x-1.5">
+                        <dt className="font-medium text-gray-700">{d.label}:</dt>
+                        <dd>{d.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <a
+                    href={doc.pdf}
+                    target="_blank"
+                    rel="noopener"
+                    className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#0b7041]/25 bg-[#0b7041]/5 px-4 text-sm font-semibold text-[#0b7041] transition-colors after:absolute after:inset-0 group-hover:bg-[#0b7041]/10 sm:min-h-0 sm:w-auto sm:self-start sm:border-0 sm:bg-transparent sm:px-0 sm:group-hover:bg-transparent sm:hover:underline"
+                  >
+                    <DocumentTextIcon className="h-5 w-5" aria-hidden />
+                    Belgeyi görüntüle (PDF)
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Nasıl Çalışır? — zebra: yeşilimsi */}
+      <section
+        className={`${ZEBRA_GREEN} px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24`}
         aria-labelledby="how-it-works-heading"
       >
         <div className="mx-auto max-w-6xl">
@@ -242,7 +328,7 @@ export default function HakkimizdaPage() {
       </section>
 
       <section
-        className={`${ZEBRA_GREEN} px-4 py-14 sm:px-6 sm:py-16 lg:px-8`}
+        className={`${ZEBRA_WHITE} px-4 py-14 sm:px-6 sm:py-16 lg:px-8`}
         aria-labelledby="hakkimizda-cta-heading"
       >
         <div className="mx-auto max-w-6xl text-center">
