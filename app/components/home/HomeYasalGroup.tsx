@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import SectionHeading from "@/app/components/SectionHeading";
 import {
@@ -196,7 +197,12 @@ export default function HomeYasalGroup() {
               Sanal ofiste bu süreç, sözleşmeniz ve resepsiyonumuz üzerinden yürür; yoklama
               sırasında şirket yetkilisine telefonla ulaşılabilmesi, gerekirse yetkilinin hazır
               bulunması istenebilir. Yoklama tamamlandığında vergi levhanız Konsept Ofis&apos;in
-              adresiyle düzenlenir.
+              adresiyle düzenlenir. Mahall Ankara adresimiz Ankara Maltepe Vergi Dairesi&apos;nin
+              yetki alanındadır; ayrıntılar için{" "}
+              <Link href="/ankara-maltepe-vergi-dairesi-sanal-ofis" className={SOURCE_LINK}>
+                Maltepe Vergi Dairesi&apos;ne bağlı adres
+              </Link>{" "}
+              sayfamıza bakabilirsiniz.
             </p>
           </div>
 

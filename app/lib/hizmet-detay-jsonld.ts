@@ -2,6 +2,7 @@ import type { PricingPlan } from "@/app/lib/pricing-plans";
 import { buildBreadcrumbListJsonLd } from "@/app/lib/breadcrumb-jsonld";
 import type { ServiceDetailData } from "@/app/lib/hizmet-detay-data";
 import { getServicePagePath } from "@/app/lib/hizmet-detay-data";
+import { stripInlineLinks } from "@/lib/inline-links";
 import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
 import { SITE, siteGeoJsonLd, siteOpeningHoursJsonLd, sitePostalAddressJsonLd } from "@/app/lib/data";
 
@@ -91,7 +92,10 @@ export function serviceJsonLdImage(detail: ServiceDetailData): string {
 }
 
 function serviceAreaServed(detail: ServiceDetailData): string | Record<string, unknown> {
-  if (detail.slug === "cankaya-sanal-ofis") {
+  if (
+    detail.slug === "cankaya-sanal-ofis" ||
+    detail.slug === "ankara-maltepe-vergi-dairesi-sanal-ofis"
+  ) {
     return { "@type": "Place", name: "Çankaya, Ankara" };
   }
   return "Ankara";
@@ -167,7 +171,7 @@ export function buildHizmetDetailGraphJsonLd(
         name: item.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: item.answer,
+          text: stripInlineLinks(item.answer),
         },
       })),
     },
@@ -196,7 +200,7 @@ export function buildHizmetFaqPageJsonLd(detail: ServiceDetailData): Record<stri
       name: item.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        text: stripInlineLinks(item.answer),
       },
     })),
   };

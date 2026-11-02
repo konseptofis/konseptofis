@@ -19,6 +19,7 @@ export const BLOG_POST_PATH_RESERVED_SEGMENTS = new Set([
   "sanal-ofis-hizmeti",
   "ankara-sanal-ofis",
   "cankaya-sanal-ofis",
+  "ankara-maltepe-vergi-dairesi-sanal-ofis",
   "mahall-sanal-ofis",
   "mahall-sanal-ofis-hizmeti",
   "makam-odasi-hizmeti",

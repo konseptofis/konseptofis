@@ -270,7 +270,7 @@ export const PRICING_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Sanal ofis paketinizle yeni bir şirket kurabilir miyim? Yasal adres olarak geçerli mi?",
     answer:
-      "Evet, kesinlikle. Sağladığımız prestijli adres; şahıs şirketi, limited (LTD) veya anonim şirket (AŞ) kuruluşları için Ticaret Odası ve Vergi Dairesi mevzuatlarına %100 uygundur. Şirket açılış sürecindeki vergi memurlarının adres yoklaması (denetimi) sırasında profesyonel ekibimiz sizi ofiste temsil eder ve yasal sürecin sorunsuz tamamlanmasını sağlar.",
+      "Evet, kesinlikle. Sağladığımız prestijli adres; şahıs şirketi, limited (LTD) veya anonim şirket (AŞ) kuruluşları için Ticaret Odası ve Vergi Dairesi mevzuatlarına %100 uygundur. Adresimiz [Maltepe Vergi Dairesi'ne bağlı](/ankara-maltepe-vergi-dairesi-sanal-ofis) olduğundan vergi levhanız bu daireden düzenlenir. Şirket açılış sürecindeki vergi memurlarının adres yoklaması (denetimi) sırasında profesyonel ekibimiz sizi ofiste temsil eder ve yasal sürecin sorunsuz tamamlanmasını sağlar.",
   },
   {
     question: "Şirketime gelen kargo, posta ve resmî tebligatlar nasıl yönetiliyor?",

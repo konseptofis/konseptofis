@@ -9,6 +9,7 @@ import IntroImageSlider from "@/app/components/IntroImageSlider";
 import IntroSpotlightImage from "@/app/components/IntroSpotlightImage";
 import MapAndContact from "@/app/components/MapAndContact";
 import { getServiceDetail } from "@/app/lib/hizmet-detay-data";
+import { renderInlineLinks } from "@/lib/inline-links";
 
 type Props = { slug: string };
 
@@ -40,10 +41,11 @@ export default function HizmetDetayPageContent({ slug }: Props) {
   if (!data) notFound();
 
   const titleUpper = data.title.toLocaleUpperCase("tr-TR");
-  /** Tüm hizmet sayfalarında Sanal Ofis ile aynı zebra sırası */
-  const packageSectionBg = ZEBRA_GREEN;
-  const mapSectionBg = ZEBRA_WHITE;
-  const faqSectionBg = ZEBRA_GREEN;
+  /** Zebra sırası: süreç bölümü yeşilimsi olduğundan, varsa sonraki bölümler bir adım kayar. */
+  const hasProcess = data.processSteps.length > 0;
+  const packageSectionBg = hasProcess ? ZEBRA_WHITE : ZEBRA_GREEN;
+  const mapSectionBg = hasProcess ? ZEBRA_GREEN : ZEBRA_WHITE;
+  const faqSectionBg = hasProcess ? ZEBRA_WHITE : ZEBRA_GREEN;
 
   const heroTitle = data.pageHeaderHeading ?? titleUpper;
   const heroTone = data.pageHeaderHeading ? "seo" : "display";
@@ -76,6 +78,19 @@ export default function HizmetDetayPageContent({ slug }: Props) {
                   <p key={i}>{para}</p>
                 ))}
               </div>
+              {data.introNotice ? (
+                <aside
+                  className="mt-6 rounded-xl border border-[var(--color-green)]/30 border-l-[3px] border-l-[var(--color-green)] bg-[rgb(11_112_65_/_0.045)] px-5 py-4"
+                  aria-label={data.introNotice.title}
+                >
+                  <p className="text-[15px] font-semibold text-[var(--color-text-primary)]">
+                    {data.introNotice.title}
+                  </p>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-text-muted)]">
+                    {renderInlineLinks(data.introNotice.text)}
+                  </p>
+                </aside>
+              ) : null}
               {data.introCtas && data.introCtas.length > 0 ? (
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   {data.introCtas.map((cta, ctaIndex, ctaArr) => (

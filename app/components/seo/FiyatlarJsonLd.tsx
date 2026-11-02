@@ -3,6 +3,7 @@ import { buildBreadcrumbListJsonLd, breadcrumbPageUrl } from "@/app/lib/breadcru
 import { PRICING_FAQ_ITEMS, SITE } from "@/app/lib/data";
 import { toOfferPriceString } from "@/app/lib/hizmet-detay-jsonld";
 import { SERVICE_OFFER_CARDS } from "@/app/lib/service-offer-cards";
+import { stripInlineLinks } from "@/lib/inline-links";
 
 const ORIGIN = SITE.domain.replace(/\/$/, "");
 
@@ -91,7 +92,7 @@ const faqPageJsonLd = {
         name: item.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: item.answer,
+          text: stripInlineLinks(item.answer),
         },
       })),
     },

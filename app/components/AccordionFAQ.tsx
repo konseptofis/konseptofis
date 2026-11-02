@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { renderInlineLinks } from "@/lib/inline-links";
 
 type FAQItem = { question: string; answer: string | ReactNode };
 type AccordionFAQProps = {
@@ -29,7 +30,9 @@ export default function AccordionFAQ({ items, idPrefix = "faq" }: AccordionFAQPr
                 />
               </summary>
               <div id={answerId} className="pb-4" role="region" aria-labelledby={questionId}>
-                <div className="text-sm leading-relaxed text-gray-600">{item.answer}</div>
+                <div className="text-sm leading-relaxed text-gray-600">
+                  {typeof item.answer === "string" ? renderInlineLinks(item.answer) : item.answer}
+                </div>
               </div>
             </details>
           </li>

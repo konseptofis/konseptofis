@@ -5,6 +5,11 @@ export const HIZMET_PAGE_SEO_BY_SLUG: Record<string, { title: string; descriptio
     description:
       "Çankaya'da sanal ofis ve yasal iş adresi. Mahall Ankara'da vergi levhası adresi, stopajsız, NACE uyumlu, aynı gün kuruluma uygun.",
   },
+  "ankara-maltepe-vergi-dairesi-sanal-ofis": {
+    title: "Ankara Maltepe Vergi Dairesi'ne Bağlı Sanal Ofis Adresi",
+    description:
+      "Sanal ofis hizmeti: Mahall Ankara adresiyle vergi levhanız Ankara Maltepe Vergi Dairesi'nden düzenlenir. Yoklamaya hazır adres. Vergi dairesi değiliz.",
+  },
   "toplanti-odasi-kiralama": {
     title: "Toplantı Odası Kiralama Ankara | Saatlik Rezervasyon",
     description:

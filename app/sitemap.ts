@@ -25,6 +25,7 @@ const PAGE_LASTMOD: Record<string, string> = {
   "/": "2026-10-01",
   "/hizmetlerimiz": "2026-08-13",
   "/hizmetlerimiz/cankaya-sanal-ofis": "2026-10-01",
+  "/ankara-maltepe-vergi-dairesi-sanal-ofis": "2026-11-02",
   "/hizmetlerimiz/makam-odasi-kiralama": "2026-08-13",
   "/hizmetlerimiz/toplanti-odasi-kiralama": "2026-08-13",
   "/fiyatlar": "2026-08-13",

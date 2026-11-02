@@ -10,6 +10,7 @@ import {
   DocumentTextIcon,
   GlobeAltIcon,
   HeartIcon,
+  HomeModernIcon,
   MapPinIcon,
   RocketLaunchIcon,
   ScaleIcon,
@@ -142,6 +143,8 @@ export type ServiceDetailData = {
   introFeatures?: IntroHeroFeature[];
   /** Intro sol kolon altında isteğe bağlı CTA düğmeleri. */
   introCtas?: IntroCta[];
+  /** Intro paragraflarından sonra çerçeveli bilgi notu (ör. "vergi dairesi değiliz" uyarısı). */
+  introNotice?: { title: string; text: string };
   targetTitle: string;
   targetAudience: TargetAudience[];
   /** Sanal ofis: “Neden bizi seçmelisiniz” yerine Mahall odaklı blok (sol metin, sağ görsel slider). Tanımlıysa `features` bu sayfada gösterilmez. */
@@ -186,6 +189,10 @@ export const SERVICE_INTERNAL_LINK = {
   cankayaSanalOfis: {
     href: "/hizmetlerimiz/cankaya-sanal-ofis",
     label: "Çankaya Sanal Ofis",
+  },
+  maltepeVergiDairesi: {
+    href: "/ankara-maltepe-vergi-dairesi-sanal-ofis",
+    label: "Maltepe Vergi Dairesi'ne Bağlı Adres",
   },
   toplantiOdasi: {
     href: "/hizmetlerimiz/toplanti-odasi-kiralama",
@@ -329,6 +336,7 @@ const CANKAYA_SANAL_OFIS: ServiceDetailData = {
   ],
   internalLinks: [
     SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.maltepeVergiDairesi,
     SERVICE_INTERNAL_LINK.toplantiOdasi,
     SERVICE_INTERNAL_LINK.makamOdasi,
   ],
@@ -396,7 +404,7 @@ const CANKAYA_SANAL_OFIS: ServiceDetailData = {
     {
       question: "Çankaya sanal ofis adresi vergi levhasında kullanılabilir mi?",
       answer:
-        "Evet, Çankaya sanal ofis adresi vergi levhası ve ticaret sicil adresi olarak yasal iş adresi niteliğinde kullanılabilir. Adres, resmi evraklarda ve Ticaret Sicil Gazetesi ilanlarında geçerli kabul edilir. Vergi dairesi yoklamalarında bu adres iş adresi olarak beyan edilebilir. NACE kodlarına uyumlu adres tanımlaması ile şirket kuruluşu ve adres değişikliği işlemleri sorunsuz tamamlanır.",
+        "Evet, Çankaya sanal ofis adresi vergi levhası ve ticaret sicil adresi olarak yasal iş adresi niteliğinde kullanılabilir. Adres, resmi evraklarda ve Ticaret Sicil Gazetesi ilanlarında geçerli kabul edilir; mükellefiyetiniz [Ankara Maltepe Vergi Dairesi'ne bağlı](/ankara-maltepe-vergi-dairesi-sanal-ofis) olarak açılır. Vergi dairesi yoklamalarında bu adres iş adresi olarak beyan edilebilir. NACE kodlarına uyumlu adres tanımlaması ile şirket kuruluşu ve adres değişikliği işlemleri sorunsuz tamamlanır.",
     },
     {
       question: "Çankaya sanal ofiste stopaj veya aidat öder miyim?",
@@ -723,7 +731,247 @@ const TOPLANTI_ODASI: ServiceDetailData = {
   ],
 };
 
+/** Maltepe VD sayfası — Mahall bloğu; anasayfa galerisindeki görseller, sayfaya özel alt metinlerle. */
+const MALTEPE_VD_SLIDER_IMAGES: readonly IntroSliderImage[] = [
+  {
+    src: "/ilk-gorsel.webp",
+    alt: "Mahall Ankara C2 Blok — Mustafa Kemal Mahallesi'ndeki yasal iş adresi",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-3.webp",
+    alt: "Konsept Ofis resepsiyonu — yoklama memurunun karşılandığı nokta",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-4.webp",
+    alt: "Mali müşavir görüşmeleri için toplantı odası — Mahall Ankara",
+  },
+  {
+    src: "/assets/images/mahall-slider/cankaya-sanal-ofis-2.webp",
+    alt: "Konsept Ofis ortak çalışma alanı — Dumlupınar Bulvarı, Çankaya",
+  },
+  {
+    src: "/anasayfa-sag-en-alt.JPEG",
+    alt: "Konsept Ofis iç mekânı — vergi dairesi yazışmalarının teslim alındığı ofis",
+  },
+];
+
+const MALTEPE_VD_PACKAGE_FEATURE_CARDS: readonly PackageFeatureCard[] = [
+  {
+    icon: DocumentTextIcon,
+    title: "Maltepe VD Vergi Levhası",
+    description: "Levhanızda bağlı daire olarak Maltepe yazar.",
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: "Yoklamaya Hazır Adres",
+    description: "Resepsiyon, sözleşme ve yönlendirme yoklama günü hazır.",
+  },
+  {
+    icon: ArchiveBoxIcon,
+    title: "Tebligat ve Kargo Kabulü",
+    description: "Vergi dairesi yazışmaları teslim alınır, aynı gün bildirilir.",
+  },
+  {
+    icon: CalendarDaysIcon,
+    title: "Muhasebeci Görüşme Odası",
+    description: "Beyanname dönemi ve müşteri görüşmeleri için saatlik oda.",
+  },
+];
+
+const ANKARA_MALTEPE_VD_SANAL_OFIS: ServiceDetailData = {
+  slug: "ankara-maltepe-vergi-dairesi-sanal-ofis",
+  title: "Ankara Maltepe Vergi Dairesi'ne Bağlı Sanal Ofis",
+  canonicalPath: "/ankara-maltepe-vergi-dairesi-sanal-ofis",
+  pageHeaderHeading: "Ankara Maltepe Vergi Dairesi'ne Bağlı Sanal Ofis Adresi",
+  pageHeaderLead:
+    "Mustafa Kemal Mahallesi'ndeki Mahall Ankara adresiyle mükellefiyetiniz Maltepe'de açılır; yoklama ve tebligat bizde.",
+  pageHeaderBackgroundImage: "/assets/images/mahall-slider/mahall-plaza.webp",
+  pageHeaderImageAlt: "Mahall Ankara — Ankara Maltepe Vergi Dairesi'ne bağlı sanal ofis adresi",
+  targetHeadingAccent: "Maltepe Vergi Dairesi",
+  packageHeadingAccent: "Adres Paketinde",
+  breadcrumbs: [
+    { label: "Anasayfa", href: "/" },
+    { label: "Hizmetlerimiz", href: "/hizmetlerimiz" },
+    { label: "Maltepe Vergi Dairesi Sanal Ofis" },
+  ],
+  introTitle: "Mahall Ankara Adresi Hangi Vergi Dairesine Bağlı?",
+  introParagraphs: [
+    "Mahall Ankara (Mustafa Kemal Mahallesi, Dumlupınar Bulvarı No:274/2, Çankaya) adresi Ankara Maltepe Vergi Dairesi'nin yetki alanındadır. Konsept Ofis'in bu adresini iş adresi olarak gösterdiğinizde mükellefiyetiniz Maltepe Vergi Dairesi'nde açılır, yoklamayı bu daire yapar ve vergi levhanız Maltepe Vergi Dairesi adıyla düzenlenir.",
+    "Vergi dairesini mükellef ya da sanal ofis firması seçmez; Gelir İdaresi, iş adresinin bulunduğu mahalleye göre belirler. Bu nedenle Maltepe'ye bağlı kalmak ya da bu daireye geçmek istiyorsanız, belirleyici olan şey adresinizin bu yetki alanında olmasıdır. Mahall Ankara tam olarak böyle bir adrestir.",
+  ],
+  introNotice: {
+    title: "Konsept Ofis vergi dairesi değildir",
+    text: "Bu sayfa, bu daireye bağlı yasal iş adresi arayanlar için hazırlanmış bir sanal ofis hizmet sayfasıdır. Beyanname, borç sorgulama ve vergi dairesi işlemleriniz için Gelir İdaresi'nin [VİMER 189](https://istanbul.gib.gov.tr/iletisim/vimer-189-vergi-iletisim-merkezi/kisaca-vimer) hattını arayın. Tek adresimiz Mahall Ankara, Çankaya'dır; İstanbul Maltepe'de veya başka bir şehirde adres hizmetimiz yoktur.",
+  },
+  introFeatures: [
+    {
+      num: "01",
+      title: "Vergi Levhasında Maltepe",
+      description:
+        "Şahıs şirketi, limited veya anonim şirket; mükellefiyetiniz bu adresle Maltepe'de açılır.",
+    },
+    {
+      num: "02",
+      title: "Dosya Nakli Olmadan Adres Taşıma",
+      description:
+        "Zaten Maltepe mükellefiyseniz adresinizi taşıdığınızda vergi daireniz değişmez.",
+    },
+    {
+      num: "03",
+      title: "Yoklamaya Hazır Fiziki Adres",
+      description:
+        "Yoklama memuru Mahall Ankara C2 Blok'ta resepsiyonumuz ve sözleşmenizle karşılanır.",
+    },
+    {
+      num: "04",
+      title: "Tebligatlarınız Güvende",
+      description:
+        "Vergi dairesinden gelen yazı ve tebligatlar teslim alınır, size aynı gün bildirilir.",
+    },
+  ],
+  introCtas: [
+    { label: "Paketleri İncele", href: "/fiyatlar" },
+    { label: "Sanal Ofis Teklifi Al", href: "/iletisim" },
+  ],
+  internalLinks: [
+    SERVICE_INTERNAL_LINK.ankaraSanalOfis,
+    SERVICE_INTERNAL_LINK.cankayaSanalOfis,
+    SERVICE_INTERNAL_LINK.toplantiOdasi,
+  ],
+  targetTitle: "Kimler Maltepe Vergi Dairesi'ne Bağlı Adres Arar?",
+  targetAudience: [
+    {
+      icon: DocumentTextIcon,
+      title: "Maltepe VD Mükellefleri",
+      paragraph:
+        "Ofisinden çıkan ya da adres taşıyan mükellefler; aynı yetki alanında kaldıkları için vergi daireleri değişmez, dosya nakli beklemezler.",
+    },
+    {
+      icon: BriefcaseIcon,
+      title: "Mali Müşaviri Bu Daireyle Çalışanlar",
+      paragraph:
+        "Muhasebecisinin yoğun çalıştığı daireye bağlı olmak isteyen şirketler; tüm müşteri dosyaları tek vergi dairesinde toplanır.",
+    },
+    {
+      icon: RocketLaunchIcon,
+      title: "Yeni Şirket Kuranlar",
+      paragraph:
+        "Şahıs şirketi, limited veya anonim şirketini Çankaya'da kurup vergi levhasını Maltepe'den almak isteyenler.",
+    },
+    {
+      icon: ScaleIcon,
+      title: "Avukat ve Serbest Meslek Erbabı",
+      paragraph:
+        "Serbest meslek kazancı mükellefiyetini Çankaya'da, kurumsal bir iş adresiyle açmak isteyenler.",
+    },
+    {
+      icon: HomeModernIcon,
+      title: "Ev Adresini Kullanmak İstemeyenler",
+      paragraph:
+        "Ev adresi farklı vergi dairesine bağlı olduğu için iş adresini Maltepe yetki alanındaki kurumsal bir adrese taşıyanlar.",
+    },
+    {
+      icon: GlobeAltIcon,
+      title: "Ankara Dışında Yaşayanlar",
+      paragraph:
+        "Farklı şehirde yaşayıp şirketi Ankara'da tutmak isteyenler; adres ve vergi dairesi Ankara'dadır, tebligatlar dijital bildirilir.",
+    },
+  ],
+  features: [],
+  mahallSpotlightBlock: {
+    leftTitle: "Mustafa Kemal Mahallesi'nde Prestijli İş Adresi",
+    leftParagraphs: [
+      "Mustafa Kemal Mahallesi, Dumlupınar Bulvarı (Eskişehir Yolu) üzerinde iş merkezlerinin ve kamu kurumlarının yoğunlaştığı bir bölgedir. Mahall Ankara C2 Blok'taki ofisimiz bu bölgede tek bir adreste üç işi görür: levhanızdaki iş adresi, vergi dairesi yazışmalarının geldiği tebligat adresi ve yoklama memurunun karşılandığı fiziki ofis.",
+      "Mükellefiyetinizle ilgili bir yazı geldiğinde zarfın üzerindeki tarih ve gönderen bilgisiyle size haber veririz; süreli tebligatlarda vakit kaybetmezsiniz. Beyanname dönemlerinde muhasebecinizle yüz yüze çalışmanız gerekirse aynı binada saatlik toplantı odası ayırtabilirsiniz.",
+    ],
+    sliderImages: MALTEPE_VD_SLIDER_IMAGES,
+  },
+  processTitle: "Maltepe Vergi Dairesi'ne Bağlı Adres Nasıl Alınır?",
+  processSteps: [
+    {
+      title: "Sanal ofis sözleşmesini imzalayın",
+      description:
+        "Paketinizi seçin, kimlik ve şirket bilgilerinizi iletin. Sözleşmeniz Mahall Ankara C2 Blok adresiyle aynı gün hazırlanır; bu sözleşme vergi dairesine sunacağınız adres belgesidir.",
+    },
+    {
+      title: "Adresi bildirin",
+      description:
+        "Yeni şirkette işe başlama bildiriminde, mevcut şirkette adres değişikliği bildiriminde bu adresi gösterin. Adres değişikliği, değişiklikten itibaren bir ay içinde vergi dairesine bildirilmelidir; şirketlerde ticaret sicil tescili de yapılır.",
+    },
+    {
+      title: "Vergi dairesi yoklamaya gelir",
+      description:
+        "Yoklama memuru adreste işyerinin varlığını tespit eder. Resepsiyonumuz memuru karşılar, sözleşmeniz ve firma yönlendirmeniz hazır bulunur.",
+    },
+    {
+      title: "Vergi levhanız düzenlenir",
+      description:
+        "Olumlu yoklama raporunun ardından levhanızda iş adresi olarak Mahall Ankara C2 Blok, bağlı daire olarak Maltepe yazar. Levhayı e-Devlet veya İnteraktif Vergi Dairesi'nden indirebilirsiniz.",
+    },
+  ],
+  packageTitle: "Sanal Ofis Adres Paketinde Neler Var?",
+  packageIntroParagraphs: [
+    "Paketimiz yalnızca bir adres değil; mükellefiyetinizi sorunsuz yürütmeniz için gereken her şeyi kapsar. Yoklama günü karşılama, vergi dairesi yazışmalarının teslim alınması ve toplantı odası kullanımı tek sözleşmededir.",
+    "Kira stopajı, aidat ve ortak gider payı yoktur. Fiyatlar şeffaftır; hangi paketin size uygun olduğunu fiyatlar sayfasında karşılaştırabilirsiniz.",
+  ],
+  packageFeatureCards: MALTEPE_VD_PACKAGE_FEATURE_CARDS,
+  packageCta: { label: "Paket Fiyatlarını İncele", href: "/fiyatlar" },
+  packageListItems: [],
+  testimonialsTitle: "Müşterilerimiz Ne Diyor?",
+  testimonials: testimonialsFromIndices([0, 1, 2, 3]),
+  mapContactHeading: "Mahall Ankara Ofisimize Ulaşın",
+  faqHeading: "Vergi Dairesi ve Adres Hakkında Sık Sorulan Sorular",
+  faq: [
+    {
+      question: "Konsept Ofis adresi hangi vergi dairesine bağlı?",
+      answer:
+        "Konsept Ofis'in Mahall Ankara (Mustafa Kemal Mahallesi, Dumlupınar Bulvarı No:274/2 C2 Blok No:47, Çankaya) adresi Ankara Maltepe Vergi Dairesi'nin yetki alanındadır. Bu adresi iş adresi olarak gösteren mükelleflerin vergi levhası Maltepe Vergi Dairesi'nden düzenlenir.",
+    },
+    {
+      question: "Ankara Mustafa Kemal Mahallesi hangi vergi dairesine bağlı?",
+      answer:
+        "Çankaya'daki Mustafa Kemal Mahallesi'nde bulunan Mahall Ankara iş merkezi, Ankara Maltepe Vergi Dairesi'nin yetki alanındadır. Mahalledeki başka bir adres için kesin bilgiyi vergi levhanızdan, İnteraktif Vergi Dairesi'nden veya VİMER 189'dan teyit edebilirsiniz.",
+    },
+    {
+      question: "Konsept Ofis, Maltepe Vergi Dairesi mi?",
+      answer:
+        "Hayır. Konsept Ofis bir sanal ofis ve yasal iş adresi firmasıdır; vergi dairesi değildir. Beyanname, borç, ödeme ve diğer vergi dairesi işlemleriniz için Gelir İdaresi'nin VİMER 189 hattını arayabilir veya İnteraktif Vergi Dairesi'ni kullanabilirsiniz.",
+    },
+    {
+      question: "İstanbul Maltepe'de de adres hizmetiniz var mı?",
+      answer:
+        "Hayır. Tek adresimiz Mahall Ankara, Çankaya'dadır. Bu sayfada sözü edilen daire Ankara'daki Maltepe Vergi Dairesi'dir; İstanbul'daki aynı adlı daireyle bir ilgimiz yoktur.",
+    },
+    {
+      question: "Şahıs şirketi ve limited şirket aynı vergi dairesine mi bağlanır?",
+      answer:
+        "Evet. Mahall Ankara adresini iş adresi olarak gösteren şahıs şirketleri, serbest meslek erbapları, limited ve anonim şirketler aynı daireye, Maltepe'ye bağlanır. Vergi dairesini Gelir İdaresi iş adresinin bulunduğu yere göre belirler.",
+    },
+    {
+      question: "Zaten Maltepe Vergi Dairesi mükellefiyim; adresimi taşırsam ne olur?",
+      answer:
+        "Yeni adresiniz de aynı yetki alanında olduğu için vergi daireniz değişmez ve dosyanız başka bir daireye nakledilmez. Adres değişikliğini bir ay içinde vergi dairesine bildirmeniz, şirketseniz ticaret sicile tescil ettirmeniz yeterlidir; daire yeni adreste yoklama yapar.",
+    },
+    {
+      question: "Ankara Maltepe Vergi Dairesi'nin kodu nedir?",
+      answer:
+        "Gelir İdaresi'nin vergi daireleri listesinde Ankara Maltepe Vergi Dairesi Müdürlüğü'nün kodu 06254'tür. Fatura ve resmi formlarda vergi dairesi adı olarak \"Maltepe\" yazılır. Güncel iletişim bilgileri için Gelir İdaresi'nin resmi sitesini kullanın.",
+    },
+    {
+      question: "Hangi vergi dairesine bağlı olduğumu nasıl öğrenirim?",
+      answer:
+        "Vergi levhanızda bağlı olduğunuz vergi dairesi yazar. Levhanız yanınızda değilse e-Devlet veya İnteraktif Vergi Dairesi'nden vergi levhanızı görüntüleyebilir ya da VİMER 189'u arayabilirsiniz.",
+    },
+    {
+      question: "Yoklamada ofiste bulunmam gerekir mi?",
+      answer:
+        "Yoklama memuru adreste işyerinin varlığını tespit eder. Resepsiyonumuz memuru karşılar ve sanal ofis sözleşmenizi gösterir. Ekibimiz yoklama tarihini öğrendiğinde sizi bilgilendirir; özel bir durum varsa önceden hazırlık yapılır.",
+    },
+  ],
+};
+
 export const HIZMET_DETAY_MAP: Record<string, ServiceDetailData> = {
+  "ankara-maltepe-vergi-dairesi-sanal-ofis": ANKARA_MALTEPE_VD_SANAL_OFIS,
   "cankaya-sanal-ofis": CANKAYA_SANAL_OFIS,
   "makam-odasi-kiralama": MAKAM_ODASI,
   "toplanti-odasi-kiralama": TOPLANTI_ODASI,

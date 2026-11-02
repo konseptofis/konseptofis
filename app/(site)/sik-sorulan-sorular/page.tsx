@@ -44,7 +44,14 @@ export default function SssPage() {
           <p className="mb-8 max-w-3xl text-left leading-relaxed text-gray-600">
             Sanal ofis, yıllık abonelerimize saatlik makam odası ve toplantı odası kullanımı ve yasal
             iş adresi süreçleriyle ilgili en sık sorulan soruları aşağıda
-            bulabilirsiniz.
+            bulabilirsiniz. Adresimizin bağlı olduğu vergi dairesi için{" "}
+            <Link
+              href="/ankara-maltepe-vergi-dairesi-sanal-ofis"
+              className="font-medium text-[#0b7041] underline-offset-2 hover:underline"
+            >
+              Maltepe Vergi Dairesi&apos;ne bağlı adres
+            </Link>{" "}
+            sayfasına bakın.
           </p>
 
           <div className="rounded-[8px] border border-[#e5e5e5] bg-white px-5 py-2 sm:px-7">
