@@ -27,7 +27,7 @@ export const SITE = {
     full: "Mahall Ankara, Mustafa Kemal, Dumlupınar Blv. No:274/2 C2 Blok No:47, 06570 Çankaya/Ankara",
   },
   /** WhatsApp numarası (ülke kodu, + yok). Tüm wa.me linkleri buradan. */
-  whatsapp: "905465250563",
+  whatsapp: "903129119557",
   hours: {
     label: "Çalışma saatleri",
     value: "Her gün 09:00–18:00",
