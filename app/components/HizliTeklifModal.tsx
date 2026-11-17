@@ -1,5 +1,7 @@
 "use client";
 
+import { trackConversion } from "@/app/lib/ads";
+
 import { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -91,6 +93,7 @@ export default function HizliTeklifModal({ open, onClose }: Props) {
       if (!res.ok) throw new Error(data.error || "Talep gönderilemedi.");
 
       setSuccess(true);
+      trackConversion("form");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Talep gönderilirken hata oluştu.");
     } finally {

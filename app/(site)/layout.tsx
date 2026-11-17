@@ -2,6 +2,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import MobileContactBar from "@/app/components/MobileContactBar";
 import ScrollToTopButton from "@/app/components/ScrollToTopButton";
+import GoogleAds from "@/app/components/GoogleAds";
 
 export default function SiteLayout({
   children,
@@ -15,6 +16,7 @@ export default function SiteLayout({
       <Footer />
       <MobileContactBar />
       <ScrollToTopButton />
+      <GoogleAds />
     </>
   );
 }

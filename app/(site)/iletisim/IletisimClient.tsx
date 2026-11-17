@@ -1,5 +1,7 @@
 "use client";
 
+import { trackConversion } from "@/app/lib/ads";
+
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -62,6 +64,7 @@ export default function IletisimClient() {
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok) throw new Error(data.error || "Mesaj gönderilemedi.");
 
+      trackConversion("form");
       setSubmitMessage("Mesajınız alındı. En kısa sürede size dönüş yapacağız.");
       setForm({ name: "", email: "", phone: "", message: "" });
       setService("");
